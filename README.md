@@ -1,1 +1,4 @@
-# algorithms
+Algorithms
+==========
+
+Templates and common algorithms.
