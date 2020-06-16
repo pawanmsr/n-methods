@@ -20,7 +20,7 @@ T mod_bin_exp(T x, T y, T m) {
 }
 
 template <typename T>
-T bin_exp_nr(T x, T y) {
+T bin_exp_iterative(T x, T y) {
     if (y<=0) return 1;
     
     T res = 1;
@@ -33,7 +33,7 @@ T bin_exp_nr(T x, T y) {
 }
 
 template <typename T>
-T mod_bin_exp_nr(T x, T y, T m) {
+T mod_bin_exp_iterative(T x, T y, T m) {
     if (y<=0) return 1;
     
     T res = 1;
@@ -47,9 +47,9 @@ T mod_bin_exp_nr(T x, T y, T m) {
 
 int main(int argc, char const *argv[]) {
     cout << bin_exp(2, 10) << endl;
-    cout << bin_exp_nr(2, 10) << endl;
+    cout << bin_exp_iterative(2, 10) << endl;
 
     cout << mod_bin_exp(2, 10, 3) << endl;
-    cout << mod_bin_exp_nr(2, 10, 3) << endl;
+    cout << mod_bin_exp_iterative(2, 10, 3) << endl;
     return 0;
 }

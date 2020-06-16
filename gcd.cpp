@@ -10,7 +10,7 @@ T gcd(T a, T b) {
 }
 
 template <typename T>
-T gcd_nr(T a, T b) {
+T gcd_iterative(T a, T b) {
     while (b) {
         a %= b;
         swap(a, b);
