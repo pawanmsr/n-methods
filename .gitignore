@@ -11,5 +11,6 @@ bin/*
 # Ignore editor specific files
 .vscode
 
-# Ignore playarea
-play
+# Ignore contents in play
+play/*
+!play/template.cpp
