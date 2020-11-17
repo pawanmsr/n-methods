@@ -1,6 +1,3 @@
-#include <iostream>
-using namespace std;
-
 /* T is expected to be any integer data type */
 /* time complexity O(log min (a, b)) */
 
@@ -16,15 +13,4 @@ T gcd_iterative(T a, T b) {
         swap(a, b);
     }
     return a;
-}
-
-int main(int argc, char const *argv[])
-{
-    long long int t, a, b;
-    cin >> t;
-    while (t--) {
-        cin >> a >> b;
-        cout << gcd(a, b) << " " << a / gcd(a, b) * b << endl;
-    }
-    return 0;
 }

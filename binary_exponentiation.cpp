@@ -1,6 +1,3 @@
-#include <iostream>
-using namespace std;
-
 /* T is expected to be any integer data type */
 
 template <typename T>
@@ -43,13 +40,4 @@ T mod_bin_exp_iterative(T x, T y, T m) {
         y >>= 1;
     }
     return res;
-}
-
-int main(int argc, char const *argv[]) {
-    cout << bin_exp(2, 10) << endl;
-    cout << bin_exp_iterative(2, 10) << endl;
-
-    cout << mod_bin_exp(2, 10, 3) << endl;
-    cout << mod_bin_exp_iterative(2, 10, 3) << endl;
-    return 0;
 }
