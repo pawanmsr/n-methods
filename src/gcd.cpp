@@ -1,3 +1,5 @@
+#include "gcd.hpp"
+
 /* T is expected to be any integer data type */
 /* time complexity O(log min (a, b)) */
 
