@@ -1,7 +1,8 @@
 Algorithms
 ==========
 
-Common algorithms and templates.
+Common Algorithms and Templates.  
+Personal. Educational. Quick Reference.  
 
 Structure
 ---------
@@ -11,7 +12,10 @@ Structure
 |   - binaries
 + doc
 + include
+|   - headers
 + lib
 + play
+|   - templates
 + src
+|   - source
 </pre>
