@@ -1,6 +1,6 @@
 #include "extended_gcd.hpp"
 
-/* T is expected to be any signed integer data type */
+/* T is expected to be any unsigned integer data type */
 /* time complexity O(log min (a, b)) */
 
 template <typename T>
@@ -17,7 +17,7 @@ T extended_gcd(T a, T b, T& x, T& y) {
     x = y1;
     y = x1 - y1 * (a / b);
 
-    return d;
+    return g;
 }
 
 /* https://cp-algorithms.com/algebra/extended-euclid-algorithm.html */
