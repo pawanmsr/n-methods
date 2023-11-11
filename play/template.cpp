@@ -1,11 +1,17 @@
 /* 
- * Author: Canis Lupus Loner
+ * Author: awesome
  */
 
 /*
- * Compile and Run
- * g++ --std=c++2a <source> -o <binary>
- * ./<binary>
+ * Mac
+ * g++ -std=c++14 <cpp_filename>
+ * ./a.out
+ */
+
+/*
+ * Windows
+ * g++ <cpp_filename>
+ * ./a.exe
  */
 
 // #include <bits/stdc++.h>
