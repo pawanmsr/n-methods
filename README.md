@@ -4,18 +4,20 @@ Algorithms
 Common Algorithms and Templates.  
 Personal. Educational. Quick Reference.  
 
-Structure
----------
+Directory Structure
+-------------------
 
 <pre>
-+ bin
++-- bin
 |   - binaries
-+ doc
-+ include
++-- doc
+|   - documentation
++-- include
 |   - headers
-+ lib
-+ play
++-- lib
+|   - external libraries
++-- play
 |   - templates
-+ src
-|   - source
++-- src
+|   - source code
 </pre>
