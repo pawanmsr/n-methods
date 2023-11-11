@@ -1,17 +1,11 @@
 /* 
- * Author: awesome
+ * Author: Canis Lupas Loner
  */
 
 /*
- * Mac
- * g++ -std=c++14 <cpp_filename>
- * ./a.out
- */
-
-/*
- * Windows
- * g++ <cpp_filename>
- * ./a.exe
+ * Compile and Run
+ * g++ --std=c++2a <source> -o <binary>
+ * ./<binary>
  */
 
 // #include <bits/stdc++.h>
@@ -35,6 +29,7 @@
 #include <limits>
 #include <fstream>
 #include <cstring>
+#include <ranges>
 
 using namespace std;
 typedef long long int ll;
