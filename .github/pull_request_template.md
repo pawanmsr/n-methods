@@ -10,8 +10,8 @@ Delete irrelevant sections.
 
 ## Issues
 
-Closes #(issue)  
-Fixes #(issue)  
+~~Closes #(issue)~~  
+~~Fixes #(issue)~~  
 
 ## Type  
 
