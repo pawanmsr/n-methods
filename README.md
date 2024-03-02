@@ -21,3 +21,14 @@ Directory Structure
 +-- src
 |   - source code
 </pre>
+
+Build
+-----
+
+Build using CMake.
+
+```shell
+
+cmake . -B ./build/
+
+```
