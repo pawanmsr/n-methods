@@ -4,7 +4,7 @@
 
 /*
  * Compile and Run
- * g++ --std=c++2a <source> -o <binary>
+ * g++ --std=c++2a -DLOCAL -WALL <source> -o <binary>
  * ./<binary>
  */
 
@@ -37,8 +37,8 @@ typedef long long int ll;
 // Macro //
 #define X first
 #define Y second
-#define pii pair<int,int>
-#define pll pair<ll,ll>
+#define pii pair<int, int>
+#define pll pair<ll, ll>
 
 // Global //
 
@@ -53,7 +53,14 @@ int main(int argc, char const *argv[])
     // cin.tie(NULL);
 
     #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    #else
+    // online submission
+    #endif
+
+    #ifdef LOCAL
+    // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     #else
     // online submission
