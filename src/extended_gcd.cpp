@@ -1,4 +1,4 @@
-#include "extended_gcd.hpp"
+#include <extended_gcd.hpp>
 
 /* T is expected to be any unsigned integer data type */
 /* time complexity O(log min (a, b)) */

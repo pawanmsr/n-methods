@@ -1,4 +1,4 @@
-#include "binary_exponentiation.hpp"
+#include <binary_exponentiation.hpp>
 
 /* T is expected to be any integer data type */
 

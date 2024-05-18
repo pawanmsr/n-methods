@@ -1,4 +1,4 @@
-#include "primes.hpp"
+#include <primes.hpp>
 
 /* T is expected to be any unsigned or equivalent integer data type */
 template<typename T>
