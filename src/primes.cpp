@@ -16,5 +16,5 @@ std::vector<T> eratosthenes_sieve(T n) {
         if (is_prime[i])
             primes.push_back(i);
     
-    return primes
+    return primes;
 }
