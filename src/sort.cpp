@@ -31,10 +31,38 @@ namespace nm
     void quick_sort(int lo, int hi, std::vector<T> &list, std::function<bool(T, T)>& compare = [&](T& a, T& b) {
         return a < b;
     }) {
-        if (lo < hi) {
+        if (lo >= 0 && lo < hi && hi < list.size()) {
             int k = partition(lo, hi, list, compare);
             quick_sort(lo, k - 1, list, compare);
             quick_sort(k + 1, hi, list, compare);
+        }
+    }
+
+
+    template<typename T>
+    void merge_sort(int lo, int hi, std::vector<T> &list, std::function<bool(T, T)>& compare = [&](T& a, T& b) {
+        return a < b;
+    }) {
+        if (lo >= 0 && lo < hi && hi < list.size()) {
+            int mid = lo + (hi - lo) / 2;
+
+            merge_sort(lo, mid, list, compare);
+            merge_sort(mid + 1, hi, list, compare);
+
+            int i = lo;
+            int j = mid + 1;
+            std::vector<int> merged;
+            while (i <= mid && j <= hi) {
+                if (compare(list[j], list[i]))
+                    merged.push_back(list[j++]);
+                else merged.push_back(list[i++]);
+            }
+
+            while (i <= mid) merged.push_back(list[i++]);
+            while (j <= hi) merged.push_back(list[j++]);
+
+            for (int k = 0; k <= hi - lo; k++)
+                list[lo + k] = merged[k];
         }
     }
 } // namespace nm
