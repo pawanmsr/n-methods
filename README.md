@@ -20,6 +20,8 @@ Directory Structure
 |   - templates
 +-- src
 |   - source code
++-- test
+|   - unit tests
 </pre>
 
 Build
@@ -29,6 +31,11 @@ Build using CMake.
 
 ```shell
 
-cmake . -B ./build/
+# Write build files and build the lib.
+cmake -S . -B ./build/
+cmake --build build
+
+# Visit build and run CTest.
+cd build && ctest
 
 ```

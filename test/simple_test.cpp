@@ -1,7 +1,3 @@
-#include <primes.hpp>
-#include <binary_exponentiation.hpp>
-#include <gcd.hpp>
-#include <extended_gcd.hpp>
 
 // STLs //
 #include <fstream>
@@ -9,6 +5,15 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+
+// NMethods //
+#include <primes.hpp>
+#include <binary_exponentiation.hpp>
+#include <gcd.hpp>
+#include <extended_gcd.hpp>
+
+// GTest //
+// #include <gtest/gtest.h>
 
 // Constants
 enum enumerate {
@@ -35,8 +40,6 @@ const int P = 9592;
 
 // Add tests //
 bool test_primes() {
-    return true;
-    // Error: "undefined reference to . . ."
     std::vector<int> primes = nm::eratosthenes_sieve(N);
     return primes.size() == P;
 }
@@ -74,6 +77,10 @@ int main(int argc, char const *argv[])
         return 1;
         break;
     }
+
+    // GTest //
+    // testing::InitGoogleTest(&argc, argv);
+    // return RUN_ALL_TESTS();
 
     return 0;
 }
