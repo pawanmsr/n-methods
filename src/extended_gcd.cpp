@@ -45,3 +45,11 @@ namespace nm
         return a1;
     }
 } // namespace nm
+
+template int nm::extended_gcd<int>(int, int, int&, int&);
+template long nm::extended_gcd<long>(long, long, long&, long&);
+template long long nm::extended_gcd<long long>(long long, long long, long long&, long long&);
+
+template int nm::extended_gcd_iterative<int>(int, int, int&, int&);
+template long nm::extended_gcd_iterative<long>(long, long, long&, long&);
+template long long nm::extended_gcd_iterative<long long>(long long, long long, long long&, long long&);

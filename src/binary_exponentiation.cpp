@@ -47,3 +47,19 @@ namespace nm
         return res;
     }
 } // namespace nm
+
+template int nm::bin_exp<int>(int, int);
+template long nm::bin_exp<long>(long, long);
+template long long nm::bin_exp<long long>(long long, long long);
+
+template int nm::mod_bin_exp<int>(int, int, int);
+template long nm::mod_bin_exp<long>(long, long, long);
+template long long nm::mod_bin_exp<long long>(long long, long long, long long);
+
+template int nm::bin_exp_iterative<int>(int, int);
+template long nm::bin_exp_iterative<long>(long, long);
+template long long nm::bin_exp_iterative<long long>(long long, long long);
+
+template int nm::mod_bin_exp_iterative<int>(int, int, int);
+template long nm::mod_bin_exp_iterative<long>(long, long, long);
+template long long nm::mod_bin_exp_iterative<long long>(long long, long long, long long);

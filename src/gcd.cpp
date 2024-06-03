@@ -19,3 +19,11 @@ namespace nm
         return a;
     }
 } // namespace nm
+
+template int nm::gcd<int>(int, int);
+template long nm::gcd<long>(long, long);
+template long long nm::gcd<long long>(long long, long long);
+
+template int nm::gcd_iterative<int>(int, int);
+template long nm::gcd_iterative<long>(long, long);
+template long long nm::gcd_iterative<long long>(long long, long long);
