@@ -1,4 +1,5 @@
-set(SOURCES binary_exponentiation.cpp extended_gcd.cpp gcd.cpp primes.cpp)
+set(SOURCES binary_exponentiation.cpp extended_gcd.cpp
+    gcd.cpp primes.cpp sort.cpp)
 
 add_library(
     ${PROJECT_NAME}
