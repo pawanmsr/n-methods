@@ -11,6 +11,7 @@
 #include <binary_exponentiation.hpp>
 #include <gcd.hpp>
 #include <extended_gcd.hpp>
+#include <sort.hpp>
 
 // GTest //
 // #include <gtest/gtest.h>
@@ -21,6 +22,7 @@ enum enumerate {
     binary_exponentiation,
     gcd,
     extended_gcd,
+    sort,
     // enumerate more tests here //
     unknown
 };
@@ -29,7 +31,8 @@ enumerate codes(std::string const &s) {
     if (s == "primes") return primes;
     if (s == "binary_exponentiation") return binary_exponentiation;
     if (s == "gcd") return gcd;
-    if ((s == "extended_gcd")) return extended_gcd;
+    if (s == "extended_gcd") return extended_gcd;
+    if (s == "sort") return sort;
 
     return unknown;
 }
@@ -38,7 +41,7 @@ const int N = 1e5 + 1;
 const int P = 9592;
 
 
-// Add tests //
+// Simple Tests //
 bool test_primes() {
     std::vector<int> primes = nm::eratosthenes_sieve(N);
     return primes.size() == P;
@@ -47,6 +50,20 @@ bool test_primes() {
 bool test_binary_exponentiation() {
     return true;
 }
+
+bool test_gcd() {
+    return true;
+}
+
+bool test_extended_gcd() {
+    return true;
+}
+
+bool test_sort() {
+    return true;
+}
+
+// Add GTests //
 
 // Run tests //
 int main(int argc, char const *argv[])
@@ -61,15 +78,19 @@ int main(int argc, char const *argv[])
         break;
     
     case binary_exponentiation:
-        // test_primes;
+        assert(test_binary_exponentiation());
         break;
     
     case gcd:
-        // test_primes;
+        assert(test_gcd());
         break;
 
     case extended_gcd:
-        // test_primes;
+        assert(test_extended_gcd());
+        break;
+    
+    case sort:
+        assert(test_sort());
         break;
     
     default:
