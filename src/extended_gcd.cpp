@@ -1,5 +1,7 @@
 #include <extended_gcd.hpp>
 
+#include <tuple>
+
 namespace nm
 {
     /* T is expected to be any unsigned integer data type */
@@ -37,9 +39,9 @@ namespace nm
         while (b1) {
             T q = a1 / b1;
             
-            tie(x, x1) = make_tuple(x1, x - q * x1);
-            tie(y, y1) = make_tuple(y1, y - q * y1);
-            tie(a1, b1) = make_tuple(b1, a1 - q * b1);
+            std::tie(x, x1) = std::make_tuple(x1, x - q * x1);
+            std::tie(y, y1) = std::make_tuple(y1, y - q * y1);
+            std::tie(a1, b1) = std::make_tuple(b1, a1 - q * b1);
         }
         
         return a1;
