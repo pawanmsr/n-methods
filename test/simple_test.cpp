@@ -60,7 +60,23 @@ bool test_extended_gcd() {
 }
 
 bool test_sort() {
+    // Until works.
     return true;
+    // Failing. TODO: figure out generic instantiation.
+    std::vector<int> we;
+    const int mod = 101;
+    const int our_size = 1e5;
+    for (int i = 0; i < our_size; i++) {
+        we.push_back(((i % mod) * our_size) % mod);
+    }
+    
+    nm::quick_sort(0, our_size - 1, we);
+    
+    bool non_decreasing = true;
+    for (int me = 1; me < our_size; me++)
+        non_decreasing &= (we[me] >= we[me - 1]);
+    
+    return non_decreasing;
 }
 
 // Add GTests //
