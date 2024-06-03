@@ -1,10 +1,10 @@
 /* 
- * Author: Canis Lupas Loner
+ * Author: Canis Lupus Loner
  */
 
 /*
  * Compile and Run
- * g++ --std=c++2a -DLOCAL -WALL <source> -o <binary>
+ * g++ --std=c++2a -DLOCAL -WALL <source> -I . -o <binary>
  * ./<binary>
  */
 
