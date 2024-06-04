@@ -4,8 +4,21 @@ Algorithms
 Common Algorithms and Templates.  
 Personal. Educational. Quick Reference.  
 
-Directory Structure
--------------------
+Build
+-----
+
+Build using CMake.
+
+```shell
+# Run build script.
+bash build.sh [options: -h|c]
+
+```
+
+Notes and More
+--------------
+
+Source code in [src](/src/). Copy tested source code when use of full breadth of STL is prohibited.  
 
 <pre>
 +-- bin
@@ -24,18 +37,10 @@ Directory Structure
 |   - unit tests
 </pre>
 
-Build
------
+Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.  
 
-Build using CMake.
-
-```shell
-
-# Write build files and build the lib.
-cmake -S . -B ./build/
-cmake --build build
-
-# Visit build and run CTest.
-cd build && ctest
-
-```
+> Tried and failed? Try harder, fail better.
+>
+> Do not go gentle into that good night.  
+> Rage, rage until the dying of the light.  
+> <cite>Dylan Thomas</cite>
