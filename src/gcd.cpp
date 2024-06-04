@@ -1,5 +1,7 @@
 #include <gcd.hpp>
 
+#include<algorithm>
+
 namespace nm
 {
     /* T is expected to be any integer data type */
@@ -14,7 +16,7 @@ namespace nm
     T gcd_iterative(T a, T b) {
         while (b) {
             a %= b;
-            swap(a, b);
+            std::swap(a, b);
         }
         return a;
     }
