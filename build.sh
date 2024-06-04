@@ -11,6 +11,8 @@ display_options() {
 }
 
 clean_build() {
+    echo "Removing previous build (if exists)."
+    echo
     rm -r ./build/*
 }
 
