@@ -1,43 +1,52 @@
-set(TEST_EXECUTABLE simple_test)
+set(SIMPLE_TEST_EXECUTABLE simple_test)
+set(GOOGLE_TEST_EXECUTABLE google_test)
 
-add_executable(${TEST_EXECUTABLE} simple_test.cpp)
+add_executable(${SIMPLE_TEST_EXECUTABLE} simple_test.cpp)
+add_executable(${GOOGLE_TEST_EXECUTABLE} google_test.cpp)
 
 target_link_libraries(
-    ${TEST_EXECUTABLE} PRIVATE
+    ${SIMPLE_TEST_EXECUTABLE} PRIVATE
+    ${PROJECT_NAME}
+)
+
+target_link_libraries(
+    ${GOOGLE_TEST_EXECUTABLE} PRIVATE
     ${PROJECT_NAME}
     GTest::gtest_main
 )
 
-# include(GoogleTest)
-# gtest_discover_tests(${TEST_EXECUTABLE})
+# GTest
+include(GoogleTest)
+gtest_discover_tests(${GOOGLE_TEST_EXECUTABLE})
 
+# Simple Tests
 add_test(
     NAME test_primes 
-    COMMAND ${TEST_EXECUTABLE} "primes" 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "primes" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )
 
 add_test(
     NAME test_binary_exponentiation 
-    COMMAND ${TEST_EXECUTABLE} "binary_exponentiation" 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "binary_exponentiation" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )
 
 add_test(
     NAME test_gcd 
-    COMMAND ${TEST_EXECUTABLE} "gcd" 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "gcd" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )
 
 add_test(
     NAME extended_gcd 
-    COMMAND ${TEST_EXECUTABLE} "extended_gcd" 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "extended_gcd" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )
 
 add_test(
     NAME sort 
-    COMMAND ${TEST_EXECUTABLE} "sort" 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "sort" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )
 

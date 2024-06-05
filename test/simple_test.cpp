@@ -13,9 +13,6 @@
 #include <extended_gcd.hpp>
 #include <sort.hpp>
 
-// GTest //
-// #include <gtest/gtest.h>
-
 // Constants
 enum enumerate {
     primes,
@@ -114,10 +111,6 @@ int main(int argc, char const *argv[])
         return 1;
         break;
     }
-
-    // GTest //
-    // testing::InitGoogleTest(&argc, argv);
-    // return RUN_ALL_TESTS();
 
     return 0;
 }

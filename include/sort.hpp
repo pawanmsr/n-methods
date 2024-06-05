@@ -1,5 +1,5 @@
-#if !defined(SORTING)
-#define SORTING
+#if !defined(SORT)
+#define SORT
 
 #include <functional>
 #include<vector>
@@ -18,4 +18,4 @@ namespace nm
     
 } // namespace nm
 
-#endif // SORTING
+#endif // SORT
