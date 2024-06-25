@@ -3,7 +3,7 @@
 namespace nm
 {
     template<typename T>
-    int bound_search(T element, const int lo, const int hi, std::vector<T>& space, std::function<bool(T&, T&)> compare) {
+    int bound_search(T element, const int lo, const int hi, const std::vector<T>& space, std::function<bool(T&, T&)> compare) {
         int i = 0;
         int jump = space.size();
         while (jump > 0) {

@@ -15,7 +15,6 @@ namespace nm
     void merge_sort(U lo, U hi, std::vector<T>& v, std::function<bool(T&, T&)> compare = [](T& a, T& b) {
         return a < b;
     });
-    
 } // namespace nm
 
 #endif // SORT
