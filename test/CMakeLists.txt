@@ -50,3 +50,8 @@ add_test(
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )
 
+add_test(
+    NAME modulo_operations 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "modulo_operations" 
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
+)
