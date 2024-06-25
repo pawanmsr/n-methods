@@ -18,7 +18,9 @@ bash build.sh [options: -h|c]
 Notes and More
 --------------
 
-Source code in [src](/src/). Copy tested source code when use of full breadth of STL is prohibited.  
+Source code in [src](/src/) for sport programming, assessments or when use of full breadth of STL is prohibited.  
+Run the build before copying the source templates into the solution. At least add basic tests for all new implementations.  
+Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.    
 
 <pre>
 +-- bin
@@ -36,8 +38,6 @@ Source code in [src](/src/). Copy tested source code when use of full breadth of
 +-- test
 |   - unit tests
 </pre>
-
-Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.  
 
 > Tried and failed? Try harder, fail better.
 >
