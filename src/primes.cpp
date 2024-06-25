@@ -4,7 +4,7 @@ namespace nm
 {
     /* T is expected to be any unsigned or equivalent integer data type */
     template<typename T>
-    std::vector<T> eratosthenes_sieve(T n) {
+    std::vector<T> eratosthenes_sieve(const T n) {
         std::vector<bool> is_prime(n + 1, true);
         for (size_t i = 2; i <= n; i++) {
             if (!is_prime[i]) continue;

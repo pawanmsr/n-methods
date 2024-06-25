@@ -6,7 +6,7 @@ namespace nm
 {
     // U is expected to be integer data type.
     template<typename T, typename U>
-    int partition(const U lo, const U hi, std::vector<T> &list, std::function<bool(T&, T&)> compare) {
+    U partition(const U lo, const U hi, std::vector<T> &list, std::function<bool(T&, T&)> compare) {
         const T pivot = list[hi];
         
         U i = lo;

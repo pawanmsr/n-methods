@@ -6,6 +6,7 @@ namespace nm
 {
     /* T is expected to be any unsigned integer data type */
     /* time complexity O(log min (a, b)) */
+    /* num * x + mod * y = 1 */
 
     template <typename T>
     T extended_gcd(T a, T b, T& x, T& y) {

@@ -12,6 +12,7 @@
 #include <gcd.hpp>
 #include <extended_gcd.hpp>
 #include <sort.hpp>
+#include <modulo_operations.hpp>
 
 // Constants
 enum enumerate {
@@ -20,6 +21,7 @@ enum enumerate {
     gcd,
     extended_gcd,
     sort,
+    modulo_operations,
     // enumerate more tests here //
     unknown
 };
@@ -30,12 +32,14 @@ enumerate codes(std::string const &s) {
     if (s == "gcd") return gcd;
     if (s == "extended_gcd") return extended_gcd;
     if (s == "sort") return sort;
+    if (s == "modulo_operations") return modulo_operations;
 
     return unknown;
 }
 
 const int N = 1e5 + 1;
 const int P = 9592;
+const long long M = 1e9 + 7;
 
 
 // Simple Tests //
@@ -76,7 +80,16 @@ bool test_sort() {
     return non_decreasing;
 }
 
-// Add GTests //
+bool test_modulo_operations() {
+    bool result = true;
+    for (long long i = M + 1; i < M + N; i++) {
+        long long a = nm::modular_multiplicative_inverse(i, M);
+        long long b = nm::prime_modular_multiplicative_inverse_by_bin_exp(i, M);
+        result &= (a == b);
+    }
+
+    return result;
+}
 
 // Run tests //
 int main(int argc, char const *argv[])
@@ -104,6 +117,10 @@ int main(int argc, char const *argv[])
     
     case sort:
         assert(test_sort());
+        break;
+    
+    case modulo_operations:
+        assert(test_modulo_operations());
         break;
     
     default:

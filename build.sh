@@ -11,9 +11,11 @@ display_options() {
 }
 
 clean_build() {
-    echo "Removing previous build (if exists)."
-    echo
-    rm -r ./build/*
+    if [ -d ./build/ ] ; then
+        echo "Previous build found. Removing."
+        echo
+        rm -r ./build/*
+    fi
 }
 
 BUILD_TOOL="cmake" # This project uses cmake.

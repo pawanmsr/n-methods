@@ -13,7 +13,7 @@ namespace nm
     }
 
     template <typename T>
-    T mod_bin_exp(T x, T y, T m) {
+    T mod_bin_exp(T x, T y, const T m) {
         if (m<=1) return 0;
         if (y<=0) return 1;
         
@@ -35,7 +35,7 @@ namespace nm
     }
 
     template <typename T>
-    T mod_bin_exp_iterative(T x, T y, T m) {
+    T mod_bin_exp_iterative(T x, T y, const T m) {
         if (y<=0) return 1;
         
         T res = 1;
