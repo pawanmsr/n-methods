@@ -3,7 +3,6 @@
 namespace nm
 {
     /* T is expected to be any integer data type */
-
     template <typename T>
     T bin_exp(T x, T y) {
         if (y<=0) return 1;
@@ -35,7 +34,7 @@ namespace nm
     }
 
     template <typename T>
-    T mod_bin_exp_iterative<T>(T x, T y, const T m) {
+    T mod_bin_exp_iterative(T x, T y, const T m) {
         if (y<=0) return 1;
         
         T res = 1;
