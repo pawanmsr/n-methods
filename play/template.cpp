@@ -8,28 +8,54 @@
  * ./<binary>
  */
 
-// #include <bits/stdc++.h>
+// All STL
+#include <bits/stdc++.h>
 
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <queue>
-#include <deque>
-#include <bitset>
-#include <iterator>
-#include <list>
-#include <stack>
-#include <map>
-#include <set>
+// Individual STL Libs
+// I/O Libs
+#include <cstdio> // printf and scanf
+#include <fstream> // files nad buffers
+#include <iomanip> // setprecision
+#include <iostream> // standard input output, <istream> + <ostream>
+// #include <print> // formatting options
+#include <sstream>
+// Math Libs
+#include <bit> // popcount, rotate left/right, bit floor/ceil, etc.
+#include <cmath> // abs, trig, log, etc.
+#include <complex> // complex numbers
+// #include <linalg> // linear algebra
+// #include <numbers> // e, pi, phi, etc
+#include <numeric> // iota, accumulate, gcd, lcm, midpoint, inner product, etc.
+#include <random> // generate random numbers from distributions
+// Algo Libs
+#include <algorithm> // fill, rotate, sort, swap, search, heap, permutation, etc.
+// Limits
+// #include <climits> // INT_MIN/MAX, etc.
+#include <limits> // numeric limits and functions
+// Utility
+#include <utility> // pair, tuple, compare, etc.
+// #include <tuple>
 #include <functional>
-#include <numeric>
-#include <utility>
-#include <limits>
-#include <fstream>
-#include <cstring>
-#include <ranges>
+#include <any> // like python variable
+#include <bitset> // fixed length array of bits
+// #include <cstdlib> // abs, rand, sort, search for C
+// Containers
+#include <array> // like fixed sized arrays in C but with member functions
+#include <vector>
+#include <queue>
+#include <deque> // // double ended queue
+#include <list> // doubly linked list
+#include <stack>
+#include <set> // includes multiset
+#include <unordered_set> // hashing and chaining
+#include <map> // rb-tree
+#include <unordered_map> // hashing and chaining
+// String Libs
+#include <string>
+// #include <cstring> // for C stype operations: strcpy, strcat
+// Other Libs
+#include <iterator>
+#include <regex>
 
 using namespace std;
 typedef long long int ll;
