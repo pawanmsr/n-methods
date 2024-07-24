@@ -9,7 +9,7 @@ namespace nm
 
     template <typename T>
     T gcd(T a, T b) {
-        return b ? gcd(b, a % b) : a;
+        return b ? gcd<T>(b, a % b) : a;
     }
 
     template <typename T>

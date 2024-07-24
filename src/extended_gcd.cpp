@@ -17,7 +17,7 @@ namespace nm
         }
 
         T x1, y1;
-        T g = extended_gcd(b, a % b, x1, y1);
+        T g = extended_gcd<T>(b, a % b, x1, y1);
 
         x = y1;
         y = x1 - y1 * (a / b);
