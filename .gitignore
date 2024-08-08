@@ -45,5 +45,5 @@ bin/*
 .vscode
 
 # Ignore contents in play
-play/*
+# play/*
 !play/template.cpp
