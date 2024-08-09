@@ -46,4 +46,5 @@ bin/*
 
 # Ignore contents in play
 # play/*
+play/*.txt
 !play/template.cpp
