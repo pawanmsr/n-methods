@@ -7,7 +7,6 @@ namespace nm
     /* T is expected to be any unsigned integer data type */
     /* time complexity O(log min (a, b)) */
     /* num * x + mod * y = 1 */
-
     template <typename T>
     T extended_gcd(T a, T b, T& x, T& y) {
         if (!b) {
@@ -17,7 +16,7 @@ namespace nm
         }
 
         T x1, y1;
-        T g = extended_gcd(b, a % b, x1, y1);
+        T g = extended_gcd<T>(b, a % b, x1, y1);
 
         x = y1;
         y = x1 - y1 * (a / b);
@@ -26,7 +25,6 @@ namespace nm
     }
 
     /* https://cp-algorithms.com/algebra/extended-euclid-algorithm.html */
-
     template <typename T>
     T extended_gcd_iterative(T a, T b, T& x, T& y) {
         x = 1;

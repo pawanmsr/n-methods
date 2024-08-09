@@ -3,12 +3,11 @@
 namespace nm
 {
     /* T is expected to be any integer data type */
-
     template <typename T>
     T bin_exp(T x, T y) {
         if (y<=0) return 1;
         
-        T z = bin_exp(x, y/2);
+        T z = bin_exp<T>(x, y/2);
         return y%2 ? z*z*x : z*z;
     }
 
@@ -17,7 +16,7 @@ namespace nm
         if (m<=1) return 0;
         if (y<=0) return 1;
         
-        T z = mod_bin_exp(x, y/2, m);
+        T z = mod_bin_exp<T>(x, y/2, m);
         return y%2 ? (z*z % m)*x % m : z*z % m;
     }
 

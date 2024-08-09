@@ -10,7 +10,7 @@ namespace nm
     template<typename T>
     T modular_multiplicative_inverse(T num, const T mod) {
         T x, y;
-        if (extended_gcd(num, mod, x, y) != 1) return -1;
+        if (extended_gcd<T>(num, mod, x, y) != 1) return -1;
 
         // (num * x + mod * y = 1) % mod
         // num * x = 1 % mod
@@ -19,7 +19,7 @@ namespace nm
 
     template<typename T>
     T prime_modular_multiplicative_inverse_by_bin_exp(T num, const T mod) {
-        return mod_bin_exp_iterative(num, mod - 2, mod);
+        return mod_bin_exp_iterative<T>(num, mod - 2, mod);
         // mod is prime => phi-function(mod) = mod - 1
         // phi-function counts number of coprimes to its argument
         // that are less than the argument a.k.a. Euler Totient Function.
@@ -32,7 +32,7 @@ namespace nm
         
         // mod is prime => gcd(num, mod) is 1
         return num < 2 ? num : mod - (long long)(mod / num) *
-            prime_modular_multiplicative_inverse(mod % num, mod) % mod;
+            prime_modular_multiplicative_inverse<T>(mod % num, mod) % mod;
     }
 } // namespace nm
 
