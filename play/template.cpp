@@ -4,7 +4,8 @@
 
 /*
  * Compile and Run
- * g++ --std=c++2a -DLOCAL -WALL <source> -I . -o <binary>
+ * g++ -std=c++2a -DLOCAL -Wall -Wextra -pedantic 
+ * -g -Wconversion -Wshadow <source> -I . -o <binary>
  * ./<binary>
  */
 
@@ -75,8 +76,13 @@ typedef long long int ll;
 // Main //
 int main(int argc, char const *argv[])
 {
+    // assert(argc == 1);
+    // assert(sizeof(*argv) == 4);
+
     // ios_base::sync_with_stdio(false);
     // cin.tie(NULL);
+
+    // cout << fixed << setprecision(15);
 
     #ifndef ONLINE_JUDGE
     // freopen("input.txt", "r", stdin);
@@ -86,8 +92,8 @@ int main(int argc, char const *argv[])
     #endif
 
     #ifdef LOCAL
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     #else
     // online submission
     #endif
