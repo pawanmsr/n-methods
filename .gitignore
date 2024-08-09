@@ -48,3 +48,4 @@ bin/*
 # play/*
 play/*.txt
 !play/template.cpp
+!play/CMakeLists.txt
