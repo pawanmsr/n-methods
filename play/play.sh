@@ -40,9 +40,11 @@ else
     BINARY="${BINARY_NAME}${BINARY_EXTENSION}"
 fi
 
-if [[ -e $FILENAME ]]; then
+if [[ -e $FILENAME ]] ; then
     time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
-    time ./$BINARY
+    if [[ -e $BINARY ]] ; then
+        time ./$BINARY
+    fi
     exit 0;
 else
     echo "${FILENAME} is not present in ${PWD}"
