@@ -9,24 +9,18 @@ namespace nm
         T pivot = list[hi];
         
         U i = lo;
-        U j = hi;
-        while (i < j) {
-            if (compare(pivot, list[i])) {
-                while (j > i && compare(pivot, list[j]))
-                    j--;
-                
-                if (!compare(pivot, list[j]))
-                    std::swap(list[i], list[j]);
-                else break;
-            }
-            
+        for (U j = lo; j < hi; j++) {
+            if (!compare(list[j], pivot)) continue;
+
+            std::swap(list[i], list[j]);
             i++;
         }
 
         std::swap(list[i], list[hi]);
         return i;
     }
-
+    
+    // Prefer merge_sort.
     // U is expected to be integer data type.
     template<class T, typename U>
     void quick_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {        
