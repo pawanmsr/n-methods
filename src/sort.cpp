@@ -23,7 +23,7 @@ namespace nm
     // Prefer merge_sort.
     // U is expected to be integer data type.
     template<class T, typename U>
-    void quick_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {        
+    void quick_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
         if (lo >= 0 && lo < hi && hi < U(list.size())) {
             U k = partition<T, U>(lo, hi, list, compare);
             quick_sort<T, U>(lo, k - 1, list, compare);
