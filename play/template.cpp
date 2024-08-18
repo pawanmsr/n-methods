@@ -69,7 +69,14 @@ typedef long long int ll;
 #define pll pair<ll, ll>
 
 // External //
+/*
+ * MIT / GPL
+ * Citation
+ */
 
+
+
+// // // // //
 
 // Global //
 
