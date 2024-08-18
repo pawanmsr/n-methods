@@ -35,7 +35,9 @@ IF [%binary_name%] == [] (
 
 IF EXIST %filename% (
     %compiler% %flags% %filename% -I . -o %binary%
-    %binary%
+    IF EXIST %binary% (
+        %binary%
+    )
     EXIT \B 0
 ) ELSE (
     ECHO %filename% is not present in %CD%

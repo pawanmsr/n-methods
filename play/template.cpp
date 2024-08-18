@@ -7,6 +7,7 @@
  * g++ -std=c++2a -DLOCAL -Wall -Wextra -pedantic 
  * -g -Wconversion -Wshadow <source> -I . -o <binary>
  * ./<binary>
+ * gdb <binary> // on failure.
  */
 
 // All STL
@@ -67,6 +68,16 @@ typedef long long int ll;
 #define pii pair<int, int>
 #define pll pair<ll, ll>
 
+// External //
+/*
+ * MIT / GPL
+ * Citation
+ */
+
+
+
+// // // // //
+
 // Global //
 
 
@@ -77,7 +88,7 @@ typedef long long int ll;
 int main(int argc, char const *argv[])
 {
     // assert(argc == 1);
-    // assert(sizeof(*argv) == 4);
+    // assert(sizeof(*argv) == sizeof(uint32_t));
 
     // ios_base::sync_with_stdio(false);
     // cin.tie(NULL);
@@ -99,7 +110,10 @@ int main(int argc, char const *argv[])
     #endif
     
     /* code */
-    cout << "Everybody is Awesome!" << endl;
+    cout << "On a windy moonlit night,\n"
+    << "A lonely wolf begins to howl.\n"
+    << "Wondering if his solutions are right,\n"
+    << "'Do submit; maybe it's not all foul.'" << endl;
     
     return 0;
 }
