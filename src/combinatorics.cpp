@@ -22,4 +22,15 @@ namespace nm
         reverse(permutation.begin() + i, permutation.end());
         return i > 0;
     }
+    
+    template<typename T>
+    PnC::PnC(T n)
+    {
+        // TODO
+    }
+    
+    PnC::~PnC()
+    {
+    }
+    
 } // namespace nm
