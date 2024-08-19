@@ -110,7 +110,7 @@ int main(int argc, char const *argv[])
     #endif
     
     /* code */
-    cout << "On a windy moonlit night,\n"
+    cout << "On a starry moonlit night,\n"
     << "A lonely wolf begins to howl.\n"
     << "Wondering if his solutions are right,\n"
     << "'Do submit; maybe it's not all foul.'" << endl;
