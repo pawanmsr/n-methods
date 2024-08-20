@@ -9,12 +9,16 @@ namespace nm
     bool next_permutation(std::vector<T>& permutation);
 
     template<typename T>
-    class PnC
-    {
+    class PnC {
     private:
+        T mod;
         std::vector<T> factorial;
+        std::vector<T> factorial_inverse;
     public:
-        PnC(T n);
+        PnC(T n, const T mod);
+        T get_factorial(T n);
+        T nPr(T n, T r);
+        T nCr(T n, T r);
         ~PnC();
     };
 } // namespace nm
