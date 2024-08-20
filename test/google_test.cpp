@@ -76,14 +76,14 @@ TEST(PermutationSortTest, SmallBruteForce) {
     std::iota(permutation.begin(), permutation.end(), 1);
     
     int count = 0;
-    
     do
     {
         // TODO: add sort test
         count++;
     } while (nm::next_permutation(permutation));
 
-    ASSERT_EQ(362880, count);
+    nm::PnC<int> C{int(N_FACT), int(M)};
+    ASSERT_EQ(C.get_factorial(int(N_FACT)), count);
 }
 
 int main(int argc, char *argv[])
