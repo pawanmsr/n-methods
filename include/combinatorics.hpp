@@ -17,6 +17,7 @@ namespace nm
     public:
         PnC(T n, const T mod);
         T get_factorial(T n);
+        T get_factorial_inverse(T n);
         T nPr(T n, T r);
         T nCr(T n, T r);
         ~PnC();

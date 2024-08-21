@@ -46,8 +46,13 @@ namespace nm
     template<typename T>
     T PnC<T>::get_factorial(T n) {
         // validate n
+        return this->factorial[n];
+    }
 
-        return (this->factorial[n]);
+    template<typename T>
+    T PnC<T>::get_factorial_inverse(T n) {
+        // validate n
+        return this->factorial_inverse[n];
     }
 
     template<typename T>
