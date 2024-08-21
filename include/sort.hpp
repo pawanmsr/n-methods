@@ -2,7 +2,7 @@
 #define SORT
 
 #include <functional>
-#include<vector>
+#include <vector>
 
 namespace nm
 {
