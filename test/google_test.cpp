@@ -71,6 +71,14 @@ TEST(ModInvTest, PrimeModIterative) {
     }
 }
 
+TEST(PermutationTest, DifferentMod) {
+    const int M_PRIME = 7;
+    nm::PnC<int> c1{int(N_FACT), int(M)};
+    nm::PnC<int> c2{int(N_FACT), int(M_PRIME)};
+    for (int i = 0; i <= N_FACT; i++)
+        ASSERT_EQ(c1.get_factorial(i) % M_PRIME, c2.get_factorial(i));
+}
+
 TEST(PermutationSortTest, SmallBruteForce) {
     std::vector<int> permutation(N_FACT);
     std::iota(permutation.begin(), permutation.end(), 1);
@@ -90,8 +98,8 @@ TEST(PermutationSortTest, SmallBruteForce) {
         count++;
     } while (nm::next_permutation(permutation));
 
-    nm::PnC<int> C{int(N_FACT), int(M)};
-    ASSERT_EQ(C.get_factorial(int(N_FACT)), count);
+    nm::PnC<int> c{int(N_FACT), int(M)};
+    ASSERT_EQ(c.get_factorial(int(N_FACT)), count);
 }
 
 int main(int argc, char *argv[])
