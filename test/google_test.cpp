@@ -76,9 +76,17 @@ TEST(PermutationSortTest, SmallBruteForce) {
     std::iota(permutation.begin(), permutation.end(), 1);
     
     int count = 0;
-    do
-    {
-        // TODO: add sort test
+    do {
+        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        nm::merge_sort<int, int, int>(0, N_FACT - 1, auxillary);
+        
+        bool sorted = true;
+        for (int i = 1; i < N_FACT; i++)
+            if (auxillary[i] < auxillary[i - 1])
+                sorted = false;
+        
+        ASSERT_TRUE(sorted);
+        
         count++;
     } while (nm::next_permutation(permutation));
 
