@@ -39,3 +39,7 @@ namespace nm
 template long long nm::modular_multiplicative_inverse<long long>(long long, const long long);
 template long long nm::prime_modular_multiplicative_inverse_by_bin_exp<long long>(long long, const long long);
 template long long nm::prime_modular_multiplicative_inverse<long long>(long long, const long long);
+
+template int nm::modular_multiplicative_inverse<int>(int, const int);
+template int nm::prime_modular_multiplicative_inverse_by_bin_exp<int>(int, const int);
+template int nm::prime_modular_multiplicative_inverse<int>(int, const int);

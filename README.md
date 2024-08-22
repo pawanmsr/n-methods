@@ -12,6 +12,8 @@ Build using CMake.
 ```shell
 # Run build script.
 bash build.sh [options: -h|c]
+# Note: for minor modifications, run without flags
+# or options to use build cache for quicker builds.
 
 ```
 
