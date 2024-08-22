@@ -5,12 +5,13 @@
 namespace nm
 {
     template<class T, typename U>
-    U partition(const U lo, const U hi, std::vector<T> &list, std::function<bool(T&, T&)> compare) {
+    U partition(const U lo, const U hi, std::vector<T> &list,
+        std::function<bool(T&, T&)> compare) {
         T pivot = list[hi];
         
         U i = lo;
         for (U j = lo; j < hi; j++) {
-            if (!compare(list[j], pivot)) continue;
+            if (not compare(list[j], pivot)) continue;
 
             std::swap(list[i], list[j]);
             i++;
@@ -24,7 +25,7 @@ namespace nm
     // U is expected to be integer data type.
     template<class T, typename U>
     void quick_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
-        if (lo >= 0 && lo < hi && hi < U(list.size())) {
+        if (lo >= 0 and lo < hi and hi < U(list.size())) {
             U k = partition<T, U>(lo, hi, list, compare);
             quick_sort<T, U>(lo, k - 1, list, compare);
             quick_sort<T, U>(k + 1, hi, list, compare);
@@ -37,7 +38,7 @@ namespace nm
     V merge_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
         V inversions = 0;
         
-        if (lo >= 0 && lo < hi && hi < U(list.size())) {
+        if (lo >= 0 and lo < hi and hi < U(list.size())) {
             U mid = lo + (hi - lo) / 2;
 
             inversions += merge_sort<T, U, V>(lo, mid, list, compare);
@@ -46,7 +47,7 @@ namespace nm
             U i = lo;
             U j = mid + 1;
             std::vector<T> merged;
-            while (i <= mid && j <= hi) {
+            while (i <= mid and j <= hi) {
                 if (compare(list[j], list[i])) {
                     merged.push_back(list[j++]);
                     inversions += mid + 1 - i;
