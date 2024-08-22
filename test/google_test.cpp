@@ -80,26 +80,27 @@ TEST(PermutationTest, DifferentMod) {
 }
 
 TEST(PermutationSortTest, SmallBruteForce) {
-    std::vector<int> permutation(N_FACT);
+    int count = 0;
+    const int N = N_FACT - 1;
+
+    std::vector<int> permutation(N);
     std::iota(permutation.begin(), permutation.end(), 1);
     
-    int count = 0;
     do {
         std::vector<int> auxillary(permutation.begin(), permutation.end());
-        nm::merge_sort<int, int, int>(0, N_FACT - 1, auxillary);
+        nm::merge_sort<int, int, int>(0, N - 1, auxillary);
         
         bool sorted = true;
-        for (int i = 1; i < N_FACT; i++)
+        for (int i = 1; i < N; i++)
             if (auxillary[i] < auxillary[i - 1])
                 sorted = false;
-        
         ASSERT_TRUE(sorted);
         
         count++;
     } while (nm::next_permutation(permutation));
 
     nm::PnC<int> c{int(N_FACT), int(M)};
-    ASSERT_EQ(c.get_factorial(int(N_FACT)), count);
+    ASSERT_EQ(c.get_factorial(int(N)), count);
 }
 
 TEST(BoundSearch, DistinctElements) {
