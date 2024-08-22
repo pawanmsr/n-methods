@@ -102,6 +102,15 @@ TEST(PermutationSortTest, SmallBruteForce) {
     ASSERT_EQ(c.get_factorial(int(N_FACT)), count);
 }
 
+TEST(BoundSearch, DistinctElements) {
+    std::vector<int> space(N_FACT);
+    std::iota(space.begin(), space.end(), 1);
+    for (int i = 1; i <= N_FACT; i++) {
+        int idx = nm::bound_search(i, 0, N_FACT - 1, space);
+        ASSERT_LE(idx, i);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // GTest //
