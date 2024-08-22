@@ -74,8 +74,6 @@ typedef long long int ll;
  * Citation
  */
 
-
-
 // // // // //
 
 // Global //
