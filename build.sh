@@ -23,6 +23,7 @@ clean_build() {
         echo "Previous build found. Removing."
         echo
         rm -r ./build/*
+        # FIXME: use flag for fresh build instead.
     fi
 }
 
