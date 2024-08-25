@@ -1,5 +1,6 @@
 #include <sort.hpp>
 
+#include <numeric>
 #include <algorithm>
 
 namespace nm
@@ -73,24 +74,29 @@ namespace nm
 
     template<typename T, typename U>
     void MultiSort<T, U>::sort(std::vector<U> &list, std::function<bool(U&, U&)> compare) {
-        auto compare_wrapper = [&](std::size_t i, std::size_t j) {
+        std::function<bool(U&, U&)> wrapped_compare = [&](std::size_t i, std::size_t j) {
             return compare(list[i], list[j]);
         };
-        merge_sort(0, this->n - 1, this->permutation, compare_wrapper);
-        return this->apply(list);
+        
+        merge_sort(0, this->n - 1, this->permutation, wrapped_compare);
+        this->apply(list);
     }
 
     template<typename T, typename U>
     void MultiSort<T, U>::apply(std::vector<U> &list) {
+        std::vector<U> list_prime(this->n);
         std::transform(this->permutation.begin(), this->permutation.end(),
-            list.begin(), [&](std::size_t i) {
+            list_prime.begin(), [&](std::size_t i) {
                 return list[i];
             });
+        
+        list.assign(list_prime.begin(), list_prime.end());
     }
     
     template<typename T, typename U>
     MultiSort<T, U>::~MultiSort() {
-        delete this;
+        this->permutation.clear();
+        // delete this;
     }
 
 } // namespace nm
