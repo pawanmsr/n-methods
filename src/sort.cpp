@@ -74,7 +74,7 @@ namespace nm
 
     template<typename T, typename U>
     void MultiSort<T, U>::sort(std::vector<U> &list, std::function<bool(U&, U&)> compare) {
-        std::function<bool(U&, U&)> wrapped_compare = [&](std::size_t i, std::size_t j) {
+        std::function<bool(std::size_t&, std::size_t&)> wrapped_compare = [&](std::size_t i, std::size_t j) {
             return compare(list[i], list[j]);
         };
         
