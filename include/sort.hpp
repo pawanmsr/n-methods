@@ -18,6 +18,7 @@ namespace nm
             return a < b;
         });
     
+    // U is expected to be positive integral value.
     template<typename T, typename U>
     class MultiSort
     {
@@ -25,11 +26,11 @@ namespace nm
         size_t n;
         std::vector<std::size_t> permutation;
     public:
-        MultiSort(T n);
-        void sort(std::vector<U> &list, std::function<bool(U&, U&)> compare = [](U& a, U& b) {
+        MultiSort(U n);
+        void sort(std::vector<T> &list, std::function<bool(T&, T&)> compare = [](T& a, T& b) {
             return a < b;
         });
-        void apply(std::vector<U> &list);
+        void apply(std::vector<T> &list);
         ~MultiSort();
     };
 } // namespace nm

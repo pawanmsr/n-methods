@@ -66,25 +66,25 @@ namespace nm
     }
 
     template<typename T, typename U>
-    MultiSort<T, U>::MultiSort(T n) {
+    MultiSort<T, U>::MultiSort(U n) {
         this->n = n;
         this->permutation.resize(n);
         std::iota(this->permutation.begin(), this->permutation.end(), 0);
     }
 
     template<typename T, typename U>
-    void MultiSort<T, U>::sort(std::vector<U> &list, std::function<bool(U&, U&)> compare) {
+    void MultiSort<T, U>::sort(std::vector<T> &list, std::function<bool(T&, T&)> compare) {
         std::function<bool(std::size_t&, std::size_t&)> wrapped_compare = [&](std::size_t i, std::size_t j) {
             return compare(list[i], list[j]);
         };
         
-        merge_sort(0, this->n - 1, this->permutation, wrapped_compare);
+        merge_sort<std::size_t, U, U>(0, this->n - 1, this->permutation, wrapped_compare);
         this->apply(list);
     }
 
     template<typename T, typename U>
-    void MultiSort<T, U>::apply(std::vector<U> &list) {
-        std::vector<U> list_prime(this->n);
+    void MultiSort<T, U>::apply(std::vector<T> &list) {
+        std::vector<T> list_prime(this->n);
         std::transform(this->permutation.begin(), this->permutation.end(),
             list_prime.begin(), [&](std::size_t i) {
                 return list[i];
