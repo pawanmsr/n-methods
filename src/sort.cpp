@@ -63,6 +63,39 @@ namespace nm
 
         return inversions;
     }
+
+    template<typename T, typename U>
+    MultiSort<T, U>::MultiSort(T n) {
+        this->n = n;
+        this->permutation.resize(n);
+        std::iota(this->permutation.begin(), this->permutation.end(), 1);
+    }
+
+    template<typename T, typename U>
+    void MultiSort<T, U>::sort(std::vector<U> &list,
+        std::function<bool(U&, U&)> compare = [](U& a, U& b) {
+            return a < b;
+        }) {
+            auto compare_wrapper = [&](std::size_t i, std::size_t j) {
+                return compare(list[i], list[j]);
+            };
+            merge_sort(0, this->n - 1, this->permutation, compare_wrapper);
+            return this->apply(list);
+        }
+
+    template<typename T, typename U>
+    void MultiSort<T, U>::apply(std::vector<U> &list) {
+        std::transform(this->permutation.begin(), this->permutation.end(),
+            list.begin(), [&](std::size_t i) {
+                return list[i];
+            });
+    }
+    
+    template<typename T, typename U>
+    MultiSort<T, U>::~MultiSort() {
+        delete this;
+    }
+
 } // namespace nm
 
 template int nm::merge_sort<int, int, int>(int, int,
