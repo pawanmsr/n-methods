@@ -3,6 +3,7 @@
 #include <modulo_operations.hpp>
 
 #include <algorithm>
+#include <cassert>
 
 namespace nm
 {
@@ -45,19 +46,21 @@ namespace nm
 
     template<typename T>
     T PnC<T>::get_factorial(T n) {
-        // validate n
+        assert(n < this->factorial.size());
         return this->factorial[n];
     }
 
     template<typename T>
     T PnC<T>::get_factorial_inverse(T n) {
-        // validate n
+        assert(n < this->factorial_inverse.size());
         return this->factorial_inverse[n];
     }
 
     template<typename T>
     T PnC<T>::nPr(T n, T r) {
-        // validate n and r
+        assert(n >= r);
+        assert(n < this->factorial.size());
+        
         T p = (this->factorial[n] * this->factorial_inverse[n]) % this->mod;
         if (p < 0) p += this->mod;
         return p % this->mod;
@@ -65,7 +68,9 @@ namespace nm
 
     template<typename T>
     T PnC<T>::nCr(T n, T r) {
-        // validate n and r
+        assert(n >= r);
+        assert(n < this->factorial.size());
+        
         T c = (((this->factorial[n] * this->factorial_inverse[r]) % this->mod) * 
             this->factorial_inverse[n - r]) % this->mod;
         if (c < 0) c += this->mod;
@@ -74,6 +79,9 @@ namespace nm
     
     template<typename T>
     PnC<T>::~PnC() {
+        this->factorial.clear();
+        this->factorial_inverse.clear();
+        
         // delete this;
     }
 } // namespace nm
