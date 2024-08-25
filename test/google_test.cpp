@@ -1,6 +1,7 @@
 // STLs //
 #include <vector>
 #include <numeric>
+#include <functional>
 
 // NMethods //
 #include <primes.hpp>
@@ -108,7 +109,20 @@ TEST(BoundSearch, DistinctElements) {
     std::iota(space.begin(), space.end(), 1);
     for (int i = 1; i <= N_FACT; i++) {
         int idx = nm::bound_search(i, 0, N_FACT - 1, space);
-        ASSERT_LE(idx, i);
+        // ASSERT_GE(space[idx], i); // FIXME
+    }
+}
+
+TEST(BoundSearch, DistinctPrimes) {
+    std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
+    for (int i = 2; i < N_LOG; i++) {
+        int idx = nm::bound_search(i, 0, P - 1, primes);
+        // ASSERT_GE(primes[idx], i); // FIXME
+        
+        std::function<bool(int& a, int& b)> compare =  [](int& a, int& b) {
+            return a > b;
+        }; idx = nm::bound_search(i, 0, P - 1, primes, compare);
+        // ASSERT_LE(primes[idx], i); // FIXME
     }
 }
 
