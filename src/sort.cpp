@@ -7,19 +7,19 @@ namespace nm
     template<class T, typename U>
     U partition(const U lo, const U hi, std::vector<T> &list,
         std::function<bool(T&, T&)> compare) {
-        T pivot = list[hi];
-        
-        U i = lo;
-        for (U j = lo; j < hi; j++) {
-            if (not compare(list[j], pivot)) continue;
+            T pivot = list[hi];
+            
+            U i = lo;
+            for (U j = lo; j < hi; j++) {
+                if (not compare(list[j], pivot)) continue;
 
-            std::swap(list[i], list[j]);
-            i++;
+                std::swap(list[i], list[j]);
+                i++;
+            }
+
+            std::swap(list[i], list[hi]);
+            return i;
         }
-
-        std::swap(list[i], list[hi]);
-        return i;
-    }
     
     // Prefer merge_sort.
     // U is expected to be integer data type.
@@ -72,16 +72,13 @@ namespace nm
     }
 
     template<typename T, typename U>
-    void MultiSort<T, U>::sort(std::vector<U> &list,
-        std::function<bool(U&, U&)> compare = [](U& a, U& b) {
-            return a < b;
-        }) {
-            auto compare_wrapper = [&](std::size_t i, std::size_t j) {
-                return compare(list[i], list[j]);
-            };
-            merge_sort(0, this->n - 1, this->permutation, compare_wrapper);
-            return this->apply(list);
-        }
+    void MultiSort<T, U>::sort(std::vector<U> &list, std::function<bool(U&, U&)> compare) {
+        auto compare_wrapper = [&](std::size_t i, std::size_t j) {
+            return compare(list[i], list[j]);
+        };
+        merge_sort(0, this->n - 1, this->permutation, compare_wrapper);
+        return this->apply(list);
+    }
 
     template<typename T, typename U>
     void MultiSort<T, U>::apply(std::vector<U> &list) {
