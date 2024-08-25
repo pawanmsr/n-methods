@@ -110,3 +110,6 @@ template void nm::quick_sort<int, int>(int, int,
     std::vector<int>&, std::function<bool(int&, int&)>);
 template void nm::quick_sort<long long, int>(int, int,
     std::vector<long long>&, std::function<bool(long long&, long long&)>);
+
+template class nm::MultiSort<int, int>;
+template class nm::MultiSort<long long, int>;
