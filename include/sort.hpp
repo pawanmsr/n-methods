@@ -18,12 +18,12 @@ namespace nm
             return a < b;
         });
     
-    // U is expected to be positive integral value.
-    template<typename T, typename U>
+    // U is expected to be positive integral type.
+    template<class T, typename U>
     class MultiSort
     {
     private:
-        size_t n;
+        std::size_t n;
         std::vector<std::size_t> permutation;
     public:
         MultiSort(U n);

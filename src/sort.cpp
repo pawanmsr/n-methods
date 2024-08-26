@@ -65,14 +65,14 @@ namespace nm
         return inversions;
     }
 
-    template<typename T, typename U>
+    template<class T, typename U>
     MultiSort<T, U>::MultiSort(U n) {
         this->n = n;
         this->permutation.resize(n);
         std::iota(this->permutation.begin(), this->permutation.end(), 0);
     }
 
-    template<typename T, typename U>
+    template<class T, typename U>
     void MultiSort<T, U>::sort(std::vector<T> &list, std::function<bool(T&, T&)> compare) {
         std::function<bool(std::size_t&, std::size_t&)> wrapped_compare = [&](std::size_t i, std::size_t j) {
             return compare(list[i], list[j]);
@@ -82,7 +82,7 @@ namespace nm
         this->apply(list);
     }
 
-    template<typename T, typename U>
+    template<class T, typename U>
     void MultiSort<T, U>::apply(std::vector<T> &list) {
         std::vector<T> list_prime(this->n);
         std::transform(this->permutation.begin(), this->permutation.end(),
@@ -93,9 +93,9 @@ namespace nm
         list.assign(list_prime.begin(), list_prime.end());
     }
     
-    template<typename T, typename U>
+    template<class T, typename U>
     MultiSort<T, U>::~MultiSort() {
-        this->permutation.clear();
+        this->permutation.clear(); // FIXME: redundant.
         // delete this;
     }
 
