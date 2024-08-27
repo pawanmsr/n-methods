@@ -2,6 +2,7 @@
 
 #include <numeric>
 #include <algorithm>
+#include <cassert>
 
 namespace nm
 {
@@ -38,29 +39,31 @@ namespace nm
     template<class T, typename U, typename V>
     V merge_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
         V inversions = 0;
-        
-        if (lo >= 0 and lo < hi and hi < U(list.size())) {
-            U mid = lo + (hi - lo) / 2;
 
-            inversions += merge_sort<T, U, V>(lo, mid, list, compare);
-            inversions += merge_sort<T, U, V>(mid + 1, hi, list, compare);
+        assert(lo >= 0);
+        assert(lo < hi);
+        assert(hi < U(list.size()));
 
-            U i = lo;
-            U j = mid + 1;
-            std::vector<T> merged;
-            while (i <= mid and j <= hi) {
-                if (compare(list[j], list[i])) {
-                    merged.push_back(list[j++]);
-                    inversions += mid + 1 - i;
-                } else merged.push_back(list[i++]);
-            }
+        U mid = lo + (hi - lo) / 2;
 
-            while (i <= mid) merged.push_back(list[i++]);
-            while (j <= hi) merged.push_back(list[j++]);
+        inversions += merge_sort<T, U, V>(lo, mid, list, compare);
+        inversions += merge_sort<T, U, V>(mid + 1, hi, list, compare);
 
-            for (U k = 0; k <= hi - lo; k++)
-                list[lo + k] = merged[k];
+        U i = lo;
+        U j = mid + 1;
+        std::vector<T> merged;
+        while (i <= mid and j <= hi) {
+            if (compare(list[j], list[i])) {
+                merged.push_back(list[j++]);
+                inversions += mid + 1 - i;
+            } else merged.push_back(list[i++]);
         }
+
+        while (i <= mid) merged.push_back(list[i++]);
+        while (j <= hi) merged.push_back(list[j++]);
+
+        for (U k = 0; k <= hi - lo; k++)
+            list[lo + k] = merged[k];
 
         return inversions;
     }
@@ -73,13 +76,15 @@ namespace nm
     }
 
     template<class T, typename U>
-    void MultiSort<T, U>::sort(std::vector<T> &list, std::function<bool(T&, T&)> compare) {
+    U MultiSort<T, U>::sort(std::vector<T> &list, std::function<bool(T&, T&)> compare) {
         std::function<bool(std::size_t&, std::size_t&)> wrapped_compare = [&](std::size_t i, std::size_t j) {
             return compare(list[i], list[j]);
         };
         
-        merge_sort<std::size_t, U, U>(0, this->n - 1, this->permutation, wrapped_compare);
+        U inversions = merge_sort<std::size_t, U, U>(0, this->n - 1, this->permutation, wrapped_compare);
+        
         this->apply(list);
+        return inversions;
     }
 
     template<class T, typename U>
