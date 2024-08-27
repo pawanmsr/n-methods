@@ -5,6 +5,37 @@
 
 namespace nm
 {
+    /*
+     * TODO: Hybrid Sorting.
+     * Introspective sort.
+     * Inrospective plus Insertion three part hybrid
+     * sorting but easier to understand, copy and use
+     * Refer: LLVM's libc++.
+     * 
+     * https://danlark.org/2022/04/20/changing-stdsort-at-googles-scale-and-beyond/
+     * 
+     * What is quadraticness?!
+     * Insertion sort for small sizes.
+     * Quick sort until recursion stack is maxed out.
+     * Heap sort when recursion stack is maxed out.
+     */
+
+    template<class T, typename U>
+    void insertion_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
+        for (U i = lo; i <= hi; i++) {
+            T pivot = list[i];
+            
+            for (U j = i; j > lo; j--) {
+                if (compare(list[j - 1], pivot)) {
+                    list[j] = pivot;
+                    break;
+                }
+
+                list[j] = list[j - 1];
+            }
+        }
+    }
+    
     template<class T, typename U>
     U partition(const U lo, const U hi, std::vector<T> &list,
         std::function<bool(T&, T&)> compare) {
@@ -33,6 +64,7 @@ namespace nm
         }
     }
 
+    // Prefer hybrid_sort.
     // U is expected to be integer data type.
     // V is expected to be long integer data type.
     template<class T, typename U, typename V>
@@ -116,3 +148,8 @@ template void nm::quick_sort<long long, int>(int, int,
 
 template class nm::MultiSort<int, int>;
 template class nm::MultiSort<long long, int>;
+
+template void nm::insertion_sort<int, int>(int, int,
+    std::vector<int>&, std::function<bool(int&, int&)>);
+template void nm::insertion_sort<long long, int>(int, int,
+    std::vector<long long>&, std::function<bool(long long&, long long&)>);
