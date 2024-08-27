@@ -2,7 +2,6 @@
 
 #include <numeric>
 #include <algorithm>
-#include <cassert>
 
 namespace nm
 {
@@ -40,9 +39,8 @@ namespace nm
     V merge_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
         V inversions = 0;
 
-        assert(lo >= 0);
-        assert(lo < hi);
-        assert(hi < U(list.size()));
+        if(lo < 0 or lo >= hi or hi >= U(list.size()))
+            return inversions;
 
         U mid = lo + (hi - lo) / 2;
 
