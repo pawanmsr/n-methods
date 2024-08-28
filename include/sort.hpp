@@ -32,7 +32,7 @@ namespace nm
         std::size_t n;
         std::vector<std::size_t> permutation;
     public:
-        MultiSort(U n);
+        MultiSort(U size);
         U sort(std::vector<T> &list, std::function<bool(T&, T&)> compare = [](T& a, T& b) {
             return a < b;
         });
