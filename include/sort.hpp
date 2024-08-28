@@ -27,15 +27,11 @@ namespace nm
 
     template<class T, typename U>
     void introspective_qsort(U lo, U hi, std::vector<T>& v,
-        std::function<bool(T&, T&)> compare = [](T& a, T& b) {
-            return a < b;
-        }, U depth);
+        std::function<bool(T&, T&)> compare = default_compare, U depth);
     
     template<class T, typename U>
     void heap_sort(U lo, U hi, std::vector<T>& list,
-        std::function<bool(T&, T&)> compare = [](T& a, T& b) {
-            return a < b;
-        });
+        std::function<bool(T&, T&)> compare = default_compare);
 
     template<class T, typename U>
     void insertion_sort(U lo, U hi, std::vector<T>& list,
