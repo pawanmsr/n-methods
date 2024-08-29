@@ -9,15 +9,15 @@ namespace nm
 {
     template<typename T>
     bool next_permutation(std::vector<T>& permutation) {
-        const size_t n = permutation.size();
+        const std::size_t n = permutation.size();
 
-        size_t i = n - 1;
+        std::size_t i = n - 1;
         while (i > 0 and permutation[i - 1] >= permutation[i])
             i--;
         
         if (i > 0) {
-            size_t j = i - 1;
-            size_t k = n - 1;
+            std::size_t j = i - 1;
+            std::size_t k = n - 1;
             while (k > i and permutation[k] <= permutation[j])
                 k--;
 
@@ -29,12 +29,12 @@ namespace nm
     }
     
     template<typename T>
-    PnC<T>::PnC(size_t n, T mod_prime) {
+    PnC<T>::PnC(std::size_t n, T mod_prime) {
         this->mod = mod_prime;
         this->factorial.resize(n + 1, 1);
         this->factorial_inverse.resize(n + 1, 1);
 
-        for (size_t i = 1; i <= n; i++) {
+        for (std::size_t i = 1; i <= n; i++) {
             this->factorial[i] = this->factorial[i - 1] * i;
             this->factorial[i] %= mod;
 
@@ -45,19 +45,19 @@ namespace nm
     }
 
     template<typename T>
-    T PnC<T>::get_factorial(size_t n) {
+    T PnC<T>::get_factorial(std::size_t n) {
         assert(n < this->factorial.size());
         return this->factorial[n];
     }
 
     template<typename T>
-    T PnC<T>::get_factorial_inverse(size_t n) {
+    T PnC<T>::get_factorial_inverse(std::size_t n) {
         assert(n < this->factorial_inverse.size());
         return this->factorial_inverse[n];
     }
 
     template<typename T>
-    T PnC<T>::nPr(size_t n, size_t r) {
+    T PnC<T>::nPr(std::size_t n, std::size_t r) {
         assert(n >= r);
         assert(n < this->factorial.size());
         
@@ -67,7 +67,7 @@ namespace nm
     }
 
     template<typename T>
-    T PnC<T>::nCr(size_t n, size_t r) {
+    T PnC<T>::nCr(std::size_t n, std::size_t r) {
         assert(n >= r);
         assert(n < this->factorial.size());
         

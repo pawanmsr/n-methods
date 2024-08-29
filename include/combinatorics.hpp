@@ -15,11 +15,11 @@ namespace nm
         std::vector<T> factorial;
         std::vector<T> factorial_inverse;
     public:
-        PnC(size_t n, const T mod_prime);
-        T get_factorial(size_t n);
-        T get_factorial_inverse(size_t n);
-        T nPr(size_t n, size_t r);
-        T nCr(size_t n, size_t r);
+        PnC(std::size_t n, const T mod_prime);
+        T get_factorial(std::size_t n);
+        T get_factorial_inverse(std::size_t n);
+        T nPr(std::size_t n, std::size_t r);
+        T nCr(std::size_t n, std::size_t r);
         ~PnC();
     };
 } // namespace nm
