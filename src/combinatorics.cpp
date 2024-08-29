@@ -29,12 +29,12 @@ namespace nm
     }
     
     template<typename T>
-    PnC<T>::PnC(T n, T mod_prime) {
+    PnC<T>::PnC(size_t n, T mod_prime) {
         this->mod = mod_prime;
         this->factorial.resize(n + 1, 1);
         this->factorial_inverse.resize(n + 1, 1);
 
-        for (T i = 1; i <= n; i++) {
+        for (size_t i = 1; i <= n; i++) {
             this->factorial[i] = this->factorial[i - 1] * i;
             this->factorial[i] %= mod;
 
@@ -45,19 +45,19 @@ namespace nm
     }
 
     template<typename T>
-    T PnC<T>::get_factorial(T n) {
+    T PnC<T>::get_factorial(size_t n) {
         assert(n < this->factorial.size());
         return this->factorial[n];
     }
 
     template<typename T>
-    T PnC<T>::get_factorial_inverse(T n) {
+    T PnC<T>::get_factorial_inverse(size_t n) {
         assert(n < this->factorial_inverse.size());
         return this->factorial_inverse[n];
     }
 
     template<typename T>
-    T PnC<T>::nPr(T n, T r) {
+    T PnC<T>::nPr(size_t n, size_t r) {
         assert(n >= r);
         assert(n < this->factorial.size());
         
@@ -67,7 +67,7 @@ namespace nm
     }
 
     template<typename T>
-    T PnC<T>::nCr(T n, T r) {
+    T PnC<T>::nCr(size_t n, size_t r) {
         assert(n >= r);
         assert(n < this->factorial.size());
         
@@ -88,3 +88,4 @@ namespace nm
 
 template bool nm::next_permutation<int>(std::vector<int>&);
 template class nm::PnC<int>;
+template class nm::PnC<long long>;
