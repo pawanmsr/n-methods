@@ -45,6 +45,7 @@ namespace nm
     public:
         MultiSort(U n);
         U sort(std::vector<T> &list, std::function<bool(T&, T&)> compare = default_compare);
+
         void apply(std::vector<T> &list);
         ~MultiSort();
     };

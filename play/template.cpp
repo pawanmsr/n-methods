@@ -83,10 +83,8 @@ typedef long long int ll;
 
 
 // Main //
-int main(int argc, char const *argv[])
-{
-    // assert(argc == 1);
-    // assert(sizeof(*argv) == sizeof(uint32_t));
+int main(int argc, char const *argv[]) {
+    assert(sizeof(*argv) == sizeof(void*) * argc);
 
     // ios_base::sync_with_stdio(false);
     // cin.tie(NULL);
