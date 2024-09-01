@@ -15,6 +15,7 @@ namespace nm
     /*
      * Arithmetic
      * Divide requires multiplicative_inverse.
+     * T is expected to be signed integer type.
      */
     template<typename T>
     class Arithmetic
