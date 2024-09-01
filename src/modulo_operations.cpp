@@ -34,6 +34,41 @@ namespace nm
         return num < 2 ? num : mod - (long long)(mod / num) *
             prime_modular_multiplicative_inverse<T>(mod % num, mod) % mod;
     }
+
+    template<typename T>
+    Arithmetic<T>::Arithmetic(T m) {
+        this->mod = m;
+    }
+
+    template<typename T>
+    T Arithmetic<T>::add(T x, T y) {
+        T z = x + y;
+        if (z > this->mod) z -= this->mod;
+        return z;
+    }
+
+    template<typename T>
+    T Arithmetic<T>::subtract(T x, T y) {
+        T z = x - y;
+        if (z < 0) z += this->mod;
+        return z;
+    }
+
+    template<typename T>
+    T Arithmetic<T>::multiply(T x, T y) {
+        return x * y % this->mod;
+    }
+
+    template<typename T>
+    T Arithmetic<T>::divide(T x, T y) {
+        T z = x * prime_modular_multiplicative_inverse_by_bin_exp<T>(y, this->mod);
+        return z % this->mod;
+    }
+
+    template<typename T>
+    Arithmetic<T>::~Arithmetic(){
+        // delete this;
+    }
 } // namespace nm
 
 template long long nm::modular_multiplicative_inverse<long long>(long long, const long long);
