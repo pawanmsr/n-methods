@@ -59,9 +59,10 @@ namespace nm
         return x * y % this->mod;
     }
 
+    // Divide requires multiplicative_inverse.
     template<typename T>
     T Arithmetic<T>::divide(T x, T y) {
-        T z = x * prime_modular_multiplicative_inverse_by_bin_exp<T>(y, this->mod);
+        T z = x * prime_modular_multiplicative_inverse<T>(y, this->mod);
         return z % this->mod;
     }
 

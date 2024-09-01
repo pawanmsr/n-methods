@@ -12,6 +12,10 @@ namespace nm
     template<typename T>
     T prime_modular_multiplicative_inverse(T num, const T mod);
 
+    /*
+     * Arithmetic
+     * Divide requires multiplicative_inverse.
+     */
     template<typename T>
     class Arithmetic
     {
