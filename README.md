@@ -22,6 +22,8 @@ Notes and More
 
 Source code in [src](/src/) for sport programming, assessments and limited use of STLs.  
 
+Use small functions at the top of the solution. Append larger functions or group of functions with function declarations at the top. Lookout for sneaky signed overflows. Use C-style io and initializations for slightly quicker execution. Constant access time for large arrays (upwards of ten power six) increases dramatically - prefer hashmaps.
+
 Run the build before copying the source templates into the solution. At least add basic tests for all new implementations.
 Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.  
 
