@@ -31,6 +31,8 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 |   - binaries
 +-- doc
 |   - documentation
+|   +-- assets
+|   |    - graphics
 +-- include
 |   - headers
 +-- lib
@@ -45,8 +47,37 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 
 </pre>
 
-> Tried and failed? Try harder, fail better.
+Fun
+---
+
+TODO: add (possibly funny) comic strip (maybe interactive and with links) about a Padawan that desires to be a Master. Add the one with Wolf, Tortoise and Cat sitting beside the window discussing differences and while the wolf tries to come up with a solution.  
+
+>
+> Tried and failed? Try again, fail better.
 >
 > Do not go gentle into that good night.  
 > Rage, rage until the dying of the light.  
 > <cite>Dylan Thomas</cite>
+>
+>
+> Losers' Cry Before Another Try  
+>
+> When I was young, I seldom cried.  
+> "Man up", they said, "or a loser you will be."  
+> Now I am older, and somewhat fried.  
+> Aye, cried I have, but a loser I will never be.  
+> For the burdens we carry, they never get to see,  
+> And leaving everything behind does not set us free.  
+> A solemn warrior burns even when it is wise to flee,  
+> As freedom lies in honouring a lifetime of decree.  
+> <cite>Pawan</cite>
+> :smile:
+>
+> So much to learn, and curiosity continues to grow.  
+> Time was never enough, but atleast there is tomorrow. :rofl:
+>
+
+Appreciation
+------------
+
+Academic sporting platforms.
