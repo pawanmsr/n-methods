@@ -11,6 +11,20 @@ namespace nm
 
     template<typename T>
     T prime_modular_multiplicative_inverse(T num, const T mod);
+
+    template<typename T>
+    class Arithmetic
+    {
+    private:
+        T mod;
+    public:
+        Arithmetic(T m);
+        T add(T x, T y);
+        T subtract(T x, T y);
+        T multiply(T x, T y);
+        T divide(T x, T y);
+        ~Arithmetic();
+    };
 } // namespace nm
 
 
