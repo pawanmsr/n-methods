@@ -36,9 +36,7 @@ namespace nm
     }
 
     template<typename T>
-    Arithmetic<T>::Arithmetic(T m) {
-        this->mod = m;
-    }
+    Arithmetic<T>::Arithmetic(T mod) : mod(mod) {}
 
     template<typename T>
     T Arithmetic<T>::add(T x, T y) {
@@ -56,7 +54,9 @@ namespace nm
 
     template<typename T>
     T Arithmetic<T>::multiply(T x, T y) {
-        return x * y % this->mod;
+        T z = x * y % this->mod;
+        if (z < 0) z += this->mod;
+        return z;
     }
 
     // Divide requires multiplicative_inverse.
