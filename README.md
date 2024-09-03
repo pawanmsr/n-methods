@@ -22,10 +22,12 @@ Notes and More
 
 Source code in [src](/src/) for sport programming, assessments and limited use of STLs.  
 
-Use small functions at the top of the solution. Append larger functions or group of functions with function declarations at the top. Lookout for sneaky signed overflows. Use C-style io and initializations for slightly quicker execution. Constant access time for large arrays (upwards of ten power six) increases dramatically - prefer hashmaps.
+Use small functions at the top of the solution. Append larger functions or group of functions, with declarations at the top, but don't be finicky about style - there are no reviews. Prefer bottom-up iterative in favor of top-down recursive. Lookout for sneaky signed overflows. Use C-style io and initializations for slightly quicker execution. Constant access time for large arrays (upwards of ten power six) increases dramatically - prefer hashmaps.  
 
 Run the build before copying the source templates into the solution. At least add basic tests for all new implementations.
 Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.  
+
+It must have taken people effort to become yellow/red, even if they are naturally attuned. The road is mighty long, and you have capacity and time. Failure is acceptable than regret. Reconfigure mental models and egress.  
 
 <pre>
 .
@@ -52,7 +54,12 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 Fun
 ---
 
-TODO: add (possibly funny) comic strip (maybe interactive and with links) about a Padawan that desires to be a Master. Add the one with Wolf, Tortoise and Cat sitting beside the window discussing differences and while the wolf tries to come up with a solution.  
+TODO: add (possibly funny) comic strip ~(maybe interactive and with links)~ about a Padawan that desires to be a Master. Add the one with Wolf, Tortoise and Cat sitting beside the window discussing differences in philosophy, while the wolf tries to come up with a solution.  
+
+- [x] Script.  
+- [ ] Avoid watermark. Budget a limited license.  
+- [ ] Draw characters and ambience.  
+- [ ] Export.  
 
 >
 > Tried and failed? Try again, fail better.
@@ -72,7 +79,7 @@ TODO: add (possibly funny) comic strip (maybe interactive and with links) about 
 > And leaving everything behind does not set us free.  
 > A solemn warrior burns even when it is wise to flee,  
 > As freedom lies in honouring a lifetime of decree.  
-> <cite>Pawan</cite>
+> <cite>Pawan</cite>  
 > :smile:
 >
 > So much to learn, and curiosity continues to grow.  
