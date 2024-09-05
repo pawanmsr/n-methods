@@ -27,7 +27,7 @@ namespace nm
     }
     
     template<typename T>
-    PnC<T>::PnC(std::size_t n, T mod) : mod(mod), Arithmetic<T>::Arithmetic(mod) {
+    PnC<T>::PnC(std::size_t n, T mod_prime) : mod(mod_prime), Arithmetic<T>::Arithmetic(mod_prime) {
         this->factorial.resize(n + 1, 1);
         this->factorial_inverse.resize(n + 1, 1);
 

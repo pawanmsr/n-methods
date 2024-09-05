@@ -23,7 +23,7 @@ namespace nm
     private:
         T mod;
     public:
-        Arithmetic(T mod);
+        Arithmetic(T mod_prime);
         T add(T x, T y);
         T subtract(T x, T y);
         T multiply(T x, T y);

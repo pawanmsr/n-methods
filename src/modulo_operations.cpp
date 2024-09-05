@@ -7,6 +7,7 @@
 namespace nm
 {
     // T is expected to be signed integer type.
+    // mod is a prime number.
     template<typename T>
     T modular_multiplicative_inverse(T num, const T mod) {
         T x, y;
@@ -17,6 +18,7 @@ namespace nm
         return (x % mod + mod) % mod;
     }
 
+    // mod is a prime number.
     template<typename T>
     T prime_modular_multiplicative_inverse_by_bin_exp(T num, const T mod) {
         return mod_bin_exp_iterative<T>(num, mod - 2, mod);
@@ -26,6 +28,7 @@ namespace nm
     }
 
     // num is non-negative integer.
+    // mod is a prime number.
     template<typename T>
     T prime_modular_multiplicative_inverse(T num, const T mod) {
         num %= mod;
@@ -36,7 +39,7 @@ namespace nm
     }
 
     template<typename T>
-    Arithmetic<T>::Arithmetic(T mod) : mod(mod) {}
+    Arithmetic<T>::Arithmetic(T mod_prime) : mod(mod_prime) {}
 
     template<typename T>
     T Arithmetic<T>::add(T x, T y) {
