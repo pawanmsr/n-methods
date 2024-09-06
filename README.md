@@ -27,7 +27,18 @@ Use small functions at the top of the solution. Append larger functions or group
 Run the build before copying the source templates into the solution. At least add basic tests for all new implementations.
 Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.  
 
-It must have taken people effort to become yellow/red, even if they are naturally attuned. The road is mighty long, and you have capacity and time. Failure is acceptable than regret. Reconfigure mental models and egress.  
+TODO: remove excess docs before merge.
+
+Alright, try it out seriously and well before edging off and playing for fun. It is good to know thy limits - you probably have capacity and time. Failure is acceptable than regret. Reconfigure mental models and egress. Once you are satisfied that you can do no better, you can properly get back to everything else.
+
+Mathematics is beautiful and being a Mathematician is hard. People who love mathematics, but find it difficult, end up becomming engineers and scientists . . . LOL! Also, Elo was a Physicist!  
+
+- [x] Become Cyan.
+- [ ] Become Blue.
+- [ ] Become Purple.  
+    Frame it with caption:
+    "Now I have become Purple, a mixture of blue and red." :joy: (Shamelessly derived from an archive clip of a renowned Physicist quoting a book.)
+- [ ] Edge off, but casually aim for other ranks.  
 
 <pre>
 .
