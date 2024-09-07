@@ -63,7 +63,11 @@ Blue is the standard everywhere.
 Fun
 ---
 
-[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)  [![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)
+[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)
+
+[![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)
+
+<a href="https://ibb.co/yF6TmQP"><img src="https://i.ibb.co/yF6TmQP/torti.png" alt="torti" border="0"></a> <a href="https://ibb.co/MNrZN9v"><img src="https://i.ibb.co/MNrZN9v/billi.png" alt="billi" border="0"></a>
 
 ![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
 
