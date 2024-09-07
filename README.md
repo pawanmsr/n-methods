@@ -63,6 +63,8 @@ Blue is the standard everywhere.
 Fun
 ---
 
+[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)  [![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)
+
 ![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
 
 Comic Strip: Confused Padawan.
