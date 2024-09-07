@@ -78,7 +78,9 @@ Comic Strip: Confused Padawan.
   - [x] Billi (Cat).  
   - [ ] Padawan.  
 - [ ] Draw Ambience.  
+- [ ] Add script.  
 - [ ] Export.  
+- [ ] Present (to everyone - not just yourself).  
 
 >
 > Tried and failed? Try again, fail better.
