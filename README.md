@@ -67,7 +67,7 @@ Fun
 
 Alternate
 
-![Torti](/doc/asset/torti512.png) ![Billi](/doc/asset/billi.png)  
+![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
 
 Comic Strip: Confused Padawan.
 
