@@ -63,19 +63,24 @@ Blue is the standard everywhere.
 Fun
 ---
 
-[![Torti](https://i.ibb.co/60HhcWw/torti.png)](https://ibb.co/yF6TmQP)  
-[![Billi](https://i.ibb.co/Th6Yhrf/billi.png)](https://ibb.co/MNrZN9v)  
+[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v) [![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
+
+Alternate
+
+![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
 
 Comic Strip: Confused Padawan.
 
 - [x] Script.  
-- [x] Avoid watermark. Budget a limited license.  
+- [x] Acquire tools.  
 - [ ] Draw Characters.  
   - [x] Torti (Tortoise).  
   - [x] Billi (Cat).  
   - [ ] Padawan.  
 - [ ] Draw Ambience.  
+- [ ] Add script.  
 - [ ] Export.  
+- [ ] Present (to everyone - not just yourself).  
 
 >
 > Tried and failed? Try again, fail better.
