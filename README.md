@@ -63,13 +63,11 @@ Blue is the standard everywhere.
 Fun
 ---
 
-[![Torti](https://i.ibb.co/60HhcWw/torti.png)](https://ibb.co/yF6TmQP)  
-[![Billi](https://i.ibb.co/Th6Yhrf/billi.png)](https://ibb.co/MNrZN9v)  
+![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
 
 Comic Strip: Confused Padawan.
 
 - [x] Script.  
-- [x] Avoid watermark. Budget a limited license.  
 - [ ] Draw Characters.  
   - [x] Torti (Tortoise).  
   - [x] Billi (Cat).  
