@@ -36,6 +36,8 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
     "Now I have become Purple, a mixture of blue and red." :joy:
 - [ ] Edge off, but casually aim for other ranks.  
 
+Blue is the standard everywhere.  
+
 <pre>
 .
 +-- build / bin
@@ -61,13 +63,16 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 Fun
 ---
 
-Comic Strip: Confused Padawan
+[![Torti](https://i.ibb.co/60HhcWw/torti.png)](https://ibb.co/yF6TmQP)
+[![Billi](https://i.ibb.co/Th6Yhrf/billi.png)](https://ibb.co/MNrZN9v)
+
+Comic Strip: Confused Padawan.
 
 - [x] Script.  
 - [x] Avoid watermark. Budget a limited license.  
 - [ ] Draw Characters.  
   - [x] Torti (Tortoise).  
-  - [ ] Billi (Cat).  
+  - [x] Billi (Cat).  
   - [ ] Padawan.  
 - [ ] Draw Ambience.  
 - [ ] Export.  
