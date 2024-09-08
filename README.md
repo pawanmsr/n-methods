@@ -44,7 +44,7 @@ Blue is the standard everywhere.
 |   - binaries
 +-- doc
 |   - documentation
-|   +-- assets
+|   +-- asset
 |   |    - graphics
 +-- include
 |   - headers
@@ -69,18 +69,20 @@ Alternate
 
 ![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
 
-Comic Strip: Confused Padawan.
+Comic Strip: Confused Padawan Trying To Find His Place In The World.  
 
 - [x] Script.  
 - [x] Acquire tools.  
-- [ ] Draw Characters.  
+- [ ] Draw characters.  
   - [x] Torti (Tortoise).  
   - [x] Billi (Cat).  
   - [ ] Padawan.  
-- [ ] Draw Ambience.  
+- [ ] Draw ambience.  
 - [ ] Add script.  
 - [ ] Export.  
 - [ ] Present (to everyone - not just yourself).  
+
+[References](/doc/comic-script.md).  
 
 >
 > Tried and failed? Try again, fail better.
