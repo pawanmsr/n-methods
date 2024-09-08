@@ -80,7 +80,7 @@ Comic Strip: Confused Padawan Trying To Find His Place In The World.
 - [ ] Draw ambience.  
 - [ ] Add script.  
 - [ ] Export.  
-- [ ] Present (to everyone - not just yourself).  
+- [ ] Present (to everyone - not just yourself - if easy enough to understand).  
 
 [References](/doc/comic-script.md).  
 
