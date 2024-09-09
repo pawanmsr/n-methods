@@ -29,9 +29,9 @@ TODO.
 
 **Torti**: TODO. In any case, you don't want to end up being labelled as an undeniable low performing piss pot, do you?  
 
-**Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down to Earth]() wondering . . . TODO.  
+**Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down To Earth (Wall-E)]() wondering . . . TODO.  
 
-**Smart AI Assistant**: Right away (wannabe Master but still a dumb) Padawan. Playing [I Think it's Going To Be A Long Long Time]().  
+**Smart AI Assistant**: Right away (wannabe Master but still a dumb) Padawan. Playing [Rocket Man (I Think it's Going To Be A Long Long Time)]().  
 
 TODO  
 
