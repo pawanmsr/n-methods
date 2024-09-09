@@ -19,7 +19,7 @@ Hey Smart AI Assistant, please play [Born To Run](https://youtu.be/IxuThNgl3YA?s
 **Billi**: And all the while paddle shifting from high two to low four almost instantaneously - meow to my ears.  
 All of this reminds me of another song. Hey, Smart AI Assistant, play [Fast Cars]()!  
 
-**Smart AI Assistant**: Right away (wannabe Master but still a) Padawan's pet Billi. Playing [Blowing In The Wind]().  
+**Smart AI Assistant**: Right away (wannabe Master but still a) Padawan's pet Billi. Playing [Blowing In The Wind](https://youtu.be/vWwgrjjIMXA?si=Zv2q6nWhIGkS92ja).  
 
 **Confused Padawan**: How do you know so much about Mr Rodeo?  
 
