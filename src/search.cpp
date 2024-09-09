@@ -12,7 +12,7 @@ namespace nm
             U step = jump / 2;
             U j = i + step;
             T space_value = space[j];
-            if (not compare(element, space_value)) {
+            if (compare(space_value, element)) {
                 i = j + 1;
                 jump -= step + 1;
             } else jump = step;
