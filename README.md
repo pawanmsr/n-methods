@@ -71,8 +71,11 @@ Alternate
 
 Comic Strip: Confused Padawan Trying To Find His Place In The World.  
 
+STALLED.
+
 - [x] Script.  
 - [x] Acquire tools.  
+  - [ ] Get Better Tools.
 - [ ] Draw characters.  
   - [x] Torti (Tortoise).  
   - [x] Billi (Cat).  
@@ -80,7 +83,8 @@ Comic Strip: Confused Padawan Trying To Find His Place In The World.
 - [ ] Draw ambience.  
 - [ ] Add script.  
 - [ ] Export.  
-- [ ] Present (to everyone - not just yourself - if easy enough to understand).  
+- [x] ~Present (to everyone - not just yourself - if easy enough to understand)~.  
+  Nothing worth sharing. Skip.  
 
 [References](/doc/comic-script.md).  
 

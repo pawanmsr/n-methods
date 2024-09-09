@@ -12,20 +12,33 @@ Hey Smart AI Assistant, please play [Born To Run]().
 
 **Smart AI Assistant**: Right away (wannabe Master but still a) Padawan's pet Torti. Music subscription renewed! Playing [I Still Haven't Found What I'm Looking For](). Enjoy the beat(ing)s LOL.  
 
-**Billi**: That [Master Oogway]() is probably going to live to one fifty! Keep listening to him, and you will end up like a wilted candle, because *[Aakash Ke Us Paar]() bhi aakash hain*!
+**Billi**: That [Master Oogway]() is probably going to live to one fifty! Keep listening to him, and you will end up like a wilted candle, because *[Aakash Ke Us Paar]() bhi aakash hain*! Look at Mr. Rodeo over there in the distance, flooring his supercharged 5 litre 600 horsepower twin turbo V10 beast playing [Jeene Ke Hain Char Din]() from its explosive woofers with les femmes beaux in the backseat. I like Mr Rodeo's "Chillout Pro Max Ultra" philosophy over your "Honour and Glory" stupidity. Mr Rodeo is cool. Be like Mr Rodeo. Moreover, didn't someone admirable say that life is not measured by the number of breaths we take but by the moments that take your breath away - I am sure darting at 90 on a 40 kmph limit will [Take My Breath Away]().  
 
-TO BE ADDED  
+**Confused Padawan**: I don't think the admirable person meant that by saying so. On the other hand, that supercar seems quite interesting. I am pretty sure I can squeeze more horsepower out from those specifications.  
+
+**Billi**: And all the while paddle shifting from high two to low four almost instantaneously - meow to my ears.  
+All of this reminds me of another song. Hey, Smart AI Assistant, play [Fast Cars]()!  
+
+**Smart AI Assistant**: Right away (wannabe Master but still a) Padawan's pet Billi. Playing [Blowing In The Wind]().  
+
+**Confused Padawan**: How do you know so much about Mr Rodeo?  
+
+**Billi**: I was his pet during my seventh life till he pressed the brakes too hard. I blasted through the windshield and splat onto the *OK* of *Horn OK Please* written at the back of a lorry. Vehicles don't have seatbelts for pets, you see. I was married then, but the contract ended right after the accident. This is my last but one life.  TODO.
+
+TODO.
+
+**Torti**: TODO. In any case, you don't want to end up being labelled as an undeniable low performing piss pot, do you?  
+
+**Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down to Earth]() wondering . . . TODO.  
+
+**Smart AI Assistant**: Right away (wannabe Master but still a dumb) Padawan. Playing [I Think it's Going To Be A Long Long Time]().  
+
 TODO  
 
-**Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down to Earth]() wondering . . . TO BE ADDED
+**THE END**.
 
-TODO  
-TO BE ADDED  
-
-THE END.
-
-Standard References for Reading
--------------------------------
+Elements of Comics were Inspired by following References
+--------------------------------------------------------
 
 *Existentialism.*  
 Bernoulli. *St. Petersburg Paradox. Theory of Utility and Expected Utility Hypothesis.*  
