@@ -11,6 +11,10 @@ Padawan is participating in a contest that will help him achieve something. Bill
 
 TODO
 
+**Billi**: That [Master Oogway]() is probably going to live to one fifty! Keep listening to him, and you will end up like a wilted candle, because *[Aakash Ke Us Paar]() bhi aakash hain*!
+
+TODO
+
 **Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down to Earth]() wondering . . . TO BE ADDED
 
 TODO
