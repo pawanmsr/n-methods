@@ -33,6 +33,8 @@ TODO.
 
 **Smart AI Assistant**: Right away (wannabe Master but still a dumb) Padawan. Playing [Rocket Man (I Think it's Going To Be A Long Long Time)](https://youtu.be/DtVBCG6ThDk?si=2K-QHEEYYa5yk39Z).  
 
+**Billi**: That AI Assistant is even dumber than our dumb Padawan. Play the right song a few times you Not So Smart AI Assistant, and this time you weren't even asked to play a song.  
+
 TODO  
 
 **THE END**.
