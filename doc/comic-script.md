@@ -12,7 +12,7 @@ Hey Smart AI Assistant, please play [Born To Run]().
 
 **Smart AI Assistant**: Right away (wannabe Master but still a) Padawan's pet Torti. Music subscription renewed! Playing [I Still Haven't Found What I'm Looking For](). Enjoy the beat(ing)s LOL.  
 
-**Billi**: That [Master Oogway]() is probably going to live to one fifty! Keep listening to him, and you will end up like a wilted candle, because *[Aakash Ke Us Paar]() bhi aakash hain*! Look at Mr. Rodeo over there in the distance, flooring his supercharged 5 litre 600 horsepower twin turbo V10 beast playing [Jeene Ke Hain Char Din]() from its explosive woofers with les femmes beaux in the backseat. I like Mr Rodeo's "Chillout Pro Max Ultra" philosophy over your "Honour and Glory" stupidity. Mr Rodeo is cool. Be like Mr Rodeo. Moreover, didn't someone admirable say that life is not measured by the number of breaths we take but by the moments that take your breath away - I am sure darting at 90 on a 40 kmph limit will [Take My Breath Away]().  
+**Billi**: That [Master Oogway]() is probably going to live to one fifty! Keep listening to him, and you will end up like a wilted candle, because *[Aakash Ke Us Paar]() bhi aakash hain*! Look at Mr. Rodeo over there in the distance, flooring his supercharged 5 litre 600 horsepower twin turbo V10 beast playing [Jeene Ke Hain Char Din](https://open.spotify.com/track/4UJih0aZ8YcQm4CIErba45?si=d8daa3a37e134b65) from its explosive woofers with les femmes beaux in the backseat. I like Mr Rodeo's "Chillout Pro Max Ultra" philosophy over your "Honour and Glory" stupidity. Mr Rodeo is cool. Be like Mr Rodeo. Moreover, didn't someone admirable say that life is not measured by the number of breaths we take but by the moments that take your breath away - I am sure darting at 90 on a 40 kmph limit will [Take My Breath Away]().  
 
 **Confused Padawan**: I don't think the admirable person meant that by saying so. On the other hand, that supercar seems quite interesting. I am pretty sure I can squeeze more horsepower out from those specifications.  
 
@@ -31,7 +31,7 @@ TODO.
 
 **Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down To Earth (Wall-E)]() wondering . . . TODO.  
 
-**Smart AI Assistant**: Right away (wannabe Master but still a dumb) Padawan. Playing [Rocket Man (I Think it's Going To Be A Long Long Time)]().  
+**Smart AI Assistant**: Right away (wannabe Master but still a dumb) Padawan. Playing [Rocket Man (I Think it's Going To Be A Long Long Time)](https://youtu.be/DtVBCG6ThDk?si=2K-QHEEYYa5yk39Z).  
 
 TODO  
 
