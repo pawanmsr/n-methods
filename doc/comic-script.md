@@ -29,7 +29,7 @@ TODO.
 
 **Torti**: TODO. In any case, you don't want to end up being labelled as an undeniable low performing piss pot, do you?  
 
-**Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down To Earth (Wall-E)]() wondering . . . TODO.  
+**Dumb and Confused Padawan**: No, I don't. Go away. I have a side quest to complete! I want to draw a comic about a [Starman]() looking [Down To Earth](https://music.apple.com/us/album/down-to-earth-from-wall-e/1444861833?i=1444861837) wondering . . . TODO.  
 
 **Smart AI Assistant**: Right away (wannabe Master but still a dumb) Padawan. Playing [Rocket Man (I Think it's Going To Be A Long Long Time)](https://youtu.be/DtVBCG6ThDk?si=2K-QHEEYYa5yk39Z).  
 
