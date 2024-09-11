@@ -18,6 +18,7 @@ namespace nm
         bool update_tree(T value, size_t position, size_t lo, size_t hi, size_t i);
     public:
         SegmentTree(std::vector<T> &data, U *integrator_struct);
+        // Reference: https://cp-algorithms.com/
         T query(size_t left, size_t right);
         bool update(T value, size_t position);
         ~SegmentTree();
