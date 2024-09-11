@@ -14,6 +14,7 @@ namespace nm
         U integrator;
     protected:
         void construct(std::vector<T> &data, size_t lo, size_t hi, size_t i);
+        T traverse(size_t lo, size_t hi, size_t i, size_t tlo, size_t thi);
     public:
         SegmentTree(std::vector<T> &data, U *integrator_struct);
         T query(size_t left, size_t right);
