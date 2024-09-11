@@ -28,10 +28,10 @@ namespace nm
     template<class T, class U>
     bool SegmentTree<T, U>::update_tree(T value, size_t position, size_t lo, size_t hi, size_t i) {
         if (lo == hi) {
-            this->tree[i] = value;
+            this->tree[i] = this->integrator->assign(value);
             return true;
         }
-        
+
         size_t mid = lo + (hi - lo) / 2;
         if (position <= mid) return this->update_tree(value, position, lo, mid, 2 * i);
         return this->update_tree(value, position, size_t mid + 1, size_t hi, 2 * i + 1);
@@ -55,7 +55,7 @@ namespace nm
     
     template<class T, class U>
     void SegmentTree<T, U>::construct(std::vector<T> &data, size_t lo, size_t hi, size_t i) {
-        if (lo == hi) this->tree[lo] = data[i];
+        if (lo == hi) this->tree[lo] = this->integrator->assign(data[i]);
         else {
             size_t mid = lo + (hi - lo) / 2;
             this->construct(data, lo, mid, i * 2);
