@@ -17,8 +17,7 @@ namespace nm
     template<class T, class U>
     T SegmentTree<T, U>::query_tree(size_t lo, size_t hi, size_t tlo, size_t thi, size_t i) {
         if (lo > hi) return this->integrator->identity;
-        if (lo == tlo and hi == thi)
-            return this->tree[i];
+        if (lo == tlo and hi == thi) return this->tree[i];
         
         size_t mid = tlo + (thi - tlo) / 2;
         return this->integrator->integrate(this->query_tree(lo, min(mid, hi), tlo, mid, 2 * i),

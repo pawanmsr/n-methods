@@ -5,6 +5,14 @@
 
 namespace nm
 {
+    /*
+     * T is data type of container.
+     * U is a pointer to object or struct.
+     * U must contain an identity element.
+     * U must contain an 'assign' function.
+     * U must contain a function to combine
+     * two parts of the tree called 'integrate'.
+     */
     template<class T, class U>
     class SegmentTree
     {
