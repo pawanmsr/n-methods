@@ -15,12 +15,11 @@ namespace nm
     protected:
         void construct(std::vector<T> &data, size_t lo, size_t hi, size_t i);
         T query_tree(size_t lo, size_t hi, size_t tlo, size_t thi, size_t i);
-        bool update_tree(T value, size_t position, size_t lo, size_t hi, size_t i);
+        T update_tree(T value, size_t position, size_t lo, size_t hi, size_t i);
     public:
         SegmentTree(std::vector<T> &data, U *integrator_struct);
-        // Reference: https://cp-algorithms.com/
         T query(size_t left, size_t right);
-        bool update(T value, size_t position);
+        T update(T value, size_t position);
         ~SegmentTree();
     };
 } // namespace nm
