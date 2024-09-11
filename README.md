@@ -84,7 +84,7 @@ STALLED.
 - [ ] Add script.  
 - [ ] Export.  
 - [x] ~Present (to everyone - not just yourself - if easy enough to understand)~.  
-  Nothing worth sharing. Skip.  
+  Nothing worth sharing. For Later. Primary First.  
 
 [References](/doc/comic-script.md).  
 
