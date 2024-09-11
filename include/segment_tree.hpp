@@ -12,9 +12,11 @@ namespace nm
         size_t n;
         vector<T> tree;
         U integrator;
+    protected:
+        void construct(std::vector<T> &data, size_t lo, size_t hi, size_t i);
     public:
         SegmentTree(std::vector<T> &data, U *integrator_struct);
-        void construct(std::vector<T> &data, size_t lo, size_t hi, size_t i);
+        T query(size_t left, size_t right);
         ~SegmentTree();
     };
 } // namespace nm
