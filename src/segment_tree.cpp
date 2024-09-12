@@ -20,8 +20,8 @@ namespace nm
         if (lo == tlo and hi == thi) return this->tree[i];
         
         size_t mid = tlo + (thi - tlo) / 2;
-        return this->integrator->integrate(this->query_tree(lo, min(mid, hi), tlo, mid, 2 * i),
-            this->query_tree(max(lo, mid + 1), hi, mid + 1, thi, 2 * i + 1));
+        return this->integrator->integrate(this->query_tree(lo, min(mid, hi), tlo, mid, i * 2),
+            this->query_tree(max(lo, mid + 1), hi, mid + 1, thi, i * 2 + 1));
     }
 
     template<class T, class U>
@@ -29,10 +29,11 @@ namespace nm
         if (lo == hi) return this->tree[i] = this->integrator->assign(value);
 
         size_t mid = lo + (hi - lo) / 2;
-        if (position <= mid) this->update_tree(value, position, lo, mid, 2 * i);
-        else this->update_tree(value, position, mid + 1, hi, 2 * i + 1);
+        if (position <= mid) this->update_tree(value, position, lo, mid, i * 2);
+        else this->update_tree(value, position, mid + 1, hi, i * 2 + 1);
         
-        return this->tree[i] = this->integrator->integrate(this->tree[2 * i], this->tree[2 * i + 1]);
+        return this->tree[i] = this->integrator->integrate(this->tree[i * 2],
+            this->tree[i * 2 + 1]);
     }
     
     template<class T, class U>
@@ -54,7 +55,8 @@ namespace nm
             size_t mid = lo + (hi - lo) / 2;
             this->construct(data, lo, mid, i * 2);
             this->construct(data, mid + 1, hi, i * 2 + 1);
-            this->tree[i] = this->integrator->integrate(this->tree[i * 2], this->tree[i * 2 + 1]);
+            this->tree[i] = this->integrator->integrate(this->tree[i * 2],
+                this->tree[i * 2 + 1]);
         }
     }
     
