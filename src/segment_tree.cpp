@@ -38,13 +38,13 @@ namespace nm
     
     template<class T, class U>
     T SegmentTree<T, U>::query(size_t left, size_t right) {
-        // validate left and right
+        assert(left >= 0); assert(right < this->n);
         return this->query_tree(left, right, 0, this->n - 1, 1);
     }
 
     template<class T, class U>
     T SegmentTree<T, U>::update(T value, size_t position) {
-        // validate position
+        assert(position >= 0 and position < this->n);
         return update_tree(value, position, 0, this->n - 1, 1);
     }
     
