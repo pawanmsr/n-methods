@@ -12,19 +12,22 @@ namespace nm
             this->n = m;
             this->tree.resize(this->n * 2);
             this->auxiliary.resize(this->n * 2, this->integrator->identity);
+            // auxiliary holds delayed range updates
             
             this->construct(data, 0, this->n - 1, 1);
         }
     
+    // modify
+    // propagate needs to be customized according to requirement
     template<class T, class U>
-    void SegmentTree<T, U>::propagate(size_t lo, size_t hi, size_t i) {
+    void SegmentTree<T, U>::propagate(size_t i) {
         if (this->auxiliary[i] != this->integrator->identity) {
-            if (lo < hi) {
-                this->auxiliary[i * 2] = this->integrator->assign(this->auxiliary[i]);
-                this->auxiliary[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
-            }
+            this->tree[i * 2] = this->integrator->assign(this->auxiliary[i]);
+            this->tree[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
 
-            this->tree[i] = this->integrator->assign(this->auxiliary[i]);
+            this->auxiliary[i * 2] = this->integrator->assign(this->auxiliary[i]);
+            this->auxiliary[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
+
             this->auxiliary[i] = this->integrator->identity;
         }
     }
@@ -32,9 +35,9 @@ namespace nm
     template<class T, class U>
     T SegmentTree<T, U>::query_tree(size_t lo, size_t hi, size_t tlo, size_t thi, size_t i) {
         if (lo > hi) return this->integrator->identity;
-        
-        this->propagate(lo, hi, i);
         if (lo == tlo and hi == thi) return this->tree[i];
+
+        this->propagate(i);
         
         size_t mid = tlo + (thi - tlo) / 2;
         return this->integrator->integrate(this->query_tree(lo, min(mid, hi), tlo, mid, i * 2),
@@ -58,19 +61,16 @@ namespace nm
     T SegmentTree<T, U>::update_tree(T value, size_t lo, size_t hi, size_t tlo, size_t thi, size_t i) {
         if (lo > hi) return this->integrator->identity;
         
-        this->propagate(lo, hi, i);
         if (lo == tlo and hi == thi) {
-            if (lo < hi) {
-                this->auxiliary[i * 2] = this->integrator->assign(value);
-                this->auxiliary[i * 2 + 1] = this->integrator->assign(value);
-            }
-
-            return this->tree[i] = this->integrator->assign(value);
+            this->auxiliary[i] = this->integrator->assign(value); // modify
+            return this->tree[i] = this->integrator->assign(value); // modify
         } else {
+            this->propagate(i);
+
             size_t mid = tlo + (thi - tlo) / 2;
             this->update_tree(value, lo, min(mid, hi), tlo, mid, i * 2);
             this->update_tree(value, max(lo, mid + 1), hi, mid + 1, thi, i * 2 + 1);
-            return return this->tree[i] = this->integrator->integrate(this->tree[i * 2],
+            return this->tree[i] = this->integrator->integrate(this->tree[i * 2],
                 this->tree[i * 2 + 1]);
         }
     }

@@ -9,6 +9,8 @@ namespace nm
     template<class T>
     struct U {
         T identity;
+
+        // Also modify in update_tree and propagate
         T assign(T data) {
             // Add arguments and math
             // for flexibility and functionality.
@@ -40,11 +42,11 @@ namespace nm
     private:
         size_t n;
         vector<T> tree;
-        vector<T> auxiliary; // holds delayed range updates
+        vector<T> auxiliary;
         U *integrator;
     
     protected:
-        void propagate(size_t lo, size_t hi, size_t i);
+        void propagate(size_t i);
         void construct(std::vector<T> &data, size_t lo, size_t hi, size_t i);
         T query_tree(size_t lo, size_t hi, size_t tlo, size_t thi, size_t i);
         T update_tree(T value, size_t position, size_t lo, size_t hi, size_t i);
