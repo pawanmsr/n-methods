@@ -12,6 +12,8 @@ namespace nm
         T assign(T data) {
             // Add arguments and math
             // for flexibility and functionality.
+            // Must be associative and commutative
+            //  (and optionally distributive) properties.
             return data;
         }
 
@@ -25,10 +27,12 @@ namespace nm
     
     /*
      * U is a pointer to object or struct.
-     * U must contain an identity element.
-     * U must contain an 'assign' function.
-     * U must contain a function to combine
-     * two parts of the tree called 'integrate'.
+     * U must contain an 'identity' element.
+     * U must contain an 'assign' function
+     *  which must have associative and commutative
+     *  (and optionally distributive) properties.
+     * U must contain an 'integrate' function
+     *  to combine two separate parts of the tree.
      */
     template<class T, class U>
     class SegmentTree
@@ -40,6 +44,7 @@ namespace nm
         U *integrator;
     
     protected:
+        void propagate(size_t lo, size_t hi, size_t i);
         void construct(std::vector<T> &data, size_t lo, size_t hi, size_t i);
         T query_tree(size_t lo, size_t hi, size_t tlo, size_t thi, size_t i);
         T update_tree(T value, size_t position, size_t lo, size_t hi, size_t i);
