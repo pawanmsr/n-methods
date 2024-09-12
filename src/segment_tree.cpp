@@ -11,6 +11,8 @@ namespace nm
             
             this->n = m;
             this->tree.resize(this->n * 2);
+            this->auxiliary.resize(this->n * 2);
+            
             this->construct(data, 0, this->n - 1, 1);
         }
     
@@ -24,6 +26,7 @@ namespace nm
             this->query_tree(max(lo, mid + 1), hi, mid + 1, thi, i * 2 + 1));
     }
 
+    // position is index in zero indexed sequence
     template<class T, class U>
     T SegmentTree<T, U>::update_tree(T value, size_t position, size_t lo, size_t hi, size_t i) {
         if (lo == hi) return this->tree[i] = this->integrator->assign(value);
@@ -35,7 +38,14 @@ namespace nm
         return this->tree[i] = this->integrator->integrate(this->tree[i * 2],
             this->tree[i * 2 + 1]);
     }
+
+    template<class T, class U>
+    T SegmentTree<T, U>::update_tree(T value, size_t lo, size_t hi, size_t tlo, size_t thi, size_t i) {
+        // TODO
+        return this->integrator->identity;
+    }
     
+    // left and right are indices in zero indexed sequence
     template<class T, class U>
     T SegmentTree<T, U>::query(size_t left, size_t right) {
         assert(left >= 0); assert(right < this->n);
@@ -46,6 +56,13 @@ namespace nm
     T SegmentTree<T, U>::update(T value, size_t position) {
         assert(position >= 0 and position < this->n);
         return update_tree(value, position, 0, this->n - 1, 1);
+    }
+
+    // left and right are indices in zero indexed sequence
+    template<class T, class U>
+    T SegmentTree<T, U>::update(T value, size_t left, size_t right) {
+        assert(left >= 0); assert(right < this->n);
+        return update_tree(value, left, right, 0, this->n - 1, 1);
     }
     
     template<class T, class U>

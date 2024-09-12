@@ -36,17 +36,20 @@ namespace nm
     private:
         size_t n;
         vector<T> tree;
+        vector<T> auxiliary; // holds delayed range updates
         U *integrator;
     
     protected:
         void construct(std::vector<T> &data, size_t lo, size_t hi, size_t i);
         T query_tree(size_t lo, size_t hi, size_t tlo, size_t thi, size_t i);
         T update_tree(T value, size_t position, size_t lo, size_t hi, size_t i);
+        T update_tree(T value, size_t lo, size_t hi, size_t tlo, size_t thi, size_t i);
     
     public:
         SegmentTree(std::vector<T> &data, U *integrator_struct = new U());
         T query(size_t left, size_t right);
         T update(T value, size_t position);
+        T update(T value, size_t left, size_t right);
         ~SegmentTree();
     };
 } // namespace nm
