@@ -27,17 +27,6 @@ Use small functions at the top of the solution. Append larger functions or group
 Run the build before copying the source templates into the solution. At least add basic tests for all new implementations.
 Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.
 
-### Milestones
-
-- [x] Become Cyan.  
-- [ ] Become Blue.  
-- [ ] Become Purple.  
-    Frame it with caption:
-    "Now I have become Purple, a mixture of blue and red." :joy:
-- [ ] Edge off, but casually aim for other ranks.  
-
-Blue is the standard everywhere.  
-
 <pre>
 .
 +-- build / bin
@@ -59,6 +48,23 @@ Blue is the standard everywhere.
 |   - unit tests
 
 </pre>
+
+### Logistics
+
+Use own or familiar device or get familiar with available workstation. Make sure all keys work especially if keyboard is battered - if they all don't then make a note of disabled keys to avoid naming variables that spell with disabled letters - and try not to use on-screen keyboard or touch screens. Download the compressed file of the repository or use version control if available.
+
+### Milestones
+
+Ratings are important, but learning and improvements are more important - consider blue as benchmark and try to reach above. Same goes for everything else. Register only if interested - unrated otherwise. Have fun!  
+
+- [x] Become Cyan.  
+- [ ] Become Blue.  
+- [ ] Become Purple.  
+    Frame it with caption:
+    "Now I have become Purple, a mixture of blue and red." :joy:
+- [ ] Edge off, but casually aim for other ranks.  
+
+It is an art (albeit a difficult one)!
 
 Fun
 ---
