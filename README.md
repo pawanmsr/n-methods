@@ -64,7 +64,7 @@ Ratings are important, but learning and improvements are more important - consid
     "Now I have become Purple, a mixture of blue and red." :joy:
 - [ ] Edge off, but casually aim for other ranks.  
 
-It is an art (albeit a difficult one)!
+It is an art (albeit a difficult one)! Read instructions and checklists often. Don't get bored. Boredom kills.  
 
 Fun
 ---
