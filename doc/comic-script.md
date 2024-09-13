@@ -1,7 +1,7 @@
 Comic Script
 ============
 
-Padawan is participating in a contest that will help him achieve something. Billi is a cat. Tori is a tortoise.  
+Padawan is participating in a contest that will help him achieve something. Billi is a cat. Torti is a tortoise.  
 
 **Padawan**: Look at all these people bolting past. A disgrace of astronomical proportions. I feel so inadequate and worthless - feel like giving up!
 
