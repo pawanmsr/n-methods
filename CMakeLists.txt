@@ -10,7 +10,7 @@ project(n-methods VERSION 0.0.1 LANGUAGES CXX)
 include(FetchContent)
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/a7f443b80b105f940225332ed3c31f2790092f47.zip
+  URL https://github.com/google/googletest/archive/0953a17a4281fc26831da647ad3fcd5e21e6473b.zip
   # Update the hash from commit history:
   # https://github.com/google/googletest/commits/main/
 )

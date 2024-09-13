@@ -7,6 +7,7 @@
 namespace nm
 {
     // T is expected to be signed integer type.
+    // mod is a prime number.
     template<typename T>
     T modular_multiplicative_inverse(T num, const T mod) {
         T x, y;
@@ -17,6 +18,7 @@ namespace nm
         return (x % mod + mod) % mod;
     }
 
+    // mod is a prime number.
     template<typename T>
     T prime_modular_multiplicative_inverse_by_bin_exp(T num, const T mod) {
         return mod_bin_exp_iterative<T>(num, mod - 2, mod);
@@ -26,6 +28,7 @@ namespace nm
     }
 
     // num is non-negative integer.
+    // mod is a prime number.
     template<typename T>
     T prime_modular_multiplicative_inverse(T num, const T mod) {
         num %= mod;
@@ -33,6 +36,42 @@ namespace nm
         // mod is prime => gcd(num, mod) is 1
         return num < 2 ? num : mod - (long long)(mod / num) *
             prime_modular_multiplicative_inverse<T>(mod % num, mod) % mod;
+    }
+
+    template<typename T>
+    Arithmetic<T>::Arithmetic(T mod_prime) : mod(mod_prime) {}
+
+    template<typename T>
+    T Arithmetic<T>::add(T x, T y) {
+        T z = x + y;
+        if (z > this->mod) z -= this->mod;
+        return z;
+    }
+
+    template<typename T>
+    T Arithmetic<T>::subtract(T x, T y) {
+        T z = x - y;
+        if (z < 0) z += this->mod;
+        return z;
+    }
+
+    template<typename T>
+    T Arithmetic<T>::multiply(T x, T y) {
+        T z = x * y % this->mod;
+        if (z < 0) z += this->mod;
+        return z;
+    }
+
+    // Divide requires multiplicative_inverse.
+    template<typename T>
+    T Arithmetic<T>::divide(T x, T y) {
+        T z = x * prime_modular_multiplicative_inverse<T>(y, this->mod);
+        return z % this->mod;
+    }
+
+    template<typename T>
+    Arithmetic<T>::~Arithmetic(){
+        // delete this;
     }
 } // namespace nm
 
@@ -43,3 +82,6 @@ template long long nm::prime_modular_multiplicative_inverse<long long>(long long
 template int nm::modular_multiplicative_inverse<int>(int, const int);
 template int nm::prime_modular_multiplicative_inverse_by_bin_exp<int>(int, const int);
 template int nm::prime_modular_multiplicative_inverse<int>(int, const int);
+
+template class nm::Arithmetic<int>;
+template class nm::Arithmetic<long long>;

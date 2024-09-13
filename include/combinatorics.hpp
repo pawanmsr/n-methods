@@ -1,6 +1,8 @@
 #if !defined(COMBINATORICS)
 #define COMBINATORICS
 
+#include <modulo_operations.hpp>
+
 #include <vector>
 
 namespace nm
@@ -9,7 +11,7 @@ namespace nm
     bool next_permutation(std::vector<T>& permutation);
 
     template<typename T>
-    class PnC {
+    class PnC : public Arithmetic<T> {
     private:
         T mod;
         std::vector<T> factorial;
