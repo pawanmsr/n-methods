@@ -20,6 +20,24 @@ namespace nm
      * Heap sort when recursion stack is maxed out.
      */
 
+    // Add type conversion for lambda functions //
+
+    template<class T, typename U>
+    void hybrid_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
+        // conditionally pick sorting type //
+    }
+
+    template<class T, typename U>
+    void introspective_qsort(U lo, U hi, std::vector<T>& v,
+        std::function<bool(T&, T&)> compare, U depth) {
+            // Quick Sort //
+        }
+    
+    template<class T, typename U>
+    void heap_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
+        // Implement Heap //
+    }
+
     template<class T, typename U>
     void insertion_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
         for (U i = lo; i <= hi; i++) {
