@@ -112,7 +112,7 @@ STALLED.
 > And leaving everything behind does not set us free.  
 > A solemn warrior burns even when it is wise to flee,  
 > As freedom lies in honouring a lifetime of decree.  
-> <cite>Pawan</cite> ([inspired](/doc/footnotes.md) but original).  
+> <cite>Pawan</cite> ([inspired](/doc/footnotes.md), impersonal but original).  
 > :smile:
 >
 > So much to learn, and curiosity continues to grow.  
