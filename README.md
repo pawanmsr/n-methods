@@ -63,8 +63,11 @@ Ratings are important, but learning and improvements are more important - consid
     Frame it with caption:
     "Now I have become Purple, a mixture of blue and red." :joy:
 - [ ] Edge off, but casually aim for other ranks.  
+- [ ] Become Yellow (if it ever happens).
+    Frame it within a golden frame with caption:
+    "Mellow Master Me" :satisfied:
 
-It is an art (albeit a difficult one)! Read instructions and checklists often. Don't get bored. Boredom kills.  
+Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often. Don't get bored. Boredom kills.  
 
 Fun
 ---
