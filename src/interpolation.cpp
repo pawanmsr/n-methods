@@ -18,6 +18,10 @@ namespace nm
             ms.sort(bounds, compare = [](std::pair<T, T> &a, std::pair<T, T> &b) {
                 return a.first < b.first;
             }); ms.apply(coefficients);
+
+            // Figure out how to check overlap for floating points?
+            // Bounds must not overlap because they will lead to ambiguity.
+            // Within certain degree of error tolerance, maybe 6 decimal places or less (2^(23 - 1))?
         }
     
     template<typename T>
