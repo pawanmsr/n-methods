@@ -14,7 +14,7 @@ namespace nm
         T assign(T data) {
             // Add arguments and math
             // for flexibility and functionality.
-            // Must be associative and commutative
+            // Must have associative and commutative
             //  (and optionally distributive) properties.
             return data;
         }

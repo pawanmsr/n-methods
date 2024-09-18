@@ -2,6 +2,8 @@
 
 namespace nm
 {
+    // !? lookout for // modify // in popagate function
+    // and assignment in update_tree function
     template<class T, class U>
     SegmentTree<T, U>::SegmentTree(std::vector<T> &data, U *integrator_struct) : 
         integrator(integrator_struct) {
@@ -17,19 +19,20 @@ namespace nm
             this->construct(data, 0, this->n - 1, 1);
         }
     
-    // modify
+    // modify //
     // propagate needs to be customized according to requirement
     template<class T, class U>
     bool SegmentTree<T, U>::propagate(int32_t i) {
         if (this->auxiliary[i] == this->integrator->identity) return false;
 
         // lazy propagation
-        this->tree[i * 2] = this->integrator->assign(this->auxiliary[i]);
-        this->tree[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
+        this->tree[i * 2] = this->integrator->assign(this->auxiliary[i]); // modify //
+        this->tree[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]); // modify //
 
-        // FIXME: this is perhaps not needed when i * 2 is greater than or equal to this->n
-        this->auxiliary[i * 2] = this->integrator->assign(this->auxiliary[i]);
-        this->auxiliary[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
+        // FIXME: this is perhaps not needed when i * 2
+        // is greater than or equal to this->n
+        this->auxiliary[i * 2] = this->integrator->assign(this->auxiliary[i]); // modify //
+        this->auxiliary[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]); // modify //
 
         this->auxiliary[i] = this->integrator->identity;
         return true
@@ -65,8 +68,8 @@ namespace nm
         if (lo > hi) return this->integrator->identity;
         
         if (lo == tlo and hi == thi) {
-            this->auxiliary[i] = this->integrator->assign(value); // modify
-            return this->tree[i] = this->integrator->assign(value); // modify
+            this->auxiliary[i] = this->integrator->assign(value); // modify //
+            return this->tree[i] = this->integrator->assign(value); // modify //
         } else {
             this->propagate(i);
 
@@ -93,6 +96,7 @@ namespace nm
     }
 
     // left and right are indices in zero indexed sequence
+    // !? modify assignment in update_tree protected method
     template<class T, class U>
     T SegmentTree<T, U>::update(T value, int32_t left, int32_t right) {
         assert(left >= 0); assert(right < this->n);
@@ -116,3 +120,4 @@ namespace nm
     }
 } // namespace nm
 
+template class nm::SegmentTree<int, nm::U<int> >;
