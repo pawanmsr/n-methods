@@ -5,28 +5,6 @@
 
 namespace nm
 {
-    // T is type of data to query on
-    template<class T>
-    struct U {
-        T identity;
-
-        // Also modify in update_tree and propagate
-        T assign(T data) {
-            // Add arguments and math
-            // for flexibility and functionality.
-            // Must have associative and commutative
-            //  (and optionally distributive) properties.
-            return data;
-        }
-
-        T integrate(T a, T b) {
-            // Replace with operation(s) on a and b.
-            return identity;
-        }
-
-        U(T i) : identity(i) {};
-    };
-    
     /*
      * U is a pointer to object or struct.
      * U must contain an 'identity' element.
@@ -35,14 +13,15 @@ namespace nm
      *  (and optionally distributive) properties.
      * U must contain an 'integrate' function
      *  to combine two separate parts of the tree.
+     * See utility.hpp for sample integrators.
      */
     template<class T, class U>
     class SegmentTree
     {
     private:
         int32_t n;
-        vector<T> tree;
-        vector<T> auxiliary;
+        std::vector<T> tree;
+        std::vector<T> auxiliary;
         U *integrator;
     
     protected:
@@ -60,6 +39,5 @@ namespace nm
         ~SegmentTree();
     };
 } // namespace nm
-
 
 #endif // SEGMENT_TREE
