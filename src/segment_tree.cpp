@@ -1,5 +1,7 @@
 #include <segment_tree.hpp>
 
+#include <utility.hpp>
+
 namespace nm
 {
     // !? lookout for // modify // in popagate function
@@ -120,4 +122,4 @@ namespace nm
     }
 } // namespace nm
 
-template class nm::SegmentTree<int, nm::U<int> >;
+template class nm::SegmentTree<int, nm::Integrator<int> >;
