@@ -20,16 +20,19 @@ namespace nm
     // modify
     // propagate needs to be customized according to requirement
     template<class T, class U>
-    void SegmentTree<T, U>::propagate(size_t i) {
-        if (this->auxiliary[i] != this->integrator->identity) {
-            this->tree[i * 2] = this->integrator->assign(this->auxiliary[i]);
-            this->tree[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
+    bool SegmentTree<T, U>::propagate(size_t i) {
+        if (this->auxiliary[i] == this->integrator->identity) return false;
 
-            this->auxiliary[i * 2] = this->integrator->assign(this->auxiliary[i]);
-            this->auxiliary[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
+        // lazy propagation
+        this->tree[i * 2] = this->integrator->assign(this->auxiliary[i]);
+        this->tree[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
 
-            this->auxiliary[i] = this->integrator->identity;
-        }
+        // FIXME: this is perhaps not needed when i * 2 is greater than or equal to this->n
+        this->auxiliary[i * 2] = this->integrator->assign(this->auxiliary[i]);
+        this->auxiliary[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]);
+
+        this->auxiliary[i] = this->integrator->identity;
+        return true
     }
     
     template<class T, class U>
