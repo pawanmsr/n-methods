@@ -2,6 +2,7 @@
 #define SEGMENT_TREE
 
 #include <vector>
+#include <cstdint>
 
 namespace nm
 {
@@ -15,27 +16,31 @@ namespace nm
      *  to combine two separate parts of the tree.
      * See utility.hpp for sample integrators.
      */
-    template<class T, class U>
+    template <class T, class U>
     class SegmentTree
     {
     private:
-        int32_t n;
+        std::int32_t n;
         std::vector<T> tree;
         std::vector<T> auxiliary;
         U *integrator;
-    
+
     protected:
-        bool propagate(int32_t i);
-        void construct(std::vector<T> &data, int32_t lo, int32_t hi, int32_t i);
-        T query_tree(int32_t lo, int32_t hi, int32_t tlo, int32_t thi, int32_t i);
-        T update_tree(T value, int32_t position, int32_t lo, int32_t hi, int32_t i);
-        T update_tree(T value, int32_t lo, int32_t hi, int32_t tlo, int32_t thi, int32_t i);
-    
+        bool propagate(std::int32_t i);
+        void construct(std::vector<T> &data,
+            std::int32_t lo, std::int32_t hi, std::int32_t i);
+        T query_tree(std::int32_t lo, std::int32_t hi,
+            std::int32_t tlo, std::int32_t thi, std::int32_t i);
+        T update_tree(T value, std::int32_t position,
+            std::int32_t lo, std::int32_t hi, std::int32_t i);
+        T update_tree(T value, std::int32_t lo, std::int32_t hi,
+            std::int32_t tlo, std::int32_t thi, std::int32_t i);
+
     public:
         SegmentTree(std::vector<T> &data, U *integrator_struct = new U());
-        T query(int32_t left, int32_t right);
-        T update(T value, int32_t position);
-        T update(T value, int32_t left, int32_t right);
+        T query(std::int32_t left, std::int32_t right);
+        T update(T value, std::int32_t position);
+        T update(T value, std::int32_t left, std::int32_t right);
         ~SegmentTree();
     };
 } // namespace nm
