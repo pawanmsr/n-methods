@@ -6,15 +6,16 @@ namespace nm
 {
     // !? lookout for // modify // in popagate function
     // and assignment in update_tree function
+    // More complex problems may require overhaul.
     template <class T, class U>
     SegmentTree<T, U>::SegmentTree(std::vector<T> &data, U *integrator_struct) : 
         integrator(integrator_struct) {
-            std::int32_t m = 1;
-            std::int32_t m_prime = data.size();
-            while (m < m_prime) m *= 2;
-            data.resize(m, this->integrator->identity);
-
-            this->n = m;
+            this->n = 1;
+            while (this->n < std::int32_t(data.size()))
+                this->n *= 2;
+            
+            data.resize(this->n, this->integrator->identity);
+            
             this->tree.resize(this->n * 2);
             this->auxiliary.resize(this->n * 2, this->integrator->identity); // modify //
             // auxiliary holds delayed range updates
