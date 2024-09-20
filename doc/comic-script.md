@@ -39,6 +39,14 @@ TODO
 
 **THE END**.
 
+>
+> I know it's getting dark, but why are the lights still turned on?
+> Perhaps you cannot afford to switch them all off.
+> But if you don't switch them off from time to time,
+> You will forget how wonderful [A Sky Full Of Stars](https://youtu.be/Fpn1imb9qZg?si=kAcrsHJQDvQ3_FNy) looks like.
+><cite>Pawan</cite>
+>
+
 Elements of Comics were Inspired by following References
 --------------------------------------------------------
 
