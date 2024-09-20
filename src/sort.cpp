@@ -130,8 +130,7 @@ namespace nm
     }
 
     template<class T, typename U>
-    MultiSort<T, U>::MultiSort(U size) {
-        this->n = size;
+    MultiSort<T, U>::MultiSort(U size) : n(size) {
         this->permutation.resize(size);
         std::iota(this->permutation.begin(), this->permutation.end(), 0);
     }
