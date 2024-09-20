@@ -2,6 +2,8 @@
 
 #include <numeric>
 #include <algorithm>
+#include <cassert>
+#include <cmath>
 
 namespace nm
 {
@@ -25,34 +27,37 @@ namespace nm
 
     template<class T, typename U>
     void hybrid_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
-        introspective_qsort<T, U>(lo, hi, list, compare, U(std::log2(list.size()) * 2));
+        introspective_qsort<T, U>(lo, hi, list, U(std::log2(list.size()) * 2), compare);
     }
 
     template<class T, typename U>
-    bool introspective_qsort(U lo, U hi, std::vector<T>& list,
+    void introspective_qsort(U lo, U hi, std::vector<T>& list,
         std::function<bool(T&, T&)> compare, U depth) {
-            if (depth < 0) return false;
-            if (lo >= 0 or lo >= hi or hi >= U(list.size()))
-                return false;
+            assert(lo >= 0); assert(hi < U(list.size())); assert(depth >= 0);
+
+            if (lo >= hi) return ;
             
-            if (list.size() < 16) insertion_sort<T, U>(lo, hi, list, compare);
+            if (list.size() < SIZE_LIMIT_IS) insertion_sort<T, U>(lo, hi, list, compare);
             else if (depth == 0) heap_sort<T, U>(lo, hi, list, compare);
             else {
                 U k = partition<T, U>(lo, hi, list, compare);
-                introspective_qsort<T, U>(lo, k - 1, list, compare, depth - 1);
-                introspective_qsort<T, U>(k + 1, hi, list, compare, depth - 1);
+                introspective_qsort<T, U>(lo, k - 1, list, depth - 1, compare);
+                introspective_qsort<T, U>(k + 1, hi, list, depth - 1, compare);
             }
-
-            return true;
         }
     
     template<class T, typename U>
     void heap_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
-        // Implement Heap //
+        assert(lo >= 0); assert(hi < U(list.size()));
+
+        U back = hi;
+        U front = lo + (hi - lo) / 2;
     }
 
     template<class T, typename U>
     void insertion_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
+        assert(lo >= 0); assert(hi < U(list.size()));
+
         for (U i = lo; i <= hi; i++) {
             T pivot = list[i];
             
@@ -88,11 +93,13 @@ namespace nm
     // U is expected to be integer data type.
     template<class T, typename U>
     void quick_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
-        if (lo >= 0 and lo < hi and hi < U(list.size())) {
-            U k = partition<T, U>(lo, hi, list, compare);
-            quick_sort<T, U>(lo, k - 1, list, compare);
-            quick_sort<T, U>(k + 1, hi, list, compare);
-        }
+        assert(lo >= 0); assert(hi < U(list.size()));
+        
+        if (lo >= hi) return ;
+        
+        U k = partition<T, U>(lo, hi, list, compare);
+        quick_sort<T, U>(lo, k - 1, list, compare);
+        quick_sort<T, U>(k + 1, hi, list, compare);
     }
 
     // Prefer hybrid_sort.
@@ -100,13 +107,12 @@ namespace nm
     // V is expected to be long integer data type.
     template<class T, typename U, typename V>
     V merge_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
+        assert(lo >= 0); assert(hi < U(list.size()));
+        
         V inversions = 0;
-
-        if(lo < 0 or lo >= hi or hi >= U(list.size()))
-            return inversions;
+        if (lo >= hi) return inversions;
 
         U mid = lo + (hi - lo) / 2;
-
         inversions += merge_sort<T, U, V>(lo, mid, list, compare);
         inversions += merge_sort<T, U, V>(mid + 1, hi, list, compare);
 
@@ -137,11 +143,13 @@ namespace nm
 
     template<class T, typename U>
     U MultiSort<T, U>::sort(std::vector<T> &list, std::function<bool(T&, T&)> compare) {
-        std::function<bool(std::size_t&, std::size_t&)> wrapped_compare = [&](std::size_t i, std::size_t j) {
-            return compare(list[i], list[j]);
-        };
+        std::function<bool(std::size_t&, std::size_t&)> wrapped_compare = 
+            [&](std::size_t i, std::size_t j) {
+                return compare(list[i], list[j]);
+            };
         
-        U inversions = merge_sort<std::size_t, U, U>(0, this->n - 1, this->permutation, wrapped_compare);
+        U inversions = merge_sort<std::size_t, U, U>(0, this->n - 1,
+            this->permutation, wrapped_compare);
         
         this->apply(list);
         return inversions;
