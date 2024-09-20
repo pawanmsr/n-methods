@@ -21,16 +21,29 @@ namespace nm
      */
 
     // Add type conversion for lambda functions //
+    // Are functions allowed to be constexpr ? //
 
     template<class T, typename U>
     void hybrid_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
-        // conditionally pick sorting type //
+        introspective_qsort<T, U>(lo, hi, list, compare, U(std::log2(list.size()) * 2));
     }
 
     template<class T, typename U>
-    void introspective_qsort(U lo, U hi, std::vector<T>& v,
+    bool introspective_qsort(U lo, U hi, std::vector<T>& list,
         std::function<bool(T&, T&)> compare, U depth) {
-            // Quick Sort //
+            if (depth < 0) return false;
+            if (lo >= 0 or lo >= hi or hi >= U(list.size()))
+                return false;
+            
+            if (list.size() < 16) insertion_sort<T, U>(lo, hi, list, compare);
+            else if (depth == 0) heap_sort<T, U>(lo, hi, list, compare);
+            else {
+                U k = partition<T, U>(lo, hi, list, compare);
+                introspective_qsort<T, U>(lo, k - 1, list, compare, depth - 1);
+                introspective_qsort<T, U>(k + 1, hi, list, compare, depth - 1);
+            }
+
+            return true;
         }
     
     template<class T, typename U>
