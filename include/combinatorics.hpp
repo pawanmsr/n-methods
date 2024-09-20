@@ -4,6 +4,7 @@
 #include <modulo_operations.hpp>
 
 #include <vector>
+#include <cstdint>
 
 namespace nm
 {
@@ -17,11 +18,11 @@ namespace nm
         std::vector<T> factorial;
         std::vector<T> factorial_inverse;
     public:
-        PnC(std::size_t n, const T mod_prime);
-        T get_factorial(std::size_t n);
-        T get_factorial_inverse(std::size_t n);
-        T nPr(std::size_t n, std::size_t r);
-        T nCr(std::size_t n, std::size_t r);
+        PnC(std::int32_t n, const T mod_prime);
+        T get_factorial(std::int32_t n);
+        T get_factorial_inverse(std::int32_t n);
+        T nPr(std::int32_t n, std::int32_t r);
+        T nCr(std::int32_t n, std::int32_t r);
         ~PnC();
     };
 } // namespace nm

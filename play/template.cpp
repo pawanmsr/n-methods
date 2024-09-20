@@ -60,13 +60,16 @@
 #include <regex>
 
 using namespace std;
+
+typedef long double ld;
 typedef long long int ll;
 
 // Macro //
 #define X first
 #define Y second
-#define pii pair<int, int>
 #define pll pair<ll, ll>
+#define pii pair<int, int>
+#define all(x) (x).begin(), (x).end()
 
 // External //
 /*
