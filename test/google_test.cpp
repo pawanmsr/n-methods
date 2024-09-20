@@ -12,6 +12,8 @@
 #include <modulo_operations.hpp>
 #include <search.hpp>
 #include <combinatorics.hpp>
+#include <segment_tree.hpp>
+#include <utility.hpp>
 
 // GTest //
 #include <gtest/gtest.h>
@@ -126,6 +128,21 @@ TEST(BoundSearch, DistinctPrimes) {
         GTEST_SKIP() << "fixme";
         ASSERT_GT(primes[idx], i); // FIXME
     }
+}
+
+TEST(SegmentTree, OutOfBounds) {
+    std::vector<int> data(N_LOG, 1);
+    nm::Integrator<int> *integrator = new nm::Integrator<int>(0);
+    GTEST_SKIP() << "undefined reference even after explicit instantiation";
+    nm::SegmentTree<int, nm::Integrator<int> > st(data); // FIXME
+
+    ASSERT_NO_FATAL_FAILURE(st.query(0, N_LOG - 1) == 0);
+    ASSERT_NO_FATAL_FAILURE(st.update(1, 0, N_LOG - 1));
+    
+    ASSERT_NO_FATAL_FAILURE(st.update(1, P));
+    EXPECT_EQ(st.query(P, P), 1);
+    
+    EXPECT_DEATH(st.update(0, N_LOG), "failed"); // FIXME
 }
 
 int main(int argc, char *argv[])
