@@ -2,6 +2,7 @@
 #include <vector>
 #include <numeric>
 #include <functional>
+#include <chrono>
 
 // NMethods //
 #include <primes.hpp>
@@ -90,20 +91,147 @@ TEST(PermutationSortTest, SmallBruteForce) {
     std::iota(permutation.begin(), permutation.end(), 1);
     
     do {
-        std::vector<int> auxillary(permutation.begin(), permutation.end());
-        nm::merge_sort<int, int, int>(0, N - 1, auxillary);
-        
-        bool sorted = true;
-        for (int i = 1; i < N; i++)
-            if (auxillary[i] < auxillary[i - 1])
-                sorted = false;
-        ASSERT_TRUE(sorted);
-        
         count++;
     } while (nm::next_permutation(permutation));
 
     nm::PnC<int> c{int(N_FACT), int(M)};
     ASSERT_EQ(c.get_factorial(int(N)), count);
+}
+
+TEST(SortTest, AverageRunTimeMergeSort) {
+    const int N = N_FACT - 1;
+
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_time = 0.0;
+    double worst_time = 0.0;
+
+    do {
+        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        
+        auto start = std::chrono::steady_clock::now();
+        nm::merge_sort<int, int, int>(0, N - 1, auxillary);
+        auto finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> elapsed = finish - start;
+        worst_time = std::max(worst_time, elapsed.count());
+        total_time += elapsed.count();
+        count++;
+
+        bool sorted = true;
+        for (int i = 1; i < N; i++)
+            if (auxillary[i - 1] > auxillary[i])
+                sorted = false;
+        EXPECT_TRUE(sorted);
+    } while (nm::next_permutation(permutation));
+
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
+}
+
+TEST(SortTest, AverageRunTimeHeapSort) {
+    const int N = N_FACT - 1;
+
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_time = 0.0;
+    double worst_time = 0.0;
+
+    do {
+        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        
+        auto start = std::chrono::steady_clock::now();
+        nm::heap_sort<int, int>(0, N - 1, auxillary);
+        auto finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> elapsed = finish - start;
+        worst_time = std::max(worst_time, elapsed.count());
+        total_time += elapsed.count();
+        count++;
+
+        bool sorted = true;
+        for (int i = 1; i < N; i++)
+            if (auxillary[i - 1] > auxillary[i])
+                sorted = false;
+        EXPECT_TRUE(sorted);
+    } while (nm::next_permutation(permutation));
+
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
+}
+
+TEST(SortTest, AverageRunTimeQuickSort) {
+    const int N = N_FACT - 1;
+
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_time = 0.0;
+    double worst_time = 0.0;
+
+    do {
+        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        
+        auto start = std::chrono::steady_clock::now();
+        nm::quick_sort<int, int>(0, N - 1, auxillary);
+        auto finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> elapsed = finish - start;
+        worst_time = std::max(worst_time, elapsed.count());
+        total_time += elapsed.count();
+        count++;
+
+        bool sorted = true;
+        for (int i = 1; i < N; i++)
+            if (auxillary[i - 1] > auxillary[i])
+                sorted = false;
+        EXPECT_TRUE(sorted);
+    } while (nm::next_permutation(permutation));
+
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
+}
+
+TEST(SortTest, AverageRunTimeHybridSort) {
+    const int N = N_FACT - 1;
+
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_time = 0.0;
+    double worst_time = 0.0;
+
+    do {
+        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        
+        auto start = std::chrono::steady_clock::now();
+        nm::hybrid_sort<int, int>(0, N - 1, auxillary);
+        auto finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> elapsed = finish - start;
+        worst_time = std::max(worst_time, elapsed.count());
+        total_time += elapsed.count();
+        count++;
+
+        bool sorted = true;
+        for (int i = 1; i < N; i++)
+            if (auxillary[i - 1] > auxillary[i])
+                sorted = false;
+        EXPECT_TRUE(sorted);
+    } while (nm::next_permutation(permutation));
+
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
 }
 
 TEST(BoundSearch, DistinctElements) {
