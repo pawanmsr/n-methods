@@ -20,6 +20,10 @@ namespace nm
      * Insertion sort for small sizes.
      * Quick sort until recursion stack is maxed out.
      * Heap sort when recursion stack is maxed out.
+     * 
+     * Hybrid sort is quicker than all others in
+     * worst time as well as average time.
+     * See LastTest.log for more details.
      */
 
     // Add type conversion for lambda functions //
