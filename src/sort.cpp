@@ -24,6 +24,7 @@ namespace nm
 
     // Add type conversion for lambda functions //
     // Are functions allowed to be constexpr ? //
+    // TODO: replace all with constexpr where ever possible //
 
     template<class T, typename U>
     void hybrid_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
@@ -31,8 +32,8 @@ namespace nm
     }
 
     template<class T, typename U>
-    void introspective_qsort(U lo, U hi, std::vector<T>& list,
-        std::function<bool(T&, T&)> compare, U depth) {
+    void introspective_qsort(U lo, U hi, std::vector<T>& list, U depth,
+        std::function<bool(T&, T&)> compare) {
             assert(lo >= 0); assert(hi < U(list.size())); assert(depth >= 0);
 
             if (lo >= hi) return ;
@@ -50,8 +51,36 @@ namespace nm
     void heap_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
         assert(lo >= 0); assert(hi < U(list.size()));
 
+        auto down_left = [&](U i) {
+            return lo + (i - lo) * 2 + 1;
+        };
+
+        auto down_right = [&](U i) {
+            return lo + (i - lo) * 2 + 2;
+        };
+
         U back = hi;
-        U front = lo + (hi - lo) / 2;
+        U front = lo + (hi - lo + 1) / 2;
+        while (back > lo) {
+            if (front == lo) {
+                std::swap(list[back], list[lo]);
+                back--;
+            } else front--;
+
+            // form the heap from front to back
+            U i = front;
+            while (down_left(i) <= back) {
+                U down = down_left(i);
+                if (down_right(i) <= back and 
+                    compare(list[down_left(i)], list[down_right(i)]))
+                        down = down_right(i);
+                
+                if (compare(list[i], list[down])) {
+                    std::swap(list[i], list[down]);
+                    i = down;
+                } else break;
+            }
+        }
     }
 
     template<class T, typename U>
@@ -173,6 +202,21 @@ namespace nm
     }
 
 } // namespace nm
+
+template void nm::introspective_qsort<int, int>(int, int, std::vector<int>&, int depth,
+    std::function<bool(int&, int&)> compare);
+template void nm::introspective_qsort<long long, int>(int, int, std::vector<long long>&, int depth,
+    std::function<bool(long long&, long long&)> compare);
+
+template void nm::hybrid_sort<int, int>(int, int,
+    std::vector<int>&, std::function<bool(int&, int&)>);
+template void nm::hybrid_sort<long long, int>(int, int,
+    std::vector<long long>&, std::function<bool(long long&, long long&)>);
+
+template void nm::heap_sort<int, int>(int, int,
+    std::vector<int>&, std::function<bool(int&, int&)>);
+template void nm::heap_sort<long long, int>(int, int,
+    std::vector<long long>&, std::function<bool(long long&, long long&)>);
 
 template int nm::merge_sort<int, int, int>(int, int,
     std::vector<int>&, std::function<bool(int&, int&)>);
