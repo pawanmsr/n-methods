@@ -65,7 +65,7 @@ While strolling through a forlorn place, Padawan stumbles upon a rack of earthen
 
 **Genie**: WHO SAID THAT?! What is that thing?
 
-**Padawan**: Oh that too is a genie except its bottle is more modern, and it does not grant wishes. It is called a Transformer.
+**Padawan**: Oh that thing is also a genie, except its bottle is more gizmosy, and it does not grant wishes. It is called a Transformer.
 
 **Genie**: Transformer? Like the step-up and step-down one you mentioned earlier?
 
@@ -112,11 +112,11 @@ If all the characteristics (vector functions) were independent (orthogonal) then
 
 ```
 
-The bra-ket is essentially the square of the probability of you having those characteristics at a particular time. You just get to choose those vector functions at the start in such a way that they obey the rules of nature.
+The bra-ket is essentially the square of the probability of you having those characteristics at a particular time. You only get to choose those vector functions once at the start in such a way that they obey the rules of nature.
 
 TODO.
 
-**Padawan**: Thank you O Great Genie. My gratitude towards you fail every test of convergence. I hope you mess up again and I get a chance to meet you to learn something more.
+**Padawan**: Thank you O Great Genie. My gratitude towards you fails every test of convergence. I hope you mess up again and I get a chance to meet you to learn something more.
 
 Elements of Comics were Inspired by following References
 --------------------------------------------------------
