@@ -63,8 +63,11 @@ Ratings are important, but learning and improvements are more important - consid
     Frame it with caption:
     "Now I have become Purple, a mixture of blue and red." :joy:
 - [ ] Edge off, but casually aim for other ranks.  
+- [ ] Become Yellow (if it ever happens).
+    Frame it within a golden frame with caption:
+    "Mellow Master Me" :satisfied:
 
-It is an art (albeit a difficult one)! Read instructions and checklists often. Don't get bored. Boredom kills.  
+Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often. Don't get bored. Boredom kills.  
 
 Fun
 ---
@@ -112,7 +115,7 @@ STALLED.
 > And leaving everything behind does not set us free.  
 > A solemn warrior burns even when it is wise to flee,  
 > As freedom lies in honouring a lifetime of decree.  
-> <cite>Pawan</cite>
+> <cite>Pawan</cite> ([inspired](/doc/footnotes.md), impersonal but original).  
 > :smile:
 >
 > So much to learn, and curiosity continues to grow.  
