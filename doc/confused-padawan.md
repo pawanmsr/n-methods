@@ -1,5 +1,29 @@
+Confused Padawan Trying To Find His Place In The World.  
+=======================================================
+
+![Torti](/doc/asset/torti.png)  
+![Billi](/doc/asset/billi.png)  
+
+Progress
+--------
+
+STALLED.
+
+- [x] Script.  
+- [x] Acquire tools.  
+  - [ ] Passive Graphics Tablet.  
+- [ ] Draw characters.  
+  - [x] Torti (Tortoise).  
+  - [x] Billi (Cat).  
+  - [ ] Padawan.  
+- [ ] Draw ambience.  
+- [ ] Add script.  
+- [ ] Export.  
+- [x] ~Present (to everyone - not just yourself - if easy enough to understand)~.  
+  Nothing worth sharing. For Later. Primary First.  
+
 Comic Script
-============
+------------
 
 Padawan is participating in a contest that will help him achieve something. Billi is a cat. Torti is a tortoise.  
 
@@ -46,7 +70,7 @@ TODO
 > Perhaps you cannot afford to switch them all off.  
 > But if you don't switch them off from time to time,  
 > You will forget how wonderful [A Sky Full Of Stars](https://youtu.be/Fpn1imb9qZg?si=kAcrsHJQDvQ3_FNy) looks like.  
-> <cite>Pawan</cite>  
+> <cite>Pawan</cite> (inspired, impersonal but original)  
 >
 
 Elements of Comics were Inspired by following References
