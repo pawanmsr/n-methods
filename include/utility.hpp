@@ -28,7 +28,7 @@ namespace nm {
     };
     // default arguments and functions
 
-    template<typename T>
+    template<class T>
     std::function<bool(T&, T&)> default_compare = [](T& a, T& b) {
         return a < b;
     };
