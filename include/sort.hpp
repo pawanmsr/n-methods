@@ -40,6 +40,22 @@ namespace nm
         std::function<bool(T&, T&)> compare = default_compare<T>);
     
     template<class T, typename U>
+    void hybrid_sort(U lo, U hi, std::vector<T>& list,
+        std::function<bool(T&, T&)> compare = default_compare);
+
+    template<class T, typename U>
+    void introspective_qsort(U lo, U hi, std::vector<T>& v,
+        std::function<bool(T&, T&)> compare = default_compare, U depth);
+    
+    template<class T, typename U>
+    void heap_sort(U lo, U hi, std::vector<T>& list,
+        std::function<bool(T&, T&)> compare = default_compare);
+
+    template<class T, typename U>
+    void insertion_sort(U lo, U hi, std::vector<T>& list,
+        std::function<bool(T&, T&)> compare = default_compare);
+    
+    template<class T, typename U>
     void quick_sort(U lo, U hi, std::vector<T>& v,
         std::function<bool(T&, T&)> compare = default_compare<T>);
 
