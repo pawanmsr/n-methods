@@ -32,21 +32,21 @@ While strolling through a forlorn place, Padawan stumbles upon a rack of earthen
 **Genie**: Oh no, this bottle was never my home.
 
 > 
-> I used to be a sage that roamed free and wise.
+> I used to be a sage that roamed free and wise.  
 > 
-> Then one day, I felt a lasso hoop grip me tight,
-> And suddenly I became part of a lootera's crew.
+> Then one day, I felt a lasso hoop grip me tight,  
+> And suddenly I became part of a lootera's crew.  
 > 
-> The lootera gang traveled to pillage with pride,
-> And I revelled in at first, but soon I felt abound.
+> The lootera gang traveled to pillage with pride,  
+> And I revelled in at first, but soon I felt abound.  
 > 
-> I did a yagna to let the heavens hear my plight,
-> And soon arrived a warrior, resolute and valiant.
+> I did a yagna to let the heavens hear my plight,  
+> And soon arrived a warrior, resolute and valiant.  
 > 
-> The crew managed to capture the warrior alright,
-> But (s)he broke free and chased them into retreat.
+> The crew managed to capture the warrior alright,  
+> But (s)he broke free and chased them into retreat.  
 > 
-> And that's how I was liberated, momentarily still.
+> And that's how I was liberated, momentarily still.  
 > 
 
 **Padawan**: Momentarily?! How did you mess up?
@@ -54,11 +54,11 @@ While strolling through a forlorn place, Padawan stumbles upon a rack of earthen
 **Genie**: I drank up all the water from that bottle, first thing.
 
 > 
-> The warrior was thirsty and water he did need.
-> But my bottle was empty and I could not help.
+> The warrior was thirsty and water he did need.  
+> But my bottle was empty and I could not help.  
 > 
-> Lightening struck and I felt the heavens' wrath.
-> I ended up as a Djinn of the bottle encompassed.
+> Lightening struck and I felt the heavens' wrath.  
+> I ended up as a Djinn of the bottle encompassed.  
 > 
 
 **Smart AI Assistant**: Should have made a deal with the devil instead of praying to the heavens - I bet it wouldn't have been worse than ending up bottled up. LOL.
