@@ -72,30 +72,15 @@ Be impervious to AI agents. It is an art (albeit a difficult one)! Read instruct
 Fun
 ---
 
-[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v) [![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
+[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)  
+[![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
 
-Alternate
+### Comics
 
-![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
+TODO: [Confused Padawan](/doc/confused-padawan.md) trying to find his place in the world.  
+TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by a Genie.  
 
-Comic Strip: Confused Padawan Trying To Find His Place In The World.  
-
-STALLED.
-
-- [x] Script.  
-- [x] Acquire tools.  
-  - [ ] Passive Graphics Tablet.  
-- [ ] Draw characters.  
-  - [x] Torti (Tortoise).  
-  - [x] Billi (Cat).  
-  - [ ] Padawan.  
-- [ ] Draw ambience.  
-- [ ] Add script.  
-- [ ] Export.  
-- [x] ~Present (to everyone - not just yourself - if easy enough to understand)~.  
-  Nothing worth sharing. For Later. Primary First.  
-
-[References](/doc/comic-script.md).  
+### Poetry
 
 >
 > Tried and failed? Try again, fail better.
@@ -118,8 +103,10 @@ STALLED.
 > <cite>Pawan</cite> ([inspired](/doc/footnotes.md), impersonal but original).  
 > :smile:
 >
+>
 > So much to learn, and curiosity continues to grow.  
-> Time was never enough, but atleast there is tomorrow. :rofl:
+> Time was never enough, but atleast there is tomorrow.  
+> :rofl:
 >
 
 Appreciation
