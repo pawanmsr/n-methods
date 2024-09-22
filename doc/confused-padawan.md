@@ -1,5 +1,29 @@
+Confused Padawan Trying To Find His Place In The World.  
+=======================================================
+
+![Torti](/doc/asset/torti.png)  
+![Billi](/doc/asset/billi.png)  
+
+Progress
+--------
+
+STALLED.
+
+- [x] Script.  
+- [x] Acquire tools.  
+  - [ ] Passive Graphics Tablet.  
+- [ ] Draw characters.  
+  - [x] Torti (Tortoise).  
+  - [x] Billi (Cat).  
+  - [ ] Padawan.  
+- [ ] Draw ambience.  
+- [ ] Add script.  
+- [ ] Export.  
+- [x] ~Present (to everyone - not just yourself - if easy enough to understand)~.  
+  Nothing worth sharing. For Later. Primary First.  
+
 Comic Script
-============
+------------
 
 Padawan is participating in a contest that will help him achieve something. Billi is a cat. Torti is a tortoise.  
 
