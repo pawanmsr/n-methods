@@ -82,8 +82,6 @@ TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by 
 
 ### Poetry
 
-[References](/doc/comic-script.md).  
-
 >
 > Tried and failed? Try again, fail better.
 >
