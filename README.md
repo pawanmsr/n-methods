@@ -27,24 +27,13 @@ Use small functions at the top of the solution. Append larger functions or group
 Run the build before copying the source templates into the solution. At least add basic tests for all new implementations.
 Tests in [test](/test/) and method signatures in [include](/include/). Run CTest to verify and trust source code.
 
-### Milestones
-
-- [x] Become Cyan.  
-- [ ] Become Blue.  
-- [ ] Become Purple.  
-    Frame it with caption:
-    "Now I have become Purple, a mixture of blue and red." :joy:
-- [ ] Edge off, but casually aim for other ranks.  
-
-Blue is the standard everywhere.  
-
 <pre>
 .
 +-- build / bin
 |   - binaries
 +-- doc
 |   - documentation
-|   +-- assets
+|   +-- asset
 |   |    - graphics
 +-- include
 |   - headers
@@ -60,27 +49,38 @@ Blue is the standard everywhere.
 
 </pre>
 
+### Logistics
+
+Use own or familiar device or get familiar with available workstation. Make sure all keys work especially if keyboard is battered - if they all don't then make a note of disabled keys to avoid naming variables that spell with disabled letters - and try not to use on-screen keyboard or touch screens. Download the compressed file of the repository or use version control if available.
+
+### Milestones
+
+Ratings are important, but learning and improvements are more important - consider blue as benchmark and try to reach above. Same goes for everything else. Register only if interested - unrated otherwise. Have fun!  
+
+- [x] Become Cyan.  
+- [ ] Become Blue.  
+- [ ] Become Purple.  
+    Frame it with caption:
+    "Now I have become Purple, a mixture of blue and red." :joy:
+- [ ] Edge off, but casually aim for other ranks.  
+- [ ] Become Yellow (if it ever happens).
+    Frame it within a golden frame with caption:
+    "Mellow Master Me" :satisfied:
+
+Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often. Don't get bored. Boredom kills.  
+
 Fun
 ---
 
-[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v) [![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
+[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)  
+[![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
 
-Alternate
+### Comics
 
-![Torti](/doc/asset/torti.png) ![Billi](/doc/asset/billi.png)  
+TODO: [Confused Padawan](/doc/confused-padawan.md) trying to find his place in the world.  
+TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by a Genie.  
 
-Comic Strip: Confused Padawan.
-
-- [x] Script.  
-- [x] Acquire tools.  
-- [ ] Draw Characters.  
-  - [x] Torti (Tortoise).  
-  - [x] Billi (Cat).  
-  - [ ] Padawan.  
-- [ ] Draw Ambience.  
-- [ ] Add script.  
-- [ ] Export.  
-- [ ] Present (to everyone - not just yourself).  
+### Poetry
 
 >
 > Tried and failed? Try again, fail better.
@@ -100,11 +100,13 @@ Comic Strip: Confused Padawan.
 > And leaving everything behind does not set us free.  
 > A solemn warrior burns even when it is wise to flee,  
 > As freedom lies in honouring a lifetime of decree.  
-> <cite>Pawan</cite>  
+> <cite>Pawan</cite> ([inspired](/doc/footnotes.md), impersonal but original).  
 > :smile:
 >
+>
 > So much to learn, and curiosity continues to grow.  
-> Time was never enough, but atleast there is tomorrow. :rofl:
+> Time was never enough, but atleast there is tomorrow.  
+> :rofl:
 >
 
 Appreciation

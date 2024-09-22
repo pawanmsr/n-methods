@@ -60,13 +60,16 @@
 #include <regex>
 
 using namespace std;
+
+typedef long double ld;
 typedef long long int ll;
 
 // Macro //
 #define X first
 #define Y second
-#define pii pair<int, int>
 #define pll pair<ll, ll>
+#define pii pair<int, int>
+#define all(x) (x).begin(), (x).end()
 
 // External //
 /*
@@ -83,10 +86,8 @@ typedef long long int ll;
 
 
 // Main //
-int main(int argc, char const *argv[])
-{
-    // assert(argc == 1);
-    // assert(sizeof(*argv) == sizeof(uint32_t));
+int main(int argc, char const *argv[]) {
+    assert(sizeof(*argv) == sizeof(void*) * argc);
 
     // ios_base::sync_with_stdio(false);
     // cin.tie(NULL);
