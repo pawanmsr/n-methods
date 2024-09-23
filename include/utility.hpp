@@ -1,7 +1,7 @@
 #if !defined(UTILS)
 #define UTILS
 
-// NO IMPORTS (OR INCLUDES) //
+#include <functional>
 
 namespace nm {
     // T is type of data to query on
@@ -27,6 +27,12 @@ namespace nm {
         Integrator(T i) : identity(i) {};
     };
     // default arguments and functions
+
+    template<class T>
+    std::function<bool(T&, T&)> default_compare = [](T& a, T& b) {
+        return a < b;
+    };
+
     // custom simple hash functions that may come handy
     // // add comments on possibility of hash collision
     // // add comments on collision resolution

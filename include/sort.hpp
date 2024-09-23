@@ -1,17 +1,14 @@
 #if !defined(SORT)
 #define SORT
 
+#include <utility.hpp>
+
 #include <functional>
 #include <vector>
 
 namespace nm
 {
     const size_t SIZE_LIMIT_IS = 16;
-    
-    template<typename T>
-    std::function<bool(T&, T&)> default_compare = [](T& a, T& b) {
-        return a < b;
-    };
 
     template<class T, typename U>
     void hybrid_sort(U lo, U hi, std::vector<T>& list,
