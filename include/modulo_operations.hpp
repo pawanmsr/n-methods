@@ -15,6 +15,7 @@ namespace nm
     /*
      * Arithmetic
      * Divide requires multiplicative_inverse.
+     * Raise requires binary_exponentiation.
      * T is expected to be signed integer type.
      */
     template<typename T>
@@ -27,6 +28,7 @@ namespace nm
         T add(T x, T y);
         T subtract(T x, T y);
         T multiply(T x, T y);
+        T raise(T x, T y);
         T divide(T x, T y);
         ~Arithmetic();
     };
