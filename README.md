@@ -70,8 +70,12 @@ Ratings are important, but learning and improvements are more important - consid
 Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often.  
 Don't get bored - boredom kills. If bored, then have **[fun](/doc/fun.md)**!  
 
+[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)
+[![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
+[![Genie](https://i.ibb.co/xD08mHX/genie.png)](https://ibb.co/xD08mHX)  
+
 Appreciation
 ------------
 
-Academic sporting platforms, blogs, tutorials, and books.  
+Academic sporting platforms, blogs, tutorials, and books.
 Citations in respective source code docstring.  
