@@ -60,15 +60,15 @@ Ratings are important, but learning and improvements are more important - consid
 - [x] Become Cyan.  
 - [ ] Become Blue.  
 - [ ] Become Purple.  
-    Frame it with caption:
-    "Now I have become Purple, a mixture of blue and red." :joy:
+    Frame it with caption:  
+    "Now I have become Purple, a mixture of blue and red." :joy:  
 - [ ] Edge off, but casually aim for other ranks.  
-- [ ] Become Yellow (if it ever happens).
-    Frame it within a golden frame with caption:
-    "Mellow Master Me" :satisfied:
+- [ ] Become Yellow (if it ever happens).  
+    Frame it within a golden frame with caption:  
+    "Mellow Master Me" :satisfied:  
 
 Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often.  
-Don't get bored - boredom kills. If bored, have [fun](/doc/fun.md)!  
+Don't get bored - boredom kills. If bored, then have **[fun](/doc/fun.md)**!  
 
 Appreciation
 ------------
