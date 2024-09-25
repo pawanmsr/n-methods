@@ -1,21 +1,23 @@
 Quantum Superposition by Genie
 ==============================
 
+![Genie](/doc/asset/genie.png)  
+
 - [ ] Draw characters
 - [ ] Add script
 
 Comic Script
 ------------
 
-While strolling through a forlorn place, Padawan stumbles upon a rack of earthen jugs. All of them are brimming with rain water, but one of them is as dry as a tropical summer. With all the dust gathered on and around, it seems to be sitting there since eons, and yet it is unfazed by the rain that has be pouring lately. Padawan picks it up to see if there are any seepages. Right when he is leering inside the jug scanning for defects, the jug crackles up and from it arises a Genie.
+While strolling through a forlorn place, Padawan stumbles upon a rack of earthen jugs. All of them are brimming with rain water, but one of them is as dry as a tropical summer. With all the dust gathered on and around, it seems to be sitting there since eons, and yet it is unfazed by the rain that has be pouring lately. Padawan picks it up to see if there are any seepages. Right when he is leering inside the jug scanning for defects, the jug crackles up and from it arises a Genie.  
 
 **Genie** (yawns): Hi there! I am the Genie of the bottle. Let me grant you a wish for doing so will free me from this centuries long captivity.  
 
 **Padawan** (dumbfounded): Really? AWESOME! I want a computing device with extreme processor interlaced with multiple graphics processing unit and high data rate memory all synchronized to operate at peak frequencies while being immersed completely in some volatile fluid such as methanol.
 
-**Genie**: I did not understand any of what you said except the part where you talk about alcohol immersion. I have been sleeping for half a millennium, please consider that before you specify your demand.
+**Genie**: I did not understand any of what you said. I have been sleeping for half a millennium, please consider that before you specify your demand.
 
-**Padawan**: It is an organized collection of chips which are made from crystalline wafer that has been subjected to vapour deposition forming dense network of nanometer scale electrical components with help of machines that are controlled by chips made of similar wafers but slightly less dense in number of components, that have been assembled using machines that are controlled by similar wafers but even less dense in number of components probably at micrometer scale . . . built using tools and machines that operate at millimeter scale assembled by human hands. The chips are then neatly arranged on a board, just like all the toppings and condiments placed on a pizza dough, and then backed and packed in a box often made out of sheet metal or moulded plastic.
+**Padawan**: It is an organized collection of chips which are made from crystalline wafer that has been subjected to vapour deposition forming dense network of nanometer scale electrical components with help of machines that are controlled by chips made of similar wafers but slightly less dense in number of components, that have been assembled using machines that are controlled by similar wafers but even less dense in number of components probably at micrometer scale . . . built using tools and machines that operate at millimeter scale assembled by human hands. The chips are then neatly arranged on a board, just like all the toppings and condiments placed on a pizza dough, and then baked and packed in a box often made out of sheet metal or moulded plastic.
 
 **Genie**: I understand that humans built large machines that helped them design and build progressively smaller yet quicker machines, but what are those components that you mentioned?
 
@@ -87,7 +89,7 @@ While strolling through a forlorn place, Padawan stumbles upon a rack of earthen
 
 **Padawan**: So, combine them into one! I don't want just one. I want to be [Everything At Once](https://youtu.be/eE9tV1WGTgE?si=H39Hai5LaKiixsSN).  
 
-**Genie**: Well, I do know of one way. Let me define you a function of time who exists as a superposition of everything.
+**Genie**: Well, I do know of one way. Let me define you as a function of time that exists as a superposition of everything.  
 
 ```latex
 \begin(equation)
@@ -105,18 +107,20 @@ Then, at any particular time, your aura would be:
 
 ```
 
-If all the characteristics (vector functions) were independent (orthogonal) then their contribution to your aura would be proportional to the squares of all the normalizing factors. Clearly, some of the vector pairs are not orthogonal - they intermix and coalesce. For instance, a sprinter does not always have the best stamina whereas the horse cannot run as fast as a cheetah.
+If all the characteristics (vector functions) were independent (orthogonal) then their contribution to your aura would be proportional to the squares of all the normalizing factors (which can also be time dependent), as the cross terms cancel to zero.  Clearly, some of the vector pairs are not orthogonal - they intermix and coalesce. For instance, a sprinter does not always have the best stamina whereas the horse cannot run as fast as a cheetah.
 
 ```latex
-\bra{Me(sprint, stamina)} \ket{Me(sprint, stamina)}_{t = T} \cong \beta^{2} \bra{Cheetah(sprint)}\ket{Cheetah(sprint)})_{t = T} + \beta \eta \bra{Cheetah(sprint)} \ket{Horse(stamina)}_{t = T} + \eta \beta \bra{Horse(stamina)}) \ket{Cheetah(sprint)}_{t = T} + \eta^{2} \bra{Horse(stamina)} \ket{Horse(stamina)}_{t = T}
+\begin(equation)
+\bra{Me(sprint, stamina)} \ket{Me(sprint, stamina)}_{t = T} \cong \beta^{2} \bra{Cheetah(sprint)}\ket{Cheetah(sprint)}_{t = T} + \beta \eta \bra{Cheetah(sprint)} \ket{Horse(stamina)}_{t = T} + \eta \beta \bra{Horse(stamina)} \ket{Cheetah(sprint)}_{t = T} + \eta^{2} \bra{Horse(stamina)} \ket{Horse(stamina)}_{t = T}
+\end(equation)
 
 ```
 
-The bra-ket is essentially the square of the probability of you having those characteristics at a particular time. You only get to choose those vector functions once at the start in such a way that they obey the rules of nature.
+The bra-ket is essentially the square of the probability of you having those characteristics at a particular time. You only get to choose those vector functions once at the start in such a way that they obey the rules of nature. Any operator operating on a wave-function results in another wave-function. A measurement results in a scalar, just like above.  
 
 TODO.
 
-**Padawan**: Thank you O Great Genie. My gratitude towards you fails every test of convergence. I hope you mess up again and I get a chance to meet you to learn something more.
+**Padawan**: Thank you O Great Genie. My gratitude towards you fails every test of convergence.  
 
 Elements of Comics were Inspired by following References
 --------------------------------------------------------
