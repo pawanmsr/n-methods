@@ -1,6 +1,8 @@
 Quantum Superposition by Genie
 ==============================
 
+![Genie](/doc/asset/genie.png)  
+
 - [ ] Draw characters
 - [ ] Add script
 
