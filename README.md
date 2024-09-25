@@ -67,49 +67,11 @@ Ratings are important, but learning and improvements are more important - consid
     Frame it within a golden frame with caption:
     "Mellow Master Me" :satisfied:
 
-Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often. Don't get bored. Boredom kills.  
-
-Fun
----
-
-[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)  
-[![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
-
-### Comics
-
-TODO: [Confused Padawan](/doc/confused-padawan.md) trying to find his place in the world.  
-TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by a Genie.  
-
-### Poetry
-
->
-> Tried and failed? Try again, fail better.
->
-> Do not go gentle into that good night.  
-> Rage, rage until the dying of the light.  
-> <cite>Dylan Thomas</cite>
->
->
-> Losers' Cry Before Another Try  
->
-> When I was young, I seldom cried.  
-> "Man up", they said, "or a loser you will be."  
-> Now I am older, and somewhat fried.  
-> Aye, cried I have, but a loser I will never be.  
-> For the burdens we carry, they never get to see,  
-> And leaving everything behind does not set us free.  
-> A solemn warrior burns even when it is wise to flee,  
-> As freedom lies in honouring a lifetime of decree.  
-> <cite>Pawan</cite> ([inspired](/doc/footnotes.md), impersonal but original).  
-> :smile:
->
->
-> So much to learn, and curiosity continues to grow.  
-> Time was never enough, but atleast there is tomorrow.  
-> :rofl:
->
+Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often.  
+Don't get bored - boredom kills. If bored, have [fun](/doc/fun.md)!  
 
 Appreciation
 ------------
 
-Academic sporting platforms.
+Academic sporting platforms, blogs, tutorials, and books.  
+Citations in respective source code docstring.  

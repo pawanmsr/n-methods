@@ -62,6 +62,12 @@ namespace nm
         return z;
     }
 
+    // Raise requires binary_exponentiation.
+    template<typename T>
+    T Arithmetic<T>::raise(T x, T y) {
+        return mod_bin_exp_iterative<T>(x, y, this->mod);
+    }
+
     // Divide requires multiplicative_inverse.
     template<typename T>
     T Arithmetic<T>::divide(T x, T y) {
@@ -70,7 +76,7 @@ namespace nm
     }
 
     template<typename T>
-    Arithmetic<T>::~Arithmetic(){
+    Arithmetic<T>::~Arithmetic() {
         // delete this;
     }
 } // namespace nm
