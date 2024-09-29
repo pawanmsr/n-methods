@@ -35,6 +35,24 @@ namespace nm
         introspective_qsort<T, U>(lo, hi, list, U(std::log2(list.size()) * 2), compare);
     }
 
+    // partition is utility function of q_sort and introspective_qsort //
+    template<class T, typename U>
+    U partition(const U lo, const U hi, std::vector<T> &list,
+        std::function<bool(T&, T&)> compare) {
+            T pivot = list[hi];
+            
+            U i = lo;
+            for (U j = lo; j < hi; j++) {
+                if (not compare(list[j], pivot)) continue;
+
+                std::swap(list[i], list[j]);
+                i++;
+            }
+
+            std::swap(list[i], list[hi]);
+            return i;
+        }
+
     template<class T, typename U>
     void introspective_qsort(U lo, U hi, std::vector<T>& list, U depth,
         std::function<bool(T&, T&)> compare) {
@@ -104,23 +122,6 @@ namespace nm
             }
         }
     }
-    
-    template<class T, typename U>
-    U partition(const U lo, const U hi, std::vector<T> &list,
-        std::function<bool(T&, T&)> compare) {
-            T pivot = list[hi];
-            
-            U i = lo;
-            for (U j = lo; j < hi; j++) {
-                if (not compare(list[j], pivot)) continue;
-
-                std::swap(list[i], list[j]);
-                i++;
-            }
-
-            std::swap(list[i], list[hi]);
-            return i;
-        }
     
     // Prefer merge_sort.
     // U is expected to be integer data type.
