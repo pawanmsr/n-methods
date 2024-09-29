@@ -8,7 +8,7 @@
 
 // NMethods //
 #include <primes.hpp>
-#include <binary_exponentiation.hpp>
+#include <exponentiation.hpp>
 #include <gcd.hpp>
 #include <extended_gcd.hpp>
 #include <sort.hpp>
@@ -17,7 +17,7 @@
 // Constants
 enum enumerate {
     primes,
-    binary_exponentiation,
+    exponentiation,
     gcd,
     extended_gcd,
     sort,
@@ -28,7 +28,7 @@ enum enumerate {
 
 enumerate codes(std::string const &s) {
     if (s == "primes") return primes;
-    if (s == "binary_exponentiation") return binary_exponentiation;
+    if (s == "exponentiation") return exponentiation;
     if (s == "gcd") return gcd;
     if (s == "extended_gcd") return extended_gcd;
     if (s == "sort") return sort;
@@ -103,7 +103,7 @@ int main(int argc, char const *argv[])
         assert(test_primes());
         break;
     
-    case binary_exponentiation:
+    case exponentiation:
         assert(test_binary_exponentiation());
         break;
     
