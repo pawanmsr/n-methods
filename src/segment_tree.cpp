@@ -2,9 +2,6 @@
 
 #include <utility.hpp>
 
-#include <algorithm>
-#include <cassert>
-
 namespace nm
 {
     // !? lookout for // modify // in popagate function
@@ -55,8 +52,8 @@ namespace nm
             this->propagate(i);
 
             std::int32_t mid = tlo + (thi - tlo) / 2;
-            return this->integrator->integrate(this->query_tree(lo, std::min(mid, hi), tlo, mid, i * 2),
-                this->query_tree(std::max(lo, mid + 1), hi, mid + 1, thi, i * 2 + 1));
+            return this->integrator->integrate(this->query_tree(lo, min(mid, hi), tlo, mid, i * 2),
+                this->query_tree(max(lo, mid + 1), hi, mid + 1, thi, i * 2 + 1));
         }
 
     // position is index in zero indexed sequence
@@ -85,8 +82,8 @@ namespace nm
             this->propagate(i);
 
             std::int32_t mid = tlo + (thi - tlo) / 2;
-            this->update_tree(value, lo, std::min(mid, hi), tlo, mid, i * 2);
-            this->update_tree(value, std::max(lo, mid + 1), hi, mid + 1, thi, i * 2 + 1);
+            this->update_tree(value, lo, min(mid, hi), tlo, mid, i * 2);
+            this->update_tree(value, max(lo, mid + 1), hi, mid + 1, thi, i * 2 + 1);
             
             return this->tree[i] = this->integrator->integrate(this->tree[i * 2],
                 this->tree[i * 2 + 1]);

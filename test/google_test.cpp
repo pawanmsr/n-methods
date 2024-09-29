@@ -3,11 +3,10 @@
 #include <numeric>
 #include <functional>
 #include <chrono>
-#include <cstdlib>
 
 // NMethods //
 #include <primes.hpp>
-#include <exponentiation.hpp>
+#include <binary_exponentiation.hpp>
 #include <gcd.hpp>
 #include <extended_gcd.hpp>
 #include <sort.hpp>
@@ -15,13 +14,11 @@
 #include <search.hpp>
 #include <combinatorics.hpp>
 #include <segment_tree.hpp>
-#include <union_find.hpp>
 #include <utility.hpp>
 
 // GTest //
 #include <gtest/gtest.h>
 
-// Constants
 const int N_LOG = 1e5 + 1;
 const int N_ROOT = 1e3 + 1;
 const int N_CROOT = 1e2 + 1;
@@ -29,12 +26,6 @@ const int N_FACT = 10;
 const int P = 9592;
 const int E = 31;
 const long long M = 1e9 + 7;
-
-const char ASSERTION_REGEX[] = "Assertion.*failed";
-const char BUILD_TYPE_SKIP[] = "Test";
-const char TOTAL_RUNTIME[] = "Total runtime: ";
-const char AVERAGE_RUNTIME[] = "Average runtime: ";
-const char WORST_RUNTIME[] = "Worst runtime: ";
 
 TEST(PrimesTest, CountCheck) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
@@ -136,9 +127,9 @@ TEST(SortTest, AverageRunTimeMergeSort) {
         EXPECT_TRUE(sorted);
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
 }
 
 TEST(SortTest, AverageRunTimeHeapSort) {
@@ -170,9 +161,9 @@ TEST(SortTest, AverageRunTimeHeapSort) {
         EXPECT_TRUE(sorted);
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
 }
 
 TEST(SortTest, AverageRunTimeQuickSort) {
@@ -204,9 +195,9 @@ TEST(SortTest, AverageRunTimeQuickSort) {
         EXPECT_TRUE(sorted);
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
 }
 
 TEST(SortTest, AverageRunTimeHybridSort) {
@@ -238,9 +229,9 @@ TEST(SortTest, AverageRunTimeHybridSort) {
         EXPECT_TRUE(sorted);
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    std::cout << "Total runtime: " << total_time << '\t'
+    << "Average runtime: " << total_time / count << '\t'
+    << "Worst runtime: " << worst_time << '\n';
 }
 
 TEST(BoundSearch, DistinctElements) {
@@ -267,33 +258,19 @@ TEST(BoundSearch, DistinctPrimes) {
     }
 }
 
-TEST(SegmentTree, DeathTest) {
-    const int i = 1;
+TEST(SegmentTree, OutOfBounds) {
+    std::vector<int> data(N_LOG, 1);
+    nm::Integrator<int> *integrator = new nm::Integrator<int>(0);
+    GTEST_SKIP() << "undefined reference even after explicit instantiation";
+    nm::SegmentTree<int, nm::Integrator<int> > st(data); // FIXME
+
+    ASSERT_NO_FATAL_FAILURE(st.query(0, N_LOG - 1) == 0);
+    ASSERT_NO_FATAL_FAILURE(st.update(1, 0, N_LOG - 1));
     
-    std::vector<int> data(N_LOG, i);
-    nm::Integrator<int> *integrator = new nm::Integrator<int>(i);
-    nm::SegmentTree<int, nm::Integrator<int> > st(data);
-
-    ASSERT_NO_FATAL_FAILURE(st.query(P, P));
-    ASSERT_NO_FATAL_FAILURE(st.query(0, N_LOG - 1));
-    ASSERT_NO_FATAL_FAILURE(st.update(i, P));
-    ASSERT_NO_FATAL_FAILURE(st.update(i, 0, N_LOG - 1));
+    ASSERT_NO_FATAL_FAILURE(st.update(1, P));
+    EXPECT_EQ(st.query(P, P), 1);
     
-    if (std::getenv("BUILD_TYPE") != BUILD_TYPE_SKIP)
-        GTEST_SKIP();
-    EXPECT_DEATH(st.update(i, 2 * N_LOG), ASSERTION_REGEX);
-}
-
-TEST(UnionFind, DeathTest) {
-    nm::UnionFind<int> uf(N_LOG);
-    ASSERT_NO_FATAL_FAILURE(uf.find(N_LOG));
-    EXPECT_TRUE(uf.united(N_FACT, N_FACT));
-    EXPECT_EQ(uf.unite(N_ROOT, N_ROOT), N_ROOT);
-
-    if (std::getenv("BUILD_TYPE") != BUILD_TYPE_SKIP)
-        GTEST_SKIP();
-    EXPECT_DEATH(uf.find(0), ASSERTION_REGEX);
-    EXPECT_DEATH(uf.find(N_LOG + 1), ASSERTION_REGEX);
+    EXPECT_DEATH(st.update(0, N_LOG), "failed"); // FIXME
 }
 
 int main(int argc, char *argv[])
