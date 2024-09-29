@@ -1,6 +1,6 @@
 #include <gcd.hpp>
 
-#include<algorithm>
+#include<utility>
 
 namespace nm
 {
