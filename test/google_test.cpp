@@ -14,6 +14,7 @@
 #include <search.hpp>
 #include <combinatorics.hpp>
 #include <segment_tree.hpp>
+#include <union_find.hpp>
 #include <utility.hpp>
 
 // GTest //
@@ -26,6 +27,8 @@ const int N_FACT = 10;
 const int P = 9592;
 const int E = 31;
 const long long M = 1e9 + 7;
+
+const char ASSERTION_REGEX[] = "Assertion.*failed";
 
 TEST(PrimesTest, CountCheck) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
@@ -271,6 +274,16 @@ TEST(SegmentTree, OutOfBounds) {
     EXPECT_EQ(st.query(P, P), 1);
     
     EXPECT_DEATH(st.update(0, N_LOG), "failed"); // FIXME
+}
+
+TEST(UnionFind, OutOfBounds) {
+    nm::UnionFind<int> uf(N_LOG);
+    ASSERT_NO_FATAL_FAILURE(uf.find(N_LOG));
+    EXPECT_TRUE(uf.united(N_FACT, N_FACT));
+    EXPECT_EQ(uf.unite(N_ROOT, N_ROOT), N_ROOT);
+
+    EXPECT_DEATH(uf.find(0), ASSERTION_REGEX);
+    EXPECT_DEATH(uf.find(N_LOG + 1), ASSERTION_REGEX);
 }
 
 int main(int argc, char *argv[])
