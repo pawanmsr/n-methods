@@ -1,7 +1,7 @@
 #include <sort.hpp>
 
 #include <numeric>
-#include <algorithm>
+#include <utility>
 #include <cassert>
 #include <cmath>
 
