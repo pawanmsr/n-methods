@@ -3,6 +3,7 @@
 #include <numeric>
 #include <functional>
 #include <chrono>
+#include <cstdlib>
 
 // NMethods //
 #include <primes.hpp>
@@ -20,6 +21,7 @@
 // GTest //
 #include <gtest/gtest.h>
 
+// Constants
 const int N_LOG = 1e5 + 1;
 const int N_ROOT = 1e3 + 1;
 const int N_CROOT = 1e2 + 1;
@@ -29,6 +31,7 @@ const int E = 31;
 const long long M = 1e9 + 7;
 
 const char ASSERTION_REGEX[] = "Assertion.*failed";
+const char BUILD_TYPE_SKIP[] = "Release";
 
 TEST(PrimesTest, CountCheck) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
@@ -273,6 +276,8 @@ TEST(SegmentTree, DeathTest) {
     ASSERT_NO_FATAL_FAILURE(st.update(i, P));
     ASSERT_NO_FATAL_FAILURE(st.update(i, 0, N_LOG - 1));
     
+    if (std::getenv("BUILD_TYPE") == BUILD_TYPE_SKIP)
+        GTEST_SKIP();
     EXPECT_DEATH(st.update(i, 2 * N_LOG), ASSERTION_REGEX);
 }
 
@@ -282,6 +287,8 @@ TEST(UnionFind, DeathTest) {
     EXPECT_TRUE(uf.united(N_FACT, N_FACT));
     EXPECT_EQ(uf.unite(N_ROOT, N_ROOT), N_ROOT);
 
+    if (std::getenv("BUILD_TYPE") == BUILD_TYPE_SKIP)
+        GTEST_SKIP();
     EXPECT_DEATH(uf.find(0), ASSERTION_REGEX);
     EXPECT_DEATH(uf.find(N_LOG + 1), ASSERTION_REGEX);
 }
