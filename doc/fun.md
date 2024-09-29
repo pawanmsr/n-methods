@@ -13,7 +13,7 @@ TODO: [Confused Padawan](/doc/confused-padawan.md) trying to find his place in t
 
 TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by a Genie.  
 
-[![Genie](https://i.ibb.co/rwzC1Cb/genie.png)](https://ibb.co/rwzC1Cb)  
+[![Genie](https://i.ibb.co/Dt9VCQy/genie.png)](https://ibb.co/Dt9VCQy)  
 
 Poetry
 ------
