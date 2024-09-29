@@ -24,18 +24,15 @@ namespace nm
     T UnionFind<T>::unite(T x, T y) {
         x = this->find(x);
         y = this->find(y);
-
         if (x == y) return x;
         
         T size_of_x = this->size(x);
         T size_of_y = this->size(y);
-        T component_size = size_of_x + size_of_y
-
+        T component_size = size_of_x + size_of_y;
         if (size_of_x > size_of_y) std::swap(x, y);
         
         this->parent[x] = y;
         this->parent[y] = -(size_of_x + size_of_y);
-        
         return y;
     }
 
@@ -54,3 +51,5 @@ namespace nm
     UnionFind<T>::~UnionFind() {
     }
 } // namespace nm
+
+template class nm::UnionFind<int>;
