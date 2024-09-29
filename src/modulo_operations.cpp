@@ -2,7 +2,7 @@
 
 #include <gcd.hpp>
 #include <extended_gcd.hpp>
-#include <exponentiation.hpp>
+#include <binary_exponentiation.hpp>
 
 namespace nm
 {
@@ -62,7 +62,7 @@ namespace nm
         return z;
     }
 
-    // Raise requires exponentiation.
+    // Raise requires binary_exponentiation.
     template<typename T>
     T Arithmetic<T>::raise(T x, T y) {
         return mod_bin_exp_iterative<T>(x, y, this->mod);

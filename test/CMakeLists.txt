@@ -28,7 +28,7 @@ add_test(
 
 add_test(
     NAME test_binary_exponentiation 
-    COMMAND ${SIMPLE_TEST_EXECUTABLE} "exponentiation" 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "binary_exponentiation" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )
 

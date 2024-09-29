@@ -1,4 +1,4 @@
-#include <exponentiation.hpp>
+#include <binary_exponentiation.hpp>
 
 namespace nm
 {

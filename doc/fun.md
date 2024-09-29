@@ -7,13 +7,11 @@ Comics
 ------
 
 TODO: [Confused Padawan](/doc/confused-padawan.md) trying to find his place in the world.  
-
 [![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)
 [![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)  
 
 TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by a Genie.  
-
-[![Genie](https://i.ibb.co/rwzC1Cb/genie.png)](https://ibb.co/rwzC1Cb)  
+[![Genie](https://i.ibb.co/xD08mHX/genie.png)](https://ibb.co/xD08mHX)  
 
 Poetry
 ------

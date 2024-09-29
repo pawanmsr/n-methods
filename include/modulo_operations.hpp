@@ -15,7 +15,7 @@ namespace nm
     /*
      * Arithmetic
      * Divide requires multiplicative_inverse.
-     * Raise requires exponentiation.
+     * Raise requires binary_exponentiation.
      * T is expected to be signed integer type.
      */
     template<typename T>
