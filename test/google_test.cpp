@@ -261,22 +261,22 @@ TEST(BoundSearch, DistinctPrimes) {
     }
 }
 
-TEST(SegmentTree, OutOfBounds) {
-    std::vector<int> data(N_LOG, 1);
-    nm::Integrator<int> *integrator = new nm::Integrator<int>(0);
-    GTEST_SKIP() << "undefined reference even after explicit instantiation";
-    nm::SegmentTree<int, nm::Integrator<int> > st(data); // FIXME
+TEST(SegmentTree, DeathTest) {
+    const int i = 1;
+    
+    std::vector<int> data(N_LOG, i);
+    nm::Integrator<int> *integrator = new nm::Integrator<int>(i);
+    nm::SegmentTree<int, nm::Integrator<int> > st(data);
 
-    ASSERT_NO_FATAL_FAILURE(st.query(0, N_LOG - 1) == 0);
-    ASSERT_NO_FATAL_FAILURE(st.update(1, 0, N_LOG - 1));
+    ASSERT_NO_FATAL_FAILURE(st.query(P, P));
+    ASSERT_NO_FATAL_FAILURE(st.query(0, N_LOG - 1));
+    ASSERT_NO_FATAL_FAILURE(st.update(i, P));
+    ASSERT_NO_FATAL_FAILURE(st.update(i, 0, N_LOG - 1));
     
-    ASSERT_NO_FATAL_FAILURE(st.update(1, P));
-    EXPECT_EQ(st.query(P, P), 1);
-    
-    EXPECT_DEATH(st.update(0, N_LOG), "failed"); // FIXME
+    EXPECT_DEATH(st.update(i, 2 * N_LOG), ASSERTION_REGEX);
 }
 
-TEST(UnionFind, OutOfBounds) {
+TEST(UnionFind, DeathTest) {
     nm::UnionFind<int> uf(N_LOG);
     ASSERT_NO_FATAL_FAILURE(uf.find(N_LOG));
     EXPECT_TRUE(uf.united(N_FACT, N_FACT));
