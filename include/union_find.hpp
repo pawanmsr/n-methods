@@ -20,6 +20,7 @@ namespace nm
         T unite(T x, T y);
         bool united(T x, T y);
         std::size_t size(T x);
+        std::size_t count();
         ~UnionFind();
     };
 } // namespace nm

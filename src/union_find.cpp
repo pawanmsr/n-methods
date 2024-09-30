@@ -25,6 +25,7 @@ namespace nm
     T UnionFind<T>::unite(T x, T y) {
         x = this->find(x);
         y = this->find(y);
+        
         if (x == y) return x;
         
         T size_of_x = this->size(x);
@@ -34,6 +35,7 @@ namespace nm
         
         this->parent[x] = y;
         this->parent[y] = -component_size;
+        
         return y;
     }
 
@@ -46,6 +48,15 @@ namespace nm
     std::size_t UnionFind<T>::size(T x) {
         x = this->find(x);
         return -this->parent[x];
+    }
+
+    // count of components
+    template <typename T>
+    std::size_t UnionFind<T>::count() {
+        std::size_t count = 0;
+        for (std::size_t i = this->one; i < this->n + this->one; i++)
+            count += this->find(i);
+        return count;
     }
     
     template <typename T>
