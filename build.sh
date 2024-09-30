@@ -9,6 +9,7 @@ BUILD_FLAGS="-Wdev -DBUILD_GMOCK=OFF" # "-GNinja"
 # but Ninja is quicker at times. Ninja is also used by meson.
 # Ninja Docs https://ninja-build.org/
 TEST_FLAGS="--rerun-failed --output-on-failure"
+# TODO: populate preset
 
 display_options() {
     echo "Syntax: bash build.sh [options]"
@@ -24,6 +25,7 @@ clean_build() {
         echo
         rm -r ./build/*
         # FIXME: use flag for fresh build instead.
+        # TODO: add --fresh flag for cmake version 3.24+.
     fi
 }
 
