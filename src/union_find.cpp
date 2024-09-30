@@ -7,7 +7,7 @@
 namespace nm
 {
     template <typename T>
-    UnionFind<T>::UnionFind(T number_of_elements, bool one_indexed = false) : 
+    UnionFind<T>::UnionFind(T number_of_elements, bool one_indexe) : 
         n(number_of_elements), one(one_indexed) {
             assert(number_of_elements > 0);
             this->parent.assign(this->n + this->one, -1);
@@ -51,6 +51,7 @@ namespace nm
     }
 
     // count of components
+    // O(n log (n)) as opposed to O(n)
     template <typename T>
     std::size_t UnionFind<T>::count() {
         std::size_t count = 0;
