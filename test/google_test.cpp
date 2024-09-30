@@ -287,7 +287,7 @@ TEST(SegmentTree, DeathTest) {
     ASSERT_NO_FATAL_FAILURE(st.update(i, P));
     ASSERT_NO_FATAL_FAILURE(st.update(i, 0, N_LOG - 1));
     
-    if (not verify_build_type()) GTEST_SUCCEED();
+    if (not verify_build_type()) GTEST_SKIP();
     EXPECT_DEATH(st.update(i, 2 * N_LOG), ASSERTION_REGEX);
 }
 
@@ -297,7 +297,7 @@ TEST(UnionFind, DeathTest) {
     EXPECT_TRUE(uf.united(N_FACT, N_FACT));
     EXPECT_EQ(uf.unite(N_ROOT, N_ROOT), N_ROOT);
 
-    if (not verify_build_type()) GTEST_SUCCEED();
+    if (not verify_build_type()) GTEST_SKIP();
     EXPECT_DEATH(uf.find(0), ASSERTION_REGEX);
     EXPECT_DEATH(uf.find(N_LOG + 1), ASSERTION_REGEX);
 }
