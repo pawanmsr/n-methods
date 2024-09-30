@@ -7,7 +7,7 @@
 namespace nm
 {
     template <typename T>
-    UnionFind<T>::UnionFind(T number_of_elements, bool one_indexe) : 
+    UnionFind<T>::UnionFind(T number_of_elements, bool one_indexed) : 
         n(number_of_elements), one(one_indexed) {
             assert(number_of_elements > 0);
             this->parent.assign(this->n + this->one, -1);
