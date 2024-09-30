@@ -7,14 +7,15 @@
 namespace nm
 {
     template <typename T>
-    UnionFind<T>::UnionFind(T number_of_elements) : n(number_of_elements) {
-        assert(number_of_elements > 0);
-        this->parent.assign(this->n + 1, -1);
-    }
+    UnionFind<T>::UnionFind(T number_of_elements, bool one_indexed = false) : 
+        n(number_of_elements), one(one_indexed) {
+            assert(number_of_elements > 0);
+            this->parent.assign(this->n + this->one, -1);
+        }
 
     template <typename T>
     T UnionFind<T>::find(T x) {
-        assert(x > 0); assert(x <= this->n);
+        assert(x >= this->one); assert(x < this->n + this->one);
         while (this->parent[x] > 0)
             x = this->parent[x];
         return x;
@@ -32,7 +33,7 @@ namespace nm
         if (size_of_x > size_of_y) std::swap(x, y);
         
         this->parent[x] = y;
-        this->parent[y] = -(size_of_x + size_of_y);
+        this->parent[y] = -component_size;
         return y;
     }
 
