@@ -37,6 +37,13 @@ const char TOTAL_RUNTIME[] = "Total runtime: ";
 const char AVERAGE_RUNTIME[] = "Average runtime: ";
 const char WORST_RUNTIME[] = "Worst runtime: ";
 
+bool verify_build_type(const char build_type[] = BUILD_TYPE) {
+    if (std::getenv(BUILD_TYPE_ENV) == build_type)
+        return true;
+    
+    return false;
+}
+
 TEST(PrimesTest, CountCheck) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
     ASSERT_EQ(primes.size(), P);
@@ -280,8 +287,7 @@ TEST(SegmentTree, DeathTest) {
     ASSERT_NO_FATAL_FAILURE(st.update(i, P));
     ASSERT_NO_FATAL_FAILURE(st.update(i, 0, N_LOG - 1));
     
-    if (std::getenv(BUILD_TYPE_ENV) != BUILD_TYPE)
-        GTEST_SUCCEED();
+    if (not verify_build_type()) GTEST_SUCCEED();
     EXPECT_DEATH(st.update(i, 2 * N_LOG), ASSERTION_REGEX);
 }
 
@@ -291,8 +297,7 @@ TEST(UnionFind, DeathTest) {
     EXPECT_TRUE(uf.united(N_FACT, N_FACT));
     EXPECT_EQ(uf.unite(N_ROOT, N_ROOT), N_ROOT);
 
-    if (std::getenv(BUILD_TYPE_ENV) != BUILD_TYPE)
-        GTEST_SUCCEED();
+    if (not verify_build_type()) GTEST_SUCCEED();
     EXPECT_DEATH(uf.find(0), ASSERTION_REGEX);
     EXPECT_DEATH(uf.find(N_LOG + 1), ASSERTION_REGEX);
 }

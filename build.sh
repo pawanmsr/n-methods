@@ -2,6 +2,8 @@
 
 set -e
 
+export CMAKE_BUILD_TYPE="Debug"
+
 BUILD_TOOL="cmake" # This project uses cmake.
 # Other build tools: meson, bazel, premake, etc.
 BUILD_FLAGS="-Wdev -DBUILD_GMOCK=OFF" # "-GNinja"
