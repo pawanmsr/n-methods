@@ -62,3 +62,6 @@ $BUILD_TOOL --build build $CONFIG_FLAGS
 
 # Test
 cd build && ctest $TEST_FLAGS
+
+# Clean up
+unset CMAKE_BUILD_TYPE

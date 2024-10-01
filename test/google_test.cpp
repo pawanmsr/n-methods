@@ -40,6 +40,7 @@ const char AVERAGE_RUNTIME[] = "Average runtime: ";
 const char WORST_RUNTIME[] = "Worst runtime: ";
 
 bool verify_build_type(const char build_type[] = BUILD_TYPE) {
+    if (not std::getenv(BUILD_TYPE_IDENTIFIER)) return false;
     return std::strcmp(std::getenv(BUILD_TYPE_IDENTIFIER), build_type) == 0;
 }
 
