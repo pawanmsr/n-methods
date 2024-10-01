@@ -2,7 +2,7 @@
 
 set -e
 
-CMAKE_BUILD_TYPE="Release"
+CMAKE_BUILD_TYPE="Debug"
 
 # Used by google_test.
 export CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE
