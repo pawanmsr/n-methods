@@ -16,6 +16,7 @@ namespace nm
     template <typename T>
     T UnionFind<T>::find(T x) {
         assert(x >= this->one); assert(x < this->n + this->one);
+        // TODO: if path is long then set parent of x_0 to result
         while (this->parent[x] > 0)
             x = this->parent[x];
         return x;
@@ -51,12 +52,19 @@ namespace nm
     }
 
     // count of components
-    // O(n log (n)) as opposed to O(n)
+    // O(n log (n)) due to elegance
+    // O(n) in the non executable block
     template <typename T>
     std::size_t UnionFind<T>::count() {
         std::size_t count = 0;
         for (std::size_t i = this->one; i < this->n + this->one; i++)
-            count += this->find(i);
+            count += i == this->find(i);
+        return count;
+
+        // O(n) alternate
+        // does not execute
+        for (std::size_t i = this->one; i < this->n + this->one; i++)
+            count += this->parent[i] < 0;
         return count;
     }
     
