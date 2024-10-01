@@ -4,6 +4,7 @@
 #include <functional>
 #include <chrono>
 #include <cstdlib>
+#include <cstring>
 
 // NMethods //
 #include <primes.hpp>
@@ -17,6 +18,7 @@
 #include <segment_tree.hpp>
 #include <union_find.hpp>
 #include <utility.hpp>
+#include <newton.hpp>
 
 // GTest //
 #include <gtest/gtest.h>
@@ -31,17 +33,14 @@ const int E = 31;
 const long long M = 1e9 + 7;
 
 const char ASSERTION_REGEX[] = "Assertion.*failed";
-const char BUILD_TYPE_ENV[] = "CMAKE_BUILD_TYPE";
+const char BUILD_TYPE_IDENTIFIER[] = "CMAKE_BUILD_TYPE";
 const char BUILD_TYPE[] = "Debug";
 const char TOTAL_RUNTIME[] = "Total runtime: ";
 const char AVERAGE_RUNTIME[] = "Average runtime: ";
 const char WORST_RUNTIME[] = "Worst runtime: ";
 
 bool verify_build_type(const char build_type[] = BUILD_TYPE) {
-    if (std::getenv(BUILD_TYPE_ENV) == build_type)
-        return true;
-    
-    return false;
+    return std::strcmp(std::getenv(BUILD_TYPE_IDENTIFIER), build_type) == 0;
 }
 
 TEST(PrimesTest, CountCheck) {
@@ -300,6 +299,22 @@ TEST(UnionFind, DeathTest) {
     if (not verify_build_type()) GTEST_SKIP();
     EXPECT_DEATH(uf.find(0), ASSERTION_REGEX);
     EXPECT_DEATH(uf.find(N_LOG + 1), ASSERTION_REGEX);
+}
+
+TEST(NRMethod, ParabolaSingle) {
+    const double A = 1.0;
+    const double B = -2.0;
+    const double C = 1.0;
+    std::function<double(double)> f = [&](double x) {
+        return A * x * x + B * x + C;
+    };
+    std::function<double(double)> f_prime = [&](double x) {
+        return 2 * A * x + B;
+    };
+
+    double root = nm::newton<double>(f, f_prime);
+    std::cout << root << std::endl;
+    ASSERT_LE(f(root), 0.01);
 }
 
 int main(int argc, char *argv[])
