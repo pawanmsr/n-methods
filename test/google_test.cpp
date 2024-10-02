@@ -19,6 +19,7 @@
 #include <union_find.hpp>
 #include <utility.hpp>
 #include <newton.hpp>
+#include <interpolation.hpp>
 
 // GTest //
 #include <gtest/gtest.h>
@@ -38,6 +39,9 @@ const char BUILD_TYPE[] = "Debug";
 const char TOTAL_RUNTIME[] = "Total runtime: ";
 const char AVERAGE_RUNTIME[] = "Average runtime: ";
 const char WORST_RUNTIME[] = "Worst runtime: ";
+
+const std::vector<double> PARABOLA_ONE = {1.0, -2.0, 1.0};
+const std::vector<double> PARABOLA_ONE_PRIME = {-2.0, 2.0};
 
 bool verify_build_type(const char build_type[] = BUILD_TYPE) {
     if (not std::getenv(BUILD_TYPE_IDENTIFIER)) return false;
@@ -303,18 +307,12 @@ TEST(UnionFind, DeathTest) {
 }
 
 TEST(NRMethod, ParabolaSingle) {
-    const double A = 1.0;
-    const double B = -2.0;
-    const double C = 1.0;
-    std::function<double(double)> f = [&](double x) {
-        return A * x * x + B * x + C;
-    };
-    std::function<double(double)> f_prime = [&](double x) {
-        return 2 * A * x + B;
-    };
+    std::function<double(double)> f = nm::polynomial<double>(PARABOLA_ONE);
+    std::function<double(double)> f_prime = nm::polynomial<double>(PARABOLA_ONE_PRIME);
 
     double root = nm::newton<double>(f, f_prime);
-    std::cout << root << std::endl;
+    
+    ASSERT_LE(root, 1.01);
     ASSERT_LE(f(root), 0.01);
 }
 
