@@ -8,6 +8,21 @@
 namespace nm
 {
     template<typename T>
+    std::function<T(T)> polynomial(std::vector<T> &coefficients) {
+        return [&](T x) {
+            T term = 1;
+            T result = 0;
+
+            for (T &coefficient : coefficients) {
+                result += term * coefficient;
+                term *= x;
+            }
+
+            return result;
+        }
+    }
+
+    template<typename T>
     Spline<T>::Spline(std::vector<std::vector<T> > &coefficients,
         std::vector<std::pair<T, T> > &bounds) : 
             this->coefficients(coefficients), this->bounds(bounds) {
@@ -32,3 +47,8 @@ namespace nm
     Spline<T>::~Spline() {
     }
 } // namespace nm
+
+template std::function<double(double)>
+    nm::polynomial<double>(std::vector<double>&);
+template std::function<long double(long double)>
+    nm::polynomial<long double>(std::vector<long double>&);
