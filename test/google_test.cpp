@@ -4,6 +4,7 @@
 #include <functional>
 #include <chrono>
 #include <cstdlib>
+#include <cstring>
 
 // NMethods //
 #include <primes.hpp>
@@ -17,6 +18,8 @@
 #include <segment_tree.hpp>
 #include <union_find.hpp>
 #include <utility.hpp>
+#include <newton.hpp>
+#include <interpolation.hpp>
 
 // GTest //
 #include <gtest/gtest.h>
@@ -31,10 +34,19 @@ const int E = 31;
 const long long M = 1e9 + 7;
 
 const char ASSERTION_REGEX[] = "Assertion.*failed";
-const char BUILD_TYPE_SKIP[] = "Test";
+const char BUILD_TYPE_IDENTIFIER[] = "CMAKE_BUILD_TYPE";
+const char BUILD_TYPE[] = "Debug";
 const char TOTAL_RUNTIME[] = "Total runtime: ";
 const char AVERAGE_RUNTIME[] = "Average runtime: ";
 const char WORST_RUNTIME[] = "Worst runtime: ";
+
+const std::vector<double> PARABOLA_ONE = {1.0, -2.0, 1.0};
+const std::vector<double> PARABOLA_ONE_PRIME = {-2.0, 2.0};
+
+bool verify_build_type(const char build_type[] = BUILD_TYPE) {
+    if (not std::getenv(BUILD_TYPE_IDENTIFIER)) return false;
+    return std::strcmp(std::getenv(BUILD_TYPE_IDENTIFIER), build_type) == 0;
+}
 
 TEST(PrimesTest, CountCheck) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
@@ -279,21 +291,29 @@ TEST(SegmentTree, DeathTest) {
     ASSERT_NO_FATAL_FAILURE(st.update(i, P));
     ASSERT_NO_FATAL_FAILURE(st.update(i, 0, N_LOG - 1));
     
-    if (std::getenv("BUILD_TYPE") != BUILD_TYPE_SKIP)
-        GTEST_SKIP();
+    if (not verify_build_type()) GTEST_SKIP();
     EXPECT_DEATH(st.update(i, 2 * N_LOG), ASSERTION_REGEX);
 }
 
 TEST(UnionFind, DeathTest) {
-    nm::UnionFind<int> uf(N_LOG);
+    nm::UnionFind<int> uf(N_LOG, true);
     ASSERT_NO_FATAL_FAILURE(uf.find(N_LOG));
     EXPECT_TRUE(uf.united(N_FACT, N_FACT));
     EXPECT_EQ(uf.unite(N_ROOT, N_ROOT), N_ROOT);
 
-    if (std::getenv("BUILD_TYPE") != BUILD_TYPE_SKIP)
-        GTEST_SKIP();
+    if (not verify_build_type()) GTEST_SKIP();
     EXPECT_DEATH(uf.find(0), ASSERTION_REGEX);
     EXPECT_DEATH(uf.find(N_LOG + 1), ASSERTION_REGEX);
+}
+
+TEST(NRMethod, ParabolaSingle) {
+    std::function<double(double)> f = nm::polynomial<double>(PARABOLA_ONE);
+    std::function<double(double)> f_prime = nm::polynomial<double>(PARABOLA_ONE_PRIME);
+
+    double root = nm::newton<double>(f, f_prime);
+    
+    ASSERT_LE(root, 1.01);
+    ASSERT_LE(f(root), 0.01);
 }
 
 int main(int argc, char *argv[])
