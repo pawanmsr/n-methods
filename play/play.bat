@@ -7,8 +7,12 @@ SET binary_name=
 SET file_extension=.cpp
 SET binary_extension=.exe
 
+@REM increase stack size to 64MBs
+SET /A stack_size= 64 * 1024 * 1024
+@REM FIXME: not working
+
 SET compiler=g++
-SET flags=-g -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+SET flags=-g -Wl,--stack=%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
 
 IF [%~1] == [] (
     ECHO Problem name / number not provided.
