@@ -9,10 +9,11 @@ SET binary_extension=.exe
 
 @REM increase stack size to 64MBs
 SET /A stack_size= 64 * 1024 * 1024
-@REM FIXME: not working
+@REM FIXME: not working on 32 bit compiler
+@REM test with different compilers
 
 SET compiler=g++
-SET flags=-g -Wl,--stack=%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+SET flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
 
 IF [%~1] == [] (
     ECHO Problem name / number not provided.
