@@ -41,10 +41,17 @@ else
 fi
 
 if [[ -e $FILENAME ]] ; then
+    DEFAULT_STACK_SIZE=$(ulimit -s)
+    # remove limits on stack
+    STACK_SIZE="unlimited"
+    ulimit -s $STACK_SIZE # (use sparingly)
+    
     time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
     if [[ -e $BINARY ]] ; then
         time ./$BINARY
     fi
+
+    ulimit -s $DEFAULT_STACK_SIZE
     exit 0;
 else
     echo "${FILENAME} is not present in ${PWD}"
