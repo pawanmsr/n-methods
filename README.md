@@ -53,6 +53,13 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 
 Use own or familiar device or get familiar with available workstation. Make sure all keys work especially if keyboard is battered - if they all don't then make a note of disabled keys to avoid naming variables that spell with disabled letters - and try not to use on-screen keyboard or touch screens. Download the compressed file of the repository or use version control if available.
 
+> [!IMPORTANT]
+> Ascertain device specification specially when solution programs need to be run locally or results uploaded in absence of online judgement.
+
+- Architecture and compiler compatibility
+- Stack size and memory
+- Stream buffer
+
 ### Milestones
 
 Ratings are important, but learning and improvements are more important - consider blue as benchmark and try to reach above. Same goes for everything else. Register only if interested - unrated otherwise. Have fun!  
