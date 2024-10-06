@@ -6,6 +6,7 @@ PREFIX=
 BINARY_NAME=
 FILE_EXTENSION=".cpp"
 BINARY_EXTENSION=".out"
+STACK_SIZE="unlimited" # 64 * 1024 # for 64 MBs
 
 COMPILER="g++"
 FLAGS="-g -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion"
@@ -42,16 +43,16 @@ fi
 
 if [[ -e $FILENAME ]] ; then
     DEFAULT_STACK_SIZE=$(ulimit -s)
-    # remove limits on stack
-    STACK_SIZE="unlimited"
-    ulimit -s $STACK_SIZE # (use sparingly)
+    # adjust limits on stack
+    ulimit -s $STACK_SIZE # use sparingly
     
     time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
     if [[ -e $BINARY ]] ; then
         time ./$BINARY
     fi
-
+    
     ulimit -s $DEFAULT_STACK_SIZE
+    
     exit 0;
 else
     echo "${FILENAME} is not present in ${PWD}"
