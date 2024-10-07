@@ -6,9 +6,14 @@ PREFIX=
 BINARY_NAME=
 FILE_EXTENSION=".cpp"
 BINARY_EXTENSION=".out"
+STACK_SIZE="unlimited" # 64 * 1024 # for 64 MBs
+SUM_EXTENSION=".sum"
 
+SUM="md5sum"
 COMPILER="g++"
 FLAGS="-g -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion"
+
+CLEAN="again" # supply as first argument to clean
 
 usage() {
     echo "Usage: bash play.sh [problem]"
@@ -25,6 +30,15 @@ if [[ -z $1 ]] ; then
         echo
         exit 1;
     fi
+elif [[ $1 == $CLEAN ]] ; then
+    echo "Clean-up to play again."
+    echo "Using $(uname -m) system."
+    echo
+    
+    find . -name "*$SUM_EXTENSION" -type f -delete 
+    find . -name "*$BINARY_EXTENSION" -type f -delete
+
+    exit 0;
 fi
 
 if ! command -v $COMPILER &>/dev/null ; then
@@ -40,11 +54,43 @@ else
     BINARY="${BINARY_NAME}${BINARY_EXTENSION}"
 fi
 
+declare -A SUMS
+SUMFILE="${PREFIX}${SUM_EXTENSION}"
+if [[ -e $SUMFILE ]] ; then
+    while IFS=' ' read -r KEY VALUE ; do
+        SUMS[$KEY]=$VALUE
+    done < $SUMFILE
+fi
+
 if [[ -e $FILENAME ]] ; then
-    time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
+    DEFAULT_STACK_SIZE=$(ulimit -s)
+    # adjust limits on stack
+    ulimit -s $STACK_SIZE # use sparingly
+    
+    if command -v $SUM &>/dev/null ; then
+        CSUM=($($SUM $CSUM))
+        CSUM=${CSUM[0]}
+    else
+        CSUM=
+    fi
+    
+    if [[ ! -v SUMS[$FILENAME] ]] || [[ ${SUMS[$FILENAME]} != $CSUM ]] ; then
+        echo "$COMPILER is compiling $FILENAME."
+        time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
+        
+        if [[ -z $CSUM ]] ; then
+            echo "$FILENAME $CSUM" >> $SUMFILE
+        fi
+    fi
+    
     if [[ -e $BINARY ]] ; then
         time ./$BINARY
+    else
+        echo "$BINARY is absent. Play again."
     fi
+    
+    ulimit -s $DEFAULT_STACK_SIZE
+    
     exit 0;
 else
     echo "${FILENAME} is not present in ${PWD}"
@@ -53,3 +99,5 @@ else
     usage;
     exit 2;
 fi
+
+# TODO: POSIX system compatibility (or not)?
