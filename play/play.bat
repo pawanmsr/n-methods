@@ -64,12 +64,16 @@ IF EXIST %sumfile% (
 )
 ENDLOCAL & SET sums=%sums%
 
+SETLOCAL ENABLEDELAYEDEXPANSION
 IF EXIST %filename% (
     @REM ^ before special characters in backquotes
     FOR /F "usebackq skip=1 delims=" %%h IN (
         `2^>NUL CertUtil -hashfile %filename% %sum%`
     ) DO IF NOT DEFINED csum SET csum=%%h
-    
+)
+ENDLOCAL & SET csum=%csum%
+
+IF EXIST %filename% (
     IF [%sums%] NEQ [%csum%] (
         ECHO %compiler% is compiling %filename%
         %compiler% %flags% %filename% -I . -o %binary%
