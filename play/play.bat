@@ -32,7 +32,8 @@ IF [%~1] == [] (
 )
 
 IF [%~1] == [%clean%] (
-    ECHO "Caution: cleaning."
+    ECHO Clean-up to play again.
+    ECHO Using %PROCESSOR_ARCHITECTURE% system.
     ECHO:
 
     DEL /F /Q *%sum_extension%
