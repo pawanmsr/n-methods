@@ -31,7 +31,8 @@ if [[ -z $1 ]] ; then
         exit 1;
     fi
 elif [[ $1 == $CLEAN ]] ; then
-    echo "Caution: cleaning."
+    echo "Clean-up to play again."
+    echo "Using $(uname -m) system."
     echo
     
     find . -name "*$SUM_EXTENSION" -type f -delete 
