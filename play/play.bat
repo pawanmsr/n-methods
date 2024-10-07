@@ -12,8 +12,13 @@ SET /A stack_size= 64 * 1024 * 1024
 @REM FIXME: not working on 32 bit compiler
 @REM test with different compilers
 
+SET sum_extension=.sum
+
+SET sum=MD5
 SET compiler=g++
 SET flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+
+SET clean=again
 
 IF [%~1] == [] (
     ECHO Problem name / number not provided.
@@ -24,6 +29,16 @@ IF [%~1] == [] (
         ECHO:
         EXIT \B 1
     )
+)
+
+IF [%~1] == [%clean%] (
+    ECHO "Caution: cleaning."
+    ECHO:
+
+    DEL /F /Q *%sum_extension%
+    DEL /F /Q *%binary_extension%
+
+    EXIT /B 0
 )
 
 WHERE %compiler% >NUL 2>NUL
