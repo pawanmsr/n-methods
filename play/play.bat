@@ -53,11 +53,33 @@ IF [%binary_name%] == [] (
     SET binary=%prefix%%1%binary_extension%
 ) ELSE SET binary=%binary_name%%binary_extension%
 
+SET sumfile=%prefix%%sum_extension%
+SETLOCAL ENABLEDELAYEDEXPANSION
+SET sums=absent
+IF EXIST %sumfile% (
+    @REM filename checksum
+    FOR /F "tokens=1,2 delims= " %%a IN (%sumfile%) DO (
+        IF [%%a] EQU [%filename%] IF [%%b] NEQ [] SET sums=%%b
+    )
+)
+ENDLOCAL & SET sums=%sums%
+
 IF EXIST %filename% (
-    %compiler% %flags% %filename% -I . -o %binary%
+    @REM ^ before special characters in backquotes
+    FOR /F "usebackq skip=1 delims=" %%h IN (
+        `2^>NUL CertUtil -hashfile %filename% %sum%`
+    ) DO IF NOT DEFINED csum SET csum=%%h
+    
+    IF [%sums%] NEQ [%csum%] (
+        ECHO %compiler% is compiling %filename%
+        %compiler% %flags% %filename% -I . -o %binary%
+
+        IF [%csum%] NEQ [] ECHO %filename% %csum% >> %sumfile%
+    )
+    
     IF EXIST %binary% (
         %binary%
-    )
+    ) ELSE ECHO %binary% absent. Play again.
     EXIT \B 0
 ) ELSE (
     ECHO %filename% is not present in %CD%
