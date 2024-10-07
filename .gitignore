@@ -47,5 +47,6 @@ bin/*
 # Ignore contents in play
 # play/*
 play/*.txt
+play/*.sum
 !play/template.cpp
 !play/CMakeLists.txt
