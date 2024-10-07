@@ -53,7 +53,6 @@ else
     BINARY="${BINARY_NAME}${BINARY_EXTENSION}"
 fi
 
-CSUM="$FILENAME"
 declare -A SUMS
 SUMFILE="${PREFIX}${SUM_EXTENSION}"
 if [[ -e $SUMFILE ]] ; then
@@ -70,19 +69,23 @@ if [[ -e $FILENAME ]] ; then
     if command -v $SUM &>/dev/null ; then
         CSUM=($($SUM $CSUM))
         CSUM=${CSUM[0]}
+    else
+        CSUM=
     fi
     
     if [[ ! -v SUMS[$FILENAME] ]] || [[ ${SUMS[$FILENAME]} != $CSUM ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
         
-        if [[ $CSUM != $FILENAME ]] ; then
+        if [[ -z $CSUM ]] ; then
             echo "$FILENAME $CSUM" >> $SUMFILE
         fi
     fi
     
     if [[ -e $BINARY ]] ; then
         time ./$BINARY
+    else
+        echo "$BINARY is absent. Play again."
     fi
     
     ulimit -s $DEFAULT_STACK_SIZE
