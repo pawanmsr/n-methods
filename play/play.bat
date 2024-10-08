@@ -12,7 +12,8 @@ SET /A stack_size= 64 * 1024 * 1024
 @REM FIXME: not working on 32 bit compiler
 @REM prefer 64 bit compiler, always
 
-SET sum_extension=.sum
+@REM store checksums of played programs
+SET sum_extension=.log
 
 SET sum=MD5
 SET compiler=g++

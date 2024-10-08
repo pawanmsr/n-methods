@@ -7,7 +7,7 @@ BINARY_NAME=
 FILE_EXTENSION=".cpp"
 BINARY_EXTENSION=".out"
 STACK_SIZE="unlimited" # 64 * 1024 # for 64 MBs
-SUM_EXTENSION=".sum"
+SUM_EXTENSION=".log" # store checksums of played programs
 
 SUM="md5sum"
 COMPILER="g++"
