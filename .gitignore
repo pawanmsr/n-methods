@@ -47,8 +47,9 @@ bin/*
 # Ignore contents in play
 play/*
 !play/template.cpp
-!play/CMakeLists.txt
 
 # Ignore logs
 *.log
 *.txt
+
+!**/CMakeLists.txt
