@@ -10,7 +10,7 @@ SET binary_extension=.exe
 @REM increase stack size to 64MBs
 SET /A stack_size= 64 * 1024 * 1024
 @REM FIXME: not working on 32 bit compiler
-@REM test with different compilers
+@REM prefer 64 bit compiler, always
 
 SET sum_extension=.sum
 
