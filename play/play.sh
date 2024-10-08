@@ -60,6 +60,10 @@ if [[ -e $SUMFILE ]] ; then
     while IFS=' ' read -r KEY VALUE ; do
         SUMS[$KEY]=$VALUE
     done < $SUMFILE
+    
+    # # using external tools
+    # SUMS[$FILENAME]=$(grep "$FILENAME " $SUMFILE | 
+    #     sed -e "s/^$FILENAME //" | tail -n 1)
 fi
 
 if [[ -e $FILENAME ]] ; then
@@ -67,18 +71,17 @@ if [[ -e $FILENAME ]] ; then
     # adjust limits on stack
     ulimit -s $STACK_SIZE # use sparingly
     
+    CSUM=
     if command -v $SUM &>/dev/null ; then
-        CSUM=($($SUM $CSUM))
+        CSUM=($($SUM $FILENAME))
         CSUM=${CSUM[0]}
-    else
-        CSUM=
     fi
     
     if [[ ! -v SUMS[$FILENAME] ]] || [[ ${SUMS[$FILENAME]} != $CSUM ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
         
-        if [[ -z $CSUM ]] ; then
+        if [[ ! -z $CSUM ]] ; then
             echo "$FILENAME $CSUM" >> $SUMFILE
         fi
     fi
