@@ -8,6 +8,7 @@ FILE_EXTENSION=".cpp"
 BINARY_EXTENSION=".out"
 STACK_SIZE="unlimited" # 64 * 1024 # for 64 MBs
 SUM_EXTENSION=".log" # store checksums of played programs
+SUM_LIMIT=1 # limit the number of records in checksum log
 
 SUM="md5sum"
 COMPILER="g++"
@@ -80,6 +81,13 @@ if [[ -e $FILENAME ]] ; then
     if [[ ! -v SUMS[$FILENAME] ]] || [[ ${SUMS[$FILENAME]} != $CSUM ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
+
+        if [[ -e $SUMFILE ]] ; then
+            if [[ $(grep -c ^ $SUMFILE) -ge $SUM_LIMIT ]] ; then
+                OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"
+                mv $SUMFILE $OLDSUMFILE
+            fi
+        fi
         
         if [[ ! -z $CSUM ]] ; then
             echo "$FILENAME $CSUM" >> $SUMFILE
