@@ -16,7 +16,7 @@ FLAGS="-g -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion"
 CLEAN="again" # supply as first argument to clean
 
 usage() {
-    echo "Usage: bash play.sh [problem]"
+    echo "Usage: bash play.sh [problem | $CLEAN]"
     echo "Problem may be a, b, . . ."
     echo
 }

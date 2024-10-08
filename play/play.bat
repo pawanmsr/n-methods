@@ -95,7 +95,7 @@ IF EXIST %filename% (
 )
 
 :usage
-ECHO Usage: play.bat [problem]
+ECHO Usage: play.bat [problem | %clean%]
 ECHO Problem may be a, b, . . .
 ECHO:
 EXIT /B %ERRORLEVEL%
