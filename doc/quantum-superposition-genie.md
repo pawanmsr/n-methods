@@ -6,6 +6,14 @@ Quantum Superposition by Genie
 - [ ] Draw characters
 - [ ] Add script
 
+Rules for Social Interaction
+----------------------------
+
+> Learn to _wave_ at people, if you want to _matter_ to them.  
+> For _matter_ needs to radiate to present its spectra,  
+> And _waves_ need to walk the Planck to reveal their quanta.  
+> <cite>Pawan</cite>
+
 Comic Script
 ------------
 
