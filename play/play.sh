@@ -55,16 +55,16 @@ else
     BINARY="${BINARY_NAME}${BINARY_EXTENSION}"
 fi
 
-declare -A SUMS
+declare -A SSUM # stored checksum
 SUMFILE="${PREFIX}${SUM_EXTENSION}"
 if [[ -e $SUMFILE ]] ; then
     while IFS=' ' read -r KEY VALUE ; do
         # TODO: @here: count the number of lines
-        SUMS[$KEY]=$VALUE
+        SSUM[$KEY]=$VALUE
     done < $SUMFILE
     
     # # using external tools
-    # SUMS[$FILENAME]=$(grep "$FILENAME " $SUMFILE | 
+    # SSUM[$FILENAME]=$(grep "$FILENAME " $SUMFILE | 
     #     sed -e "s/^$FILENAME //" | tail -n 1)
 fi
 
@@ -79,7 +79,7 @@ if [[ -e $FILENAME ]] ; then
         CSUM=${CSUM[0]}
     fi
     
-    if [[ ! -v SUMS[$FILENAME] ]] || [[ ${SUMS[$FILENAME]} != $CSUM ]] ; then
+    if [[ ! -v SSUM[$FILENAME] ]] || [[ ${SSUM[$FILENAME]} != $CSUM ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
 

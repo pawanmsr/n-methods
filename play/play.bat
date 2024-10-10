@@ -57,14 +57,15 @@ IF [%binary_name%] == [] (
 
 SET sumfile=%prefix%%sum_extension%
 SETLOCAL ENABLEDELAYEDEXPANSION
-SET sums=absent
+@REM stored checksum
+SET ssum=absent
 IF EXIST %sumfile% (
     @REM filename checksum
     FOR /F "tokens=1,2 delims= " %%a IN (%sumfile%) DO (
-        IF [%%a] EQU [%filename%] IF [%%b] NEQ [] SET sums=%%b
+        IF [%%a] EQU [%filename%] IF [%%b] NEQ [] SET ssum=%%b
     )
 )
-ENDLOCAL & SET sums=%sums%
+ENDLOCAL & SET ssum=%ssum%
 
 SETLOCAL ENABLEDELAYEDEXPANSION
 IF EXIST %filename% (
@@ -76,7 +77,7 @@ IF EXIST %filename% (
 ENDLOCAL & SET csum=%csum%
 
 IF EXIST %filename% (
-    IF [%sums%] NEQ [%csum%] (
+    IF [%ssum%] NEQ [%csum%] (
         ECHO %compiler% is compiling %filename%
         %compiler% %flags% %filename% -I . -o %binary%
 
