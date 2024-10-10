@@ -89,7 +89,7 @@ IF EXIST %filename% (
         ECHO %compiler% is compiling %filename%
         %compiler% %flags% %filename% -I . -o %binary%
 
-        IF [%sumlines%] GEQ [%sum_limit%] (
+        IF %sumlines% GEQ %sum_limit% (
             @REM FIXME: date time is not universal
             ren %sumfile% %DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%-%TIME:~3,2%-%TIME:~6,2%%sum_extension%
         )
