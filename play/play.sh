@@ -84,7 +84,7 @@ if [[ -e $FILENAME ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
 
-        if [[ $SUMLINES -ge $SUM_LIMIT]] ; then
+        if [[ $SUMLINES -ge $SUM_LIMIT ]] ; then
             OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"
             mv $SUMFILE $OLDSUMFILE
         fi
