@@ -15,7 +15,7 @@ SET /A stack_size= 64 * 1024 * 1024
 @REM store checksums of played programs
 SET sum_extension=.log
 @REM limit the number of records in checksum log
-SET /A sum_limit=1
+SET /A sum_limit=100
 
 SET sum=MD5
 SET compiler=g++

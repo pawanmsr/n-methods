@@ -8,7 +8,7 @@ FILE_EXTENSION=".cpp"
 BINARY_EXTENSION=".out"
 STACK_SIZE="unlimited" # 64 * 1024 # for 64 MBs
 SUM_EXTENSION=".log" # store checksums of played programs
-SUM_LIMIT=1 # limit the number of records in checksum log
+SUM_LIMIT=100 # limit the number of records in checksum log
 
 SUM="md5sum"
 COMPILER="g++"
