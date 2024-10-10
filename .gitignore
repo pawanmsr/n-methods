@@ -45,8 +45,11 @@ bin/*
 .vscode
 
 # Ignore contents in play
-# play/*
-play/*.txt
-play/*.sum
+play/*
 !play/template.cpp
-!play/CMakeLists.txt
+
+# Ignore logs
+*.log
+*.txt
+
+!**/CMakeLists.txt

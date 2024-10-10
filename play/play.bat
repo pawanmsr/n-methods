@@ -10,14 +10,18 @@ SET binary_extension=.exe
 @REM increase stack size to 64MBs
 SET /A stack_size= 64 * 1024 * 1024
 @REM FIXME: not working on 32 bit compiler
-@REM test with different compilers
+@REM prefer 64 bit compiler, always
 
-SET sum_extension=.sum
+@REM store checksums of played programs
+SET sum_extension=.log
+@REM limit the number of records in checksum log
+SET /A sum_limit=100
 
 SET sum=MD5
 SET compiler=g++
 SET flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
 
+@REM supply as first argument to clean
 SET clean=again
 
 IF [%~1] == [] (
@@ -56,14 +60,20 @@ IF [%binary_name%] == [] (
 
 SET sumfile=%prefix%%sum_extension%
 SETLOCAL ENABLEDELAYEDEXPANSION
-SET sums=absent
+SET /A sumlines=0
+@REM stored checksum
+SET ssum=absent
 IF EXIST %sumfile% (
     @REM filename checksum
     FOR /F "tokens=1,2 delims= " %%a IN (%sumfile%) DO (
-        IF [%%a] EQU [%filename%] IF [%%b] NEQ [] SET sums=%%b
+        SET /A sumlines+=1
+        IF [%%a] EQU [%filename%] IF [%%b] NEQ [] SET ssum=%%b
     )
 )
-ENDLOCAL & SET sums=%sums%
+ENDLOCAL & (
+    SET ssum=%ssum%
+    SET sumlines=%sumlines%
+)
 
 SETLOCAL ENABLEDELAYEDEXPANSION
 IF EXIST %filename% (
@@ -75,9 +85,14 @@ IF EXIST %filename% (
 ENDLOCAL & SET csum=%csum%
 
 IF EXIST %filename% (
-    IF [%sums%] NEQ [%csum%] (
+    IF [%ssum%] NEQ [%csum%] (
         ECHO %compiler% is compiling %filename%
         %compiler% %flags% %filename% -I . -o %binary%
+
+        IF %sumlines% GEQ %sum_limit% (
+            @REM FIXME: date time is not universal
+            ren %sumfile% %DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%-%TIME:~3,2%-%TIME:~6,2%%sum_extension%
+        )
 
         IF [%csum%] NEQ [] ECHO %filename% %csum% >> %sumfile%
     )
@@ -95,7 +110,7 @@ IF EXIST %filename% (
 )
 
 :usage
-ECHO Usage: play.bat [problem]
+ECHO Usage: play.bat [problem ^| %clean%]
 ECHO Problem may be a, b, . . .
 ECHO:
 EXIT /B %ERRORLEVEL%

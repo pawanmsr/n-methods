@@ -7,7 +7,8 @@ BINARY_NAME=
 FILE_EXTENSION=".cpp"
 BINARY_EXTENSION=".out"
 STACK_SIZE="unlimited" # 64 * 1024 # for 64 MBs
-SUM_EXTENSION=".sum"
+SUM_EXTENSION=".log" # store checksums of played programs
+SUM_LIMIT=100 # limit the number of records in checksum log
 
 SUM="md5sum"
 COMPILER="g++"
@@ -16,7 +17,7 @@ FLAGS="-g -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion"
 CLEAN="again" # supply as first argument to clean
 
 usage() {
-    echo "Usage: bash play.sh [problem]"
+    echo "Usage: bash play.sh [problem | $CLEAN]"
     echo "Problem may be a, b, . . ."
     echo
 }
@@ -54,12 +55,18 @@ else
     BINARY="${BINARY_NAME}${BINARY_EXTENSION}"
 fi
 
-declare -A SUMS
+declare -A SSUM # stored checksum
+SUMLINES=0
 SUMFILE="${PREFIX}${SUM_EXTENSION}"
 if [[ -e $SUMFILE ]] ; then
     while IFS=' ' read -r KEY VALUE ; do
-        SUMS[$KEY]=$VALUE
+        SUMLINES=$((SUMLINES+1))
+        SSUM[$KEY]=$VALUE
     done < $SUMFILE
+    
+    # # using external tools
+    # SSUM[$FILENAME]=$(grep "$FILENAME " $SUMFILE | 
+    #     sed -e "s/^$FILENAME //" | tail -n 1)
 fi
 
 if [[ -e $FILENAME ]] ; then
@@ -67,18 +74,30 @@ if [[ -e $FILENAME ]] ; then
     # adjust limits on stack
     ulimit -s $STACK_SIZE # use sparingly
     
+    CSUM=
     if command -v $SUM &>/dev/null ; then
-        CSUM=($($SUM $CSUM))
+        CSUM=($($SUM $FILENAME))
         CSUM=${CSUM[0]}
-    else
-        CSUM=
     fi
     
-    if [[ ! -v SUMS[$FILENAME] ]] || [[ ${SUMS[$FILENAME]} != $CSUM ]] ; then
+    if [[ ! -v SSUM[$FILENAME] ]] || [[ ${SSUM[$FILENAME]} != $CSUM ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
+
+        if [[ $SUMLINES -ge $SUM_LIMIT ]] ; then
+            OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"
+            mv $SUMFILE $OLDSUMFILE
+        fi
+
+        # # using grep
+        # if [[ -e $SUMFILE ]] ; then
+        #     if [[ $(grep -c ^ $SUMFILE) -ge $SUM_LIMIT ]] ; then
+        #         OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"
+        #         mv $SUMFILE $OLDSUMFILE
+        #     fi
+        # fi
         
-        if [[ -z $CSUM ]] ; then
+        if [[ ! -z $CSUM ]] ; then
             echo "$FILENAME $CSUM" >> $SUMFILE
         fi
     fi

@@ -55,6 +55,8 @@ Use own or familiar device or get familiar with available workstation. Make sure
 
 > [!IMPORTANT]
 > Ascertain device specification specially when solution programs need to be run locally or results uploaded in absence of online judgement.
+>
+> Prefer 64 bit machine and install 64 bit compiler (if not pre-installed).
 
 - Architecture and compiler compatibility
 - Stack size and memory
