@@ -56,10 +56,11 @@ else
 fi
 
 declare -A SSUM # stored checksum
+SUMLINES=0
 SUMFILE="${PREFIX}${SUM_EXTENSION}"
 if [[ -e $SUMFILE ]] ; then
     while IFS=' ' read -r KEY VALUE ; do
-        # TODO: @here: count the number of lines
+        SUMLINES=$((SUMLINES+1))
         SSUM[$KEY]=$VALUE
     done < $SUMFILE
     
@@ -83,13 +84,18 @@ if [[ -e $FILENAME ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
 
-        if [[ -e $SUMFILE ]] ; then
-            # TODO: try to do without grep, see: @here.
-            if [[ $(grep -c ^ $SUMFILE) -ge $SUM_LIMIT ]] ; then
-                OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"
-                mv $SUMFILE $OLDSUMFILE
-            fi
+        if [[ $SUMLINES -ge $SUM_LIMIT]] ; then
+            OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"
+            mv $SUMFILE $OLDSUMFILE
         fi
+
+        # # using grep
+        # if [[ -e $SUMFILE ]] ; then
+        #     if [[ $(grep -c ^ $SUMFILE) -ge $SUM_LIMIT ]] ; then
+        #         OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"
+        #         mv $SUMFILE $OLDSUMFILE
+        #     fi
+        # fi
         
         if [[ ! -z $CSUM ]] ; then
             echo "$FILENAME $CSUM" >> $SUMFILE

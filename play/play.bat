@@ -14,11 +14,14 @@ SET /A stack_size= 64 * 1024 * 1024
 
 @REM store checksums of played programs
 SET sum_extension=.log
+@REM limit the number of records in checksum log
+SET /A sum_limit=1
 
 SET sum=MD5
 SET compiler=g++
 SET flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
 
+@REM supply as first argument to clean
 SET clean=again
 
 IF [%~1] == [] (
@@ -57,15 +60,20 @@ IF [%binary_name%] == [] (
 
 SET sumfile=%prefix%%sum_extension%
 SETLOCAL ENABLEDELAYEDEXPANSION
+SET /A sumlines=0
 @REM stored checksum
 SET ssum=absent
 IF EXIST %sumfile% (
     @REM filename checksum
     FOR /F "tokens=1,2 delims= " %%a IN (%sumfile%) DO (
+        SET /A sumlines+=1
         IF [%%a] EQU [%filename%] IF [%%b] NEQ [] SET ssum=%%b
     )
 )
-ENDLOCAL & SET ssum=%ssum%
+ENDLOCAL & (
+    SET ssum=%ssum%
+    SET sumlines=%sumlines%
+)
 
 SETLOCAL ENABLEDELAYEDEXPANSION
 IF EXIST %filename% (
@@ -80,6 +88,11 @@ IF EXIST %filename% (
     IF [%ssum%] NEQ [%csum%] (
         ECHO %compiler% is compiling %filename%
         %compiler% %flags% %filename% -I . -o %binary%
+
+        IF [%sumlines%] GEQ [%sum_limit%] (
+            @REM FIXME: date time is not universal
+            ren %sumfile% %DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%-%TIME:~3,2%-%TIME:~6,2%%sum_extension%
+        )
 
         IF [%csum%] NEQ [] ECHO %filename% %csum% >> %sumfile%
     )
