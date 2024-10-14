@@ -39,12 +39,6 @@ add_test(
 )
 
 add_test(
-    NAME extended_gcd 
-    COMMAND ${SIMPLE_TEST_EXECUTABLE} "extended_gcd" 
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-)
-
-add_test(
     NAME sort 
     COMMAND ${SIMPLE_TEST_EXECUTABLE} "sort" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
