@@ -49,6 +49,8 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 
 </pre>
 
+Solution template in play.
+
 ### Logistics
 
 Use own or familiar device or get familiar with available workstation. Make sure all keys work especially if keyboard is battered - if they all don't then make a note of disabled keys to avoid naming variables that spell with disabled letters - and try not to use on-screen keyboard or touch screens. Download the compressed file of the repository or use version control if available.
@@ -63,6 +65,8 @@ Use own or familiar device or get familiar with available workstation. Make sure
 - Stream buffer
 
 ### Milestones
+
+Read and understand the problem statements carefully to avoid re-doing. "Wait, but don't wait for too long."  
 
 Ratings are important, but learning and improvements are more important - consider blue as benchmark and try to reach above. Same goes for everything else. Register only if interested - unrated otherwise. Have fun!  
 
@@ -86,5 +90,5 @@ Don't get bored - boredom kills. If bored, then have **[fun](/doc/fun.md)**!
 Appreciation
 ------------
 
-Academic sporting platforms, blogs, tutorials, and books.
+Course notes, books, online platforms, blogs, and tutorials.
 Citations in respective source code docstring.  
