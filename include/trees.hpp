@@ -1,5 +1,5 @@
-#if !defined(SEGMENT_TREE)
-#define SEGMENT_TREE
+#if !defined(TREES)
+#define TREES
 
 #include <vector>
 #include <cstdint>
