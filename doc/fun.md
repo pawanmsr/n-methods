@@ -15,6 +15,8 @@ TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by 
 
 [![Genie](https://i.ibb.co/Dt9VCQy/genie.png)](https://ibb.co/Dt9VCQy)  
 
+TODO: [Entropy Fun](/doc/entropy-fun.md)
+
 Poetry
 ------
 
@@ -44,3 +46,8 @@ Poetry
 > Time was never enough, but atleast there is tomorrow.  
 > :rofl:
 >
+
+Reminder
+--------
+
+There will be time for fun always. Finish up the primary quickly - don't end up like the unconnected blip in *Conway, J. H.*'s Life. Also, write something funny about fields, groups and rings sometime later.
