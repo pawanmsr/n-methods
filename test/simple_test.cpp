@@ -10,18 +10,16 @@
 #include <primes.hpp>
 #include <exponentiation.hpp>
 #include <gcd.hpp>
-#include <extended_gcd.hpp>
 #include <sort.hpp>
-#include <modulo_operations.hpp>
+#include <modulo.hpp>
 
 // Constants
 enum enumerate {
     primes,
     exponentiation,
     gcd,
-    extended_gcd,
     sort,
-    modulo_operations,
+    modulo,
     // enumerate more tests here //
     unknown
 };
@@ -30,9 +28,8 @@ enumerate codes(std::string const &s) {
     if (s == "primes") return primes;
     if (s == "exponentiation") return exponentiation;
     if (s == "gcd") return gcd;
-    if (s == "extended_gcd") return extended_gcd;
     if (s == "sort") return sort;
-    if (s == "modulo_operations") return modulo_operations;
+    if (s == "modulo") return modulo;
 
     return unknown;
 }
@@ -53,10 +50,6 @@ bool test_binary_exponentiation() {
 }
 
 bool test_gcd() {
-    return true;
-}
-
-bool test_extended_gcd() {
     return true;
 }
 
@@ -110,16 +103,12 @@ int main(int argc, char const *argv[])
     case gcd:
         assert(test_gcd());
         break;
-
-    case extended_gcd:
-        assert(test_extended_gcd());
-        break;
     
     case sort:
         assert(test_sort());
         break;
     
-    case modulo_operations:
+    case modulo:
         assert(test_modulo_operations());
         break;
     

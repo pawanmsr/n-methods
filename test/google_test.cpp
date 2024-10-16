@@ -10,9 +10,8 @@
 #include <primes.hpp>
 #include <exponentiation.hpp>
 #include <gcd.hpp>
-#include <extended_gcd.hpp>
 #include <sort.hpp>
-#include <modulo_operations.hpp>
+#include <modulo.hpp>
 #include <search.hpp>
 #include <combinatorics.hpp>
 #include <segment_tree.hpp>

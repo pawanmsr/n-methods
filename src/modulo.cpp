@@ -1,7 +1,6 @@
-#include <modulo_operations.hpp>
+#include <modulo.hpp>
 
 #include <gcd.hpp>
-#include <extended_gcd.hpp>
 #include <exponentiation.hpp>
 
 namespace nm
