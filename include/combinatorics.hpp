@@ -1,7 +1,7 @@
 #if !defined(COMBINATORICS)
 #define COMBINATORICS
 
-#include <modulo_operations.hpp>
+#include <modulo.hpp>
 
 #include <vector>
 #include <cstdint>

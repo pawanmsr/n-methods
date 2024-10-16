@@ -1,4 +1,4 @@
-#include <modulo_operations.hpp>
+#include <modulo.hpp>
 
 #include <gcd.hpp>
 #include <exponentiation.hpp>

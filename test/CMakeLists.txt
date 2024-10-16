@@ -45,7 +45,7 @@ add_test(
 )
 
 add_test(
-    NAME modulo_operations 
-    COMMAND ${SIMPLE_TEST_EXECUTABLE} "modulo_operations" 
+    NAME modulo 
+    COMMAND ${SIMPLE_TEST_EXECUTABLE} "modulo" 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
 )

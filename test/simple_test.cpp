@@ -11,7 +11,7 @@
 #include <exponentiation.hpp>
 #include <gcd.hpp>
 #include <sort.hpp>
-#include <modulo_operations.hpp>
+#include <modulo.hpp>
 
 // Constants
 enum enumerate {
@@ -19,7 +19,7 @@ enum enumerate {
     exponentiation,
     gcd,
     sort,
-    modulo_operations,
+    modulo,
     // enumerate more tests here //
     unknown
 };
@@ -29,7 +29,7 @@ enumerate codes(std::string const &s) {
     if (s == "exponentiation") return exponentiation;
     if (s == "gcd") return gcd;
     if (s == "sort") return sort;
-    if (s == "modulo_operations") return modulo_operations;
+    if (s == "modulo") return modulo;
 
     return unknown;
 }
@@ -108,7 +108,7 @@ int main(int argc, char const *argv[])
         assert(test_sort());
         break;
     
-    case modulo_operations:
+    case modulo:
         assert(test_modulo_operations());
         break;
     
