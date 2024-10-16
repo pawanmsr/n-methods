@@ -10,7 +10,6 @@
 #include <primes.hpp>
 #include <exponentiation.hpp>
 #include <gcd.hpp>
-#include <extended_gcd.hpp>
 #include <sort.hpp>
 #include <modulo_operations.hpp>
 #include <search.hpp>
