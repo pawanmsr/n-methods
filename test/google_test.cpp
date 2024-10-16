@@ -14,7 +14,7 @@
 #include <modulo.hpp>
 #include <search.hpp>
 #include <combinatorics.hpp>
-#include <segment_tree.hpp>
+#include <trees.hpp>
 #include <union_find.hpp>
 #include <utility.hpp>
 #include <newton.hpp>
