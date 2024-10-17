@@ -134,3 +134,27 @@ namespace nm
 } // namespace nm
 
 template class nm::SegmentTree<int, nm::Integrator<int>>;
+
+// Search Trees
+namespace nm
+{   
+    template <class C>
+    SearchTree<C>::SearchTree() {
+        // constructor
+    }
+    
+    template <class C>
+    SearchTree<C>::~SearchTree() {
+        delete this;
+    }
+
+    template <class C>
+    AVL<C>::AVL() {
+        // constructor
+        // initialize super class too
+    }
+    
+    template <class C>
+    AVL<C>::~AVL() {
+    }
+} // namespace nm

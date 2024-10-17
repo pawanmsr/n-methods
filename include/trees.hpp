@@ -43,6 +43,32 @@ namespace nm
         T update(T value, std::int32_t left, std::int32_t right);
         ~SegmentTree();
     };
+
+
+    template <class C>
+    class SearchTree {
+    private:
+        // define storage type
+    public:
+        SearchTree();
+        ~SearchTree();
+    };
+
+    // Reference: ACP Volume 2
+    template <class C>
+    class AVL : protected SearchTree {
+    private:
+        // positive / true or 
+        // negative / false to specify
+        // direction of lean for the tree
+        bool balance_factor;
+    public:
+        AVL();
+        void insert();
+        void remove();
+        void search();
+        ~AVL();
+    };
 } // namespace nm
 
 #endif // SEGMENT_TREE
