@@ -44,24 +44,42 @@ namespace nm
         ~SegmentTree();
     };
 
-
+    
+    /*
+     * Reference: TAOCP Volume 3
+     * 6.2.2
+     */
     template <class C>
     class SearchTree {
     private:
         // define storage type
     public:
         SearchTree();
+        void insert(C x);
+        void search(c y);
         ~SearchTree();
     };
 
-    // Reference: ACP Volume 2
+    /*
+     * Reference: TAOCP Volume 3
+     * 6.2.3
+     * Alternate: libdict/hb_tree
+     * MIXAL -> ?! / C -> ?
+     */
     template <class C>
     class AVL : protected SearchTree {
     private:
+        // storage type contains
+        // RLINK and LLINK
+        // additional to KEY
+        // in super class
+
         // positive / true or 
         // negative / false to specify
         // direction of lean for the tree
         bool balance_factor;
+    protected:
+        void rotate();
     public:
         AVL();
         void insert();
