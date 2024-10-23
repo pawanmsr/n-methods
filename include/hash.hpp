@@ -1,16 +1,25 @@
 #if !defined(HASH)
 #define HASH
 
+#include <string>
+#include <cstdint>
+
+#include <modulo.hpp>
+
 namespace nm
 {
+
     template<typename T>
-    class Linear
-    {
+    class Linear : public Arithmetic<T> {
     private:
-        std::size_t m;
+
+    protected:
+        std::size_t hash(std::string s);
+        std::size_t hash(std::int64_t n);
+
     public:
-        Linear(std::size_t mod);
-        T hash(T x);
+        Linear(std::size_t mod_prime);
+        std::size_t hash(T x);
         ~Linear();
     };
     
