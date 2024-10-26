@@ -3,7 +3,11 @@
 namespace nm
 {
     // DES
-
+    DES::DES() {
+    }
+    
+    DES::~DES() {
+    }
 
 
     // Rijndael (small)
@@ -11,4 +15,6 @@ namespace nm
 
 
     // RSA
+
+    
 } // namespace nm

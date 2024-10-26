@@ -3,6 +3,14 @@
 
 namespace nm
 {
+    class DES {
+    private:
+    public:
+        DES();
+        void encrypt();
+        void decrypt();
+        ~DES();
+    };
     
 } // namespace nm
 
