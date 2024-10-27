@@ -5,8 +5,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace nm
-{
+namespace nm {
     // !? lookout for // modify // in popagate function
     // and assignment in update_tree function
     // More complex problems may require overhaul.
@@ -136,16 +135,64 @@ namespace nm
 template class nm::SegmentTree<int, nm::Integrator<int>>;
 
 // Search Trees
-namespace nm
-{   
-    template <class C>
-    SearchTree<C>::SearchTree() {
-        // constructor
+namespace nm {   
+    template <class C, class T, class U>
+    SearchTree<C, T, U>::SearchTree(std::function<bool(T&, T&)> compare) : 
+        compare(compare) {
+            this->root = NULL;
+            this->size = 0;
+        }
+    
+    template <class C, class T, class U>
+    C* SearchTree<C, T, U>::node(T x) {
+        C* seeker = this->root;
+        while (seeker and seeker != x) {
+            if (not seeker->size())
+                break;
+            
+            if (x < seeker and seeker->llink)
+                seeker = seeker->llink;
+            else if (x > seeker and seeker->rlink)
+                seeker = seeker->rlink;
+            else break;
+        }
+
+        return seeker;
+    }
+
+    template <class C, class T, class U>
+    void SearchTree<C, T, U>::insert(T x, U y) {
+        C* n = this->node(x);
+        if (not n) n = new C<T, U>(x);
+        else if (n != x) {
+            C* ni = new C<T, U>(x);
+            (ni < n->rlink ? ni->rlink : ni->llink) = n->rlink;
+            
+            if (n < ni) n->rlink = ni;
+            else n->llink = ni;
+        }
+    }
+
+    template <class C, class T, class U>
+    void SearchTree<C, T, U>::insert(T x) {
+        // this->insert(x, 0);
+    }
+
+    template <class C, class T, class U>
+    bool SearchTree<C, T, U>::search(T x) {
+        C* n = this->node(x);
+        if (n and n == x) return true;
+        return false;
+    }
+
+    template <class C, class T, class U>
+    U SearchTree<C, T, U>::obtain(T x) {
+        return this->node(x)->info();
     }
     
-    template <class C>
-    SearchTree<C>::~SearchTree() {
-        delete this;
+    template <class C, class T, class U>
+    SearchTree<C, T, U>::~SearchTree() {
+        // delete this;
     }
 
     template <class C>

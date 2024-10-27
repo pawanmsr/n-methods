@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <functional>
 
 namespace nm
 {
@@ -49,14 +50,20 @@ namespace nm
      * Reference: TAOCP Volume 3
      * 6.2.2
      */
-    template <class C>
+    template <class C, class T, class U>
     class SearchTree {
     private:
-        // define storage type
+        C* root;
+        std::uint64_t size;
+        std::function<bool(T&, T&)> compare;
+    protected:
+        C* node(T x);
     public:
-        SearchTree();
-        void insert(C x);
-        void search(C y);
+        SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
+        void insert(T x, U y); // map-like
+        void insert(T x); // set-like
+        bool search(T x);
+        U obtain(T x);
         ~SearchTree();
     };
 
@@ -89,4 +96,4 @@ namespace nm
     };
 } // namespace nm
 
-#endif // SEGMENT_TREE
+#endif // TREES
