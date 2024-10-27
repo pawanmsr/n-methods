@@ -195,13 +195,13 @@ namespace nm {
         // delete this;
     }
 
-    template <class C>
-    AVL<C>::AVL() {
+    template <class C, class T, class U>
+    AVL<C, T, U>::AVL() {
         // constructor
         // initialize super class too
     }
     
-    template <class C>
-    AVL<C>::~AVL() {
+    template <class C, class T, class U>
+    AVL<C, T, U>::~AVL() {
     }
 } // namespace nm

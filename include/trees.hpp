@@ -75,8 +75,8 @@ namespace nm
      * Alternate: libdict/hb_tree
      * MIXAL -> ?! / C -> ?
      */
-    template <class C>
-    class AVL {
+    template <class C, class T, class U>
+    class AVL : protected SearchTree<C, T, U> {
     private:
         // storage type contains
         // RLINK and LLINK
