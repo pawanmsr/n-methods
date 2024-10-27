@@ -64,6 +64,7 @@ namespace nm
         SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
         void insert(T x, U y); // map-like
         void insert(T x); // set-like
+        void remove(T x);
         bool search(T x);
         U obtain(T x);
         ~SearchTree();

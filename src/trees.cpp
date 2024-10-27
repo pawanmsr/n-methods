@@ -174,6 +174,15 @@ namespace nm {
     }
 
     template <class C, class T, class U>
+    void SearchTree<C, T, U>::remove(T x) {
+        C* n = this->node(x);
+        if (n == x) {
+            // re-link nodes
+            delete n;
+        }
+    }
+
+    template <class C, class T, class U>
     void SearchTree<C, T, U>::insert(T x) {
         // this->insert(x, 0);
     }
