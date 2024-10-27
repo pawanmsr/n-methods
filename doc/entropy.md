@@ -17,4 +17,5 @@ Thinking of Thermodynamics and Entropy
 > Starting from root, all the way to leaves.
 > Trees have branches that grow irregularly,
 > But we can rotate to balance them evenly.
->
+> <cite>Pawan</cite> (original, inspired by Adelson-Velsky Landis)
+> 
