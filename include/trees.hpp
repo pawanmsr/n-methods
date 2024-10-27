@@ -67,7 +67,7 @@ namespace nm
      * MIXAL -> ?! / C -> ?
      */
     template <class C>
-    class AVL : protected SearchTree {
+    class AVL : protected SearchTree<C> {
     private:
         // storage type contains
         // RLINK and LLINK
