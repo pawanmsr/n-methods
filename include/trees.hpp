@@ -56,7 +56,7 @@ namespace nm
     public:
         SearchTree();
         void insert(C x);
-        void search(c y);
+        void search(C y);
         ~SearchTree();
     };
 

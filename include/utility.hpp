@@ -4,6 +4,26 @@
 #include <functional>
 
 namespace nm {
+    template<class T>
+    struct Node {
+        T key;
+        Node* llink, rlink;
+        std::function<bool(T&, T&)> compare;
+
+        bool operator < (const Node* a, const Node* b) {
+            if (not a or not b) return true;
+            return compare(a->key, b->key);
+        };
+
+        Node(T k) : key(k), llink(NULL), rlink(NULL), compare(default_compare) {};
+        Node(T k, Node* a, Node* b) : key(k), llink(a), rlink(b), compare(default_compare) {};
+        
+        Node(T k, std::function<bool(T&, T&)> c) :
+            key(k), llink(NULL), rlink(NULL), compare(c) {};
+        Node(T k, Node* a, Node* b, std::function<bool(T&, T&)> c) :
+            key(k), llink(a), rlink(b), compare(c) {};
+    };
+
     // T is type of data to query on
     template<class T>
     struct Integrator {
