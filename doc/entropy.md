@@ -3,8 +3,6 @@ Thinking of Thermodynamics and Entropy
 
 > (Rant against / Curse of) Entropy.
 >
-> [ . . . ]
->
 > Hear me my friends, I have a tale to tell.
 > Of Clausius, Boltzmann and others as well,
 > Discovered the theory of entropy, they all did.
@@ -12,3 +10,11 @@ Thinking of Thermodynamics and Entropy
 >
 > [ . . . ]
 > 
+
+> Balanced Trees
+>
+> When I am bored, I like to climb trees.
+> Starting from root, all the way to leaves.
+> Trees have branches that grow irregularly,
+> But we can rotate to balance them evenly.
+>
