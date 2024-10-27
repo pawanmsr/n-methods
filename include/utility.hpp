@@ -56,7 +56,6 @@ namespace nm {
         };
 
         bool operator < (const T x) {
-            if (not n) return true;
             return compare(this->key, x);
         };
 
@@ -64,7 +63,7 @@ namespace nm {
             return this->key == x;
         };
 
-        std::uint64_t size() {
+        std::size_t size() {
             if (not this->lsize and this->llink)
                 this->lsize = this->llink->size();
             if (not this->rsize and this->rlink)
@@ -75,7 +74,7 @@ namespace nm {
         Node(T k, U i) : key(k), info(i) {};
         
         Node(T k, U i, Node* a, Node* b) :
-            key(k), info(d), llink(a), rlink(b) {};
+            key(k), info(i), llink(a), rlink(b) {};
         
         Node(T k, U i, std::function<bool(T&, T&)> c) :
             key(k), info(i), compare(c) {};
@@ -85,8 +84,8 @@ namespace nm {
         
         private:
         T key;
-        std::uint64_t lsize = 0;
-        std::uint64_t rsize = 0:
+        std::size_t lsize = 0;
+        std::size_t rsize = 0;
         Node<T, U>* llink = NULL;
         Node<T, U>* rlink = NULL;
         std::function<bool(T&, T&)> compare

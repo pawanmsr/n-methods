@@ -163,9 +163,9 @@ namespace nm {
     template <class C, class T, class U>
     void SearchTree<C, T, U>::insert(T x, U y) {
         C* n = this->node(x);
-        if (not n) n = new C<T, U>(x);
+        if (not n) n = new C(x);
         else if (n != x) {
-            C* ni = new C<T, U>(x);
+            C* ni = new C(x);
             (ni < n->rlink ? ni->rlink : ni->llink) = n->rlink;
             
             if (n < ni) n->rlink = ni;

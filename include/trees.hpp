@@ -1,6 +1,8 @@
 #if !defined(TREES)
 #define TREES
 
+#include <utility.hpp>
+
 #include <vector>
 #include <cstdint>
 #include <functional>
@@ -54,7 +56,7 @@ namespace nm
     class SearchTree {
     private:
         C* root;
-        std::uint64_t size;
+        std::size_t size;
         std::function<bool(T&, T&)> compare;
     protected:
         C* node(T x);
@@ -74,7 +76,7 @@ namespace nm
      * MIXAL -> ?! / C -> ?
      */
     template <class C>
-    class AVL : protected SearchTree<C> {
+    class AVL {
     private:
         // storage type contains
         // RLINK and LLINK
