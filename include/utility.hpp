@@ -36,25 +36,61 @@ namespace nm {
         Integrator(T i) : identity(i) {};
     };
 
-    template<class T>
+
+    /*
+     * Node contains key, llink, rlink, info.
+     * Terminology from TAOCP.
+     */
+    template<class T, class U>
     struct Node {
-        T key;
-        Node<T>* llink;
-        Node<T>* rlink;
-        std::function<bool(T&, T&)> compare;
+        U info;
 
         bool operator < (const Node* n) {
             if (not n) return true;
             return compare(this->key, n->key);
         };
 
-        Node(T k) : key(k), llink(NULL), rlink(NULL), compare(default_compare<T>) {};
-        Node(T k, Node* a, Node* b) : key(k), llink(a), rlink(b), compare(default_compare<T>) {};
+        bool operator == (const Node* n) {
+            if (not n) return false;
+            return this->key == n->key;
+        };
+
+        bool operator < (const T x) {
+            if (not n) return true;
+            return compare(this->key, x);
+        };
+
+        bool operator == (const T x) {
+            return this->key == x;
+        };
+
+        std::uint64_t size() {
+            if (not this->lsize and this->llink)
+                this->lsize = this->llink->size();
+            if (not this->rsize and this->rlink)
+                this->rsize = this->rlink->size();
+            return this->lsize + this->rsize + 1;
+        };
+
+        Node(T k, U i) : key(k), info(i) {};
         
-        Node(T k, std::function<bool(T&, T&)> c) :
-            key(k), llink(NULL), rlink(NULL), compare(c) {};
-        Node(T k, Node* a, Node* b, std::function<bool(T&, T&)> c) :
-            key(k), llink(a), rlink(b), compare(c) {};
+        Node(T k, U i, Node* a, Node* b) :
+            key(k), info(d), llink(a), rlink(b) {};
+        
+        Node(T k, U i, std::function<bool(T&, T&)> c) :
+            key(k), info(i), compare(c) {};
+        
+        Node(T k, U i, Node* a, Node* b, std::function<bool(T&, T&)> c) :
+            key(k), info(i), llink(a), rlink(b), compare(c) {};
+        
+        private:
+        T key;
+        std::uint64_t lsize = 0;
+        std::uint64_t rsize = 0:
+        Node<T, U>* llink = NULL;
+        Node<T, U>* rlink = NULL;
+        std::function<bool(T&, T&)> compare
+            = default_compare<T>;
     };
 }
 
