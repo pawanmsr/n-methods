@@ -206,6 +206,22 @@ namespace nm {
     U SearchTree<C, T, U>::obtain(T x) {
         return this->node(x)->info();
     }
+
+    template <class C, class T, class U>
+    void SearchTree<C, T, U>::preorder(C* n, std::vector<T> keys) {
+        if (n) {
+            preorder(n->llink, keys);
+            keys.push_back(n->key);
+            preorder(n->rlink, keys);
+        }
+    }
+
+    template <class C, class T, class U>
+    std::vector<T> SearchTree<C, T, U>::keys() {
+        std::vector<T> keys;
+        preorder(this->root, keys);
+        return &keys;
+    }
     
     template <class C, class T, class U>
     SearchTree<C, T, U>::~SearchTree() {
