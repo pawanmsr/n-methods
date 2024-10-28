@@ -60,14 +60,28 @@ namespace nm
         std::function<bool(T&, T&)> compare;
     protected:
         C* node(T x);
+        C* create(T x);
     public:
         SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
-        void insert(T x, U y); // map-like
+        
+        U insert(T x, U y); // map-like
         void insert(T x); // set-like
-        void remove(T x);
+        
+        bool remove(T x);
         bool search(T x);
+        
         U obtain(T x);
+        
         ~SearchTree();
+        
+        U & operator [](T x) {
+            C* n = this->create(x);
+            return n->info();
+        };
+
+        const U & operator [](T x) const {
+            return this->obtain(x);
+        };
     };
 
     /*

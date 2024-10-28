@@ -147,9 +147,6 @@ namespace nm {
     C* SearchTree<C, T, U>::node(T x) {
         C* seeker = this->root;
         while (seeker and seeker != x) {
-            if (not seeker->size())
-                break;
-            
             if (x < seeker and seeker->llink)
                 seeker = seeker->llink;
             else if (x > seeker and seeker->rlink)
@@ -161,30 +158,41 @@ namespace nm {
     }
 
     template <class C, class T, class U>
-    void SearchTree<C, T, U>::insert(T x, U y) {
+    C* SearchTree<C, T, U>::create(T x) {
         C* n = this->node(x);
         if (not n) n = new C(x);
-        else if (n != x) {
+        
+        if (n != x) {
             C* ni = new C(x);
-            (ni < n->rlink ? ni->rlink : ni->llink) = n->rlink;
-            
             if (n < ni) n->rlink = ni;
             else n->llink = ni;
+            n = ni;
         }
+
+        return n;
     }
 
     template <class C, class T, class U>
-    void SearchTree<C, T, U>::remove(T x) {
-        C* n = this->node(x);
-        if (n == x) {
-            // re-link nodes
-            delete n;
-        }
+    U SearchTree<C, T, U>::insert(T x, U y) {
+        C* n = this->create(x);
+        return n->info = y;
     }
 
     template <class C, class T, class U>
     void SearchTree<C, T, U>::insert(T x) {
-        // this->insert(x, 0);
+        C* n = this->create(x);
+    }
+
+    template <class C, class T, class U>
+    bool SearchTree<C, T, U>::remove(T x) {
+        C* n = this->node(x);
+        return false;
+        if (n == x) {
+            // Incomplete //
+            // re-link nodes
+            delete n;
+            return true;
+        }
     }
 
     template <class C, class T, class U>
@@ -203,7 +211,9 @@ namespace nm {
     SearchTree<C, T, U>::~SearchTree() {
         // delete this;
     }
+} // namespace nm
 
+namespace nm {
     template <class C, class T, class U>
     AVL<C, T, U>::AVL() {
         // constructor
@@ -214,3 +224,4 @@ namespace nm {
     AVL<C, T, U>::~AVL() {
     }
 } // namespace nm
+
