@@ -50,17 +50,23 @@ namespace nm
     
     /*
      * Reference: TAOCP Volume 3
-     * 6.2.2
+     * 6.2.2 : MIXAL -> C++
+     * class C is of type Node
+     *  as defined in utility.hpp.
      */
     template <class C, class T, class U>
     class SearchTree {
     private:
         C* root;
-        std::size_t size;
+        std::size_t tree_size;
         std::function<bool(T&, T&)> compare;
+    
     protected:
         C* node(T x);
         C* create(T x);
+        C* successor(C* n);
+        void preorder(C* n, std::vector<T> &keys);
+    
     public:
         SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
         
@@ -74,14 +80,12 @@ namespace nm
         
         ~SearchTree();
         
-        U & operator [](T x) {
-            C* n = this->create(x);
-            return n->info();
-        };
+        U & operator [](T x);
+        const U & operator [](T x) const;
 
-        const U & operator [](T x) const {
-            return this->obtain(x);
-        };
+        std::vector<T> keys();
+
+        std::size_t size();
     };
 
     /*

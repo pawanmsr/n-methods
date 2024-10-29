@@ -70,11 +70,11 @@ typedef long long int ll;
 #define pll pair<ll, ll>
 #define pii pair<int, int>
 #define all(x) (x).begin(), (x).end()
-#define debug(x) cerr << x << endl
+#define debug(x) cerr << (x) << endl
 
 // External //
+
 /*
- * MIT / GPL
  * Citation
  */
 
@@ -93,7 +93,7 @@ int main(int argc, char const *argv[]) {
     // ios_base::sync_with_stdio(false);
     // cin.tie(NULL);
 
-    // cout << fixed << setprecision(15);
+    // cout << fixed << setprecision(16);
 
     #ifndef ONLINE_JUDGE
     // freopen("input.txt", "r", stdin);
@@ -110,10 +110,13 @@ int main(int argc, char const *argv[]) {
     #endif
     
     /* code */
-    cout << "On a starry moonlit night,\n"
+    cerr << "On a starry moonlit night,\n"
     << "A lonely wolf begins to howl.\n"
     << "Wondering if his solutions are right,\n"
     << "'Do submit; maybe it's not all foul.'" << endl;
     
     return 0;
 }
+
+
+// Definitions //

@@ -43,33 +43,63 @@ namespace nm {
      */
     template<class T, class U>
     struct Node {
+        T key;
         U info;
+        Node<T, U>* llink = NULL;
+        Node<T, U>* rlink = NULL;
 
-        bool operator < (const Node* n) {
-            if (not n) return true;
-            return compare(this->key, n->key);
+        void operator = (Node n) {
+            key = n.key;
+            info = n.info;
+            llink = n.llink;
+            rlink = n.rlink;
+            lsize = n.lsize;
+            rsize = n.rsize;
+        }
+
+        bool operator < (Node n) {
+            return compare(key, n.key);
         };
 
-        bool operator == (const Node* n) {
-            if (not n) return false;
-            return this->key == n->key;
+        bool operator > (Node n) {
+            return compare(n.key, key);
         };
 
-        bool operator < (const T x) {
-            return compare(this->key, x);
+        bool operator == (Node n) {
+            return key == n.key;
         };
 
-        bool operator == (const T x) {
-            return this->key == x;
+        bool operator < (T x) {
+            return compare(key, x);
+        };
+
+        bool operator > (T x) {
+            return compare(x, key);
+        };
+
+        bool operator == (T x) {
+            return key == x;
         };
 
         std::size_t size() {
-            if (not this->lsize and this->llink)
-                this->lsize = this->llink->size();
-            if (not this->rsize and this->rlink)
-                this->rsize = this->rlink->size();
-            return this->lsize + this->rsize + 1;
+            if (not lsize and llink)
+                lsize = llink->size();
+            if (not rsize and rlink)
+                rsize = rlink->size();
+            
+            return lsize + rsize + 1;
         };
+
+        Node(T k) : key(k) {};
+
+        Node(T k, Node* a, Node* b) :
+            key(k), llink(a), rlink(b) {};
+        
+        Node(T k, std::function<bool(T&, T&)> c) :
+            key(k), compare(c) {};
+        
+        Node(T k, Node* a, Node* b, std::function<bool(T&, T&)> c) :
+            key(k), llink(a), rlink(b), compare(c) {};
 
         Node(T k, U i) : key(k), info(i) {};
         
@@ -83,11 +113,8 @@ namespace nm {
             key(k), info(i), llink(a), rlink(b), compare(c) {};
         
         private:
-        T key;
         std::size_t lsize = 0;
         std::size_t rsize = 0;
-        Node<T, U>* llink = NULL;
-        Node<T, U>* rlink = NULL;
         std::function<bool(T&, T&)> compare
             = default_compare<T>;
     };
