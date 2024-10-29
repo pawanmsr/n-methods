@@ -140,18 +140,27 @@ namespace nm {
     SearchTree<C, T, U>::SearchTree(std::function<bool(T&, T&)> compare) : 
         compare(compare) {
             this->root = NULL;
-            this->size = 0;
+            this->tree_size = 0;
         }
+    
+    template <class C, class T, class U>
+    std::size_t SearchTree<C, T, U>::size() {
+        return this->tree_size;
+    }
     
     template <class C, class T, class U>
     C* SearchTree<C, T, U>::node(T x) {
         C* seeker = this->root;
-        while (seeker and *seeker != x) {
-            if (*seeker > x and seeker->llink)
-                seeker = seeker->llink;
-            else if (*seeker < x and seeker->rlink)
-                seeker = seeker->rlink;
-            else break;
+        while (seeker) {
+            if (*seeker == x) break;
+            
+            if (*seeker > x)
+                if (seeker->llink) seeker = seeker->llink;
+                else break;
+            
+            if (*seeker < x)
+                if (seeker->rlink) seeker = seeker->rlink;
+                else break;
         }
 
         return seeker;
@@ -160,19 +169,30 @@ namespace nm {
     template <class C, class T, class U>
     C* SearchTree<C, T, U>::create(T x) {
         C* n = this->node(x);
+        if (n and *n == x) return n;
+
+        this->tree_size++;
+
         if (not n) {
-            n = new C(x);
-            this->root = n;
+            this->root = new C(x);
+            return this->root;
         }
         
-        if (*n != x) {
-            C* ni = new C(x);
-            if (n < ni) n->rlink = ni;
-            else n->llink = ni;
-            n = ni;
-        }
+        C* ni = new C(x);
+        
+        if (*n < *ni) n->rlink = ni;
+        else n->llink = ni;
+        n = ni;
 
         return n;
+    }
+
+    template <class C, class T, class U>
+    C* SearchTree<C, T, U>::successor(C* n) {
+        if (not n->llink and not n->rlink) return n;
+        
+        if (n->llink) return successor(n->llink);
+        else return successor(n->rlink);
     }
 
     template <class C, class T, class U>
@@ -189,13 +209,25 @@ namespace nm {
     template <class C, class T, class U>
     bool SearchTree<C, T, U>::remove(T x) {
         C* n = this->node(x);
-        return false;
-        if (*n == x) {
-            // Incomplete //
-            // re-link nodes
+        if (*n != x) return false;
+        
+        if (not n->llink and not n->rlink)
             delete n;
-            return true;
+        else if (not n->llink) {
+            *n = *n->rlink;
+            delete n->rlink;
+        } else if (not n->rlink) {
+            *n = *n->llink;
+            delete n->llink;
+        } else {
+            C* n_prime = successor(n->rlink);
+            n = n_prime;
+            
+            delete n_prime;
         }
+
+        this->tree_size--;
+        return true;
     }
 
     template <class C, class T, class U>
