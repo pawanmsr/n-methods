@@ -315,7 +315,30 @@ TEST(NRMethod, ParabolaSingle) {
 TEST(BST, InsertionTest) {
     nm::SearchTree<nm::Node<int, int>, int, int> st;
     for (int i = 0; i < N_CROOT; i++) st.insert(i);
+    EXPECT_EQ(st.size(), N_CROOT);
     EXPECT_EQ(st.keys().size(), N_CROOT);
+
+    nm::SearchTree<nm::Node<int, int>, int, int> str;
+    for (int i = N_CROOT - 1; i >= 0; i--) str.insert(i);
+    EXPECT_EQ(str.size(), N_CROOT);
+    EXPECT_EQ(str.keys().size(), N_CROOT);
+}
+
+TEST(BST, InsertionDeletionTest) {
+    nm::SearchTree<nm::Node<int, int>, int, int> st;
+    for (int i = N_CROOT; i > 0; i--) st.insert(i);
+
+    for (int i = 0; i <= N_CROOT; i++) {
+        st.remove(i);
+        
+        std::size_t size = N_CROOT - (i ? 1 : 0);
+        std::vector<int> keys = st.keys();
+        EXPECT_TRUE(is_sorted(keys));
+        EXPECT_EQ(keys.size(), size);
+        EXPECT_EQ(st.size(), size);
+
+        if (i) st.insert(i);
+    }
 }
 
 int main(int argc, char *argv[])
