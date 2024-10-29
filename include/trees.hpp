@@ -61,7 +61,7 @@ namespace nm
     protected:
         C* node(T x);
         C* create(T x);
-        void preorder(C* n, std::vector<T> keys);
+        void preorder(C* n, std::vector<T> &keys);
     public:
         SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
         
@@ -75,14 +75,8 @@ namespace nm
         
         ~SearchTree();
         
-        U & operator [](T x) {
-            C* n = this->create(x);
-            return n->info();
-        };
-
-        const U & operator [](T x) const {
-            return this->obtain(x);
-        };
+        U & operator [](T x);
+        const U & operator [](T x) const;
 
         std::vector<T> keys();
     };

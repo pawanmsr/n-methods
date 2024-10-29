@@ -146,10 +146,10 @@ namespace nm {
     template <class C, class T, class U>
     C* SearchTree<C, T, U>::node(T x) {
         C* seeker = this->root;
-        while (seeker and seeker != x) {
-            if (x < seeker and seeker->llink)
+        while (seeker and *seeker != x) {
+            if (*seeker > x and seeker->llink)
                 seeker = seeker->llink;
-            else if (x > seeker and seeker->rlink)
+            else if (*seeker < x and seeker->rlink)
                 seeker = seeker->rlink;
             else break;
         }
@@ -160,9 +160,12 @@ namespace nm {
     template <class C, class T, class U>
     C* SearchTree<C, T, U>::create(T x) {
         C* n = this->node(x);
-        if (not n) n = new C(x);
+        if (not n) {
+            n = new C(x);
+            this->root = n;
+        }
         
-        if (n != x) {
+        if (*n != x) {
             C* ni = new C(x);
             if (n < ni) n->rlink = ni;
             else n->llink = ni;
@@ -187,7 +190,7 @@ namespace nm {
     bool SearchTree<C, T, U>::remove(T x) {
         C* n = this->node(x);
         return false;
-        if (n == x) {
+        if (*n == x) {
             // Incomplete //
             // re-link nodes
             delete n;
@@ -198,17 +201,17 @@ namespace nm {
     template <class C, class T, class U>
     bool SearchTree<C, T, U>::search(T x) {
         C* n = this->node(x);
-        if (n and n == x) return true;
+        if (n and *n == x) return true;
         return false;
     }
 
     template <class C, class T, class U>
     U SearchTree<C, T, U>::obtain(T x) {
-        return this->node(x)->info();
+        return this->node(x)->info;
     }
 
     template <class C, class T, class U>
-    void SearchTree<C, T, U>::preorder(C* n, std::vector<T> keys) {
+    void SearchTree<C, T, U>::preorder(C* n, std::vector<T> &keys) {
         if (n) {
             preorder(n->llink, keys);
             keys.push_back(n->key);
@@ -220,7 +223,7 @@ namespace nm {
     std::vector<T> SearchTree<C, T, U>::keys() {
         std::vector<T> keys;
         preorder(this->root, keys);
-        return &keys;
+        return keys;
     }
     
     template <class C, class T, class U>
@@ -228,6 +231,8 @@ namespace nm {
         // delete this;
     }
 } // namespace nm
+
+template class nm::SearchTree<nm::Node<int, int>, int, int>;
 
 namespace nm {
     template <class C, class T, class U>
