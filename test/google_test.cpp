@@ -47,6 +47,19 @@ bool verify_build_type(const char build_type[] = BUILD_TYPE) {
     return std::strcmp(std::getenv(BUILD_TYPE_IDENTIFIER), build_type) == 0;
 }
 
+template<typename T>
+bool is_sorted(std::vector<T> &v) {
+    bool sorted = true;
+    for (std::size_t i = 1; i < v.size(); i++) {
+        if (v[i] >= v[i - 1]) continue;
+
+        sorted = false;
+        break;
+    }
+
+    return sorted;
+}
+
 TEST(PrimesTest, CountCheck) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
     ASSERT_EQ(primes.size(), P);
@@ -140,11 +153,7 @@ TEST(SortTest, AverageRunTimeMergeSort) {
         total_time += elapsed.count();
         count++;
 
-        bool sorted = true;
-        for (int i = 1; i < N; i++)
-            if (auxillary[i - 1] > auxillary[i])
-                sorted = false;
-        EXPECT_TRUE(sorted);
+        EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
     std::cout << TOTAL_RUNTIME << total_time << '\t'
@@ -174,11 +183,7 @@ TEST(SortTest, AverageRunTimeHeapSort) {
         total_time += elapsed.count();
         count++;
 
-        bool sorted = true;
-        for (int i = 1; i < N; i++)
-            if (auxillary[i - 1] > auxillary[i])
-                sorted = false;
-        EXPECT_TRUE(sorted);
+        EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
     std::cout << TOTAL_RUNTIME << total_time << '\t'
@@ -208,11 +213,7 @@ TEST(SortTest, AverageRunTimeQuickSort) {
         total_time += elapsed.count();
         count++;
 
-        bool sorted = true;
-        for (int i = 1; i < N; i++)
-            if (auxillary[i - 1] > auxillary[i])
-                sorted = false;
-        EXPECT_TRUE(sorted);
+        EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
     std::cout << TOTAL_RUNTIME << total_time << '\t'
@@ -242,11 +243,7 @@ TEST(SortTest, AverageRunTimeHybridSort) {
         total_time += elapsed.count();
         count++;
 
-        bool sorted = true;
-        for (int i = 1; i < N; i++)
-            if (auxillary[i - 1] > auxillary[i])
-                sorted = false;
-        EXPECT_TRUE(sorted);
+        EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
     std::cout << TOTAL_RUNTIME << total_time << '\t'
