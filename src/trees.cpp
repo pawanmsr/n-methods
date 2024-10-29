@@ -233,20 +233,17 @@ namespace nm {
             n = parent->rlink;
         
         if (not n or *n != x) return false;
+
+        void re_link = [&](C* link) {
+            if (not parent) this->root = link;
+            if (parent and left) parent->llink = link;
+            if (parent and not left) parent->rlink = link;
+        }
         
-        if (not n->llink and not n->rlink) {
-            if (not parent) this->root = NULL;
-            if (parent and left) parent->llink = NULL;
-            if (parent and not left) parent->rlink = NULL;
-        } else if (not n->llink) {
-            if (not parent) this->root = n->rlink;
-            if (parent and left) parent->llink = n->rlink;
-            if (parent and not left) parent->rlink = n->rlink;
-        } else if (not n->rlink) {
-            if (not parent) this->root = n->llink;
-            if (parent and left) parent->llink = n->llink;
-            if (parent and not left) parent->rlink = n->llink;
-        } else {
+        if (not n->llink and not n->rlink) re_link(NULL);
+        else if (not n->llink) re_link(n->rlink);
+        else if (not n->rlink) re_link(n->llink);
+        else {
             C* parent_prime = successor(n->rlink, true);
 
             C* n_prime = parent_prime;
@@ -261,9 +258,7 @@ namespace nm {
             n_prime->llink = n->llink;
             n_prime->rlink = n->rlink;
 
-            if (not parent) this->root = n_prime;
-            if (parent and left) parent->llink = n_prime;
-            if (parent and not left) parent->rlink = n_prime;
+            re_link(n_prime);
         }
 
         this->tree_size--;
