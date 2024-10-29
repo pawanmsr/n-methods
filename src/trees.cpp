@@ -201,8 +201,24 @@ namespace nm {
         
         while (seeker->llink or seeker->rlink) {
             parent = seeker;
+            
             if (seeker->llink) seeker = seeker->llink;
             else seeker = seeker->rlink;
+        }
+
+        if (return_parent) return parent;
+        return seeker;
+    }
+
+    template <class C, class T, class U>
+    C* SearchTree<C, T, U>::predecessor(C* seeker, bool return_parent) {
+        C* parent = NULL;
+
+        while (seeker->llink or seeker->rlink) {
+            parent = seeker;
+            
+            if (seeker->rlink) seeker = seeker->rlink;
+            else seeker = seeker->llink;
         }
 
         if (return_parent) return parent;

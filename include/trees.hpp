@@ -65,6 +65,7 @@ namespace nm
         C* create(T x);
         C* node(T x, bool return_parent = false);
         C* successor(C* n, bool return_parent = false);
+        C* predecessor(C* n, bool return_parent = false);
         void preorder(C* n, std::vector<T> &keys);
     
     public:
