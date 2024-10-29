@@ -43,23 +43,35 @@ namespace nm {
      */
     template<class T, class U>
     struct Node {
+        T key;
         U info;
+        Node<T, U>* llink = NULL;
+        Node<T, U>* rlink = NULL;
 
-        bool operator < (const Node* n) {
+        bool operator < (Node* n) {
             if (not n) return true;
             return compare(this->key, n->key);
         };
 
-        bool operator == (const Node* n) {
+        bool operator > (Node* n) {
+            if (not n) return true;
+            return compare(n->key, this->key);
+        };
+
+        bool operator == (Node* n) {
             if (not n) return false;
             return this->key == n->key;
         };
 
-        bool operator < (const T x) {
+        bool operator < (T x) {
             return compare(this->key, x);
         };
 
-        bool operator == (const T x) {
+        bool operator > (T x) {
+            return this->compare(x, this->key);
+        };
+
+        bool operator == (T x) {
             return this->key == x;
         };
 
@@ -70,6 +82,8 @@ namespace nm {
                 this->rsize = this->rlink->size();
             return this->lsize + this->rsize + 1;
         };
+
+        Node(T k) : key(k) {};
 
         Node(T k, U i) : key(k), info(i) {};
         
@@ -83,11 +97,8 @@ namespace nm {
             key(k), info(i), llink(a), rlink(b), compare(c) {};
         
         private:
-        T key;
         std::size_t lsize = 0;
         std::size_t rsize = 0;
-        Node<T, U>* llink = NULL;
-        Node<T, U>* rlink = NULL;
         std::function<bool(T&, T&)> compare
             = default_compare<T>;
     };
