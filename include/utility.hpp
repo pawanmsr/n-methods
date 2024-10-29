@@ -85,6 +85,15 @@ namespace nm {
 
         Node(T k) : key(k) {};
 
+        Node(T k, Node* a, Node* b) :
+            key(k), llink(a), rlink(b) {};
+        
+        Node(T k, std::function<bool(T&, T&)> c) :
+            key(k), compare(c) {};
+        
+        Node(T k, Node* a, Node* b, std::function<bool(T&, T&)> c) :
+            key(k), llink(a), rlink(b), compare(c) {};
+
         Node(T k, U i) : key(k), info(i) {};
         
         Node(T k, U i, Node* a, Node* b) :

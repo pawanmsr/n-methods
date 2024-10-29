@@ -50,7 +50,9 @@ namespace nm
     
     /*
      * Reference: TAOCP Volume 3
-     * 6.2.2
+     * 6.2.2 : MIXAL -> C++
+     * class C is of type Node
+     *  as defined in utility.hpp.
      */
     template <class C, class T, class U>
     class SearchTree {
