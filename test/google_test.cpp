@@ -329,7 +329,10 @@ TEST(BST, InsertionDeletionTest) {
     for (int i = N_CROOT; i > 0; i--) st.insert(i);
 
     for (int i = 0; i <= N_CROOT; i++) {
-        st.remove(i);
+        bool result = st.remove(i);
+        
+        if (i) ASSERT_TRUE(result);
+        else ASSERT_FALSE(result);
         
         std::size_t size = N_CROOT - (i ? 1 : 0);
         std::vector<int> keys = st.keys();
