@@ -315,6 +315,12 @@ TEST(NRMethod, ParabolaSingle) {
     ASSERT_LE(f(root), 0.01);
 }
 
+TEST(BST, InsertionTest) {
+    nm::SearchTree<nm::Node<int, int>, int, int> st;
+    for (int i = 0; i < N_CROOT; i++) st.insert(i);
+    EXPECT_EQ(st.keys().size(), N_CROOT);
+}
+
 int main(int argc, char *argv[])
 {
     // GTest //
