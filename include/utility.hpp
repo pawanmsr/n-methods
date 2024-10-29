@@ -48,39 +48,46 @@ namespace nm {
         Node<T, U>* llink = NULL;
         Node<T, U>* rlink = NULL;
 
-        bool operator < (Node* n) {
-            if (not n) return true;
-            return compare(this->key, n->key);
+        void operator = (Node n) {
+            key = n.key;
+            info = n.info;
+            llink = n.llink;
+            rlink = n.rlink;
+            lsize = n.lsize;
+            rsize = n.rsize;
+        }
+
+        bool operator < (Node n) {
+            return compare(key, n.key);
         };
 
-        bool operator > (Node* n) {
-            if (not n) return true;
-            return compare(n->key, this->key);
+        bool operator > (Node n) {
+            return compare(n.key, key);
         };
 
-        bool operator == (Node* n) {
-            if (not n) return false;
-            return this->key == n->key;
+        bool operator == (Node n) {
+            return key == n.key;
         };
 
         bool operator < (T x) {
-            return compare(this->key, x);
+            return compare(key, x);
         };
 
         bool operator > (T x) {
-            return this->compare(x, this->key);
+            return compare(x, key);
         };
 
         bool operator == (T x) {
-            return this->key == x;
+            return key == x;
         };
 
         std::size_t size() {
-            if (not this->lsize and this->llink)
-                this->lsize = this->llink->size();
-            if (not this->rsize and this->rlink)
-                this->rsize = this->rlink->size();
-            return this->lsize + this->rsize + 1;
+            if (not lsize and llink)
+                lsize = llink->size();
+            if (not rsize and rlink)
+                rsize = rlink->size();
+            
+            return lsize + rsize + 1;
         };
 
         Node(T k) : key(k) {};
