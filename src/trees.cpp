@@ -149,20 +149,29 @@ namespace nm {
     }
     
     template <class C, class T, class U>
-    C* SearchTree<C, T, U>::node(T x) {
+    C* SearchTree<C, T, U>::node(T x, bool return_parent) {
+        C* parent = NULL;
         C* seeker = this->root;
+        
         while (seeker) {
             if (*seeker == x) break;
             
-            if (*seeker > x)
-                if (seeker->llink) seeker = seeker->llink;
-                else break;
+            if (*seeker > x) {
+                if (seeker->llink) {
+                    parent = seeker;
+                    seeker = seeker->llink;
+                } else break;
+            }
             
-            if (*seeker < x)
-                if (seeker->rlink) seeker = seeker->rlink;
-                else break;
+            if (*seeker < x) {
+                if (seeker->rlink) {
+                    parent = seeker;
+                    seeker = seeker->rlink;
+                } else break;
+            }
         }
 
+        if (return_parent) return parent;
         return seeker;
     }
 
@@ -179,7 +188,6 @@ namespace nm {
         }
         
         C* ni = new C(x);
-        
         if (*n < *ni) n->rlink = ni;
         else n->llink = ni;
         n = ni;
@@ -188,11 +196,17 @@ namespace nm {
     }
 
     template <class C, class T, class U>
-    C* SearchTree<C, T, U>::successor(C* n) {
-        if (not n->llink and not n->rlink) return n;
+    C* SearchTree<C, T, U>::successor(C* seeker, bool return_parent) {
+        C* parent = NULL;
         
-        if (n->llink) return successor(n->llink);
-        else return successor(n->rlink);
+        while (seeker->llink or seeker->rlink) {
+            parent = seeker;
+            if (seeker->llink) seeker = seeker->llink;
+            else seeker = seeker->rlink;
+        }
+
+        if (return_parent) return parent;
+        return seeker;
     }
 
     template <class C, class T, class U>
@@ -208,22 +222,48 @@ namespace nm {
 
     template <class C, class T, class U>
     bool SearchTree<C, T, U>::remove(T x) {
-        C* n = this->node(x);
-        if (*n != x) return false;
+        C* parent = this->node(x, true);
         
-        if (not n->llink and not n->rlink)
-            delete n;
-        else if (not n->llink) {
-            *n = *n->rlink;
-            delete n->rlink;
+        bool left = false;
+        C* n = this->root;
+        if (parent and parent->llink and *parent->llink == x) {
+            n = parent->llink;
+            left = true;
+        } else if (parent and parent->rlink and *parent->rlink == x)
+            n = parent->rlink;
+        
+        if (not n or *n != x) return false;
+        
+        if (not n->llink and not n->rlink) {
+            if (not parent) this->root = NULL;
+            if (parent and left) parent->llink = NULL;
+            if (parent and not left) parent->rlink = NULL;
+        } else if (not n->llink) {
+            if (not parent) this->root = n->rlink;
+            if (parent and left) parent->llink = n->rlink;
+            if (parent and not left) parent->rlink = n->rlink;
         } else if (not n->rlink) {
-            *n = *n->llink;
-            delete n->llink;
+            if (not parent) this->root = n->llink;
+            if (parent and left) parent->llink = n->llink;
+            if (parent and not left) parent->rlink = n->llink;
         } else {
-            C* n_prime = successor(n->rlink);
-            n = n_prime;
-            
-            delete n_prime;
+            C* parent_prime = successor(n->rlink, true);
+
+            C* n_prime = parent_prime;
+            if (parent_prime->llink) {
+                n_prime = parent_prime->llink;
+                parent_prime->llink = NULL;
+            } else {
+                n_prime = parent_prime->rlink;
+                parent_prime->rlink = NULL;
+            }
+
+            n_prime->llink = n->llink;
+            n_prime->rlink = n->rlink;
+
+            if (not parent) this->root = n_prime;
+            if (parent and left) parent->llink = n_prime;
+            if (parent and not left) parent->rlink = n_prime;
         }
 
         this->tree_size--;
