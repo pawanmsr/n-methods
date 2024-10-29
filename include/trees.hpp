@@ -86,9 +86,8 @@ namespace nm
 
     /*
      * Reference: TAOCP Volume 3
-     * 6.2.3
+     * 6.2.3 : MIXAL -> C++
      * Alternate: libdict/hb_tree
-     * MIXAL -> ?! / C -> ?
      */
     template <class C, class T, class U>
     class AVL : protected SearchTree<C, T, U> {
@@ -105,11 +104,14 @@ namespace nm
     protected:
         void rotate();
     public:
-        AVL();
-        void insert();
-        void remove();
-        void search();
+        AVL(std::function<bool(T&, T&)> compare = default_compare<T>);
+        void insert(T x, U y);
+        bool remove(T x);
+        bool search(T x);
         ~AVL();
+
+        U & operator [](T x);
+        const U & operator [](T x) const;
     };
 } // namespace nm
 

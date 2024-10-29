@@ -215,9 +215,28 @@ namespace nm {
 
 namespace nm {
     template <class C, class T, class U>
-    AVL<C, T, U>::AVL() {
+    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare) {
         // constructor
         // initialize super class too
+    }
+
+    template <class C, class T, class U>
+    void AVL<C, T, U>::insert(T x, U y) {
+        // call super class
+        // rotate to balance
+    }
+
+    template <class C, class T, class U>
+    bool AVL<C, T, U>::remove(T x) {
+        // call super class
+        // rotate to balance
+        return false;
+    }
+
+    template <class C, class T, class U>
+    bool AVL<C, T, U>::search(T x) {
+        // use super class search
+        return false;
     }
     
     template <class C, class T, class U>
