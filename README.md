@@ -90,5 +90,5 @@ Don't get bored - boredom kills. If bored, then have **[fun](/doc/fun.md)**!
 Appreciation
 ------------
 
-Course notes, books, online platforms, blogs, and tutorials.
+Course notes, books, [online platforms](/doc/footnotes.md), blogs, and tutorials.
 Citations in respective source code docstring.  

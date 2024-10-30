@@ -25,6 +25,6 @@ Thinking of Thermodynamics and Entropy
 > The most efficient heat engine is the Carnot Cycle.  
 > When one feels energetic, they can pedal a bi-cycle.  
 > To feel the heat and the wind, one can ride a motor-cycle.  
-> But when one feels tired, they must go into REM cycle.  
+> But when one feels tired, they must sleep into REM cycle.  
 > <cite>Pawan</cite> (original, inspired by Sadi Carnot)  
 >
