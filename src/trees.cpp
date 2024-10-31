@@ -250,11 +250,11 @@ namespace nm {
         
         if (not n or *n != x) return false;
 
-        void re_link = [&](C* link) {
+        auto re_link = [&](C* link) {
             if (not parent) this->root = link;
             if (parent and left) parent->llink = link;
             if (parent and not left) parent->rlink = link;
-        }
+        };
         
         if (not n->llink and not n->rlink) re_link(NULL);
         else if (not n->llink) re_link(n->rlink);
@@ -319,7 +319,8 @@ template class nm::SearchTree<nm::Node<int, int>, int, int>;
 
 namespace nm {
     template <class C, class T, class U>
-    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare) {
+    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, bool balance_factor) :
+        SearchTree<C, T, U>(compare), balance_factor(balance_factor) {
         // constructor
         // initialize super class too
     }
@@ -339,8 +340,7 @@ namespace nm {
 
     template <class C, class T, class U>
     bool AVL<C, T, U>::search(T x) {
-        // use super class search
-        return false;
+        return SearchTree<C, T, U>::search(x);
     }
     
     template <class C, class T, class U>

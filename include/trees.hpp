@@ -93,15 +93,19 @@ namespace nm
      * Reference: TAOCP Volume 3
      * 6.2.3 : MIXAL -> C++
      * Alternate: libdict/hb_tree
+     * 
+     * Fibonacci tree of order h + 1
+     *  has height h, and lowest possible
+     *  number of nodes.
+     * N > (\frac{\phi^{h + 2}}{\sqrt{5}} - 1) - 1
+     *  where \phi is the golden ratio.
+     * Rounding \frac{\phi^{h + 1}}{\sqrt{5}}
+     *  to nearest integer gives fibonacci h + 1
+     *  of height h.
      */
     template <class C, class T, class U>
     class AVL : protected SearchTree<C, T, U> {
     private:
-        // storage type contains
-        // RLINK and LLINK
-        // additional to KEY
-        // in super class
-
         // positive / true or 
         // negative / false to specify
         // direction of lean for the tree
@@ -109,7 +113,8 @@ namespace nm
     protected:
         void rotate();
     public:
-        AVL(std::function<bool(T&, T&)> compare = default_compare<T>);
+        AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
+            bool balance_factor = true);
         void insert(T x, U y);
         bool remove(T x);
         bool search(T x);
