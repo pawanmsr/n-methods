@@ -145,11 +145,12 @@ namespace nm {
     
     template <class C, class T, class U>
     std::size_t SearchTree<C, T, U>::size() {
+        return this->root->size();
         return this->tree_size;
     }
     
     template <class C, class T, class U>
-    C* SearchTree<C, T, U>::node(T x, bool return_parent) {
+    C* SearchTree<C, T, U>::node(T x, bool return_parent, bool reset) {
         C* parent = NULL;
         C* seeker = this->root;
         
@@ -159,6 +160,7 @@ namespace nm {
             if (*seeker > x) {
                 if (seeker->llink) {
                     parent = seeker;
+                    if (reset) seeker->lsize = 0;
                     seeker = seeker->llink;
                 } else break;
             }
@@ -166,6 +168,7 @@ namespace nm {
             if (*seeker < x) {
                 if (seeker->rlink) {
                     parent = seeker;
+                    if (reset) seeker->rsize = 0;
                     seeker = seeker->rlink;
                 } else break;
             }
@@ -177,7 +180,7 @@ namespace nm {
 
     template <class C, class T, class U>
     C* SearchTree<C, T, U>::create(T x) {
-        C* n = this->node(x);
+        C* n = this->node(x, false, true);
         if (n and *n == x) return n;
 
         this->tree_size++;
@@ -238,7 +241,7 @@ namespace nm {
 
     template <class C, class T, class U>
     bool SearchTree<C, T, U>::remove(T x) {
-        C* parent = this->node(x, true);
+        C* parent = this->node(x, true, true);
         
         bool left = false;
         C* n = this->root;
@@ -327,13 +330,19 @@ namespace nm {
 
     template <class C, class T, class U>
     void AVL<C, T, U>::insert(T x, U y) {
-        // call super class
+        SearchTree<C, T, U>::insert(x, y);
+        // rotate to balance
+    }
+
+    template <class C, class T, class U>
+    void AVL<C, T, U>::insert(T x) {
+        SearchTree<C, T, U>::insert(x);
         // rotate to balance
     }
 
     template <class C, class T, class U>
     bool AVL<C, T, U>::remove(T x) {
-        // call super class
+        SearchTree<C, T, U>::remove(x);
         // rotate to balance
         return false;
     }

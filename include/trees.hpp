@@ -63,9 +63,9 @@ namespace nm
     
     protected:
         C* create(T x);
-        C* node(T x, bool return_parent = false);
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
+        C* node(T x, bool return_parent = false, bool reset = false);
         void preorder(C* n, std::vector<T> &keys);
     
     public:
@@ -106,16 +106,24 @@ namespace nm
     template <class C, class T, class U>
     class AVL : protected SearchTree<C, T, U> {
     private:
-        // positive / true or 
-        // negative / false to specify
-        // direction of lean for the tree
+        // positive (true) or 
+        // zero (false) to specify
+        // direction of lean of the tree
         bool balance_factor;
+        // height of right subtree minus
+        // the height of left subtree
+        // if true then right subtree has
+        // at least as much height as 
+        // left subtree and if false then
+        // left subtree has as much height
+        // as right subtree.
     protected:
         void rotate();
     public:
         AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
             bool balance_factor = true);
         void insert(T x, U y);
+        void insert(T x);
         bool remove(T x);
         bool search(T x);
         ~AVL();

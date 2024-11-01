@@ -45,6 +45,8 @@ namespace nm {
     struct Node {
         T key;
         U info;
+        std::size_t lsize = 0;
+        std::size_t rsize = 0;
         Node<T, U>* llink = NULL;
         Node<T, U>* rlink = NULL;
 
@@ -113,8 +115,6 @@ namespace nm {
             key(k), info(i), llink(a), rlink(b), compare(c) {};
         
         private:
-        std::size_t lsize = 0;
-        std::size_t rsize = 0;
         std::function<bool(T&, T&)> compare
             = default_compare<T>;
     };
