@@ -106,22 +106,16 @@ namespace nm
     template <class C, class T, class U>
     class AVL : protected SearchTree<C, T, U> {
     private:
-        // positive (true) or 
-        // zero (false) to specify
-        // direction of lean of the tree
-        bool balance_factor;
-        // height of right subtree minus
-        // the height of left subtree
-        // if true then right subtree has
-        // at least as much height as 
-        // left subtree and if false then
-        // left subtree has as much height
-        // as right subtree.
+        // expected height of right subtree
+        // minus the height of left subtree
+        std::int32_t balance_factor;
+        // balance factor is one of [-1, 0, 1]
     protected:
         void rotate();
+        std::int32_t balance(C* n);
     public:
         AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
-            bool balance_factor = true);
+            std::int32_t balance_factor = 0);
         void insert(T x, U y);
         void insert(T x);
         bool remove(T x);

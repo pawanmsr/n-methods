@@ -322,10 +322,18 @@ template class nm::SearchTree<nm::Node<int, int>, int, int>;
 
 namespace nm {
     template <class C, class T, class U>
-    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, bool balance_factor) :
+    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, std::int32_t balance_factor) :
         SearchTree<C, T, U>(compare), balance_factor(balance_factor) {
         // constructor
         // initialize super class too
+    }
+
+    template <class C, class T, class U>
+    std::int32_t AVL<C, T, U>::balance(C* n) {
+        if (not n or not n->size()) return 0;
+        return n->rsize - n->lsize;
+
+        // implement balancing
     }
 
     template <class C, class T, class U>
