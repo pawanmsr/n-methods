@@ -58,13 +58,14 @@ namespace nm
     class SearchTree {
     private:
         C* root;
-        std::size_t tree_size;
+        std::size_t tree_size; // TODO: not needed.
         std::function<bool(T&, T&)> compare;
     
     protected:
         C* create(T x);
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
+        // Replace reset with int16_t delta.
         C* node(T x, bool return_parent = false, bool reset = false);
         void preorder(C* n, std::vector<T> &keys);
     
@@ -108,14 +109,14 @@ namespace nm
     private:
         // expected height of right subtree
         // minus the height of left subtree
-        std::int32_t balance_factor;
+        std::int16_t balance_factor;
         // balance factor is one of [-1, 0, 1]
     protected:
         void rotate();
-        std::int32_t balance(C* n);
+        std::int16_t balance(C* n);
     public:
         AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
-            std::int32_t balance_factor = 0);
+            std::int16_t balance_factor = 0);
         void insert(T x, U y);
         void insert(T x);
         bool remove(T x);

@@ -43,21 +43,11 @@ namespace nm {
      */
     template<class T, class U>
     struct Node {
-        T key;
         U info;
         std::size_t lsize = 0;
         std::size_t rsize = 0;
         Node<T, U>* llink = NULL;
         Node<T, U>* rlink = NULL;
-
-        void operator = (Node n) {
-            key = n.key;
-            info = n.info;
-            llink = n.llink;
-            rlink = n.rlink;
-            lsize = n.lsize;
-            rsize = n.rsize;
-        }
 
         bool operator < (Node n) {
             return compare(key, n.key);
@@ -82,6 +72,10 @@ namespace nm {
         bool operator == (T x) {
             return key == x;
         };
+
+        T get_key() {
+            return key;
+        }
 
         std::size_t size() {
             if (not lsize and llink)
@@ -115,6 +109,7 @@ namespace nm {
             key(k), info(i), llink(a), rlink(b), compare(c) {};
         
         private:
+        T key;
         std::function<bool(T&, T&)> compare
             = default_compare<T>;
     };
