@@ -37,6 +37,35 @@ namespace nm {
     };
 
 
+    template<class C>
+    struct Link {
+        C* link = NULL;
+
+        std::size_t size() {
+            if (link) _size = link->size();
+            else _size = 0;
+            
+            return _size;
+        }
+
+        void operator = (C* n) {
+            link = n;
+            size();
+        }
+
+        operator C* () {
+            return link;
+        }
+
+        Link() : link(NULL), _size(0) {};
+        Link(C* n) : link(n) {
+            size();
+        };
+
+        private:
+        std::size_t _size = 0;
+    };
+
     /*
      * Node contains key, llink, rlink, info.
      * Terminology from TAOCP.
@@ -44,47 +73,40 @@ namespace nm {
     template<class T, class U>
     struct Node {
         U info;
-        std::size_t lsize = 0;
-        std::size_t rsize = 0;
-        Node<T, U>* llink = NULL;
-        Node<T, U>* rlink = NULL;
+        Link<Node<T, U> > llink = NULL;
+        Link<Node<T, U> > rlink = NULL;
 
         bool operator < (Node n) {
             return compare(key, n.key);
-        };
+        }
 
         bool operator > (Node n) {
             return compare(n.key, key);
-        };
+        }
 
         bool operator == (Node n) {
             return key == n.key;
-        };
+        }
 
         bool operator < (T x) {
             return compare(key, x);
-        };
+        }
 
         bool operator > (T x) {
             return compare(x, key);
-        };
+        }
 
         bool operator == (T x) {
             return key == x;
-        };
+        }
 
-        T get_key() {
+        operator T () const {
             return key;
         }
 
         std::size_t size() {
-            if (not lsize and llink)
-                lsize = llink->size();
-            if (not rsize and rlink)
-                rsize = rlink->size();
-            
-            return lsize + rsize + 1;
-        };
+            return llink.size() + rlink.size() + 1;
+        }
 
         Node(T k) : key(k) {};
 

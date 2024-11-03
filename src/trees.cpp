@@ -160,7 +160,6 @@ namespace nm {
             if (*seeker > x) {
                 if (seeker->llink) {
                     parent = seeker;
-                    if (reset) seeker->lsize = 0;
                     seeker = seeker->llink;
                 } else break;
             }
@@ -168,7 +167,6 @@ namespace nm {
             if (*seeker < x) {
                 if (seeker->rlink) {
                     parent = seeker;
-                    if (reset) seeker->rsize = 0;
                     seeker = seeker->rlink;
                 } else break;
             }
@@ -300,7 +298,7 @@ namespace nm {
     void SearchTree<C, T, U>::preorder(C* n, std::vector<T> &keys) {
         if (n) {
             preorder(n->llink, keys);
-            keys.push_back(n->get_key());
+            keys.push_back(*n);
             preorder(n->rlink, keys);
         }
     }
