@@ -15,11 +15,20 @@ namespace nm
 
     class KMP {
     private:
-        std::vector<int> positions;
-        std::vector<int> partial;
-        std::vector<int> prefix;
+        std::vector<int32_t> positions;
+        std::vector<int32_t> partial;
+        std::vector<int32_t> prefix;
+        std::string w;
+        std::string s; // input
+        std::size_t n; // input length
+        std::size_t i; // processed
+    
+    protected:
+        void partial_function();
     public:
-        KMP(string word);
+        KMP(std::string word);
+        void append(std::string s);
+        void stream(char c);
         ~KMP();
     };
     
