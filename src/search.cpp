@@ -44,6 +44,16 @@ namespace nm {
             this->partial.push_back(j);
         }
     }
+
+    void KMP::append(std::string s) {
+        this->s += s;
+        this->n += s.length();
+    }
+    
+    void KMP::stream(char c) {
+        this->s += c;
+        this->n++;
+    }
     
     KMP::~KMP() {
     }
