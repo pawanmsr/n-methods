@@ -27,3 +27,84 @@ template int nm::bound_search<int, int>(int, const int, const int,
 
 template int nm::bound_search<long long, int>(long long, const int, const int,
     const std::vector<long long>&, std::function<bool(long long&, long long&)>);
+
+
+namespace nm {
+    KMP::KMP(std::string word) : w(word) {
+        this->prefix = {0};
+        this->partial = {-1};
+        this->failure_function();
+    }
+
+    void KMP::prefix_function() {
+        while (this->i < this->n) {
+            std::size_t j = this->partial[i - 1];
+            while (j > 0 and this->s[j] != this->s[i])
+                j = this->partial[j - 1];
+            
+            if (this->s[i] == this->s[j]) j++;
+            this->partial.push_back(j);
+            this->i++;
+        }
+    }
+
+    std::vector<int32_t> KMP::search() {
+        std::size_t k = 0;
+        std::size_t len_w = this->w.size();
+        
+        while (this->i < this->n) {
+            if (this->w[k] == this->s[i]) {
+                this->i++;
+
+                k++;
+                if (k == len_w) {
+                    this->positions.push_back(this->i - k);
+                    k = this->partial[k];
+                }
+            } else {
+                k = this->partial[k];
+                if (k < 0) {
+                    k++;
+                    this->i++;
+                }
+            }
+        }
+        
+        return this->positions;
+    }
+
+    void KMP::failure_function() {
+        std::size_t i = 0;
+        std::size_t j = 1;
+
+        std::size_t len_w = this->w.size();
+
+        while (i < len_w) {
+            if (this->w[i] == this->w[j])
+                this->partial[j] = this->partial[i];
+            else {
+                this->partial[j] = i;
+                while (i >= 0 and this->w[i] != this->w[j])
+                    i = this->partial[i];
+            }
+
+            j++;
+            i++;
+        }
+
+        this->partial[j] = i;
+    }
+
+    void KMP::append(std::string s) {
+        this->s += s;
+        this->n += s.length();
+    }
+    
+    void KMP::stream(char c) {
+        this->s += c;
+        this->n++;
+    }
+    
+    KMP::~KMP() {
+    }
+} // namespace nm
