@@ -81,11 +81,14 @@ Ratings are important, but learning and improvements are more important - consid
 Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often.  
 Don't get bored - boredom kills. If bored, then have **[fun](/doc/fun.md)**!  
 
-[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)
-[![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)
-[![Genie](https://i.ibb.co/Dt9VCQy/genie.png)](https://ibb.co/Dt9VCQy)  
-
 @pawanmsr: archive (or delete, if and) when all milestones have been touched at least once.
+
+Implementations Pending:
+
+- [ ] Splines
+- [ ] Splay tree
+- [ ] Geometry and Mesh (2D)
+- [ ] . . . 
 
 Appreciation
 ------------
