@@ -27,3 +27,12 @@ template int nm::bound_search<int, int>(int, const int, const int,
 
 template int nm::bound_search<long long, int>(long long, const int, const int,
     const std::vector<long long>&, std::function<bool(long long&, long long&)>);
+
+
+namespace nm {
+    KMP::KMP(string word) {
+    }
+    
+    KMP::~KMP() {
+    }
+} // namespace nm
