@@ -34,7 +34,7 @@ namespace nm {
         this->prefix = {0};
     }
 
-    void KMP::partial_function() {
+    void KMP::prefix_function() {
         while (this->i < this->n) {
             std::size_t j = this->partial[i - 1];
             while (j > 0 and this->s[j] != this->s[i])

@@ -24,7 +24,9 @@ namespace nm
         std::size_t i; // processed
     
     protected:
+        void prefix_function();
         void partial_function();
+        
     public:
         KMP(std::string word);
         void append(std::string s);
