@@ -31,6 +31,8 @@ namespace nm
         KMP(std::string word);
         void append(std::string s);
         void stream(char c);
+        std::vector<int32_t> search();
+        
         ~KMP();
     };
     

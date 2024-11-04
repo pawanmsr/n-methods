@@ -33,6 +33,7 @@ namespace nm {
     KMP::KMP(std::string word) : w(word) {
         this->prefix = {0};
         this->partial = {-1};
+        this->failure_function();
     }
 
     void KMP::prefix_function() {
@@ -43,7 +44,33 @@ namespace nm {
             
             if (this->s[i] == this->s[j]) j++;
             this->partial.push_back(j);
+            this->i++;
         }
+    }
+
+    std::vector<int32_t> KMP::search() {
+        std::size_t k = 0;
+        std::size_t len_w = this->w.size();
+        
+        while (this->i < this->n) {
+            if (this->w[k] == this->s[i]) {
+                this->i++;
+
+                k++;
+                if (k == len_w) {
+                    this->positions.push_back(this->i - k);
+                    k = this->partial[k];
+                }
+            } else {
+                k = this->partial[k];
+                if (k < 0) {
+                    k++;
+                    this->i++;
+                }
+            }
+        }
+        
+        return this->positions;
     }
 
     void KMP::failure_function() {
