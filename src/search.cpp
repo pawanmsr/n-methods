@@ -32,6 +32,7 @@ template int nm::bound_search<long long, int>(long long, const int, const int,
 namespace nm {
     KMP::KMP(std::string word) : w(word) {
         this->prefix = {0};
+        this->partial = {-1};
     }
 
     void KMP::prefix_function() {
@@ -43,6 +44,28 @@ namespace nm {
             if (this->s[i] == this->s[j]) j++;
             this->partial.push_back(j);
         }
+    }
+
+    void KMP::failure_function() {
+        std::size_t i = 0;
+        std::size_t j = 1;
+
+        std::size_t len_w = this->w.size();
+
+        while (i < len_w) {
+            if (this->w[i] == this->w[j])
+                this->partial[j] = this->partial[i];
+            else {
+                this->partial[j] = i;
+                while (i >= 0 and this->w[i] != this->w[j])
+                    i = this->partial[i];
+            }
+
+            j++;
+            i++;
+        }
+
+        this->partial[j] = i;
     }
 
     void KMP::append(std::string s) {

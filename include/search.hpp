@@ -25,7 +25,7 @@ namespace nm
     
     protected:
         void prefix_function();
-        void partial_function();
+        void failure_function();
         
     public:
         KMP(std::string word);
