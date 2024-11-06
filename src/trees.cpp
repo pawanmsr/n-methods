@@ -394,11 +394,6 @@ namespace nm {
         this->root = this->balance(this->root);
         return true;
     }
-
-    template <class C, class T, class U>
-    bool AVL<C, T, U>::search(T x) {
-        return SearchTree<C, T, U>::search(x);
-    }
     
     template <class C, class T, class U>
     AVL<C, T, U>::~AVL() {

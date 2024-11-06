@@ -120,7 +120,6 @@ namespace nm
         void insert(T x, U y);
         void insert(T x);
         bool remove(T x);
-        bool search(T x);
         ~AVL();
 
         U & operator [](T x);
