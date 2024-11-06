@@ -7,8 +7,7 @@
 #include <cstdint>
 #include <functional>
 
-namespace nm
-{
+namespace nm {
     /*
      * U is a pointer to object or struct.
      * U must contain an 'identity' element.
@@ -56,12 +55,11 @@ namespace nm
      */
     template <class C, class T, class U>
     class SearchTree {
-    private:
+    protected:
         C* root;
         std::size_t tree_size; // TODO: not needed.
         std::function<bool(T&, T&)> compare;
-    
-    protected:
+        
         C* create(T x);
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
@@ -104,7 +102,7 @@ namespace nm
      *  of height h.
      */
     template <class C, class T, class U>
-    class AVL : protected SearchTree<C, T, U> {
+    class AVL : public SearchTree<C, T, U> {
     private:
         // expected height of right subtree
         // minus the height of left subtree

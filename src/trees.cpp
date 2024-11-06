@@ -187,11 +187,11 @@ namespace nm {
         this->tree_size++;
 
         if (not n) {
-            this->root = new C(x);
+            this->root = new C(x, this->compare);
             return this->root;
         }
         
-        C* ni = new C(x);
+        C* ni = new C(x, this->compare);
         if (*n < *ni) n->rlink = ni;
         else n->llink = ni;
         n = ni;
@@ -400,3 +400,4 @@ namespace nm {
     }
 } // namespace nm
 
+template class nm::AVL<nm::Node<int, int>, int, int>;
