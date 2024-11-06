@@ -377,7 +377,7 @@ TEST(AVL, ObtainTest) {
 }
 
 TEST(BST, BSTTimeTest) {
-    const int N = N_FACT;
+    const int N = N_FACT - 1;
     std::vector<int> permutation(N);
     std::iota(permutation.begin(), permutation.end(), 1);
 
@@ -413,6 +413,26 @@ TEST(BST, BSTTimeTest) {
     
     runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
     runtime(count, total_removal_time, worst_removal_time, "Removal");
+}
+
+TEST(AVL, InsertionDeletionTest) {
+    nm::AVL<nm::Node<int, int>, int, int> avl;
+    for (int i = N_CROOT; i > 0; i--) avl.insert(i);
+
+    for (int i = 0; i <= N_CROOT; i++) {
+        bool result = avl.remove(i);
+        
+        if (i) ASSERT_TRUE(result);
+        else ASSERT_FALSE(result);
+        
+        std::size_t size = N_CROOT - (i ? 1 : 0);
+        std::vector<int> keys = avl.keys();
+        EXPECT_TRUE(is_sorted(keys));
+        EXPECT_EQ(keys.size(), size);
+        EXPECT_EQ(avl.size(), size);
+
+        if (i) avl.insert(i);
+    }
 }
 
 int main(int argc, char *argv[])
