@@ -49,6 +49,8 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 
 </pre>
 
+Problem scripts in play.
+
 ### Logistics
 
 Use own or familiar device or get familiar with available workstation. Make sure all keys work especially if keyboard is battered - if they all don't then make a note of disabled keys to avoid naming variables that spell with disabled letters - and try not to use on-screen keyboard or touch screens. Download the compressed file of the repository or use version control if available.
@@ -79,12 +81,17 @@ Ratings are important, but learning and improvements are more important - consid
 Be impervious to AI agents. It is an art (albeit a difficult one)! Read instructions and checklists often.  
 Don't get bored - boredom kills. If bored, then have **[fun](/doc/fun.md)**!  
 
-[![Torti](https://i.ibb.co/MNrZN9v/billi.png)](https://ibb.co/MNrZN9v)
-[![Billi](https://i.ibb.co/yF6TmQP/torti.png)](https://ibb.co/yF6TmQP)
-[![Genie](https://i.ibb.co/Dt9VCQy/genie.png)](https://ibb.co/Dt9VCQy)  
+@pawanmsr: archive (or delete, if and) when all milestones have been touched at least once.
+
+Implementations Pending:
+
+- [ ] Splines
+- [ ] Splay tree
+- [ ] Geometry and Mesh (2D)
+- [ ] . . . 
 
 Appreciation
 ------------
 
-Academic sporting platforms, blogs, tutorials, and books.
+Course notes, books, [online platforms](/doc/footnotes.md), blogs, and tutorials.
 Citations in respective source code docstring.  

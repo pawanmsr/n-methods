@@ -1,6 +1,6 @@
 set(SOURCES exponentiation.cpp gcd.cpp primes.cpp sort.cpp
     search.cpp modulo.cpp combinatorics.cpp union_find.cpp
-        segment_tree.cpp newton.cpp interpolation.cpp)
+        trees.cpp newton.cpp interpolation.cpp)
 
 add_library(
     ${PROJECT_NAME}

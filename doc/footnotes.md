@@ -7,3 +7,17 @@ Footnotes
 > 'Tis thy duty to do that which is assigned to thee, without much consideration to the fruits of thy labour in the moments whence doing thy duty is supremely important.  
 > [Maybe Wrong] :grin:  
 >
+
+Platforms
+---------
+
+TODO.
+
+- . . .
+
+Miscellaneous References
+------------------------
+
+TODO.
+
+- . . . 
