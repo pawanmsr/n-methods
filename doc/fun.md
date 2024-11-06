@@ -15,7 +15,7 @@ TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by 
 
 [![Genie](https://i.ibb.co/Dt9VCQy/genie.png)](https://ibb.co/Dt9VCQy)  
 
-TODO: [Entropy Fun](/doc/entropy-fun.md)
+TODO: [Rant Against Entropy](/doc/entropy-fun.md)
 
 Poetry
 ------
@@ -27,7 +27,7 @@ Poetry
 > Rage, rage until the dying of the light.  
 > <cite>Dylan Thomas</cite>
 >
->
+
 > Losers' Cry Before Another Try  
 >
 > When I was young, I seldom cried.  
@@ -41,13 +41,20 @@ Poetry
 > <cite>Pawan</cite> ([inspired](/doc/footnotes.md), impersonal but original).  
 > :smile:
 >
->
 > So much to learn, and curiosity continues to grow.  
 > Time was never enough, but atleast there is tomorrow.  
 > :rofl:
 >
 
-Reminder
---------
+Mingling CBA
+------------
 
-There will be time for fun always. Finish up the primary quickly - don't end up like the unconnected blip in *Conway, J. H.*'s Life. Also, write something funny about fields, groups and rings sometime later.
+Don't end up like the unconnected blip in *Conway, J. H.*'s Life (or get jinxed in a resource constrained environment). Use vocal chords - communication is the key that resolves deadlocks.
+
+Spare-time Study
+----------------
+
+- [ ] Finite mathematics and algebraic structures particularly fields, groups and rings.
+- [ ] Atmospheric physics, CFD, turbulence and non-linear dynamics.
+
+Create comics if possible.

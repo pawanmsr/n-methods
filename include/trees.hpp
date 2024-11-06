@@ -7,8 +7,7 @@
 #include <cstdint>
 #include <functional>
 
-namespace nm
-{
+namespace nm {
     /*
      * U is a pointer to object or struct.
      * U must contain an 'identity' element.
@@ -56,15 +55,15 @@ namespace nm
      */
     template <class C, class T, class U>
     class SearchTree {
-    private:
-        C* root;
-        std::size_t tree_size;
-        std::function<bool(T&, T&)> compare;
-    
     protected:
+        C* root;
+        std::size_t tree_size; // TODO: not needed.
+        std::function<bool(T&, T&)> compare;
+        
         C* create(T x);
-        C* node(T x, bool return_parent = false);
         C* successor(C* n, bool return_parent = false);
+        C* predecessor(C* n, bool return_parent = false);
+        C* node(T x, bool return_parent = false, bool mark = false);
         void preorder(C* n, std::vector<T> &keys);
     
     public:
@@ -90,30 +89,39 @@ namespace nm
 
     /*
      * Reference: TAOCP Volume 3
-     * 6.2.3
+     * 6.2.3 : MIXAL -> C++
      * Alternate: libdict/hb_tree
-     * MIXAL -> ?! / C -> ?
+     * 
+     * Fibonacci tree of order h + 1
+     *  has height h, and lowest possible
+     *  number of nodes.
+     * N > (\frac{\phi^{h + 2}}{\sqrt{5}} - 1) - 1
+     *  where \phi is the golden ratio.
+     * Rounding \frac{\phi^{h + 1}}{\sqrt{5}}
+     *  to nearest integer gives fibonacci h + 1
+     *  of height h.
      */
     template <class C, class T, class U>
-    class AVL : protected SearchTree<C, T, U> {
+    class AVL : public SearchTree<C, T, U> {
     private:
-        // storage type contains
-        // RLINK and LLINK
-        // additional to KEY
-        // in super class
-
-        // positive / true or 
-        // negative / false to specify
-        // direction of lean for the tree
-        bool balance_factor;
+        // expected height of right subtree
+        // minus the height of left subtree
+        std::int8_t balance_factor;
+        // balance factor is one of [-1, 0, 1]
     protected:
-        void rotate();
+        C* rotate_left(C* n);
+        C* rotate_right(C* n);
+        C* balance(C* n);
     public:
-        AVL();
-        void insert();
-        void remove();
-        void search();
+        AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
+            std::int8_t balance_factor = 0);
+        void insert(T x, U y);
+        void insert(T x);
+        bool remove(T x);
         ~AVL();
+
+        U & operator [](T x);
+        const U & operator [](T x) const;
     };
 } // namespace nm
 

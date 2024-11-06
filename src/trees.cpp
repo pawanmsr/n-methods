@@ -2,8 +2,9 @@
 
 #include <utility.hpp>
 
-#include <algorithm>
 #include <cassert>
+#include <algorithm>
+#include <stdexcept>
 
 namespace nm {
     // !? lookout for // modify // in popagate function
@@ -145,15 +146,18 @@ namespace nm {
     
     template <class C, class T, class U>
     std::size_t SearchTree<C, T, U>::size() {
-        return this->tree_size;
+        return this->root->size();
+        return this->tree_size; // TODO: not needed.
     }
     
     template <class C, class T, class U>
-    C* SearchTree<C, T, U>::node(T x, bool return_parent) {
+    C* SearchTree<C, T, U>::node(T x, bool return_parent, bool mark) {
         C* parent = NULL;
         C* seeker = this->root;
         
         while (seeker) {
+            *seeker = mark;
+            
             if (*seeker == x) break;
             
             if (*seeker > x) {
@@ -177,17 +181,17 @@ namespace nm {
 
     template <class C, class T, class U>
     C* SearchTree<C, T, U>::create(T x) {
-        C* n = this->node(x);
+        C* n = this->node(x, false, true);
         if (n and *n == x) return n;
 
         this->tree_size++;
 
         if (not n) {
-            this->root = new C(x);
+            this->root = new C(x, this->compare);
             return this->root;
         }
         
-        C* ni = new C(x);
+        C* ni = new C(x, this->compare);
         if (*n < *ni) n->rlink = ni;
         else n->llink = ni;
         n = ni;
@@ -201,8 +205,24 @@ namespace nm {
         
         while (seeker->llink or seeker->rlink) {
             parent = seeker;
+            
             if (seeker->llink) seeker = seeker->llink;
             else seeker = seeker->rlink;
+        }
+
+        if (return_parent) return parent;
+        return seeker;
+    }
+
+    template <class C, class T, class U>
+    C* SearchTree<C, T, U>::predecessor(C* seeker, bool return_parent) {
+        C* parent = NULL;
+
+        while (seeker->llink or seeker->rlink) {
+            parent = seeker;
+            
+            if (seeker->rlink) seeker = seeker->rlink;
+            else seeker = seeker->llink;
         }
 
         if (return_parent) return parent;
@@ -222,7 +242,7 @@ namespace nm {
 
     template <class C, class T, class U>
     bool SearchTree<C, T, U>::remove(T x) {
-        C* parent = this->node(x, true);
+        C* parent = this->node(x, true, true);
         
         bool left = false;
         C* n = this->root;
@@ -233,20 +253,17 @@ namespace nm {
             n = parent->rlink;
         
         if (not n or *n != x) return false;
+
+        auto re_link = [&](C* link) {
+            if (not parent) this->root = link;
+            if (parent and left) parent->llink = link;
+            if (parent and not left) parent->rlink = link;
+        };
         
-        if (not n->llink and not n->rlink) {
-            if (not parent) this->root = NULL;
-            if (parent and left) parent->llink = NULL;
-            if (parent and not left) parent->rlink = NULL;
-        } else if (not n->llink) {
-            if (not parent) this->root = n->rlink;
-            if (parent and left) parent->llink = n->rlink;
-            if (parent and not left) parent->rlink = n->rlink;
-        } else if (not n->rlink) {
-            if (not parent) this->root = n->llink;
-            if (parent and left) parent->llink = n->llink;
-            if (parent and not left) parent->rlink = n->llink;
-        } else {
+        if (not n->llink and not n->rlink) re_link(NULL);
+        else if (not n->llink) re_link(n->rlink);
+        else if (not n->rlink) re_link(n->llink);
+        else {
             C* parent_prime = successor(n->rlink, true);
 
             C* n_prime = parent_prime;
@@ -261,9 +278,7 @@ namespace nm {
             n_prime->llink = n->llink;
             n_prime->rlink = n->rlink;
 
-            if (not parent) this->root = n_prime;
-            if (parent and left) parent->llink = n_prime;
-            if (parent and not left) parent->rlink = n_prime;
+            re_link(n_prime);
         }
 
         this->tree_size--;
@@ -279,16 +294,19 @@ namespace nm {
 
     template <class C, class T, class U>
     U SearchTree<C, T, U>::obtain(T x) {
-        return this->node(x)->info;
+        C* n = this->node(x);
+        if (*n == x) return n->info;
+
+        throw std::runtime_error("non existent key");
     }
 
     template <class C, class T, class U>
     void SearchTree<C, T, U>::preorder(C* n, std::vector<T> &keys) {
-        if (n) {
-            preorder(n->llink, keys);
-            keys.push_back(n->key);
-            preorder(n->rlink, keys);
-        }
+        if (not n) return ;
+
+        preorder(n->llink, keys);
+        keys.push_back(*n);
+        preorder(n->rlink, keys);
     }
 
     template <class C, class T, class U>
@@ -308,9 +326,77 @@ template class nm::SearchTree<nm::Node<int, int>, int, int>;
 
 namespace nm {
     template <class C, class T, class U>
-    AVL<C, T, U>::AVL() {
-        // constructor
-        // initialize super class too
+    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, std::int8_t balance_factor) :
+        SearchTree<C, T, U>(compare), balance_factor(balance_factor) {
+        }
+
+    template <class C, class T, class U>
+    C* AVL<C, T, U>::rotate_left(C* n) {
+        C* right = n->rlink;
+        if (not right) return n;
+
+        n->rlink = right->llink;
+        right->llink = n;
+
+        return right;
+    }
+
+    template <class C, class T, class U>
+    C* AVL<C, T, U>::rotate_right(C* n) {
+        C* left = n->llink;
+        if (not left) return n;
+        
+        n->llink = left->rlink;
+        left->rlink = n;
+
+        return left;
+    }
+
+    template <class C, class T, class U>
+    C *AVL<C, T, U>::balance(C *n) {
+        // TODO: try doing it iteratively too.
+        if (not n) return n;
+
+        auto check_balance = [&] (C* link) {
+            if (not link) return true;
+            return link->balance() < this->balance_factor - 1
+                or link->balance() > this->balance_factor + 1;
+        };
+
+        if (check_balance(n->llink))
+            n->llink = balance(n->llink);
+        if (check_balance(n->rlink))
+            n->rlink = balance(n->rlink);
+
+        n->unmark();
+
+        if (n->balance() < this->balance_factor - 1)
+            return rotate_right(n);
+        else if (n->balance() > this->balance_factor + 1)
+            return rotate_left(n);
+
+        return n;
+    }
+
+    template <class C, class T, class U>
+    void AVL<C, T, U>::insert(T x, U y) {
+        SearchTree<C, T, U>::insert(x, y);
+        this->root = this->balance(this->root);
+    }
+
+    template <class C, class T, class U>
+    void AVL<C, T, U>::insert(T x) {
+        SearchTree<C, T, U>::insert(x);
+        this->root = this->balance(this->root);
+    }
+
+    template <class C, class T, class U>
+    bool AVL<C, T, U>::remove(T x) {
+        bool removed = SearchTree<C, T, U>::remove(x);
+        if (not removed) return false;
+        
+        this->root = this->balance(this->root);
+        return true;
     }
     
     template <class C, class T, class U>
@@ -318,3 +404,4 @@ namespace nm {
     }
 } // namespace nm
 
+template class nm::AVL<nm::Node<int, int>, int, int>;

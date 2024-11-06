@@ -2,6 +2,7 @@
 #define UTILS
 
 #include <functional>
+#include <cstdint>
 
 namespace nm {
     // default arguments and functions
@@ -21,7 +22,7 @@ namespace nm {
         // Also modify in update_tree and propagate
         T assign(T data) {
             // Add arguments and math
-            // for flexibility and functionality.
+            //  for flexibility and functionality.
             // Must have associative and commutative
             //  (and optionally distributive) properties.
             return data;
@@ -37,58 +38,92 @@ namespace nm {
     };
 
 
+    template<class C>
+    struct Link {
+        C* link = NULL;
+
+        std::size_t size() {
+            if (link) _size = link->size();
+            else _size = 0;
+            
+            return _size;
+        }
+
+        void operator = (C* n) {
+            link = n;
+            size();
+        }
+
+        operator C* () {
+            return link;
+        }
+
+        Link() : link(NULL), _size(0) {};
+        Link(C* n) : link(n) {
+            size();
+        };
+
+        private:
+        std::int8_t _size = 0;
+    };
+
     /*
      * Node contains key, llink, rlink, info.
      * Terminology from TAOCP.
      */
     template<class T, class U>
     struct Node {
-        T key;
         U info;
-        Node<T, U>* llink = NULL;
-        Node<T, U>* rlink = NULL;
-
-        void operator = (Node n) {
-            key = n.key;
-            info = n.info;
-            llink = n.llink;
-            rlink = n.rlink;
-            lsize = n.lsize;
-            rsize = n.rsize;
-        }
+        Link<Node<T, U> > llink = NULL;
+        Link<Node<T, U> > rlink = NULL;
 
         bool operator < (Node n) {
             return compare(key, n.key);
-        };
+        }
 
         bool operator > (Node n) {
             return compare(n.key, key);
-        };
+        }
 
         bool operator == (Node n) {
             return key == n.key;
-        };
+        }
 
         bool operator < (T x) {
             return compare(key, x);
-        };
+        }
 
         bool operator > (T x) {
             return compare(x, key);
-        };
+        }
 
         bool operator == (T x) {
             return key == x;
-        };
+        }
+
+        void operator = (bool m) {
+            mark |= m;
+        }
+
+        operator T () const {
+            return key;
+        }
 
         std::size_t size() {
-            if (not lsize and llink)
-                lsize = llink->size();
-            if (not rsize and rlink)
-                rsize = rlink->size();
-            
-            return lsize + rsize + 1;
-        };
+            return llink.size() + rlink.size() + 1;
+        }
+
+        std::int8_t balance() {
+            return rlink.size() - llink.size();
+        }
+
+        bool marked() {
+            return mark;
+        }
+
+        void unmark() {
+            mark = false;
+        }
 
         Node(T k) : key(k) {};
 
@@ -113,8 +148,8 @@ namespace nm {
             key(k), info(i), llink(a), rlink(b), compare(c) {};
         
         private:
-        std::size_t lsize = 0;
-        std::size_t rsize = 0;
+        T key;
+        bool mark;
         std::function<bool(T&, T&)> compare
             = default_compare<T>;
     };

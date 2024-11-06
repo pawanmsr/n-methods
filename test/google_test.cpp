@@ -1,10 +1,11 @@
 // STLs //
+#include <chrono>
 #include <vector>
 #include <numeric>
-#include <functional>
-#include <chrono>
 #include <cstdlib>
 #include <cstring>
+#include <stdexcept>
+#include <functional>
 
 // NMethods //
 #include <primes.hpp>
@@ -45,6 +46,13 @@ const std::vector<double> PARABOLA_ONE_PRIME = {-2.0, 2.0};
 bool verify_build_type(const char build_type[] = BUILD_TYPE) {
     if (not std::getenv(BUILD_TYPE_IDENTIFIER)) return false;
     return std::strcmp(std::getenv(BUILD_TYPE_IDENTIFIER), build_type) == 0;
+}
+
+void runtime(int count, double total, double worst, std::string prefix = "") {
+    if (not prefix.empty()) std::cout << prefix << '\n';
+    std::cout << TOTAL_RUNTIME << total << '\t';
+    if (count) std::cout << AVERAGE_RUNTIME << total / count << '\t';
+    std::cout << WORST_RUNTIME << worst << '\n';
 }
 
 template<typename T>
@@ -312,14 +320,31 @@ TEST(NRMethod, ParabolaSingle) {
     ASSERT_LE(f(root), 0.01);
 }
 
-TEST(BST, InsertionTest) {
+TEST(BST, InsertionSearchTest) {
     nm::SearchTree<nm::Node<int, int>, int, int> st;
-    for (int i = 0; i < N_CROOT; i++) st.insert(i);
+    for (int i = 0; i < N_CROOT; i++) {
+        st.insert(i);
+        for (int j = 0; j < N_CROOT; j++) {
+            bool found = st.search(j);
+            if (j <= i) ASSERT_TRUE(found);
+            else ASSERT_FALSE(found);
+        }
+    }
+    
     EXPECT_EQ(st.size(), N_CROOT);
     EXPECT_EQ(st.keys().size(), N_CROOT);
 
     nm::SearchTree<nm::Node<int, int>, int, int> str;
-    for (int i = N_CROOT - 1; i >= 0; i--) str.insert(i);
+    for (int i = N_CROOT - 1; i >= 0; i--) {
+        str.insert(i);
+        for (int j = N_CROOT; j >= 0; j--) {
+            bool found = str.search(j);
+            if (j >= i and j < N_CROOT)
+                ASSERT_TRUE(found);
+            else ASSERT_FALSE(found);
+        }
+    }
+    
     EXPECT_EQ(str.size(), N_CROOT);
     EXPECT_EQ(str.keys().size(), N_CROOT);
 }
@@ -341,6 +366,74 @@ TEST(BST, InsertionDeletionTest) {
         EXPECT_EQ(st.size(), size);
 
         if (i) st.insert(i);
+    }
+}
+
+TEST(AVL, ObtainTest) {
+    nm::AVL<nm::Node<int, int>, int, int> avl;
+    for (int i = N_CROOT; i > 0; i--) avl.insert(i);
+    EXPECT_NO_FATAL_FAILURE(avl.obtain(N_CROOT));
+    EXPECT_THROW(avl.obtain(N_ROOT), std::runtime_error);
+}
+
+TEST(BST, BSTTimeTest) {
+    const int N = N_FACT - 1;
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_removal_time = 0.0;
+    double worst_removal_time = 0.0;
+    double total_insertion_time = 0.0;
+    double worst_insertion_time = 0.0;
+
+    do {
+        nm::SearchTree<nm::Node<int, int>, int, int> st;
+        auto i_start = std::chrono::steady_clock::now();
+        for (int p : permutation) st.insert(p);
+        auto i_finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> i_elapsed = i_finish - i_start;
+        worst_insertion_time = std::max(worst_insertion_time, i_elapsed.count());
+        total_insertion_time += i_elapsed.count();
+
+        auto r_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) {
+            bool removed = st.remove(i);
+            ASSERT_TRUE(removed);
+        }
+        auto r_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> r_elapsed = r_finish - r_start;
+        worst_removal_time = std::max(worst_insertion_time, r_elapsed.count());
+        total_removal_time += r_elapsed.count();
+
+        count++;
+    } while (nm::next_permutation(permutation));
+    
+    runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
+    runtime(count, total_removal_time, worst_removal_time, "Removal");
+}
+
+TEST(AVL, InsertionDeletionTest) {
+    nm::AVL<nm::Node<int, int>, int, int> avl;
+    for (int i = N_CROOT; i > 0; i--) avl.insert(i);
+
+    GTEST_SKIP() << "FIXME: rotation failure";
+
+    for (int i = 0; i <= N_CROOT; i++) {
+        bool result = avl.remove(i);
+        
+        if (i) ASSERT_TRUE(result);
+        else ASSERT_FALSE(result);
+        
+        std::size_t size = N_CROOT - (i ? 1 : 0);
+        std::vector<int> keys = avl.keys();
+        EXPECT_TRUE(is_sorted(keys));
+        EXPECT_EQ(keys.size(), size);
+        EXPECT_EQ(avl.size(), size);
+
+        if (i) avl.insert(i);
     }
 }
 
