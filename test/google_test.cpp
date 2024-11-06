@@ -48,6 +48,13 @@ bool verify_build_type(const char build_type[] = BUILD_TYPE) {
     return std::strcmp(std::getenv(BUILD_TYPE_IDENTIFIER), build_type) == 0;
 }
 
+void runtime(int count, double total, double worst, std::string prefix = "") {
+    if (not prefix.empty()) std::cout << prefix << '\n';
+    std::cout << TOTAL_RUNTIME << total << '\t';
+    if (count) std::cout << AVERAGE_RUNTIME << total / count << '\t';
+    std::cout << WORST_RUNTIME << worst << '\n';
+}
+
 template<typename T>
 bool is_sorted(std::vector<T> &v) {
     bool sorted = true;
@@ -363,10 +370,49 @@ TEST(BST, InsertionDeletionTest) {
 }
 
 TEST(AVL, ObtainTest) {
-    nm::SearchTree<nm::Node<int, int>, int, int> avl;
+    nm::AVL<nm::Node<int, int>, int, int> avl;
     for (int i = N_CROOT; i > 0; i--) avl.insert(i);
     EXPECT_NO_FATAL_FAILURE(avl.obtain(N_CROOT));
     EXPECT_THROW(avl.obtain(N_ROOT), std::runtime_error);
+}
+
+TEST(BST, BSTTimeTest) {
+    const int N = N_FACT;
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_removal_time = 0.0;
+    double worst_removal_time = 0.0;
+    double total_insertion_time = 0.0;
+    double worst_insertion_time = 0.0;
+
+    do {
+        nm::SearchTree<nm::Node<int, int>, int, int> st;
+        auto i_start = std::chrono::steady_clock::now();
+        for (int p : permutation) st.insert(p);
+        auto i_finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> i_elapsed = i_finish - i_start;
+        worst_insertion_time = std::max(worst_insertion_time, i_elapsed.count());
+        total_insertion_time += i_elapsed.count();
+
+        auto r_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) {
+            bool removed = st.remove(i);
+            ASSERT_TRUE(removed);
+        }
+        auto r_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> r_elapsed = r_finish - r_start;
+        worst_removal_time = std::max(worst_insertion_time, r_elapsed.count());
+        total_removal_time += r_elapsed.count();
+
+        count++;
+    } while (nm::next_permutation(permutation));
+    
+    runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
+    runtime(count, total_removal_time, worst_removal_time, "Removal");
 }
 
 int main(int argc, char *argv[])
