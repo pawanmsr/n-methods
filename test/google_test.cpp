@@ -312,14 +312,31 @@ TEST(NRMethod, ParabolaSingle) {
     ASSERT_LE(f(root), 0.01);
 }
 
-TEST(BST, InsertionTest) {
+TEST(BST, InsertionSearchhTest) {
     nm::SearchTree<nm::Node<int, int>, int, int> st;
-    for (int i = 0; i < N_CROOT; i++) st.insert(i);
+    for (int i = 0; i < N_CROOT; i++) {
+        st.insert(i);
+        for (int j = 0; j < N_CROOT; j++) {
+            bool found = st.search(j);
+            if (j <= i) ASSERT_TRUE(found);
+            else ASSERT_FALSE(found);
+        }
+    }
+    
     EXPECT_EQ(st.size(), N_CROOT);
     EXPECT_EQ(st.keys().size(), N_CROOT);
 
     nm::SearchTree<nm::Node<int, int>, int, int> str;
-    for (int i = N_CROOT - 1; i >= 0; i--) str.insert(i);
+    for (int i = N_CROOT - 1; i >= 0; i--) {
+        str.insert(i);
+        for (int j = N_CROOT; j >= 0; j--) {
+            bool found = st.search(j);
+            if (j >= i and j < N_CROOT)
+                ASSERT_TRUE(found);
+            else ASSERT_FALSE(found);
+        }
+    }
+    
     EXPECT_EQ(str.size(), N_CROOT);
     EXPECT_EQ(str.keys().size(), N_CROOT);
 }
