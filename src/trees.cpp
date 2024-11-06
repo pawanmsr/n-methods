@@ -2,8 +2,9 @@
 
 #include <utility.hpp>
 
-#include <algorithm>
 #include <cassert>
+#include <algorithm>
+#include <stdexcept>
 
 namespace nm {
     // !? lookout for // modify // in popagate function
@@ -150,11 +151,13 @@ namespace nm {
     }
     
     template <class C, class T, class U>
-    C* SearchTree<C, T, U>::node(T x, bool return_parent, bool reset) {
+    C* SearchTree<C, T, U>::node(T x, bool return_parent, bool mark) {
         C* parent = NULL;
         C* seeker = this->root;
         
         while (seeker) {
+            *seeker = mark;
+            
             if (*seeker == x) break;
             
             if (*seeker > x) {
@@ -291,7 +294,10 @@ namespace nm {
 
     template <class C, class T, class U>
     U SearchTree<C, T, U>::obtain(T x) {
-        return this->node(x)->info;
+        C* n = this->node(x);
+        if (*n == x) return n->info;
+
+        throw std::runtime_error("non existent key");
     }
 
     template <class C, class T, class U>
@@ -327,31 +333,66 @@ namespace nm {
     }
 
     template <class C, class T, class U>
-    std::int16_t AVL<C, T, U>::balance(C* n) {
-        if (not n) return 0;
-        if (not n->lsize) balance(n->llink);
-        if (not n->rsize) balance(n->rlink);
+    C* AVL<C, T, U>::rotate_left(C* n) {
+        C* right = n->rlink;
+        if (not right) return n;
 
-        // implement balancing
+        n->rlink = right->llink;
+        right->llink = n;
+
+        return right;
+    }
+
+    template <class C, class T, class U>
+    C* AVL<C, T, U>::rotate_right(C* n) {
+        C* left = n->llink;
+        if (not left) return n;
+        
+        n->llink = left->rlink;
+        left->rlink = n;
+
+        return left;
+    }
+
+    template <class C, class T, class U>
+    C *AVL<C, T, U>::balance(C *n)
+    {
+        // TODO: try doing it iteratively too.
+        if (not n or not n->marked()) return n;
+
+        n->llink = balance(n->llink);
+        n->rlink = balance(n->rlink);
+
+        n->unmark();
+
+        if (n->balance() < this->balance_factor - 1) {
+            return rotate_right(n);
+        } else if (n->balance() > this->balance_factor + 1) {
+            return rotate_left(n);
+        }
+
+        return n;
     }
 
     template <class C, class T, class U>
     void AVL<C, T, U>::insert(T x, U y) {
         SearchTree<C, T, U>::insert(x, y);
-        // rotate to balance
+        this->root = this->balance(this->root);
     }
 
     template <class C, class T, class U>
     void AVL<C, T, U>::insert(T x) {
         SearchTree<C, T, U>::insert(x);
-        // rotate to balance
+        this->root = this->balance(this->root);
     }
 
     template <class C, class T, class U>
     bool AVL<C, T, U>::remove(T x) {
-        SearchTree<C, T, U>::remove(x);
-        // rotate to balance
-        return false;
+        bool removed = SearchTree<C, T, U>::remove(x);
+        if (not removed) return false;
+        
+        this->root = this->balance(this->root);
+        return true;
     }
 
     template <class C, class T, class U>

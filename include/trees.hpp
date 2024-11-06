@@ -65,8 +65,7 @@ namespace nm
         C* create(T x);
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
-        // Replace reset with int16_t delta.
-        C* node(T x, bool return_parent = false, bool reset = false);
+        C* node(T x, bool return_parent = false, bool mark = false);
         void preorder(C* n, std::vector<T> &keys);
     
     public:
@@ -112,8 +111,9 @@ namespace nm
         std::int16_t balance_factor;
         // balance factor is one of [-1, 0, 1]
     protected:
-        void rotate();
-        std::int16_t balance(C* n);
+        C* rotate_left(C* n);
+        C* rotate_right(C* n);
+        C* balance(C* n);
     public:
         AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
             std::int16_t balance_factor = 0);

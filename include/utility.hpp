@@ -2,6 +2,7 @@
 #define UTILS
 
 #include <functional>
+#include <cstdint>
 
 namespace nm {
     // default arguments and functions
@@ -21,7 +22,7 @@ namespace nm {
         // Also modify in update_tree and propagate
         T assign(T data) {
             // Add arguments and math
-            // for flexibility and functionality.
+            //  for flexibility and functionality.
             // Must have associative and commutative
             //  (and optionally distributive) properties.
             return data;
@@ -63,7 +64,7 @@ namespace nm {
         };
 
         private:
-        std::size_t _size = 0;
+        std::int16_t _size = 0;
     };
 
     /*
@@ -100,12 +101,28 @@ namespace nm {
             return key == x;
         }
 
+        void operator = (bool m) {
+            mark |= m;
+        }
+
         operator T () const {
             return key;
         }
 
         std::size_t size() {
             return llink.size() + rlink.size() + 1;
+        }
+
+        std::int16_t balance() {
+            return rlink.size() - llink.size();
+        }
+
+        bool marked() {
+            return mark;
+        }
+
+        void unmark() {
+            mark = false;
         }
 
         Node(T k) : key(k) {};
@@ -132,6 +149,7 @@ namespace nm {
         
         private:
         T key;
+        bool mark;
         std::function<bool(T&, T&)> compare
             = default_compare<T>;
     };
