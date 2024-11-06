@@ -1,10 +1,11 @@
 // STLs //
+#include <chrono>
 #include <vector>
 #include <numeric>
-#include <functional>
-#include <chrono>
 #include <cstdlib>
 #include <cstring>
+#include <stdexcept>
+#include <functional>
 
 // NMethods //
 #include <primes.hpp>
@@ -359,6 +360,13 @@ TEST(BST, InsertionDeletionTest) {
 
         if (i) st.insert(i);
     }
+}
+
+TEST(AVL, ObtainTest) {
+    nm::SearchTree<nm::Node<int, int>, int, int> avl;
+    for (int i = N_CROOT; i > 0; i--) avl.insert(i);
+    EXPECT_NO_FATAL_FAILURE(avl.obtain(N_CROOT));
+    EXPECT_THROW(avl.obtain(N_ROOT), std::runtime_error);
 }
 
 int main(int argc, char *argv[])
