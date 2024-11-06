@@ -302,11 +302,11 @@ namespace nm {
 
     template <class C, class T, class U>
     void SearchTree<C, T, U>::preorder(C* n, std::vector<T> &keys) {
-        if (n) {
-            preorder(n->llink, keys);
-            keys.push_back(*n);
-            preorder(n->rlink, keys);
-        }
+        if (not n) return ;
+
+        preorder(n->llink, keys);
+        keys.push_back(*n);
+        preorder(n->rlink, keys);
     }
 
     template <class C, class T, class U>
@@ -326,11 +326,9 @@ template class nm::SearchTree<nm::Node<int, int>, int, int>;
 
 namespace nm {
     template <class C, class T, class U>
-    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, std::int16_t balance_factor) :
+    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, std::int8_t balance_factor) :
         SearchTree<C, T, U>(compare), balance_factor(balance_factor) {
-        // constructor
-        // initialize super class too
-    }
+        }
 
     template <class C, class T, class U>
     C* AVL<C, T, U>::rotate_left(C* n) {
@@ -355,21 +353,27 @@ namespace nm {
     }
 
     template <class C, class T, class U>
-    C *AVL<C, T, U>::balance(C *n)
-    {
+    C *AVL<C, T, U>::balance(C *n) {
         // TODO: try doing it iteratively too.
-        if (not n or not n->marked()) return n;
+        if (not n) return n;
 
-        n->llink = balance(n->llink);
-        n->rlink = balance(n->rlink);
+        auto check_balance = [&] (C* link) {
+            if (not link) return true;
+            return link->balance() < this->balance_factor - 1
+                or link->balance() > this->balance_factor + 1;
+        };
+
+        if (check_balance(n->llink))
+            n->llink = balance(n->llink);
+        if (check_balance(n->rlink))
+            n->rlink = balance(n->rlink);
 
         n->unmark();
 
-        if (n->balance() < this->balance_factor - 1) {
+        if (n->balance() < this->balance_factor - 1)
             return rotate_right(n);
-        } else if (n->balance() > this->balance_factor + 1) {
+        else if (n->balance() > this->balance_factor + 1)
             return rotate_left(n);
-        }
 
         return n;
     }

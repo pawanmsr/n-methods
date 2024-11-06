@@ -64,7 +64,7 @@ namespace nm {
         };
 
         private:
-        std::int16_t _size = 0;
+        std::int8_t _size = 0;
     };
 
     /*
@@ -113,7 +113,7 @@ namespace nm {
             return llink.size() + rlink.size() + 1;
         }
 
-        std::int16_t balance() {
+        std::int8_t balance() {
             return rlink.size() - llink.size();
         }
 

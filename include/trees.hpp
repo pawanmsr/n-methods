@@ -106,7 +106,7 @@ namespace nm {
     private:
         // expected height of right subtree
         // minus the height of left subtree
-        std::int16_t balance_factor;
+        std::int8_t balance_factor;
         // balance factor is one of [-1, 0, 1]
     protected:
         C* rotate_left(C* n);
@@ -114,7 +114,7 @@ namespace nm {
         C* balance(C* n);
     public:
         AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
-            std::int16_t balance_factor = 0);
+            std::int8_t balance_factor = 0);
         void insert(T x, U y);
         void insert(T x);
         bool remove(T x);
