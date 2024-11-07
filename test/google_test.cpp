@@ -4,6 +4,7 @@
 #include <numeric>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 #include <stdexcept>
 #include <functional>
 
@@ -417,13 +418,13 @@ TEST(BST, BSTTimeTest) {
 
 TEST(AVL, InsertionDeletionTest) {
     nm::AVL<nm::Node<int, int>, int, int> avl;
-    for (int i = N_CROOT; i > 0; i--) avl.insert(i);
-
-    GTEST_SKIP() << "FIXME: rotation failure";
+    for (int i = N_CROOT; i > 0; i--)
+        ASSERT_TRUE(avl.insert(i));
+    
+    GTEST_SKIP() << "FIXME";
 
     for (int i = 0; i <= N_CROOT; i++) {
         bool result = avl.remove(i);
-        
         if (i) ASSERT_TRUE(result);
         else ASSERT_FALSE(result);
         
@@ -433,7 +434,7 @@ TEST(AVL, InsertionDeletionTest) {
         EXPECT_EQ(keys.size(), size);
         EXPECT_EQ(avl.size(), size);
 
-        if (i) avl.insert(i);
+        if (i) ASSERT_TRUE(avl.insert(i));
     }
 }
 
