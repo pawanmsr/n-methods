@@ -1,8 +1,9 @@
 #if !defined(UTILS)
 #define UTILS
 
-#include <functional>
 #include <cstdint>
+#include <utility>
+#include <functional>
 
 namespace nm {
     // default arguments and functions
@@ -49,22 +50,32 @@ namespace nm {
             return _size;
         }
 
+        std::int16_t height() {
+            if (link) _height = link->height();
+            else _height = 0;
+            
+            return _height;
+        }
+
         void operator = (C* n) {
             link = n;
             size();
+            height();
         }
 
         operator C* () {
             return link;
         }
 
-        Link() : link(NULL), _size(0) {};
+        Link() : link(NULL), _size(0), _height(0) {};
         Link(C* n) : link(n) {
             size();
+            height();
         };
 
         private:
-        std::int8_t _size = 0;
+        std::size_t _size = 0;
+        std::int16_t _height = 0;
     };
 
     /*
@@ -101,28 +112,32 @@ namespace nm {
             return key == x;
         }
 
-        void operator = (bool m) {
-            mark |= m;
-        }
-
         operator T () const {
             return key;
+        }
+
+        void mark() {
+            marker = true;
         }
 
         std::size_t size() {
             return llink.size() + rlink.size() + 1;
         }
 
-        std::int8_t balance() {
-            return rlink.size() - llink.size();
+        std::int16_t height() {
+            return std::max(llink.height(), rlink.height()) + 1;
+        }
+
+        std::int16_t balance() {
+            return rlink.height() - llink.height();
         }
 
         bool marked() {
-            return mark;
+            return marker;
         }
 
         void unmark() {
-            mark = false;
+            marker = false;
         }
 
         Node(T k) : key(k) {};
@@ -149,7 +164,7 @@ namespace nm {
         
         private:
         T key;
-        bool mark;
+        bool marker;
         std::function<bool(T&, T&)> compare
             = default_compare<T>;
     };

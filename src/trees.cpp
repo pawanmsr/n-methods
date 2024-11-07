@@ -3,7 +3,6 @@
 #include <utility.hpp>
 
 #include <cassert>
-#include <algorithm>
 #include <stdexcept>
 
 namespace nm {
@@ -156,23 +155,19 @@ namespace nm {
         C* seeker = this->root;
         
         while (seeker) {
-            *seeker = mark;
-            
-            if (*seeker == x) break;
+            if (mark) seeker->mark();
             
             if (*seeker > x) {
                 if (seeker->llink) {
                     parent = seeker;
                     seeker = seeker->llink;
                 } else break;
-            }
-            
-            if (*seeker < x) {
+            } else if (*seeker < x) {
                 if (seeker->rlink) {
                     parent = seeker;
                     seeker = seeker->rlink;
                 } else break;
-            }
+            } else break;
         }
 
         if (return_parent) return parent;
@@ -203,11 +198,9 @@ namespace nm {
     C* SearchTree<C, T, U>::successor(C* seeker, bool return_parent) {
         C* parent = NULL;
         
-        while (seeker->llink or seeker->rlink) {
+        while (seeker->llink) {
             parent = seeker;
-            
-            if (seeker->llink) seeker = seeker->llink;
-            else seeker = seeker->rlink;
+            seeker = seeker->llink;
         }
 
         if (return_parent) return parent;
@@ -218,11 +211,9 @@ namespace nm {
     C* SearchTree<C, T, U>::predecessor(C* seeker, bool return_parent) {
         C* parent = NULL;
 
-        while (seeker->llink or seeker->rlink) {
+        while (seeker->rlink) {
             parent = seeker;
-            
-            if (seeker->rlink) seeker = seeker->rlink;
-            else seeker = seeker->llink;
+            seeker = seeker->rlink;
         }
 
         if (return_parent) return parent;
@@ -236,8 +227,9 @@ namespace nm {
     }
 
     template <class C, class T, class U>
-    void SearchTree<C, T, U>::insert(T x) {
+    bool SearchTree<C, T, U>::insert(T x) {
         C* n = this->create(x);
+        return *n == x;
     }
 
     template <class C, class T, class U>
@@ -255,7 +247,11 @@ namespace nm {
         if (not n or *n != x) return false;
 
         auto re_link = [&](C* link) {
-            if (not parent) this->root = link;
+            if (not parent) {
+                this->root = link;
+                if (this->root) this->root->mark();
+            } else parent->mark();
+            
             if (parent and left) parent->llink = link;
             if (parent and not left) parent->rlink = link;
         };
@@ -267,16 +263,18 @@ namespace nm {
             C* parent_prime = successor(n->rlink, true);
 
             C* n_prime = parent_prime;
-            if (parent_prime->llink) {
+            if (not n_prime) {
+                n_prime = n->rlink;
+                n->rlink = n_prime->rlink;
+            } else if (parent_prime->llink) {
                 n_prime = parent_prime->llink;
-                parent_prime->llink = NULL;
-            } else {
-                n_prime = parent_prime->rlink;
-                parent_prime->rlink = NULL;
+                parent_prime->llink = n_prime->rlink;
             }
 
             n_prime->llink = n->llink;
             n_prime->rlink = n->rlink;
+
+            n_prime->mark();
 
             re_link(n_prime);
         }
@@ -326,7 +324,7 @@ template class nm::SearchTree<nm::Node<int, int>, int, int>;
 
 namespace nm {
     template <class C, class T, class U>
-    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, std::int8_t balance_factor) :
+    AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, std::int16_t balance_factor) :
         SearchTree<C, T, U>(compare), balance_factor(balance_factor) {
         }
 
@@ -355,50 +353,64 @@ namespace nm {
     template <class C, class T, class U>
     C *AVL<C, T, U>::balance(C *n) {
         // TODO: try doing it iteratively too.
-        if (not n) return n;
+        if (not n or not n->marked()) return n;
 
-        auto check_balance = [&] (C* link) {
+        auto balanced = [&] (C* link, std::int16_t lcr = 0) {
             if (not link) return true;
-            return link->balance() < this->balance_factor - 1
-                or link->balance() > this->balance_factor + 1;
+            
+            if (lcr == -1)
+                return n->balance() >= this->balance_factor - 1;
+            else if (lcr == 1)
+                return n->balance() <= this->balance_factor + 1;
+            
+            return link->balance() >= this->balance_factor - 1
+                and link->balance() <= this->balance_factor + 1;
         };
 
-        if (check_balance(n->llink))
-            n->llink = balance(n->llink);
-        if (check_balance(n->rlink))
-            n->rlink = balance(n->rlink);
+        auto marked = [] (C* link) {
+            if (not link) return false;
+            return link->marked();
+        };
 
-        n->unmark();
+        if (marked(n->llink))
+            n->llink = this->balance(n->llink);
+        
+        if (marked(n->rlink))
+            n->rlink = this->balance(n->rlink);
 
-        if (n->balance() < this->balance_factor - 1)
-            return rotate_right(n);
-        else if (n->balance() > this->balance_factor + 1)
-            return rotate_left(n);
+        if (balanced(n)) n->unmark();
+
+        if (not balanced(n, -1))
+            return this->rotate_right(n);
+        else if (not balanced(n, 1))
+            return this->rotate_left(n);
 
         return n;
     }
 
     template <class C, class T, class U>
-    void AVL<C, T, U>::insert(T x, U y) {
-        SearchTree<C, T, U>::insert(x, y);
+    U AVL<C, T, U>::insert(T x, U y) {
+        y = SearchTree<C, T, U>::insert(x, y);
         this->root = this->balance(this->root);
+        return y;
     }
 
     template <class C, class T, class U>
-    void AVL<C, T, U>::insert(T x) {
-        SearchTree<C, T, U>::insert(x);
+    bool AVL<C, T, U>::insert(T x) {
+        bool inserted = SearchTree<C, T, U>::insert(x);
         this->root = this->balance(this->root);
+        return inserted;
     }
 
     template <class C, class T, class U>
     bool AVL<C, T, U>::remove(T x) {
         bool removed = SearchTree<C, T, U>::remove(x);
         if (not removed) return false;
-        
+
         this->root = this->balance(this->root);
         return true;
     }
-    
+
     template <class C, class T, class U>
     AVL<C, T, U>::~AVL() {
     }

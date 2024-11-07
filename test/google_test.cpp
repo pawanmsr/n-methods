@@ -4,6 +4,7 @@
 #include <numeric>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 #include <stdexcept>
 #include <functional>
 
@@ -164,9 +165,7 @@ TEST(SortTest, AverageRunTimeMergeSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(SortTest, AverageRunTimeHeapSort) {
@@ -194,9 +193,7 @@ TEST(SortTest, AverageRunTimeHeapSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(SortTest, AverageRunTimeQuickSort) {
@@ -224,9 +221,7 @@ TEST(SortTest, AverageRunTimeQuickSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(SortTest, AverageRunTimeHybridSort) {
@@ -254,9 +249,7 @@ TEST(SortTest, AverageRunTimeHybridSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(BoundSearch, DistinctElements) {
@@ -382,48 +375,58 @@ TEST(BST, BSTTimeTest) {
     std::iota(permutation.begin(), permutation.end(), 1);
 
     int count = 0;
-    double total_removal_time = 0.0;
-    double worst_removal_time = 0.0;
+    double total_search_time = 0.0;
+    double worst_search_time = 0.0;
     double total_insertion_time = 0.0;
     double worst_insertion_time = 0.0;
+    double total_extraction_time = 0.0;
+    double worst_extraction_time = 0.0;
 
     do {
         nm::SearchTree<nm::Node<int, int>, int, int> st;
+        
+        // time for insertion
         auto i_start = std::chrono::steady_clock::now();
-        for (int p : permutation) st.insert(p);
+        for (int p : permutation) ASSERT_TRUE(st.insert(p));
         auto i_finish = std::chrono::steady_clock::now();
         
         std::chrono::duration<double> i_elapsed = i_finish - i_start;
         worst_insertion_time = std::max(worst_insertion_time, i_elapsed.count());
         total_insertion_time += i_elapsed.count();
 
-        auto r_start = std::chrono::steady_clock::now();
-        for (int i = 1; i <= N; i++) {
-            bool removed = st.remove(i);
-            ASSERT_TRUE(removed);
-        }
-        auto r_finish = std::chrono::steady_clock::now();
+        // time for search
+        auto s_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(st.search(i));
+        auto s_finish = std::chrono::steady_clock::now();
 
-        std::chrono::duration<double> r_elapsed = r_finish - r_start;
-        worst_removal_time = std::max(worst_insertion_time, r_elapsed.count());
-        total_removal_time += r_elapsed.count();
+        std::chrono::duration<double> s_elapsed = s_finish - s_start;
+        worst_search_time = std::max(worst_search_time, s_elapsed.count());
+        total_search_time += s_elapsed.count();
+
+        // time for extraction
+        auto e_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(st.remove(i));
+        auto e_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> e_elapsed = e_finish - e_start;
+        worst_extraction_time = std::max(worst_extraction_time, s_elapsed.count());
+        total_extraction_time += e_elapsed.count();
 
         count++;
     } while (nm::next_permutation(permutation));
     
     runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
-    runtime(count, total_removal_time, worst_removal_time, "Removal");
+    runtime(count, total_search_time, worst_search_time, "Search");
+    runtime(count, total_extraction_time, worst_extraction_time, "Extraction");
 }
 
 TEST(AVL, InsertionDeletionTest) {
     nm::AVL<nm::Node<int, int>, int, int> avl;
-    for (int i = N_CROOT; i > 0; i--) avl.insert(i);
-
-    GTEST_SKIP() << "FIXME: rotation failure";
+    for (int i = N_CROOT; i > 0; i--)
+        ASSERT_TRUE(avl.insert(i));
 
     for (int i = 0; i <= N_CROOT; i++) {
         bool result = avl.remove(i);
-        
         if (i) ASSERT_TRUE(result);
         else ASSERT_FALSE(result);
         
@@ -433,8 +436,59 @@ TEST(AVL, InsertionDeletionTest) {
         EXPECT_EQ(keys.size(), size);
         EXPECT_EQ(avl.size(), size);
 
-        if (i) avl.insert(i);
+        if (i) ASSERT_TRUE(avl.insert(i));
     }
+}
+
+TEST(AVL, AVLTimeTest) {
+    const int N = N_FACT - 1;
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_search_time = 0.0;
+    double worst_search_time = 0.0;
+    double total_insertion_time = 0.0;
+    double worst_insertion_time = 0.0;
+    double total_extraction_time = 0.0;
+    double worst_extraction_time = 0.0;
+
+    do {
+        nm::AVL<nm::Node<int, int>, int, int> avl;
+        
+        // time for insertion
+        auto i_start = std::chrono::steady_clock::now();
+        for (int p : permutation) ASSERT_TRUE(avl.insert(p));
+        auto i_finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> i_elapsed = i_finish - i_start;
+        worst_insertion_time = std::max(worst_insertion_time, i_elapsed.count());
+        total_insertion_time += i_elapsed.count();
+
+        // time for search
+        auto s_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(avl.search(i));
+        auto s_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> s_elapsed = s_finish - s_start;
+        worst_search_time = std::max(worst_search_time, s_elapsed.count());
+        total_search_time += s_elapsed.count();
+
+        // time for extraction
+        auto e_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(avl.remove(i));
+        auto e_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> e_elapsed = e_finish - e_start;
+        worst_extraction_time = std::max(worst_extraction_time, s_elapsed.count());
+        total_extraction_time += e_elapsed.count();
+
+        count++;
+    } while (nm::next_permutation(permutation));
+    
+    runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
+    runtime(count, total_search_time, worst_search_time, "Search");
+    runtime(count, total_extraction_time, worst_extraction_time, "Extraction");
 }
 
 int main(int argc, char *argv[])
