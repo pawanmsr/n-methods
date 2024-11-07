@@ -157,6 +157,8 @@ namespace nm {
         while (seeker) {
             if (mark) seeker->mark();
             
+            if (*seeker == x) break;
+            
             if (*seeker > x) {
                 if (seeker->llink) {
                     parent = seeker;
