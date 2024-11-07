@@ -38,7 +38,7 @@ namespace nm {
 
     void KMP::prefix_function() {
         while (this->i < this->n) {
-            std::size_t j = this->partial[i - 1];
+            std::int32_t j = this->partial[i - 1];
             while (j > 0 and this->s[j] != this->s[i])
                 j = this->partial[j - 1];
             
@@ -49,7 +49,7 @@ namespace nm {
     }
 
     std::vector<int32_t> KMP::search() {
-        std::size_t k = 0;
+        std::int32_t k = 0;
         std::size_t len_w = this->w.size();
         
         while (this->i < this->n) {
@@ -74,8 +74,8 @@ namespace nm {
     }
 
     void KMP::failure_function() {
-        std::size_t i = 0;
-        std::size_t j = 1;
+        std::int32_t i = 0;
+        std::int32_t j = 1;
 
         std::size_t len_w = this->w.size();
 

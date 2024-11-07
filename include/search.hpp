@@ -21,7 +21,7 @@ namespace nm
         std::string w;
         std::string s; // input
         std::size_t n; // input length
-        std::size_t i; // processed
+        std::int32_t i; // processed
     
     protected:
         void prefix_function();
