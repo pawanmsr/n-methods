@@ -3,7 +3,6 @@
 #include <utility.hpp>
 
 #include <cassert>
-#include <algorithm>
 #include <stdexcept>
 
 namespace nm {
@@ -158,21 +157,17 @@ namespace nm {
         while (seeker) {
             if (mark) seeker->mark();
             
-            if (*seeker == x) break;
-            
             if (*seeker > x) {
                 if (seeker->llink) {
                     parent = seeker;
                     seeker = seeker->llink;
                 } else break;
-            }
-            
-            if (*seeker < x) {
+            } else if (*seeker < x) {
                 if (seeker->rlink) {
                     parent = seeker;
                     seeker = seeker->rlink;
                 } else break;
-            }
+            } else break;
         }
 
         if (return_parent) return parent;
@@ -270,7 +265,7 @@ namespace nm {
             C* n_prime = parent_prime;
             if (not n_prime) {
                 n_prime = n->rlink;
-                n->rlink = NULL;
+                n->rlink = n_prime->rlink;
             } else if (parent_prime->llink) {
                 n_prime = parent_prime->llink;
                 parent_prime->llink = n_prime->rlink;
@@ -377,10 +372,10 @@ namespace nm {
             return link->marked();
         };
 
-        if (marked(n->llink) or not balanced(n->llink))
+        if (marked(n->llink))
             n->llink = this->balance(n->llink);
         
-        if (marked(n->rlink) or not balanced(n->rlink))
+        if (marked(n->rlink))
             n->rlink = this->balance(n->rlink);
 
         if (balanced(n)) n->unmark();
@@ -411,11 +406,11 @@ namespace nm {
     bool AVL<C, T, U>::remove(T x) {
         bool removed = SearchTree<C, T, U>::remove(x);
         if (not removed) return false;
-        
+
         this->root = this->balance(this->root);
         return true;
     }
-    
+
     template <class C, class T, class U>
     AVL<C, T, U>::~AVL() {
     }
