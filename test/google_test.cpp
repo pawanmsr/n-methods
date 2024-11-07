@@ -165,9 +165,7 @@ TEST(SortTest, AverageRunTimeMergeSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(SortTest, AverageRunTimeHeapSort) {
@@ -195,9 +193,7 @@ TEST(SortTest, AverageRunTimeHeapSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(SortTest, AverageRunTimeQuickSort) {
@@ -225,9 +221,7 @@ TEST(SortTest, AverageRunTimeQuickSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(SortTest, AverageRunTimeHybridSort) {
@@ -255,9 +249,7 @@ TEST(SortTest, AverageRunTimeHybridSort) {
         EXPECT_TRUE(is_sorted(auxillary));
     } while (nm::next_permutation(permutation));
 
-    std::cout << TOTAL_RUNTIME << total_time << '\t'
-    << AVERAGE_RUNTIME << total_time / count << '\t'
-    << WORST_RUNTIME << worst_time << '\n';
+    runtime(count, total_time, worst_time);
 }
 
 TEST(BoundSearch, DistinctElements) {
