@@ -490,6 +490,33 @@ TEST(AVL, AVLTimeTest) {
     runtime(count, total_extraction_time, worst_extraction_time, "Extraction");
 }
 
+TEST(KMP, StringSearch) {
+    std::vector<std::string> sentences = {
+        "I've gotta get out of this place. Someday, I'm getting on that train. (Spirited Away)",
+        "Sometimes the wrong train takes you to the right destination. (The Lunchbox)"
+    };
+
+    std::vector<std::string> words = {
+        "Train",
+        "Some"
+    };
+    
+    for (std::string &word : words) {
+        std::size_t count = 0;
+        nm::KMP kmp(word, false);
+        for (std::string sentence : sentences) {
+            kmp.stream(sentence);
+            EXPECT_EQ(kmp.search().size(), ++count);
+        }
+    }
+
+    nm::KMP kmp(words[0]);
+    for (std::string sentence : sentences) {
+        kmp.stream(sentence);
+        EXPECT_EQ(kmp.search().size(), 0);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // GTest //
