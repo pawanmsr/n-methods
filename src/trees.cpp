@@ -140,13 +140,11 @@ namespace nm {
     SearchTree<C, T, U>::SearchTree(std::function<bool(T&, T&)> compare) : 
         compare(compare) {
             this->root = NULL;
-            this->tree_size = 0;
         }
     
     template <class C, class T, class U>
     std::size_t SearchTree<C, T, U>::size() {
         return this->root->size();
-        return this->tree_size; // TODO: not needed.
     }
     
     template <class C, class T, class U>
@@ -178,8 +176,6 @@ namespace nm {
     C* SearchTree<C, T, U>::create(T x) {
         C* n = this->node(x, false, true);
         if (n and *n == x) return n;
-
-        this->tree_size++;
 
         if (not n) {
             this->root = new C(x, this->compare);
@@ -279,7 +275,6 @@ namespace nm {
             re_link(n_prime);
         }
 
-        this->tree_size--;
         return true;
     }
 
@@ -299,18 +294,36 @@ namespace nm {
     }
 
     template <class C, class T, class U>
+    void SearchTree<C, T, U>::inorder(C* n, std::vector<T> &keys) {
+        if (not n) return ;
+
+        inorder(n->llink, keys);
+        keys.push_back(*n);
+        inorder(n->rlink, keys);
+    }
+
+    template <class C, class T, class U>
     void SearchTree<C, T, U>::preorder(C* n, std::vector<T> &keys) {
         if (not n) return ;
 
-        preorder(n->llink, keys);
         keys.push_back(*n);
+        preorder(n->llink, keys);
         preorder(n->rlink, keys);
+    }
+
+    template <class C, class T, class U>
+    void SearchTree<C, T, U>::postorder(C* n, std::vector<T> &keys) {
+        if (not n) return ;
+
+        postorder(n->llink, keys);
+        postorder(n->rlink, keys);
+        keys.push_back(*n);
     }
 
     template <class C, class T, class U>
     std::vector<T> SearchTree<C, T, U>::keys() {
         std::vector<T> keys;
-        preorder(this->root, keys);
+        inorder(this->root, keys);
         return keys;
     }
     

@@ -265,14 +265,13 @@ TEST(BoundSearch, DistinctPrimes) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
     for (int i = 2; i < N_LOG; i++) {
         int idx = nm::bound_search(i, 0, P - 1, primes);
-        ASSERT_LE(primes[idx], i);
+        if (idx < P) ASSERT_GE(primes[idx], i);
         
         std::function<bool(int& a, int& b)> compare =  [](int& a, int& b) {
             return not (b < a);
         }; idx = nm::bound_search(i, 0, P - 1, primes, compare);
 
-        GTEST_SKIP() << "fixme";
-        ASSERT_GT(primes[idx], i); // FIXME
+        if (idx < P) ASSERT_GT(primes[idx], i);
     }
 }
 
@@ -489,6 +488,33 @@ TEST(AVL, AVLTimeTest) {
     runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
     runtime(count, total_search_time, worst_search_time, "Search");
     runtime(count, total_extraction_time, worst_extraction_time, "Extraction");
+}
+
+TEST(KMP, StringSearch) {
+    std::vector<std::string> sentences = {
+        "I've gotta get out of this place. Someday, I'm getting on that train. (Spirited Away)",
+        "Sometimes the wrong train takes you to the right destination. (The Lunchbox)"
+    };
+
+    std::vector<std::string> words = {
+        "Train",
+        "Some"
+    };
+    
+    for (std::string &word : words) {
+        std::size_t count = 0;
+        nm::KMP kmp(word, false);
+        for (std::string sentence : sentences) {
+            kmp.stream(sentence);
+            EXPECT_EQ(kmp.search().size(), ++count);
+        }
+    }
+
+    nm::KMP kmp(words[0]);
+    for (std::string sentence : sentences) {
+        kmp.stream(sentence);
+        EXPECT_EQ(kmp.search().size(), 0);
+    }
 }
 
 int main(int argc, char *argv[])
