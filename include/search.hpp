@@ -17,6 +17,8 @@ namespace nm {
         std::vector<int32_t> positions;
         std::vector<int32_t> partial;
         std::vector<int32_t> prefix;
+
+        bool case_sensitive;
         
         std::string w;
         std::string s; // input
@@ -27,9 +29,10 @@ namespace nm {
     protected:
         void prefix_function();
         void failure_function();
+        bool compare(char x, char y);
         
     public:
-        KMP(std::string word);
+        KMP(std::string word, bool case_sensitive = true);
         
         void clear();
         void flush();

@@ -30,16 +30,30 @@ template int nm::bound_search<long long, int>(long long, const int, const int,
 
 
 namespace nm {
-    KMP::KMP(std::string word) : w(word) {
+    KMP::KMP(std::string word, bool case_sensitive) :
+        w(word), case_sensitive(case_sensitive) {
+        this->flush();
         this->prefix = {0};
         this->partial = {-1};
         this->failure_function();
     }
 
+    bool KMP::compare(char x, char y) {
+        auto lower_case = [] (char z) {
+            if (z >= 'A' and z <= 'Z')
+                z = 'a' + (z - 'A');
+            
+            return z;
+        };
+
+        if (this->case_sensitive) return x == y;
+        return lower_case(x) == lower_case(y);
+    }
+
     void KMP::prefix_function() {
         while (this->i < this->n) {
             std::int32_t j = this->partial[i - 1];
-            while (j > 0 and this->s[j] != this->s[i])
+            while (j > 0 and not compare(this->s[j], this->s[i]))
                 j = this->partial[j - 1];
             
             if (this->s[i] == this->s[j]) j++;
@@ -48,27 +62,12 @@ namespace nm {
         }
     }
 
-    void KMP::flush() {
-        this->s.clear();
-        this->n = 0;
-        this->i = 0;
-    }
-
-    void KMP::clear() {
-        this->positions.clear();
-        this->partial.clear();
-        this->prefix.clear();
-
-        w.clear();
-        this->flush();
-    }
-
     std::vector<int32_t> KMP::search() {
         std::int32_t k = 0;
         std::size_t len_w = this->w.size();
         
         while (this->i < this->n) {
-            if (this->w[k] == this->s[i]) {
+            if (compare(this->w[k], this->s[i])) {
                 this->i++;
 
                 k++;
@@ -94,12 +93,12 @@ namespace nm {
 
         std::size_t len_w = this->w.size();
 
-        while (i < len_w) {
-            if (this->w[i] == this->w[j])
-                this->partial[j] = this->partial[i];
+        while (j < len_w) {
+            if (this->compare(this->w[i], this->w[j]))
+                this->partial.push_back(this->partial[i]);
             else {
-                this->partial[j] = i;
-                while (i >= 0 and this->w[i] != this->w[j])
+                this->partial.push_back(i);
+                while (i >= 0 and not this->compare(this->w[i], this->w[j]))
                     i = this->partial[i];
             }
 
@@ -107,7 +106,22 @@ namespace nm {
             i++;
         }
 
-        this->partial[j] = i;
+        this->partial.push_back(i);
+    }
+
+    void KMP::flush() {
+        this->s.clear();
+        this->n = 0;
+        this->i = 0;
+    }
+
+    void KMP::clear() {
+        this->positions.clear();
+        this->partial.clear();
+        this->prefix.clear();
+
+        w.clear();
+        this->flush();
     }
 
     void KMP::stream(std::string s) {
