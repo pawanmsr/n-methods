@@ -265,14 +265,13 @@ TEST(BoundSearch, DistinctPrimes) {
     std::vector<int> primes = nm::eratosthenes_sieve(N_LOG);
     for (int i = 2; i < N_LOG; i++) {
         int idx = nm::bound_search(i, 0, P - 1, primes);
-        ASSERT_LE(primes[idx], i);
+        if (idx < P) ASSERT_GE(primes[idx], i);
         
         std::function<bool(int& a, int& b)> compare =  [](int& a, int& b) {
             return not (b < a);
         }; idx = nm::bound_search(i, 0, P - 1, primes, compare);
 
-        GTEST_SKIP() << "fixme";
-        ASSERT_GT(primes[idx], i); // FIXME
+        if (idx < P) ASSERT_GT(primes[idx], i);
     }
 }
 
