@@ -48,6 +48,21 @@ namespace nm {
         }
     }
 
+    void KMP::flush() {
+        this->s.clear();
+        this->n = 0;
+        this->i = 0;
+    }
+
+    void KMP::clear() {
+        this->positions.clear();
+        this->partial.clear();
+        this->prefix.clear();
+
+        w.clear();
+        this->flush();
+    }
+
     std::vector<int32_t> KMP::search() {
         std::int32_t k = 0;
         std::size_t len_w = this->w.size();
@@ -69,7 +84,7 @@ namespace nm {
                 }
             }
         }
-        
+
         return this->positions;
     }
 
@@ -95,7 +110,7 @@ namespace nm {
         this->partial[j] = i;
     }
 
-    void KMP::append(std::string s) {
+    void KMP::stream(std::string s) {
         this->s += s;
         this->n += s.length();
     }
