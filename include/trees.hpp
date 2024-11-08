@@ -57,14 +57,17 @@ namespace nm {
     class SearchTree {
     protected:
         C* root;
-        std::size_t tree_size; // TODO: not needed.
         std::function<bool(T&, T&)> compare;
         
         C* create(T x);
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
         C* node(T x, bool return_parent = false, bool mark = false);
+        
+        // traversal
+        void inorder(C* n, std::vector<T> &keys);
         void preorder(C* n, std::vector<T> &keys);
+        void postorder(C* n, std::vector<T> &keys);
     
     public:
         SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
@@ -81,6 +84,10 @@ namespace nm {
         
         U & operator [](T x);
         const U & operator [](T x) const;
+
+        // TODO: return info
+        //  of k-th element
+        U element(size_t k);
 
         std::vector<T> keys();
 
