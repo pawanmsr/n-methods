@@ -195,8 +195,8 @@ namespace nm {
         if (k > n->size()) return NULL;
         if (not --k) return n;
         
-        if (n->llink and k > n->llink->size())
-            return element(k - n->llink->size(), n->rlink);
+        if (n->llink and k > n->llink.size())
+            return element(k - n->llink.size(), n->rlink);
         else return element(k, n->llink);
     }
 
