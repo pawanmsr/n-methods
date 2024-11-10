@@ -37,7 +37,7 @@ namespace nm {
         this->tree[i] = this->integrator->integrate(this->tree[i * 2], this->tree[i * 2 + 1]);
 
         // FIXME: this is perhaps not needed when i * 2
-        // is greater than or equal to this->n
+        //  is greater than or equal to this->n
         this->auxiliary[i * 2] = this->integrator->assign(this->auxiliary[i]);     // modify //
         this->auxiliary[i * 2 + 1] = this->integrator->assign(this->auxiliary[i]); // modify //
 
@@ -188,6 +188,23 @@ namespace nm {
         n = ni;
 
         return n;
+    }
+
+    template <class C, class T, class U>
+    C* SearchTree<C, T, U>::element(std::size_t k, C* n) {
+        if (k > n->size()) return NULL;
+        if (not --k) return n;
+        
+        if (n->llink and k > n->llink->size())
+            return element(k - n->llink->size(), n->rlink);
+        else return element(k, n->llink);
+    }
+
+    template <class C, class T, class U>
+    U SearchTree<C, T, U>::element(std::size_t k) {
+        C* n = element(k, this->root);
+        if (not n) throw std::runtime_error("range violation");
+        return n->info;
     }
 
     template <class C, class T, class U>
