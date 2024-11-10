@@ -68,6 +68,7 @@ namespace nm {
         void inorder(C* n, std::vector<T> &keys);
         void preorder(C* n, std::vector<T> &keys);
         void postorder(C* n, std::vector<T> &keys);
+        C* element(std::size_t k, C* n);
     
     public:
         SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
@@ -107,6 +108,9 @@ namespace nm {
      * Rounding \frac{\phi^{h + 1}}{\sqrt{5}}
      *  to nearest integer gives fibonacci h + 1
      *  of height h.
+     * 
+     * class C is of type Node
+     *  as defined in utility.hpp.
      */
     template <class C, class T, class U>
     class AVL : public SearchTree<C, T, U> {
@@ -114,7 +118,7 @@ namespace nm {
         // expected height of right subtree
         // minus the height of left subtree
         std::int16_t balance_factor;
-        // balance factor is one of [-1, 0, 1]
+        // balance factor is one of {-1, 0, 1}
     protected:
         C* rotate_left(C* n);
         C* rotate_right(C* n);

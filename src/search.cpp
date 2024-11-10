@@ -30,12 +30,25 @@ template int nm::bound_search<long long, int>(long long, const int, const int,
 
 
 namespace nm {
-    KMP::KMP(std::string word, bool case_sensitive) :
-        w(word), case_sensitive(case_sensitive) {
+    KMP::KMP(std::string word, bool case_sensitive, std::size_t memory) :
+        w(word), case_sensitive(case_sensitive), critical_memory(memory) {
         this->flush();
         this->prefix = {0};
         this->partial = {-1};
         this->failure_function();
+    }
+
+    std::size_t KMP::memory(bool all) {
+        std::size_t m = sizeof(this->s) + sizeof(char) * this->n;
+        if (not all) return m;
+        
+        m += sizeof(this->positions) + 
+            sizeof(std::int32_t) * this->positions.size();
+        m += sizeof(this->partial) + 
+            sizeof(std::int32_t) * this->partial.size();
+        m += sizeof(this->prefix) + 
+            sizeof(std::int32_t) * this->prefix.size();
+        return m;
     }
 
     bool KMP::compare(char x, char y) {
@@ -60,6 +73,9 @@ namespace nm {
             this->partial.push_back(j);
             this->i++;
         }
+
+        if (memory() > this->critical_memory)
+            this->flush();
     }
 
     std::vector<int32_t> KMP::search() {
@@ -83,6 +99,9 @@ namespace nm {
                 }
             }
         }
+
+        if (memory() > this->critical_memory)
+            this->flush();
 
         return this->positions;
     }
