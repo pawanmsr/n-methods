@@ -339,6 +339,8 @@ namespace nm {
     template <class C, class T, class U>
     AVL<C, T, U>::AVL(std::function<bool(T&, T&)> compare, std::int16_t balance_factor) :
         SearchTree<C, T, U>(compare), balance_factor(balance_factor) {
+            if (this->balance_factor < -1 or this->balance_factor > 1)
+                this->balance_factor = 0;
         }
 
     template <class C, class T, class U>
