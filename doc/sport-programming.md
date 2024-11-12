@@ -1,11 +1,13 @@
 Sport Programming
 =================
 
+> Searching Solutions for Problems
+> 
 > Problems without any solution become lonely and sad.  
 > And if solution does not appear soon, people despair.  
 > When solution does appear, it becomes an instant fad.  
 > And the problem and its solution become an amazing pair.  
-> <cite>Pawan</cite> (while dreaming of solving problems) :smile
+> <cite>Pawan</cite>
 
 Logistics
 ---------
