@@ -42,7 +42,10 @@ namespace nm
 
     template<typename T>
     T Arithmetic<T>::rem(T x) {
-        return x % this->mod;
+        T z = x % this->mod;
+        if (z >= this->mod) z -= this->mod;
+        if (z < 0) z += this->mod;
+        return z;
     }
 
     template<typename T>
