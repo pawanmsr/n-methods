@@ -51,22 +51,19 @@ namespace nm
     template<typename T>
     T Arithmetic<T>::add(T x, T y) {
         T z = this->rem(x) + this->rem(y);
-        if (z >= this->mod) z -= this->mod;
-        return z;
+        return this->rem(z);
     }
 
     template<typename T>
     T Arithmetic<T>::subtract(T x, T y) {
         T z = this->rem(x) - this->rem(y);
-        if (z < 0) z += this->mod;
-        return z;
+        return this->rem(z);
     }
 
     template<typename T>
     T Arithmetic<T>::multiply(T x, T y) {
-        T z = this->rem(x) * this->rem(y) % this->mod;
-        if (z < 0) z += this->mod;
-        return z;
+        T z = this->rem(x) * this->rem(y);
+        return this->rem(z);
     }
 
     // Raise requires exponentiation.
@@ -79,7 +76,7 @@ namespace nm
     template<typename T>
     T Arithmetic<T>::divide(T x, T y) {
         T z = this->rem(x) * prime_modular_multiplicative_inverse<T>(y, this->mod);
-        return z % this->mod;
+        return this->rem(z);
     }
 
     template<typename T>
