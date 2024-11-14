@@ -47,21 +47,21 @@ namespace nm
 
     template<typename T>
     T Arithmetic<T>::add(T x, T y) {
-        T z = x + y;
-        if (z > this->mod) z -= this->mod;
+        T z = this->rem(x) + this->rem(y);
+        if (z >= this->mod) z -= this->mod;
         return z;
     }
 
     template<typename T>
     T Arithmetic<T>::subtract(T x, T y) {
-        T z = x - y;
+        T z = this->rem(x) - this->rem(y);
         if (z < 0) z += this->mod;
         return z;
     }
 
     template<typename T>
     T Arithmetic<T>::multiply(T x, T y) {
-        T z = x * y % this->mod;
+        T z = this->rem(x) * this->rem(y) % this->mod;
         if (z < 0) z += this->mod;
         return z;
     }
@@ -75,7 +75,7 @@ namespace nm
     // Divide requires multiplicative_inverse.
     template<typename T>
     T Arithmetic<T>::divide(T x, T y) {
-        T z = x * prime_modular_multiplicative_inverse<T>(y, this->mod);
+        T z = this->rem(x) * prime_modular_multiplicative_inverse<T>(y, this->mod);
         return z % this->mod;
     }
 
