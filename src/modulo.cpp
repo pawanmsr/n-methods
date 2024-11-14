@@ -41,6 +41,11 @@ namespace nm
     Arithmetic<T>::Arithmetic(T mod_prime) : mod(mod_prime) {}
 
     template<typename T>
+    T Arithmetic<T>::rem(T x) {
+        return x % this->mod;
+    }
+
+    template<typename T>
     T Arithmetic<T>::add(T x, T y) {
         T z = x + y;
         if (z > this->mod) z -= this->mod;

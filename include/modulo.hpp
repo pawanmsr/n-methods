@@ -25,6 +25,7 @@ namespace nm
         T mod;
     public:
         Arithmetic(T mod_prime);
+        T rem(T x);
         T add(T x, T y);
         T subtract(T x, T y);
         T multiply(T x, T y);
