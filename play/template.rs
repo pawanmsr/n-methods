@@ -1,4 +1,9 @@
-// Imports //
+/* 
+ * Author:
+ * Compile and Run with cargo
+ */
+
+// Imports and Inclusion //
 use std::io;
 
 // Macro //
