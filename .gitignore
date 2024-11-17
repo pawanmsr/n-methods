@@ -54,3 +54,9 @@ play/*
 *.txt
 
 !**/CMakeLists.txt
+
+# Compiled target files
+/target
+
+# Ignore lock file (temporary)
+*.lock
