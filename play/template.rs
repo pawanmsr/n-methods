@@ -18,16 +18,17 @@ use std::io;
 // Functions //
 
 
-fn main() {
-    let mut s = String::new();
+fn main() -> io::Result<()> {
+    let stdin: String = io::read_to_string(io::stdin()).unwrap();
+    let mut s: std::str::SplitWhitespace<'_> = stdin.split_whitespace();
     
     let mut t: usize = 1;
-    // comment lines below for single test case
-    io::stdin().read_line(&mut s).unwrap();
-    t = s.trim().parse::<usize>().unwrap();
-    s.clear();
+    // comment the line below for single test case
+    t = s.next().unwrap().parse::<usize>().unwrap();
     
     for _ in 0..t {
         // solution //
     }
+
+    Ok(())
 }
