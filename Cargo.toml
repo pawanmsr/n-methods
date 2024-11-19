@@ -1,0 +1,12 @@
+[package]
+name = "n-methods"
+
+[lib]
+name = "library"
+path = "src/lib.rs"
+
+[[bin]]
+name = "play"
+path = "play/template.rs"
+
+[dependencies]

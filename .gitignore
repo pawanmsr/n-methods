@@ -47,9 +47,16 @@ bin/*
 # Ignore contents in play
 play/*
 !play/template.cpp
+!play/template.rs
 
 # Ignore logs
 *.log
 *.txt
 
 !**/CMakeLists.txt
+
+# Compiled target files
+/target
+
+# Ignore lock file (temporary)
+*.lock
