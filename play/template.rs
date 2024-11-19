@@ -1,5 +1,5 @@
 /* 
- * Author:
+ * Author: Canis Lupus Loner
  * Compile and Run with cargo
  */
 
@@ -43,7 +43,7 @@ fn main() -> io::Result<()> {
     let t: usize = input!(usize, s);
     for _ in 0..t {
         // Solution //
-        // println!("Everyone is awesome!"); //
+        println!("Everyone is awesome!");
     }
 
     Ok(())
