@@ -5,45 +5,9 @@ name = "n-methods"
 name = "library"
 path = "src/lib.rs"
 
-# TODO: add workspace.
-
-[[bin]]
-name = "template"
-path = "play/template.rs"
-
-# Problems A-H
-# --bin $problem_name
-
-[[bin]]
-name = "a"
-path = "play/a.rs"
-
-[[bin]]
-name = "b"
-path = "play/b.rs"
-
-[[bin]]
-name = "c"
-path = "play/c.rs"
-
-[[bin]]
-name = "d"
-path = "play/d.rs"
-
-[[bin]]
-name = "e"
-path = "play/e.rs"
-
-[[bin]]
-name = "f"
-path = "play/f.rs"
-
-[[bin]]
-name = "g"
-path = "play/g.rs"
-
-[[bin]]
-name = "h"
-path = "play/h.rs"
+[workspace]
+members = [
+    "play",
+]
 
 [dependencies]
