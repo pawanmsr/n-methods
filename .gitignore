@@ -54,6 +54,7 @@ play/*
 *.txt
 
 !**/CMakeLists.txt
+!**/Cargo.toml
 
 # Compiled target files
 /target
