@@ -1,6 +1,6 @@
 /* 
  * Author: Canis Lupus Loner
- * Compile and Run with cargo
+ * Compile and run with cargo or rustc
  */
 
 // #![warn(unused_macros)]
@@ -8,7 +8,10 @@
 
 // Standard Library //
 use std::io;
-// use std::collections::{BTreeMap, BTreeSet, BinaryHeap, VecDeque};
+use std::fs;
+
+// use std::collections::{BinaryHeap, VecDeque};
+// use std::collections::{BTreeMap, BTreeSet];
 // use std::collections::hash_map::HashMap;
 // use std::collections::hash_set::HashSet;
 
@@ -39,7 +42,11 @@ macro_rules! input {
 
 
 fn main() -> io::Result<()> {
-    let stdin: String = io::read_to_string(io::stdin()).unwrap();
+    #[cfg(not(LOCAL))]
+    let stdin: String = io::read_to_string(io::stdin().lock()).unwrap();
+    #[cfg(any(LOCAL, feature = "LOCAL"))]
+    let stdin: String = fs::read_to_string("input.txt").unwrap();
+    
     let mut s: std::str::SplitWhitespace<'_> = stdin.split_whitespace();
     
     // let t: usize = 1; // for single test
@@ -49,5 +56,5 @@ fn main() -> io::Result<()> {
         println!("Everyone is awesome!");
     }
 
-    Ok(())
+    return Ok(());
 }
