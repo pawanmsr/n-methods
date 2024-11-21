@@ -5,8 +5,9 @@ name = "n-methods"
 name = "library"
 path = "src/lib.rs"
 
-[[bin]]
-name = "play"
-path = "play/template.rs"
+[workspace]
+members = [
+    "play",
+]
 
 [dependencies]
