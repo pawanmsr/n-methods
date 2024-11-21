@@ -1,0 +1,42 @@
+[package]
+name = "play"
+default-run = "template"
+
+[[bin]]
+name = "template"
+path = "template.rs"
+
+# Problems A-H
+# --bin $problem_name
+
+[[bin]]
+name = "a"
+path = "a.rs"
+
+[[bin]]
+name = "b"
+path = "b.rs"
+
+[[bin]]
+name = "c"
+path = "c.rs"
+
+[[bin]]
+name = "d"
+path = "d.rs"
+
+[[bin]]
+name = "e"
+path = "e.rs"
+
+[[bin]]
+name = "f"
+path = "f.rs"
+
+[[bin]]
+name = "g"
+path = "g.rs"
+
+[[bin]]
+name = "h"
+path = "h.rs"
