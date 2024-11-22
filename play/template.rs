@@ -4,6 +4,8 @@
  */
 
 // #![warn(unused_macros)]
+// #![warn(unused_imports)]
+// #![warn(unused_must_use)]
 // #![allow(unused_variables)]
 
 // Standard Library //
@@ -55,12 +57,13 @@ fn main() -> io::Result<()> {
     let stdout = fs::File::create("output.txt").unwrap();
     
     let mut cin = stdin.split_whitespace();
+    let mut cout = stdout;
     
     // let t: usize = 1; // for single test
     let t: usize = input!(usize, cin);
     for _ in 0..t {
         // Solution //
-        println!("Everyone is awesome!");
+        writeln!(cout, "Everyone is awesome!")?;
     }
 
     return Ok(());
