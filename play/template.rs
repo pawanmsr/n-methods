@@ -10,6 +10,8 @@
 use std::io;
 use std::fs;
 
+use std::io::Write;
+
 // use std::collections::{BinaryHeap, VecDeque};
 // use std::collections::{BTreeMap, BTreeSet];
 // use std::collections::hash_map::HashMap;
@@ -46,11 +48,16 @@ fn main() -> io::Result<()> {
     let stdin: String = io::read_to_string(io::stdin().lock()).unwrap();
     #[cfg(any(LOCAL, feature = "LOCAL"))]
     let stdin: String = fs::read_to_string("input.txt").unwrap();
+
+    #[cfg(not(LOCAL))]
+    let stdout  = io::stdout().lock();
+    #[cfg(any(LOCAL, feature = "LOCAL"))]
+    let stdout = fs::File::create("output.txt").unwrap();
     
-    let mut s: std::str::SplitWhitespace<'_> = stdin.split_whitespace();
+    let mut cin = stdin.split_whitespace();
     
     // let t: usize = 1; // for single test
-    let t: usize = input!(usize, s);
+    let t: usize = input!(usize, cin);
     for _ in 0..t {
         // Solution //
         println!("Everyone is awesome!");
