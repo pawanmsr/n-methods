@@ -59,10 +59,11 @@ fn main() -> io::Result<()> {
     let mut cin = stdin.split_whitespace();
     let mut cout = stdout;
     
+    // Solution //
     // let t: usize = 1; // for single test
     let t: usize = input!(usize, cin);
     for _ in 0..t {
-        // Solution //
+        // Test Case //
         writeln!(cout, "Everyone is awesome!")?;
     }
 
