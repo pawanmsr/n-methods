@@ -66,8 +66,10 @@ fn main() -> io::Result<()> {
     let t: usize = input!(usize, cin);
     for _ in 0..t {
         // Test Case //
-        writeln!(cout, "Everyone is awesome!")?;
     }
+
+    #[cfg(any(LOCAL, feature = "LOCAL"))]
+    writeln!(cout, "Everyone is awesome!")?;
 
     return Ok(());
 }
