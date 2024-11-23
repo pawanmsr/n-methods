@@ -68,8 +68,6 @@ fn main() -> io::Result<()> {
         // Test Case //
     }
 
-    #[cfg(any(LOCAL, feature = "LOCAL"))]
-    writeln!(cout, "Everyone is awesome!")?;
-
+    dbg!("Everyone is awesome!");
     return Ok(());
 }
