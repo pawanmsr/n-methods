@@ -23,15 +23,15 @@ use std::cmp::{min, max};
 
 // Macro //
 macro_rules! input {
-    ($t: ty, $s: expr) => {
+    ($s: expr, $t: ty) => {
         $s.next().unwrap().parse::<$t>().unwrap()
     };
 
-    (String, $s: expr) => {
+    ($s: expr, String) => {
         $s.next().unwrap().to_string()
     };
 
-    ($t: ty, $n : expr, $s: expr) => {
+    ($s: expr, $t: ty, $n : expr) => {
         (0..$n)
             .map(|_| $s.next().unwrap().parse::<$t>().unwrap())
             .collect::<Vec<$t>>()
@@ -63,7 +63,7 @@ fn main() -> io::Result<()> {
     
     // Solution //
     // let t: usize = 1; // for single test
-    let t: usize = input!(usize, cin);
+    let t: usize = input!(cin, usize);
     for _ in 0..t {
         // Test Case //
     }
