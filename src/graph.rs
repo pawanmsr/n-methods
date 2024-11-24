@@ -1,13 +1,26 @@
 use std::collections::HashSet;
 
-struct Graph {
+pub struct Graph {
     n: usize,
     directed: bool,
     adjacency_list: Vec<HashSet<usize> >,
 }
 
 impl Graph {
-    fn add_edge(u: usize, v: usize) {
+    pub fn new(nodes: usize) -> Self {
+        Self {
+            n: nodes + 1,
+            directed: false,
+            adjacency_list: vec![HashSet::<usize>::new(); nodes + 1],
+        }
+    }
+
+    pub fn add_edge(&mut self, u: usize, v: usize) {
+        self.adjacency_list[u].insert(v);
+        if self.directed {
+            return ;
+        }
+        self.adjacency_list[v].insert(u);
     }
 
     fn mst() {
