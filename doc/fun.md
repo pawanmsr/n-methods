@@ -17,6 +17,8 @@ TODO: [Quantum Superposition](/doc/quantum-superposition-genie.md) explained by 
 
 TODO: [Rant Against Entropy](/doc/entropy-fun.md)
 
+[21st Century Romance](/doc/21st-century-romance)
+
 Poetry
 ------
 
