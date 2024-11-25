@@ -1,29 +1,39 @@
-use std::collections::HashSet;
+use std::collections::HashMap;
+use std::hash::Hasher
 
-// unweighted graph
+pub struct UnionFind {
+}
+
 pub struct Graph {
     n: usize,
     directed: bool,
-    adjacency_list: Vec<HashSet<usize> >,
+    weighted: bool,
+    adjacency_list: Vec<HashMap<usize, i64>>,
 }
 
 impl Graph {
-    pub fn new(nodes: usize) -> Self {
+    pub fn new(n: usize, directed: bool, weighted: bool) -> Self {
         Self {
-            n: nodes + 1,
-            directed: false,
-            adjacency_list: vec![HashSet::<usize>::new(); nodes + 1],
+            n: n + 1,
+            directed,
+            weighted,
+            adjacency_list: vec![HashMap::<usize, i64>::new(); n + 1],
         }
     }
 
     pub fn add_edge(&mut self, u: usize, v: usize) {
+        self.add_weighted_edge(u, v, 1);
+    }
+
+    pub fn add_weighted_edge(&mut self, u: usize, v: usize, w: i64) {
         assert!(u < self.n);
         assert!(v < self.n);
-        self.adjacency_list[u].insert(v);
+        
+        self.adjacency_list[u].insert(v, w);
         if self.directed {
             return ;
         }
-        self.adjacency_list[v].insert(u);
+        self.adjacency_list[v].insert(u, w);
     }
 
     fn mst() {
