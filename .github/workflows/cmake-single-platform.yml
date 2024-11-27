@@ -1,4 +1,4 @@
-name: N-Methods for Single Platform
+name: N-Methods
 # This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
 # See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
 
@@ -73,3 +73,23 @@ jobs:
     - name: Compile and Execute
       working-directory: ${{github.workspace}}/play
       run: .\play.bat template
+  
+  cargo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure
+      run: cargo build && cargo test
+    
+    - name: Build
+      run: cargo build --release && cargo test --release
+    
+  play-cargo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Compile and Execute
+      working-directory: ${{github.workspace}}/play
+      run: cargo run
