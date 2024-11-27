@@ -60,16 +60,14 @@ impl UnionFind {
 pub struct Graph {
     n: usize,
     directed: bool,
-    weighted: bool,
     adjacency_list: Vec<HashMap<usize, i64>>,
 }
 
 impl Graph {
-    pub fn new(n: usize, directed: bool, weighted: bool) -> Self {
+    pub fn new(n: usize, directed: bool) -> Self {
         Self {
             n,
             directed,
-            weighted,
             adjacency_list: vec![HashMap::<usize, i64>::new(); n],
         }
     }
