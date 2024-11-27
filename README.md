@@ -73,6 +73,7 @@ Implementations Pending:
 - [ ] Splay tree
 - [ ] Interpolation
 - [ ] Geometry and Mesh (2D)
+- [ ] Matrix Factorization (non sparse)
 - [ ] . . . 
 - [ ] (Redo with) Parallel processing
 
