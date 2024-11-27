@@ -50,7 +50,7 @@ jobs:
     - name: Build and Test
       run: bash build.sh -c
   
-  play-unix:
+  play-bash:
     # Run play bash.
     runs-on: ubuntu-latest
 
@@ -63,7 +63,7 @@ jobs:
   
   # Checkout GitHub hosted runners at
   # https://docs.github.com/en/actions
-  play-windows:
+  play-batch:
     # Run play batch.
     runs-on: windows-latest
 
