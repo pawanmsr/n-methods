@@ -22,6 +22,15 @@ Notes and More
 
 Source code in [src](/src/) for sport programming, assessments and limited use of STLs.  
 
+| Operations (1 sec) | Time Complexity         |
+| ------------------ | ----------------------- |
+| 10^7               | O(N) May be accepted    |
+| 10^6               | O(N)                    |
+| 10^5               | O(N * log(N))           |
+| 10^3               | O(N ^ 2)                |
+| 10^2               | O(N ^ 3)                |
+| 10^9               | O(log(N)) or O(sqrt(N)) |
+
 Use small functions at the top of the solution. Append larger functions or group of functions, with declarations at the top, but don't be finicky about style - there are no reviews. Prefer bottom-up iterative in favor of top-down recursive. Lookout for sneaky signed overflows. Use C-style io and initializations for slightly quicker execution. Constant access time for large arrays (upwards of ten power six) increases dramatically - prefer hashmaps. Besides algorithms and data structures, also work with number theory and algebra.  
 
 Run the build before copying the source templates into the solution. At least add basic tests for all new implementations.
