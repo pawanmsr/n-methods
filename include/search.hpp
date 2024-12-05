@@ -15,6 +15,10 @@ namespace nm {
     U bound_search(T element, const U lo, const U hi, const std::vector<T>& space,
         std::function<bool(T&, T&)> compare = default_compare<T>);
 
+    /*
+     * String Search
+     * Base class for string search algorithms.
+     */
     class SS {
     protected:
         bool case_sensitive;
@@ -39,6 +43,10 @@ namespace nm {
         ~SS();
     };
     
+    /*
+     * Knuth, Morris, Pratt
+     * String search algorithm.
+     */
     class KMP : public SS {
     private:
         std::vector<std::int32_t> positions;
