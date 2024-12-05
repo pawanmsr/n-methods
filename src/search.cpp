@@ -28,10 +28,38 @@ template int nm::bound_search<int, int>(int, const int, const int,
 template int nm::bound_search<long long, int>(long long, const int, const int,
     const std::vector<long long>&, std::function<bool(long long&, long long&)>);
 
+namespace nm {
+    SS::SS(std::string word, bool case_sensitive, std::size_t memory) :
+    w(word), case_sensitive(case_sensitive), critical_memory(memory) {
+    }
+
+    void SS::flush() {
+        this->s.clear();
+        this->n = 0;
+        this->i = 0;
+    }
+
+    void SS::clear() {
+        w.clear();
+        this->flush();
+    }
+
+    void SS::stream(std::string s) {
+        this->s += s;
+        this->n += s.length();
+    }
+    
+    void SS::stream(char c) {
+        this->s += c;
+        this->n++;
+    }
+
+    SS::~SS() {}
+}
 
 namespace nm {
     KMP::KMP(std::string word, bool case_sensitive, std::size_t memory) :
-        w(word), case_sensitive(case_sensitive), critical_memory(memory) {
+        SS(word, case_sensitive, critical_memory) {
         this->flush();
         this->prefix = {0};
         this->partial = {-1};
@@ -128,29 +156,12 @@ namespace nm {
         this->partial.push_back(i);
     }
 
-    void KMP::flush() {
-        this->s.clear();
-        this->n = 0;
-        this->i = 0;
-    }
-
     void KMP::clear() {
         this->positions.clear();
         this->partial.clear();
         this->prefix.clear();
 
-        w.clear();
-        this->flush();
-    }
-
-    void KMP::stream(std::string s) {
-        this->s += s;
-        this->n += s.length();
-    }
-    
-    void KMP::stream(char c) {
-        this->s += c;
-        this->n++;
+        SS::clear();
     }
     
     KMP::~KMP() {
