@@ -61,6 +61,14 @@ namespace nm {
         
         ~KMP();
     };
+
+    /*
+     * Boyar (Robert S.) and Moore (J Strother) Algorithm
+     * https://www.cs.utexas.edu/~moore/publications/fstrpos.pdf
+     * 
+     */
+    class BMA : public SS {
+    };
 } // namespace nm
 
 #endif // SEARCH
