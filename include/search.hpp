@@ -64,7 +64,7 @@ namespace nm {
 
     /*
      * Boyar (Robert S.) and Moore (J Strother) Algorithm
-     * https://www.cs.utexas.edu/~moore/publications/fstrpos.pdf
+     * https://www.cs.utexas.edu/~moore/best-ideas/string-searching/index.html
      * 
      */
     class BMA : public SS {
