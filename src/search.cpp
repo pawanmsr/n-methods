@@ -59,7 +59,7 @@ namespace nm {
 
 namespace nm {
     KMP::KMP(std::string word, bool case_sensitive, std::size_t memory) :
-        SS(word, case_sensitive, critical_memory) {
+        SS(word, case_sensitive, memory) {
         this->flush();
         this->prefix = {0};
         this->partial = {-1};
