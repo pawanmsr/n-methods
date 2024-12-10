@@ -12,6 +12,9 @@ namespace nm
     template<typename T>
     T prime_modular_multiplicative_inverse(T num, const T mod);
 
+
+    // FIXME: arithmetic is faulty
+    // TODO: add operators
     /*
      * Arithmetic
      * Divide requires multiplicative_inverse.
@@ -19,8 +22,7 @@ namespace nm
      * T is expected to be signed integer type.
      */
     template<typename T>
-    class Arithmetic
-    {
+    class Arithmetic {
     private:
         T mod;
     public:
