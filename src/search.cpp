@@ -92,14 +92,15 @@ namespace nm {
     }
 
     void KMP::prefix_function() {
-        while (this->i < this->n) {
-            std::int32_t j = this->partial[i - 1];
-            while (j > 0 and not compare(this->s[j], this->s[i]))
-                j = this->partial[j - 1];
+        const std::size_t m = this->w.length();
+        
+        for (std::size_t i = 1; i < m; i++) {
+            std::int32_t j = this->prefix[i - 1];
+            while (j > 0 and not this->compare(this->w[j], this->w[i]))
+                j = this->prefix[j - 1];
             
-            if (this->s[i] == this->s[j]) j++;
-            this->partial.push_back(j);
-            this->i++;
+            if (this->compare(this->w[j], this->w[i])) j++;
+            this->prefix.push_back(j);
         }
 
         if (memory() > this->critical_memory)
