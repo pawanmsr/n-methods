@@ -3,8 +3,11 @@
 #include <gcd.hpp>
 #include <exponentiation.hpp>
 
-namespace nm
-{
+// Modular Binary Exponentiation
+namespace nm {
+}
+
+namespace nm {
     // T is expected to be signed integer type.
     // mod is a prime number.
     template<typename T>
@@ -36,7 +39,18 @@ namespace nm
         return num < 2 ? num : mod - (long long)(mod / num) *
             prime_modular_multiplicative_inverse<T>(mod % num, mod) % mod;
     }
+} // namespace nm
 
+template long long nm::modular_multiplicative_inverse<long long>(long long, const long long);
+template long long nm::prime_modular_multiplicative_inverse_by_bin_exp<long long>(long long, const long long);
+template long long nm::prime_modular_multiplicative_inverse<long long>(long long, const long long);
+
+template int nm::modular_multiplicative_inverse<int>(int, const int);
+template int nm::prime_modular_multiplicative_inverse_by_bin_exp<int>(int, const int);
+template int nm::prime_modular_multiplicative_inverse<int>(int, const int);
+
+// Modular Arithmetic //
+namespace nm {
     template<typename T>
     Arithmetic<T>::Arithmetic(T mod_prime) : mod(mod_prime) {}
 
@@ -83,15 +97,7 @@ namespace nm
     Arithmetic<T>::~Arithmetic() {
         // delete this;
     }
-} // namespace nm
-
-template long long nm::modular_multiplicative_inverse<long long>(long long, const long long);
-template long long nm::prime_modular_multiplicative_inverse_by_bin_exp<long long>(long long, const long long);
-template long long nm::prime_modular_multiplicative_inverse<long long>(long long, const long long);
-
-template int nm::modular_multiplicative_inverse<int>(int, const int);
-template int nm::prime_modular_multiplicative_inverse_by_bin_exp<int>(int, const int);
-template int nm::prime_modular_multiplicative_inverse<int>(int, const int);
+}
 
 template class nm::Arithmetic<int>;
 template class nm::Arithmetic<long long>;
