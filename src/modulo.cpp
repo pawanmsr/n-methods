@@ -5,7 +5,37 @@
 
 // Modular Binary Exponentiation
 namespace nm {
+    template <typename T>
+    T mod_bin_exp(T x, T y, const T m) {
+        if (m<=1) return 0;
+        if (y<=0) return 1;
+        
+        T z = mod_bin_exp<T>(x, y/2, m);
+        return y%2 ? (z*z % m)*x % m : z*z % m;
+    }
+
+    template <typename T>
+    T mod_bin_exp_iterative(T x, T y, const T m) {
+        if (y<=0) return 1;
+        
+        T res = 1;
+        while (y) {
+            if (y & 1) res = res*x % m;
+            x = x*x % m;
+            y >>= 1;
+        }
+        return res;
+    }
 }
+
+
+template int nm::mod_bin_exp<int>(int, int, int);
+template long nm::mod_bin_exp<long>(long, long, long);
+template long long nm::mod_bin_exp<long long>(long long, long long, long long);
+
+template int nm::mod_bin_exp_iterative<int>(int, int, int);
+template long nm::mod_bin_exp_iterative<long>(long, long, long);
+template long long nm::mod_bin_exp_iterative<long long>(long long, long long, long long);
 
 namespace nm {
     // T is expected to be signed integer type.

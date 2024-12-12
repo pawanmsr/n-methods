@@ -1,8 +1,13 @@
 #if !defined(MODULO_OPERATIONS)
 #define MODULO_OPERATIONS
 
-namespace nm
-{
+namespace nm {
+    template <typename T>
+    T mod_bin_exp(T x, T y, const T m);
+    
+    template <typename T>
+    T mod_bin_exp_iterative(T x, T y, const T m);
+
     template<typename T>
     T modular_multiplicative_inverse(T num, const T mod);
 
@@ -11,8 +16,10 @@ namespace nm
 
     template<typename T>
     T prime_modular_multiplicative_inverse(T num, const T mod);
+}
 
 
+namespace nm {
     // FIXME: arithmetic is faulty
     // TODO: add operators
     /*
