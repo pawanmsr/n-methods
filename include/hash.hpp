@@ -6,24 +6,20 @@
 
 #include <modulo.hpp>
 
-namespace nm
-{
+namespace nm {
+    template <std::int64_t M, std::int64_t P>
+    class Hash : public Arithmetic<std::int64_t> {
+        private:
+            std::size_t n;
+            vector<std::int64_t> hash;
+            vector<std::int64_t> power;
 
-    template<typename T>
-    class Linear : public Arithmetic<T> {
-    private:
-
-    protected:
-        std::size_t hash(std::string s);
-        std::size_t hash(std::int64_t n);
-
-    public:
-        Linear(std::size_t mod_prime);
-        std::size_t hash(T x);
-        ~Linear();
+        public:
+            Hash(std::string &s);
+            std::int64_t Interval(std::size_t left, std::size_t right);
+            ~Hash();
     };
-    
-} // namespace nm
 
+} // namespace nm
 
 #endif // HASH
