@@ -85,29 +85,33 @@ namespace nm {
     Arithmetic<T>::Arithmetic(T mod_prime) : mod(mod_prime) {}
 
     template<typename T>
-    T Arithmetic<T>::rem(T x) {
-        T z = x % this->mod;
-        if (z >= this->mod) z -= this->mod;
-        if (z < 0) z += this->mod;
-        return z;
+    T Arithmetic<T>::underflow(T x) {
+        if (x >= 0) return x % this->mod;
+        return (std::numeric_limits<T>::max() % this->mod +
+            (x - std::numeric_limits<T>::min() + 1)) % this->mod;
     }
 
+    template<typename T>
+    T Arithmetic<T>::fix(T x) {
+        if (x >= 0) return x % this->mod;
+        return (this->mod + x) % this->mod;
+    }
+
+    // x and y are expected to be non negative integers.
     template<typename T>
     T Arithmetic<T>::add(T x, T y) {
-        T z = this->rem(x) + this->rem(y);
-        return this->rem(z);
+        return this->fix((x + y) % this->mod);
     }
 
+    // x and y are expected to be non negative integers
     template<typename T>
     T Arithmetic<T>::subtract(T x, T y) {
-        T z = this->rem(x) - this->rem(y);
-        return this->rem(z);
+        return this->fix((x - y) % this->mod);
     }
 
     template<typename T>
     T Arithmetic<T>::multiply(T x, T y) {
-        T z = this->rem(x) * this->rem(y);
-        return this->rem(z);
+        return (x % this->mod) * (y % this->mod) % this->mod;
     }
 
     // Raise requires exponentiation.
@@ -119,8 +123,7 @@ namespace nm {
     // Divide requires multiplicative_inverse.
     template<typename T>
     T Arithmetic<T>::divide(T x, T y) {
-        T z = this->rem(x) * prime_modular_multiplicative_inverse<T>(y, this->mod);
-        return this->rem(z);
+        return this->multiply(x, prime_modular_multiplicative_inverse<T>(y, this->mod));
     }
 
     template<typename T>
