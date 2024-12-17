@@ -517,6 +517,17 @@ TEST(KMP, StringSearch) {
     }
 }
 
+TEST(MOD, LIMITS) {
+    nm::Arithmetic<int> o(M);
+    
+    int x = 1e9 - 1;
+    int y = 1e9 + 1;
+
+    EXPECT_EQ(o.multiply(x, x), 1LL * x * x % M);
+    EXPECT_EQ(o.subtract(x, y), (x - y + M) % M);
+    EXPECT_EQ(o.subtract(y, x), (y - x + M) % M);
+}
+
 int main(int argc, char *argv[])
 {
     // GTest //

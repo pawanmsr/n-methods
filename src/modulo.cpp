@@ -112,9 +112,19 @@ namespace nm {
         return this->fix((x - y) % this->mod);
     }
 
+    // multiply is log(y) operation
     template<typename T>
     T Arithmetic<T>::multiply(T x, T y) {
-        return (x % this->mod) * (y % this->mod) % this->mod;
+        if (y == 0) return 0;
+        
+        T z = 0;
+        while (y) {
+            if (y & 1) z = (z + x) % this->mod;
+            x = 2 * x % this->mod;
+            y >>= 1;
+        }
+
+        return z;
     }
 
     // Raise requires exponentiation.
