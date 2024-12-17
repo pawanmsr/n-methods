@@ -39,8 +39,7 @@ template int nm::mod_bin_exp_iterative<int>(int, int, int);
 template long nm::mod_bin_exp_iterative<long>(long, long, long);
 template long long nm::mod_bin_exp_iterative<long long>(long long, long long, long long);
 
-namespace nm
-{
+namespace nm {
     // T is expected to be signed integer type.
     // mod is a prime number.
     template<typename T>
