@@ -26,7 +26,7 @@ namespace nm {
      * Arithmetic
      * Divide requires multiplicative_inverse.
      * Raise requires exponentiation.
-     * T is expected to be signed integer type.
+     * T is expected to be integer type.
      */
     template<typename T>
     class Arithmetic {
@@ -34,7 +34,8 @@ namespace nm {
         T mod;
     public:
         Arithmetic(T mod_prime);
-        T rem(T x);
+        T underflow(T x);
+        T fix(T x);
         T add(T x, T y);
         T subtract(T x, T y);
         T multiply(T x, T y);
