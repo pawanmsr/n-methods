@@ -1,8 +1,13 @@
 #if !defined(MODULO_OPERATIONS)
 #define MODULO_OPERATIONS
 
-namespace nm
-{
+namespace nm {
+    template <typename T>
+    T mod_bin_exp(T x, T y, const T m);
+    
+    template <typename T>
+    T mod_bin_exp_iterative(T x, T y, const T m);
+
     template<typename T>
     T modular_multiplicative_inverse(T num, const T mod);
 
@@ -11,21 +16,26 @@ namespace nm
 
     template<typename T>
     T prime_modular_multiplicative_inverse(T num, const T mod);
+}
 
+
+namespace nm {
+    // FIXME: arithmetic is faulty
+    // TODO: add operators
     /*
      * Arithmetic
      * Divide requires multiplicative_inverse.
      * Raise requires exponentiation.
-     * T is expected to be signed integer type.
+     * T is expected to be integer type.
      */
     template<typename T>
-    class Arithmetic
-    {
+    class Arithmetic {
     private:
         T mod;
     public:
         Arithmetic(T mod_prime);
-        T rem(T x);
+        T underflow(T x);
+        T fix(T x);
         T add(T x, T y);
         T subtract(T x, T y);
         T multiply(T x, T y);

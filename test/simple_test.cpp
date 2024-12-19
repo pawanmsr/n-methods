@@ -20,6 +20,7 @@ enum enumerate {
     gcd,
     sort,
     modulo,
+    
     // enumerate more tests here //
     unknown
 };
@@ -54,15 +55,12 @@ bool test_gcd() {
 }
 
 bool test_sort() {
-    // Until works.
-    return true;
-    // Failing. TODO: figure out generic instantiation.
-    std::vector<int> we;
     const int mod = 101;
     const int our_size = 1e5;
-    for (int i = 0; i < our_size; i++) {
+
+    std::vector<int> we;
+    for (int i = 0; i < our_size; i++)
         we.push_back(((i % mod) * our_size) % mod);
-    }
     
     nm::quick_sort(0, our_size - 1, we);
     
@@ -90,8 +88,7 @@ int main(int argc, char const *argv[])
     if (argc <= 1)
         return 1;
     
-    switch (codes(argv[1]))
-    {
+    switch (codes(argv[1])) {
     case primes:
         assert(test_primes());
         break;
