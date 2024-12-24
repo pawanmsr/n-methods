@@ -518,18 +518,25 @@ TEST(KMP, StringSearch) {
 }
 
 TEST(MOD, INT32_M) {
-    EXPECT_EQ(int32_m::modulus, M);
+    EXPECT_EQ(std::int64_t(nm::int32_m::modulus), M);
 
     for (std::int64_t x = M - N_ROOT; x <= M + N_ROOT; x++) {
         for (std::int64_t y = M - N_ROOT; y <= M + N_ROOT; y++) {
-            int32_m mx = x;
-            int32_m my = y;
+            nm::int32_m mx = x;
+            nm::int32_m my = y;
 
-            ASSERT_LT(mx, my);
-            ASSERT_TRUE(mx < my);
-            ASSERT_FALSE(mx >= my);
+            if (x % M < y % M) {
+                ASSERT_LT(mx, my);
+                ASSERT_TRUE(mx < my);
+                ASSERT_FALSE(mx >= my);
+            } else {
+                ASSERT_GE(mx, my);
+                ASSERT_TRUE(mx >= my);
+                ASSERT_FALSE(mx < my);
+            }
 
             EXPECT_EQ(mx * mx, 1LL * x * x % M);
+            EXPECT_EQ(my * my, 1LL * y * y % M);
             EXPECT_EQ(mx - my, (x - y + M) % M);
             EXPECT_EQ(my - mx, (y - x + M) % M);
         }
