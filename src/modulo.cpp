@@ -279,8 +279,10 @@ template class nm::Int32_M<nm::M17>;
 
 namespace nm {
     // instantiate initialization
-    template int32_m::Int32_M<int>(int);
-    template int32_m& int32_m::operator=<int>(int const&);
+    template int32_m::Int32_M<std::int32_t>(std::int32_t);
+    template int32_m::Int32_M<std::int64_t>(std::int64_t);
+    template int32_m& int32_m::operator=<std::int32_t>(std::int32_t const&);
+    template int32_m& int32_m::operator=<std::int64_t>(std::int64_t const&);
 
     // instantiate friends for binary operations
     template int32_m nm::operator-<int32_m::modulus>(int32_m const&, int32_m const&);
