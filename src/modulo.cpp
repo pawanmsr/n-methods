@@ -152,6 +152,11 @@ namespace nm {
     }
 
     template<std::size_t M>
+    int32_m<M>::operator int() const {
+        return std::int32_t(this->value);
+    }
+
+    template<std::size_t M>
     template<typename T>
     int32_m<M>::int32_m(T x) {
         this->value = std::int64_t(x) % M;
@@ -211,6 +216,31 @@ namespace nm {
         int32_m<M> y = *this;
         *this -= 1;
         return y;
+    }
+
+    template<std::size_t M>
+    int32_m<M>& int32_m<M>::operator=(const int32_m<M> &x) {
+        this = int32_m<M>(x);
+    }
+
+    template<std::size_t M>
+    inline int32_m<M> operator+(const int32_m<M> &x, const int32_m<M> &y) {
+        return int32_m<M>(x) += y;
+    }
+
+    template<std::size_t M>
+    inline int32_m<M> operator-(const int32_m<M> &x, const int32_m<M> &y) {
+        return int32_m<M>(x) -= y;
+    }
+
+    template<std::size_t M>
+    inline int32_m<M> operator*(const int32_m<M> &x, const int32_m<M> &y) {
+        return int32_m<M>(x) *= y;
+    }
+
+    template<std::size_t M>
+    inline int32_m<M> operator/(const int32_m<M> &x, const int32_m<M> &y) {
+        return int32_m<M>(x) /= y;
     }
     
     template<std::size_t M>

@@ -53,6 +53,8 @@ namespace nm {
      * TODO: apply upper bound on M to Mersenne Prime
      * M \in (1, std::numeric_limits::max(int32_t))
      * OEIS-A0668: 2,147,483,647
+     * 
+     * M must be prime. TODO: add check.
      */
     template<std::size_t M>
     class int32_m {
@@ -64,25 +66,33 @@ namespace nm {
             ~int32_m();
 
             // type conversion
+            virtual operator int() const;
+            
             template<typename T>
             int32_m(T x);
 
-            int32_m inverse() const;
+            int32_m<M> inverse() const;
 
             // binary
-            int32_m& operator+=(const int32_m<M> &x);
-            int32_m& operator-=(const int32_m<M> &x);
-            int32_m& operator*=(const int32_m<M> &x);
-            int32_m& operator/=(const int32_m<M> &x);
+            int32_m<M>& operator=(const int32_m<M> &x);
+            int32_m<M>& operator+=(const int32_m<M> &x);
+            int32_m<M>& operator-=(const int32_m<M> &x);
+            int32_m<M>& operator*=(const int32_m<M> &x);
+            int32_m<M>& operator/=(const int32_m<M> &x);
 
             // unary
-            int32_m& operator++();
-            int32_m& operator--();
-            int32_m operator++(int);
-            int32_m operator--(int);
+            int32_m<M>& operator++();
+            int32_m<M>& operator--();
+            int32_m<M> operator++(int);
+            int32_m<M> operator--(int);
             // int in postfix is vestigial
 
             // constant binary
+            friend int32_m<M> operator+(const int32_m<M> &x, const int32_m<M> &y);
+            friend int32_m<M> operator-(const int32_m<M> &x, const int32_m<M> &y);
+            friend int32_m<M> operator*(const int32_m<M> &x, const int32_m<M> &y);
+            friend int32_m<M> operator/(const int32_m<M> &x, const int32_m<M> &y);
+            friend int16_t operator<=>(const int32_m<M> &x, const int32_m<M> &y);
     };
 } // namespace nm
 
