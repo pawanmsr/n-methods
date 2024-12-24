@@ -290,6 +290,7 @@ namespace nm {
     template int32_m nm::operator*<int32_m::modulus>(int32_m const&, int32_m const&);
     template int32_m nm::operator/<int32_m::modulus>(int32_m const&, int32_m const&);
     template std::strong_ordering nm::operator<=><int32_m::modulus>(int32_m const&, int32_m const&);
-} // 
+} // TODO: looped instantiation?
 
 template class nm::Int32_M<nm::M93>;
+template class nm::Int32_M<nm::M27>;
