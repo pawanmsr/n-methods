@@ -152,6 +152,15 @@ namespace nm {
     }
 
     template<std::size_t M>
+    template<typename T>
+    int32_m<M>::int32_m(T x) {
+        int32_m<M> y;
+
+        y += x;
+        return y;
+    }
+
+    template<std::size_t M>
     int32_m<M>& int32_m<M>::operator+=(const int32_m<M> &x) {
         this->value += x.value;
         if (this->value >= M) this->value -= M;

@@ -63,6 +63,10 @@ namespace nm {
             int32_m();
             ~int32_m();
 
+            // type conversion
+            template<typename T>
+            int32_m(T x);
+
             // binary
             int32_m& operator+=(const int32_m<M> &x);
             int32_m& operator-=(const int32_m<M> &x);

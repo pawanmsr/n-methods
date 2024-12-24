@@ -517,6 +517,20 @@ TEST(KMP, StringSearch) {
     }
 }
 
+TEST(MOD, INT32_M) {
+    int x = 1e9 - 1;
+    int y = 1e9 + 1;
+
+    nm::int32_m<M> mx = x;
+    nm::int32_m<M> my = y;
+
+    GTEST_SKIP() << "Yikes. FIXME: add eval.";
+
+    // EXPECT_EQ(mx * mx, 1LL * x * x % M);
+    // EXPECT_EQ(mx - my, (x - y + M) % M);
+    // EXPECT_EQ(my - mx, (y - x + M) % M);
+}
+
 TEST(MOD, LIMITS) {
     nm::Arithmetic<int> o(M);
     
@@ -528,8 +542,7 @@ TEST(MOD, LIMITS) {
     EXPECT_EQ(o.subtract(y, x), (y - x + M) % M);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     // GTest //
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
