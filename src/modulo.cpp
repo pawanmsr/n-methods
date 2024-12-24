@@ -181,30 +181,30 @@ namespace nm {
 
     template<std::size_t M>
     int32_m<M>& int32_m<M>::operator/=(const int32_m<M> &x) {
-        return this *= prime_modular_multiplicative_inverse<std::int64_t>(x.value, M);
+        return *this *= prime_modular_multiplicative_inverse<std::int64_t>(x.value, M);
     }
 
     template<std::size_t M>
     int32_m<M> &int32_m<M>::operator++() {
-        return this += 1;
+        return *this += 1;
     }
 
     template<std::size_t M>
     int32_m<M> &int32_m<M>::operator--() {
-        return this -= 1;
+        return *this -= 1;
     }
 
     template<std::size_t M>
     int32_m<M> int32_m<M>::operator++(int) {
         int32_m<M> y = *this;
-        this += 1;
+        *this += 1;
         return y;
     }
 
     template<std::size_t M>
     int32_m<M> int32_m<M>::operator--(int) {
         int32_m<M> y = *this;
-        this -= 1;
+        *this -= 1;
         return y;
     }
     
@@ -214,3 +214,4 @@ namespace nm {
 
 template class nm::int32_m<std::size_t(1e9 + 7)>;
 template class nm::int32_m<std::size_t(998244353)>;
+template class nm::int32_m<std::size_t(2147483647)>;
