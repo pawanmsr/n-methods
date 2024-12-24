@@ -518,18 +518,22 @@ TEST(KMP, StringSearch) {
 }
 
 TEST(MOD, INT32_M) {
-    int x = 1e9 - 1;
-    int y = 1e9 + 1;
+    EXPECT_EQ(int32_m::modulus, M);
 
-    nm::int32_m<std::size_t(M)> mx = x;
-    nm::int32_m<std::size_t(M)> my = y;
+    for (std::int64_t x = M - N_ROOT; x <= M + N_ROOT; x++) {
+        for (std::int64_t y = M - N_ROOT; y <= M + N_ROOT; y++) {
+            int32_m mx = x;
+            int32_m my = y;
 
-    GTEST_SKIP() << "\"Rudolph, with your nose so bright\"\n"
-                 << "\"Won't you guide my sleigh tonight?\" (Santa)";
+            ASSERT_LT(mx, my);
+            ASSERT_TRUE(mx < my);
+            ASSERT_FALSE(mx >= my);
 
-    // EXPECT_EQ(mx * mx, 1LL * x * x % M);
-    // EXPECT_EQ(mx - my, (x - y + M) % M);
-    // EXPECT_EQ(my - mx, (y - x + M) % M);
+            EXPECT_EQ(mx * mx, 1LL * x * x % M);
+            EXPECT_EQ(mx - my, (x - y + M) % M);
+            EXPECT_EQ(my - mx, (y - x + M) % M);
+        }
+    }
 }
 
 TEST(MOD, LIMITS) {
