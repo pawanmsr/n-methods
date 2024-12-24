@@ -154,10 +154,8 @@ namespace nm {
     template<std::size_t M>
     template<typename T>
     int32_m<M>::int32_m(T x) {
-        int32_m<M> y;
-
-        y += x;
-        return y;
+        this->value = std::int64_t(x) % M;
+        if (this->value < 0) this->value += M;
     }
 
     template<std::size_t M>
@@ -214,3 +212,5 @@ namespace nm {
     int32_m<M>::~int32_m() {}
 } // namespace nm
 
+template class nm::int32_m<std::size_t(1e9 + 7)>;
+template class nm::int32_m<std::size_t(998244353)>;

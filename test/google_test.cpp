@@ -524,7 +524,8 @@ TEST(MOD, INT32_M) {
     nm::int32_m<M> mx = x;
     nm::int32_m<M> my = y;
 
-    GTEST_SKIP() << "Yikes. FIXME: add eval.";
+    GTEST_SKIP() << "\"Rudolph, with your nose so bright\n"
+        << "\"Won't you guide my sleigh tonight?\" (Santa)";
 
     // EXPECT_EQ(mx * mx, 1LL * x * x % M);
     // EXPECT_EQ(mx - my, (x - y + M) % M);
