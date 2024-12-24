@@ -47,6 +47,10 @@ namespace nm {
 } // namespace nm
 
 namespace nm {
+    // Common primes for modular operations.
+    const std::int64_t M93 = 998244353UL;
+    const std::int64_t M17 = 1000000007UL;
+
     /*
      * Derived data type for simplified modular arithmetic.
      *
@@ -116,6 +120,14 @@ namespace nm {
     };
 } // namespace nm
 
-using int32_m = nm::Int32_M<1000000007UL>;
+namespace nm {
+    // NOTE: M is not Messier.
+    typedef Int32_M<M17> int32_m;
+    typedef Int32_M<M93> int32_n;
+    // M is followed by least significant and most significant
+    //  digits of common primes for modular operations.
+    // Alternative: using typename = decl.
+} // type definition
+
 
 #endif // MODULO_OPERATIONS

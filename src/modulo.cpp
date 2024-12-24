@@ -275,17 +275,19 @@ namespace nm {
     }
 } // namespace nm
 
-template class nm::Int32_M<998244353UL>;
-template class nm::Int32_M<1000000007UL>;
-template class nm::Int32_M<2147483647UL>;
+template class nm::Int32_M<nm::M17>;
 
-// instantiate initialization
-template int32_m::Int32_M<int>(int);
-template int32_m& int32_m::operator=<int>(int const&);
+namespace nm {
+    // instantiate initialization
+    template int32_m::Int32_M<int>(int);
+    template int32_m& int32_m::operator=<int>(int const&);
 
-// instantiate friends for binary operations
-template int32_m nm::operator-<int32_m::modulus>(int32_m const&, int32_m const&);
-template int32_m nm::operator+<int32_m::modulus>(int32_m const&, int32_m const&);
-template int32_m nm::operator*<int32_m::modulus>(int32_m const&, int32_m const&);
-template int32_m nm::operator/<int32_m::modulus>(int32_m const&, int32_m const&);
-template std::strong_ordering nm::operator<=><int32_m::modulus>(int32_m const&, int32_m const&);
+    // instantiate friends for binary operations
+    template int32_m nm::operator-<int32_m::modulus>(int32_m const&, int32_m const&);
+    template int32_m nm::operator+<int32_m::modulus>(int32_m const&, int32_m const&);
+    template int32_m nm::operator*<int32_m::modulus>(int32_m const&, int32_m const&);
+    template int32_m nm::operator/<int32_m::modulus>(int32_m const&, int32_m const&);
+    template std::strong_ordering nm::operator<=><int32_m::modulus>(int32_m const&, int32_m const&);
+} // 
+
+template class nm::Int32_M<nm::M93>;
