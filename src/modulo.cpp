@@ -144,3 +144,64 @@ namespace nm {
 
 template class nm::Arithmetic<int>;
 template class nm::Arithmetic<long long>;
+
+namespace nm {
+    template<std::size_t M>
+    int32_m<M>::int32_m() {
+        this->value = 0;
+    }
+
+    template<std::size_t M>
+    int32_m<M>& int32_m<M>::operator+=(const int32_m<M> &x) {
+        this->value += x.value;
+        if (this->value >= M) this->value -= M;
+        return *this;
+    }
+
+    template<std::size_t M>
+    int32_m<M>& int32_m<M>::operator-=(const int32_m<M> &x) {
+        this->value -= x.value;
+        if (this->value < 0) this->value += M;
+        return *this;
+    }
+
+    template<std::size_t M>
+    int32_m<M>& int32_m<M>::operator*=(const int32_m<M> &x) {
+        std::uint64_t y = x.value;
+        this->value = this->value * y % M;
+        return *this;
+    }
+
+    template<std::size_t M>
+    int32_m<M>& int32_m<M>::operator/=(const int32_m<M> &x) {
+        return this *= prime_modular_multiplicative_inverse(x.value, M);
+    }
+
+    template<std::size_t M>
+    int32_m<M> &int32_m<M>::operator++() {
+        return this += 1;
+    }
+
+    template<std::size_t M>
+    int32_m<M> &int32_m<M>::operator--() {
+        return this -= 1;
+    }
+
+    template<std::size_t M>
+    int32_m<M> int32_m<M>::operator++(int) {
+        int32_m<M> y = *this;
+        this += 1;
+        return y;
+    }
+
+    template<std::size_t M>
+    int32_m<M> int32_m<M>::operator--(int) {
+        int32_m<M> y = *this;
+        this -= 1;
+        return y;
+    }
+    
+    int32_m<M>::~int32_m() {
+    }
+} // namespace nm
+
