@@ -67,6 +67,8 @@ namespace nm {
             template<typename T>
             int32_m(T x);
 
+            int32_m inverse() const;
+
             // binary
             int32_m& operator+=(const int32_m<M> &x);
             int32_m& operator-=(const int32_m<M> &x);
@@ -79,6 +81,8 @@ namespace nm {
             int32_m operator++(int);
             int32_m operator--(int);
             // int in postfix is vestigial
+
+            // constant binary
     };
 } // namespace nm
 

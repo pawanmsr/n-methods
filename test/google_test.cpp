@@ -521,11 +521,11 @@ TEST(MOD, INT32_M) {
     int x = 1e9 - 1;
     int y = 1e9 + 1;
 
-    nm::int32_m<M> mx = x;
-    nm::int32_m<M> my = y;
+    nm::int32_m<std::size_t(M)> mx = x;
+    nm::int32_m<std::size_t(M)> my = y;
 
-    GTEST_SKIP() << "\"Rudolph, with your nose so bright\n"
-        << "\"Won't you guide my sleigh tonight?\" (Santa)";
+    GTEST_SKIP() << "\"Rudolph, with your nose so bright\"\n"
+                 << "\"Won't you guide my sleigh tonight?\" (Santa)";
 
     // EXPECT_EQ(mx * mx, 1LL * x * x % M);
     // EXPECT_EQ(mx - my, (x - y + M) % M);
