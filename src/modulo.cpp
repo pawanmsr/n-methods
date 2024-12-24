@@ -147,106 +147,145 @@ template class nm::Arithmetic<long long>;
 
 namespace nm {
     template<std::size_t M>
-    int32_m<M>::int32_m() {
+    Int32_M<M>::Int32_M() {
         this->value = 0;
     }
 
     template<std::size_t M>
-    int32_m<M>::operator int() const {
+    inline int32_t Int32_M<M>::get_value() const noexcept {
+        return this->value;
+    }
+
+    template<std::size_t M>
+    Int32_M<M>::operator int() const noexcept {
         return std::int32_t(this->value);
     }
 
     template<std::size_t M>
     template<typename T>
-    int32_m<M>::int32_m(T x) {
+    Int32_M<M>::Int32_M(T x) {
         this->value = std::int64_t(x) % M;
         if (this->value < 0) this->value += M;
     }
 
     template<std::size_t M>
-    int32_m<M>& int32_m<M>::operator+=(const int32_m<M> &x) {
+    Int32_M<M> Int32_M<M>::inverse() const {
+        return Int32_M<M>(prime_modular_multiplicative_inverse<std::int64_t>(this->value, M));
+    }
+
+    template<std::size_t M>
+    template<typename T>
+    Int32_M<M>& Int32_M<M>::operator=(const T &x) {
+        this->value = std::int64_t(x) % M;
+        if (this->value < 0) this->value += M;
+        return *this;
+    }
+
+    template<std::size_t M>
+    Int32_M<M>& Int32_M<M>::operator=(const Int32_M<M> &x) {
+        *this = Int32_M<M>(x);
+        return *this;
+    }
+
+    template<std::size_t M>
+    Int32_M<M>& Int32_M<M>::operator+=(const Int32_M<M> &x) {
         this->value += x.value;
         if (this->value >= M) this->value -= M;
         return *this;
     }
 
     template<std::size_t M>
-    int32_m<M>& int32_m<M>::operator-=(const int32_m<M> &x) {
+    Int32_M<M>& Int32_M<M>::operator-=(const Int32_M<M> &x) {
         this->value -= x.value;
         if (this->value < 0) this->value += M;
         return *this;
     }
 
     template<std::size_t M>
-    int32_m<M>& int32_m<M>::operator*=(const int32_m<M> &x) {
+    Int32_M<M>& Int32_M<M>::operator*=(const Int32_M<M> &x) {
         std::uint64_t y = x.value;
         this->value = this->value * y % M;
         return *this;
     }
 
     template<std::size_t M>
-    int32_m<M> int32_m<M>::inverse() const {
-        return int32_m<M>(prime_modular_multiplicative_inverse<std::int64_t>(this->value, M));
-    }
-
-    template<std::size_t M>
-    int32_m<M>& int32_m<M>::operator/=(const int32_m<M> &x) {
+    Int32_M<M>& Int32_M<M>::operator/=(const Int32_M<M> &x) {
         return *this *= x.inverse();
     }
 
     template<std::size_t M>
-    int32_m<M> &int32_m<M>::operator++() {
+    Int32_M<M> &Int32_M<M>::operator++() {
         return *this += 1;
     }
 
     template<std::size_t M>
-    int32_m<M> &int32_m<M>::operator--() {
+    Int32_M<M> &Int32_M<M>::operator--() {
         return *this -= 1;
     }
 
     template<std::size_t M>
-    int32_m<M> int32_m<M>::operator++(int) {
-        int32_m<M> y = *this;
+    Int32_M<M> Int32_M<M>::operator++(int) {
+        Int32_M<M> y = *this;
         *this += 1;
         return y;
     }
 
     template<std::size_t M>
-    int32_m<M> int32_m<M>::operator--(int) {
-        int32_m<M> y = *this;
+    Int32_M<M> Int32_M<M>::operator--(int) {
+        Int32_M<M> y = *this;
         *this -= 1;
         return y;
     }
 
     template<std::size_t M>
-    int32_m<M>& int32_m<M>::operator=(const int32_m<M> &x) {
-        this = int32_m<M>(x);
-    }
-
-    template<std::size_t M>
-    inline int32_m<M> operator+(const int32_m<M> &x, const int32_m<M> &y) {
-        return int32_m<M>(x) += y;
-    }
-
-    template<std::size_t M>
-    inline int32_m<M> operator-(const int32_m<M> &x, const int32_m<M> &y) {
-        return int32_m<M>(x) -= y;
-    }
-
-    template<std::size_t M>
-    inline int32_m<M> operator*(const int32_m<M> &x, const int32_m<M> &y) {
-        return int32_m<M>(x) *= y;
-    }
-
-    template<std::size_t M>
-    inline int32_m<M> operator/(const int32_m<M> &x, const int32_m<M> &y) {
-        return int32_m<M>(x) /= y;
+    std::strong_ordering Int32_M<M>::operator<=>(const Int32_M<M> &x) const noexcept {
+        return (this->value == x.get_value() ? std::strong_ordering::equivalent : 
+            (this->value < x.get_value() ? std::strong_ordering::less : 
+                std::strong_ordering::greater));
     }
     
     template<std::size_t M>
-    int32_m<M>::~int32_m() {}
+    Int32_M<M>::~Int32_M() {}
+
+
+    // non-member functions //
+    template <std::size_t T>
+    inline Int32_M<T> operator+(const Int32_M<T> &x, const Int32_M<T> &y) {
+        return Int32_M<T>(x) += y;
+    }
+
+    template<std::size_t T>
+    inline Int32_M<T> operator-(const Int32_M<T> &x, const Int32_M<T> &y) {
+        return Int32_M<T>(x) -= y;
+    }
+
+    template<std::size_t T>
+    inline Int32_M<T> operator*(const Int32_M<T> &x, const Int32_M<T> &y) {
+        return Int32_M<T>(x) *= y;
+    }
+
+    template<std::size_t T>
+    inline Int32_M<T> operator/(const Int32_M<T> &x, const Int32_M<T> &y) {
+        return Int32_M<T>(x) /= y;
+    }
+
+    template<std::size_t T>
+    inline std::strong_ordering operator<=>(const Int32_M<T> &x, const Int32_M<T> &y) noexcept {
+        return Int32_M<T>(x) <=> y;
+    }
 } // namespace nm
 
-template class nm::int32_m<std::size_t(1e9 + 7)>;
-template class nm::int32_m<std::size_t(998244353)>;
-template class nm::int32_m<std::size_t(2147483647)>;
+template class nm::Int32_M<998244353UL>;
+template class nm::Int32_M<1000000007UL>;
+template class nm::Int32_M<2147483647UL>;
+
+// instantiate initialization
+template int32_m::Int32_M<int>(int);
+template int32_m& int32_m::operator=<int>(int const&);
+
+// instantiate friends for binary operations
+template int32_m nm::operator-<int32_m::modulus>(int32_m const&, int32_m const&);
+template int32_m nm::operator+<int32_m::modulus>(int32_m const&, int32_m const&);
+template int32_m nm::operator*<int32_m::modulus>(int32_m const&, int32_m const&);
+template int32_m nm::operator/<int32_m::modulus>(int32_m const&, int32_m const&);
+template std::strong_ordering nm::operator<=><int32_m::modulus>(int32_m const&, int32_m const&);

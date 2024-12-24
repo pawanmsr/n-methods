@@ -2,6 +2,7 @@
 #define MODULO_OPERATIONS
 
 #include <cstdint>
+#include <compare>
 
 namespace nm {
     template <typename T>
@@ -57,44 +58,64 @@ namespace nm {
      * M must be prime. TODO: add check.
      */
     template<std::size_t M>
-    class int32_m {
+    class Int32_M {
         private:
             std::int64_t value;
             // value \in [0, M)
         public:
-            int32_m();
-            ~int32_m();
+            Int32_M();
+            ~Int32_M();
 
             // type conversion
-            virtual operator int() const;
+            virtual operator int() const noexcept;
             
             template<typename T>
-            int32_m(T x);
+            Int32_M(T x);
 
-            int32_m<M> inverse() const;
+            static const std::size_t modulus = M;
+            int32_t get_value() const noexcept;
+
+            Int32_M<M> inverse() const;
+
+            // direct initialization
+            template<typename T>
+            Int32_M<M>& operator=(const T &x);
 
             // binary
-            int32_m<M>& operator=(const int32_m<M> &x);
-            int32_m<M>& operator+=(const int32_m<M> &x);
-            int32_m<M>& operator-=(const int32_m<M> &x);
-            int32_m<M>& operator*=(const int32_m<M> &x);
-            int32_m<M>& operator/=(const int32_m<M> &x);
+            Int32_M<M>& operator=(const Int32_M<M> &x);
+            Int32_M<M>& operator+=(const Int32_M<M> &x);
+            Int32_M<M>& operator-=(const Int32_M<M> &x);
+            Int32_M<M>& operator*=(const Int32_M<M> &x);
+            Int32_M<M>& operator/=(const Int32_M<M> &x);
 
             // unary
-            int32_m<M>& operator++();
-            int32_m<M>& operator--();
-            int32_m<M> operator++(int);
-            int32_m<M> operator--(int);
+            Int32_M<M>& operator++();
+            Int32_M<M>& operator--();
+            Int32_M<M> operator++(int);
+            Int32_M<M> operator--(int);
             // int in postfix is vestigial
 
+            // comparision
+            std::strong_ordering operator<=>(const Int32_M<M> &x) const noexcept;
+
+            template<std::uint64_t T>
+            friend std::strong_ordering operator<=>(const Int32_M<T> &x, const Int32_M<T> &y) noexcept;
+
             // constant binary
-            friend int32_m<M> operator+(const int32_m<M> &x, const int32_m<M> &y);
-            friend int32_m<M> operator-(const int32_m<M> &x, const int32_m<M> &y);
-            friend int32_m<M> operator*(const int32_m<M> &x, const int32_m<M> &y);
-            friend int32_m<M> operator/(const int32_m<M> &x, const int32_m<M> &y);
-            friend int16_t operator<=>(const int32_m<M> &x, const int32_m<M> &y);
+            template<std::uint64_t T>
+            friend Int32_M<T> operator+(const Int32_M<T> &x, const Int32_M<T> &y);
+
+            template<std::uint64_t T>
+            friend Int32_M<T> operator-(const Int32_M<T> &x, const Int32_M<T> &y);
+
+            template<std::uint64_t T>
+            friend Int32_M<T> operator*(const Int32_M<T> &x, const Int32_M<T> &y);
+
+            template<std::uint64_t T>
+            friend Int32_M<T> operator/(const Int32_M<T> &x, const Int32_M<T> &y);
     };
 } // namespace nm
 
+using int32_m = nm::Int32_M<1000000007UL>;
 
 #endif // MODULO_OPERATIONS
