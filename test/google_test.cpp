@@ -151,10 +151,10 @@ TEST(SortTest, AverageRunTimeMergeSort) {
     double worst_time = 0.0;
 
     do {
-        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        std::vector<int> auxiliary(permutation.begin(), permutation.end());
         
         auto start = std::chrono::steady_clock::now();
-        nm::merge_sort<int, int, int>(0, N - 1, auxillary);
+        nm::merge_sort<int, int, int>(0, N - 1, auxiliary);
         auto finish = std::chrono::steady_clock::now();
         
         std::chrono::duration<double> elapsed = finish - start;
@@ -162,7 +162,7 @@ TEST(SortTest, AverageRunTimeMergeSort) {
         total_time += elapsed.count();
         count++;
 
-        EXPECT_TRUE(is_sorted(auxillary));
+        EXPECT_TRUE(is_sorted(auxiliary));
     } while (nm::next_permutation(permutation));
 
     runtime(count, total_time, worst_time);
@@ -179,10 +179,10 @@ TEST(SortTest, AverageRunTimeHeapSort) {
     double worst_time = 0.0;
 
     do {
-        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        std::vector<int> auxiliary(permutation.begin(), permutation.end());
         
         auto start = std::chrono::steady_clock::now();
-        nm::heap_sort<int, int>(0, N - 1, auxillary);
+        nm::heap_sort<int, int>(0, N - 1, auxiliary);
         auto finish = std::chrono::steady_clock::now();
         
         std::chrono::duration<double> elapsed = finish - start;
@@ -190,7 +190,7 @@ TEST(SortTest, AverageRunTimeHeapSort) {
         total_time += elapsed.count();
         count++;
 
-        EXPECT_TRUE(is_sorted(auxillary));
+        EXPECT_TRUE(is_sorted(auxiliary));
     } while (nm::next_permutation(permutation));
 
     runtime(count, total_time, worst_time);
@@ -207,10 +207,10 @@ TEST(SortTest, AverageRunTimeQuickSort) {
     double worst_time = 0.0;
 
     do {
-        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        std::vector<int> auxiliary(permutation.begin(), permutation.end());
         
         auto start = std::chrono::steady_clock::now();
-        nm::quick_sort<int, int>(0, N - 1, auxillary);
+        nm::quick_sort<int, int>(0, N - 1, auxiliary);
         auto finish = std::chrono::steady_clock::now();
         
         std::chrono::duration<double> elapsed = finish - start;
@@ -218,7 +218,7 @@ TEST(SortTest, AverageRunTimeQuickSort) {
         total_time += elapsed.count();
         count++;
 
-        EXPECT_TRUE(is_sorted(auxillary));
+        EXPECT_TRUE(is_sorted(auxiliary));
     } while (nm::next_permutation(permutation));
 
     runtime(count, total_time, worst_time);
@@ -235,10 +235,10 @@ TEST(SortTest, AverageRunTimeHybridSort) {
     double worst_time = 0.0;
 
     do {
-        std::vector<int> auxillary(permutation.begin(), permutation.end());
+        std::vector<int> auxiliary(permutation.begin(), permutation.end());
         
         auto start = std::chrono::steady_clock::now();
-        nm::hybrid_sort<int, int>(0, N - 1, auxillary);
+        nm::hybrid_sort<int, int>(0, N - 1, auxiliary);
         auto finish = std::chrono::steady_clock::now();
         
         std::chrono::duration<double> elapsed = finish - start;
@@ -246,7 +246,7 @@ TEST(SortTest, AverageRunTimeHybridSort) {
         total_time += elapsed.count();
         count++;
 
-        EXPECT_TRUE(is_sorted(auxillary));
+        EXPECT_TRUE(is_sorted(auxiliary));
     } while (nm::next_permutation(permutation));
 
     runtime(count, total_time, worst_time);
@@ -517,8 +517,57 @@ TEST(KMP, StringSearch) {
     }
 }
 
-int main(int argc, char *argv[])
-{
+TEST(MOD, INT32_M) {
+    EXPECT_EQ(std::int64_t(nm::int32_m::modulus), M);
+
+    for (std::int64_t x = M - N_ROOT; x <= M + N_ROOT; x++) {
+        for (std::int64_t y = M - N_ROOT; y <= M + N_ROOT; y++) {
+            nm::int32_m mx = x;
+            nm::int32_m my = y;
+
+            if (x % M < y % M) {
+                ASSERT_LT(mx, my);
+                ASSERT_TRUE(mx < my);
+                ASSERT_FALSE(mx >= my);
+            } else {
+                ASSERT_GE(mx, my);
+                ASSERT_TRUE(mx >= my);
+                ASSERT_FALSE(mx < my);
+            }
+
+            EXPECT_EQ(mx * mx, 1LL * x * x % M);
+            EXPECT_EQ(my * my, 1LL * y * y % M);
+            EXPECT_EQ(mx - my, (x - y + M) % M);
+            EXPECT_EQ(my - mx, (y - x + M) % M);
+        }
+
+        std::int64_t z = x;
+        nm::int32_m mz = x;
+        EXPECT_EQ(z++ % M, mz++);
+        EXPECT_EQ(z-- % M, mz--);
+        EXPECT_EQ(++z % M, ++mz);
+        EXPECT_EQ(--z % M, --mz);
+
+        EXPECT_GE(z, mz);
+
+        mz *= P;
+        z = (z * P) % M;
+        EXPECT_EQ(mz, z);
+    }
+}
+
+TEST(MOD, LIMITS) {
+    nm::Arithmetic<int> o(M);
+    
+    int x = 1e9 - 1;
+    int y = 1e9 + 1;
+
+    EXPECT_EQ(o.multiply(x, x), 1LL * x * x % M);
+    EXPECT_EQ(o.subtract(x, y), (x - y + M) % M);
+    EXPECT_EQ(o.subtract(y, x), (y - x + M) % M);
+}
+
+int main(int argc, char *argv[]) {
     // GTest //
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
