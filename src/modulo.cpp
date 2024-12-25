@@ -243,6 +243,14 @@ namespace nm {
             (this->value < x.get_value() ? std::strong_ordering::less : 
                 std::strong_ordering::greater));
     }
+
+    template<std::size_t M>
+    template<typename T>
+    std::strong_ordering Int32_M<M>::operator<=>(const T &x) const noexcept {
+        return (this->value == x ? std::strong_ordering::equivalent : 
+            (this->value < x ? std::strong_ordering::less : 
+                std::strong_ordering::greater));
+    }
     
     template<std::size_t M>
     Int32_M<M>::~Int32_M() {}
@@ -283,13 +291,16 @@ namespace nm {
     template int32_m::Int32_M<std::int64_t>(std::int64_t);
     template int32_m& int32_m::operator=<std::int32_t>(std::int32_t const&);
     template int32_m& int32_m::operator=<std::int64_t>(std::int64_t const&);
+    
+    template std::strong_ordering int32_m::operator<=><std::int32_t>(std::int32_t const&) const noexcept;
+    template std::strong_ordering int32_m::operator<=><std::int64_t>(std::int64_t const&) const noexcept;
 
     // instantiate friends for binary operations
-    template int32_m nm::operator-<int32_m::modulus>(int32_m const&, int32_m const&);
-    template int32_m nm::operator+<int32_m::modulus>(int32_m const&, int32_m const&);
-    template int32_m nm::operator*<int32_m::modulus>(int32_m const&, int32_m const&);
-    template int32_m nm::operator/<int32_m::modulus>(int32_m const&, int32_m const&);
-    template std::strong_ordering nm::operator<=><int32_m::modulus>(int32_m const&, int32_m const&);
+    template int32_m operator-<int32_m::modulus>(int32_m const&, int32_m const&);
+    template int32_m operator+<int32_m::modulus>(int32_m const&, int32_m const&);
+    template int32_m operator*<int32_m::modulus>(int32_m const&, int32_m const&);
+    template int32_m operator/<int32_m::modulus>(int32_m const&, int32_m const&);
+    template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, int32_m const&);
 } // TODO: looped instantiation?
 
 template class nm::Int32_M<nm::M93>;

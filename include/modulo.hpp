@@ -103,6 +103,9 @@ namespace nm {
             // comparision
             std::strong_ordering operator<=>(const Int32_M<M> &x) const noexcept;
 
+            template<typename T>
+            std::strong_ordering operator<=>(const T &x) const noexcept;
+
             template<std::uint64_t T>
             friend std::strong_ordering operator<=>(const Int32_M<T> &x, const Int32_M<T> &y) noexcept;
 
