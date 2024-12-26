@@ -152,7 +152,7 @@ namespace nm {
     }
 
     template<std::size_t M>
-    inline int32_t Int32_M<M>::get_value() const noexcept {
+    inline int64_t Int32_M<M>::get_value() const noexcept {
         return this->value;
     }
 
@@ -164,6 +164,12 @@ namespace nm {
     template<std::size_t M>
     template<typename T>
     Int32_M<M>::Int32_M(T x) {
+        this->value = std::int64_t(x) % M;
+        if (this->value < 0) this->value += M;
+    }
+
+    template<std::size_t M>
+    Int32_M<M>::Int32_M(const Int32_M<M> &x) {
         this->value = std::int64_t(x) % M;
         if (this->value < 0) this->value += M;
     }
@@ -183,27 +189,27 @@ namespace nm {
 
     template<std::size_t M>
     Int32_M<M>& Int32_M<M>::operator=(const Int32_M<M> &x) {
-        *this = Int32_M<M>(x);
+        this->value = x.get_value();
         return *this;
     }
 
     template<std::size_t M>
     Int32_M<M>& Int32_M<M>::operator+=(const Int32_M<M> &x) {
-        this->value += x.value;
-        if (this->value >= M) this->value -= M;
+        this->value += x.get_value;
+        if (this->value >= std::int64_t(M)) this->value -= M;
         return *this;
     }
 
     template<std::size_t M>
     Int32_M<M>& Int32_M<M>::operator-=(const Int32_M<M> &x) {
-        this->value -= x.value;
+        this->value -= x.get_value;
         if (this->value < 0) this->value += M;
         return *this;
     }
 
     template<std::size_t M>
     Int32_M<M>& Int32_M<M>::operator*=(const Int32_M<M> &x) {
-        std::uint64_t y = x.value;
+        std::uint64_t y = x.get_value;
         this->value = this->value * y % M;
         return *this;
     }

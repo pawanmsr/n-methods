@@ -76,9 +76,10 @@ namespace nm {
             
             template<typename T>
             Int32_M(T x);
+            Int32_M(const Int32_M<M> &x);
 
             static const std::size_t modulus = M;
-            int32_t get_value() const noexcept;
+            int64_t get_value() const noexcept;
 
             Int32_M<M> inverse() const;
 
