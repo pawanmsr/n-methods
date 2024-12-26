@@ -17,7 +17,7 @@ namespace nm {
 
     template<std::int64_t M, std::int64_t P>
     std::int64_t Hash<M, P>::Interval(std::size_t left, std::size_t right) {
-        assert(right <= this->n and right >= left);
+        assert(right <= this->n and right > left);
         return this->subtract(this->hash[right],
             this->multiply(this->hash[left],
                 this->power[right - left]));
