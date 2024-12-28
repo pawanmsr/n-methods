@@ -62,7 +62,7 @@ namespace nm {
         C* create(T x);
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
-        C* node(T x, bool return_parent = false, bool mark = false);
+        C* node(T x, bool return_parent = false, bool mark = false) const;
         
         // traversal
         void inorder(C* n, std::vector<T> &keys);
@@ -77,14 +77,13 @@ namespace nm {
         bool insert(T x); // set-like
         
         bool remove(T x);
-        bool search(T x);
+        bool search(T x) const;
         
-        U obtain(T x);
+        U obtain(T x) const;
         
         ~SearchTree();
         
-        U & operator [](T x);
-        const U & operator [](T x) const;
+        U & operator [] (T x);
 
         // TODO: return info
         //  of k-th element
@@ -92,7 +91,7 @@ namespace nm {
 
         std::vector<T> keys();
 
-        std::size_t size();
+        std::size_t size() const noexcept;
     };
 
     /*
@@ -131,8 +130,7 @@ namespace nm {
         bool remove(T x);
         ~AVL();
 
-        U & operator [](T x);
-        const U & operator [](T x) const;
+        U & operator [] (T x);
     };
 } // namespace nm
 

@@ -143,12 +143,12 @@ namespace nm {
         }
     
     template <class C, class T, class U>
-    std::size_t SearchTree<C, T, U>::size() {
+    std::size_t SearchTree<C, T, U>::size() const noexcept {
         return this->root->size();
     }
     
     template <class C, class T, class U>
-    C* SearchTree<C, T, U>::node(T x, bool return_parent, bool mark) {
+    C* SearchTree<C, T, U>::node(T x, bool return_parent, bool mark) const {
         C* parent = NULL;
         C* seeker = this->root;
         
@@ -296,14 +296,14 @@ namespace nm {
     }
 
     template <class C, class T, class U>
-    bool SearchTree<C, T, U>::search(T x) {
+    bool SearchTree<C, T, U>::search(T x) const {
         C* n = this->node(x);
         if (n and *n == x) return true;
         return false;
     }
 
     template <class C, class T, class U>
-    U SearchTree<C, T, U>::obtain(T x) {
+    U SearchTree<C, T, U>::obtain(T x) const {
         C* n = this->node(x);
         if (*n == x) return n->info;
 
@@ -343,9 +343,16 @@ namespace nm {
         inorder(this->root, keys);
         return keys;
     }
+
+    template<class C, class T, class U>
+    U & SearchTree<C, T, U>::operator [] (T x) {
+        C* n = this->create(x);
+        return n->info;
+    }
     
     template <class C, class T, class U>
     SearchTree<C, T, U>::~SearchTree() {
+        // std::free(this->root) and other addresses
         // delete this;
     }
 } // namespace nm
@@ -441,6 +448,12 @@ namespace nm {
 
         this->root = this->balance(this->root);
         return true;
+    }
+
+    template <class C, class T, class U>
+    U & AVL<C, T, U>::operator [] (T x) {
+        C* n = this->create(x);
+        return n->info;
     }
 
     template <class C, class T, class U>
