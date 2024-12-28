@@ -195,21 +195,21 @@ namespace nm {
 
     template<std::size_t M>
     Int32_M<M>& Int32_M<M>::operator+=(const Int32_M<M> &x) {
-        this->value += x.get_value;
+        this->value += x.get_value();
         if (this->value >= std::int64_t(M)) this->value -= M;
         return *this;
     }
 
     template<std::size_t M>
     Int32_M<M>& Int32_M<M>::operator-=(const Int32_M<M> &x) {
-        this->value -= x.get_value;
+        this->value -= x.get_value();
         if (this->value < 0) this->value += M;
         return *this;
     }
 
     template<std::size_t M>
     Int32_M<M>& Int32_M<M>::operator*=(const Int32_M<M> &x) {
-        std::uint64_t y = x.get_value;
+        std::uint64_t y = x.get_value();
         this->value = this->value * y % M;
         return *this;
     }
