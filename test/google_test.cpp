@@ -364,7 +364,7 @@ TEST(BST, InsertionDeletionTest) {
 TEST(AVL, ObtainTest) {
     nm::AVL<nm::Node<int, int>, int, int> avl;
     for (int i = N_CROOT; i > 0; i--) avl.insert(i);
-    EXPECT_NO_FATAL_FAILURE(avl.obtain(N_CROOT));
+    EXPECT_NO_FATAL_FAILURE(avl[N_CROOT]);
     EXPECT_THROW(avl.obtain(N_ROOT), std::runtime_error);
 }
 
