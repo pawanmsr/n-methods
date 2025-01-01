@@ -1,7 +1,7 @@
 #include <gcd.hpp>
 
 #include <tuple>
-#include<utility>
+#include <utility>
 
 namespace nm
 {

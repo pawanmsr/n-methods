@@ -1,0 +1,13 @@
+[package]
+name = "n-methods"
+
+[lib]
+name = "library"
+path = "src/lib.rs"
+
+[workspace]
+members = [
+    "play",
+]
+
+[dependencies]
