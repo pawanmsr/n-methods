@@ -364,7 +364,7 @@ TEST(BST, InsertionDeletionTest) {
 TEST(AVL, ObtainTest) {
     nm::AVL<nm::Node<int, int>, int, int> avl;
     for (int i = N_CROOT; i > 0; i--) avl.insert(i);
-    EXPECT_NO_FATAL_FAILURE(avl.obtain(N_CROOT));
+    EXPECT_NO_FATAL_FAILURE(avl[N_CROOT]);
     EXPECT_THROW(avl.obtain(N_ROOT), std::runtime_error);
 }
 
@@ -490,6 +490,32 @@ TEST(AVL, AVLTimeTest) {
     runtime(count, total_extraction_time, worst_extraction_time, "Extraction");
 }
 
+TEST(BST, AssignmentTest) {
+    nm::SearchTree<nm::Node<int, int>, int, int> st;
+    for (std::size_t i = 1; i < N_ROOT; i++)
+        ASSERT_EQ(st[i] = (N_ROOT - i), st[i]);
+
+    for (std::size_t i = N_ROOT; i > 0; i--) {
+        EXPECT_NO_THROW(st[i]);
+        if (i < N_ROOT) ASSERT_EQ(st[i], N_ROOT - i);
+    }
+}
+
+TEST(AVL, AssignmentTest) {
+    nm::AVL<nm::Node<int, int>, int, int> avl;
+    for (std::size_t i = 1; i < N_ROOT; i++)
+        ASSERT_EQ(avl[i] = N_ROOT - i, avl[i]);
+    
+    EXPECT_THROW(avl.element(N_ROOT), std::runtime_error);
+    for (std::size_t i = N_ROOT; i > 0; i--) {
+        EXPECT_NO_THROW(avl[i]);
+        if (i == N_ROOT) continue;
+        
+        ASSERT_EQ(avl[i], N_ROOT - i);
+        EXPECT_NO_THROW(avl.element(i));
+    }
+}
+
 TEST(KMP, StringSearch) {
     std::vector<std::string> sentences = {
         "I've gotta get out of this place. Someday, I'm getting on that train. (Spirited Away)",
@@ -558,7 +584,7 @@ TEST(MOD, INT32_M) {
 
 TEST(MOD, LIMITS) {
     nm::Arithmetic<int> o(M);
-    
+
     int x = 1e9 - 1;
     int y = 1e9 + 1;
 
