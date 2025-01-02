@@ -51,16 +51,6 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 
 Problem scripts in play.
 
-```shell
-# Solutions in rust!
-rustc --cfg LOCAL [problem] -o [output]
-cargo run --features LOCAL --bin [problem]
-# Add `-p play` to run from root directory.
-
-```
-
-TODO: add `rustc` or `cargo` to play scripts for automation.
-
 Documentation
 -------------
 
