@@ -195,9 +195,9 @@ namespace nm {
         if (k > n->size()) return NULL;
         if (not --k) return n;
         
-        if (n->llink and k > n->llink.size())
+        if (n->llink and k > n->llink.size()) {
             return element(k - n->llink.size(), n->rlink);
-        else return element(k, n->llink);
+        } else return element(k, n->llink);
     }
 
     template <class C, class T, class U>
@@ -453,6 +453,8 @@ namespace nm {
     template <class C, class T, class U>
     U & AVL<C, T, U>::operator [] (T x) {
         C* n = this->create(x);
+        this->root = this->balance(this->root);
+        
         return n->info;
     }
 
