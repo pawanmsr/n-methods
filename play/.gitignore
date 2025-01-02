@@ -1,0 +1,6 @@
+# Keep
+!play/template.cpp
+!play/template.rs
+
+!*.bat
+!*.sh
