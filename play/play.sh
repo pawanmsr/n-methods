@@ -4,15 +4,19 @@ set -e
 
 PREFIX=
 BINARY_NAME=
-FILE_EXTENSION=".cpp"
+FILE_EXTENSION=".cpp" # .rs # for rust
 BINARY_EXTENSION=".out"
+
 STACK_SIZE="unlimited" # 64 * 1024 # for 64 MBs
+
 SUM_EXTENSION=".log" # store checksums of played programs
 SUM_LIMIT=100 # limit the number of records in checksum log
 
 SUM="md5sum"
-COMPILER="g++"
-FLAGS="-g -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion"
+COMPILER="g++" # rustc # for rust
+# PRE_FLAGS="--cfg LOCAL" # for rust
+PRE_FLAGS="-g -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion"
+POST_FLAGS="-I ." # not needed # for rust
 
 CLEAN="again" # supply as first argument to clean
 
@@ -82,7 +86,7 @@ if [[ -e $FILENAME ]] ; then
     
     if [[ ! -v SSUM[$FILENAME] ]] || [[ ${SSUM[$FILENAME]} != $CSUM ]] ; then
         echo "$COMPILER is compiling $FILENAME."
-        time $COMPILER $FLAGS $FILENAME -I . -o $BINARY
+        time $COMPILER $PRE_FLAGS $FILENAME $POST_FLAGS -o $BINARY
 
         if [[ $SUMLINES -ge $SUM_LIMIT ]] ; then
             OLDSUMFILE="$(date -u +%Y-%m-%d-%H-%M-%S)${SUM_EXTENSION}"

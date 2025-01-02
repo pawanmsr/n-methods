@@ -5,6 +5,7 @@
 SET prefix=
 SET binary_name=
 SET file_extension=.cpp
+@REM SET file_extension=.rs
 SET binary_extension=.exe
 
 @REM increase stack size to 64MBs
@@ -19,7 +20,10 @@ SET /A sum_limit=100
 
 SET sum=MD5
 SET compiler=g++
-SET flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+@REM SET compiler=rustc
+SET pre_flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+@REM SET pre_flags=--cfg LOCAL
+SET post_flags=-I .
 
 @REM supply as first argument to clean
 SET clean=again
@@ -87,7 +91,7 @@ ENDLOCAL & SET csum=%csum%
 IF EXIST %filename% (
     IF [%ssum%] NEQ [%csum%] (
         ECHO %compiler% is compiling %filename%
-        %compiler% %flags% %filename% -I . -o %binary%
+        %compiler% %pre_flags% %filename% %post_flags% -o %binary%
 
         IF %sumlines% GEQ %sum_limit% (
             @REM FIXME: date time is not universal
