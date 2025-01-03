@@ -84,7 +84,7 @@ if [[ -e $FILENAME ]] ; then
         CSUM=${CSUM[0]}
     fi
     
-    if [[ ! -v SSUM[$FILENAME] ]] || [[ ${SSUM[$FILENAME]} != $CSUM ]] ; then
+    if [[ ! -v SSUM[$FILENAME] ]] || [[ ${SSUM[$FILENAME]} != $CSUM ]] || [[ ! -e $BINARY ]] ; then
         echo "$COMPILER is compiling $FILENAME."
         time $COMPILER $PRE_FLAGS $FILENAME $POST_FLAGS -o $BINARY
 

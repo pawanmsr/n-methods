@@ -89,17 +89,8 @@ IF EXIST %filename% (
 ENDLOCAL & SET csum=%csum%
 
 IF EXIST %filename% (
-    IF [%ssum%] NEQ [%csum%] (
-        ECHO %compiler% is compiling %filename%
-        %compiler% %pre_flags% %filename% %post_flags% -o %binary%
-
-        IF %sumlines% GEQ %sum_limit% (
-            @REM FIXME: date time is not universal
-            ren %sumfile% %DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%-%TIME:~3,2%-%TIME:~6,2%%sum_extension%
-        )
-
-        IF [%csum%] NEQ [] ECHO %filename% %csum% >> %sumfile%
-    )
+    IF [%ssum%] NEQ [%csum%] CALL :compile
+    IF NOT EXIST %binary% CALL :compile
     
     IF EXIST %binary% (
         %binary%
@@ -113,8 +104,20 @@ IF EXIST %filename% (
     EXIT \B 3
 )
 
+:compile
+    ECHO %compiler% is compiling %filename%
+    %compiler% %pre_flags% %filename% %post_flags% -o %binary%
+
+    IF %sumlines% GEQ %sum_limit% (
+        @REM FIXME: date time is not universal
+        ren %sumfile% %DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%-%TIME:~3,2%-%TIME:~6,2%%sum_extension%
+    )
+
+    IF [%csum%] NEQ [] ECHO %filename% %csum% >> %sumfile%
+    EXIT /B %ERRORLEVEL%
+
 :usage
-ECHO Usage: play.bat [problem ^| %clean%]
-ECHO Problem may be a, b, . . .
-ECHO:
-EXIT /B %ERRORLEVEL%
+    ECHO Usage: play.bat [problem ^| %clean%]
+    ECHO Problem may be a, b, . . .
+    ECHO:
+    EXIT /B %ERRORLEVEL%
