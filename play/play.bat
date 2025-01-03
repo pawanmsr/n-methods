@@ -4,8 +4,8 @@
 @REM use prefix for idenfication
 SET prefix=
 SET binary_name=
-SET file_extension=.cpp
-@REM SET file_extension=.rs
+@REM SET file_extension=.cpp
+SET file_extension=.rs
 SET binary_extension=.exe
 
 @REM increase stack size to 64MBs
@@ -19,11 +19,11 @@ SET sum_extension=.log
 SET /A sum_limit=100
 
 SET sum=MD5
-SET compiler=g++
-@REM SET compiler=rustc
-SET pre_flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
-@REM SET pre_flags=--cfg LOCAL
-SET post_flags=-I .
+@REM SET compiler=g++
+SET compiler=rustc
+@REM SET pre_flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+SET pre_flags=--cfg LOCAL
+@REM SET post_flags=-I .
 
 @REM supply as first argument to clean
 SET clean=again
@@ -95,6 +95,7 @@ IF EXIST %filename% (
     IF EXIST %binary% (
         %binary%
     ) ELSE ECHO %binary% absent. Play again.
+    @REM else block is for when durability fails
     EXIT \B 0
 ) ELSE (
     ECHO %filename% is not present in %CD%
