@@ -46,18 +46,18 @@ bin/*
 
 # Ignore contents in play
 play/*
-!play/template.cpp
-!play/template.rs
 
 # Ignore logs
 *.log
 *.txt
-
-!**/CMakeLists.txt
-!**/Cargo.toml
 
 # Compiled target files
 /target
 
 # Ignore lock file (temporary)
 *.lock
+
+# Build and ignore files
+!**/CMakeLists.txt
+!**/Cargo.toml
+!**/.gitignore

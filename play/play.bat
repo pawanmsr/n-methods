@@ -5,6 +5,7 @@
 SET prefix=
 SET binary_name=
 SET file_extension=.cpp
+@REM SET file_extension=.rs
 SET binary_extension=.exe
 
 @REM increase stack size to 64MBs
@@ -19,7 +20,10 @@ SET /A sum_limit=100
 
 SET sum=MD5
 SET compiler=g++
-SET flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+@REM SET compiler=rustc
+SET pre_flags=-g -Wl,--stack,%stack_size% -std=c++2a -DLOCAL -pedantic -Wall -Wextra -Wshadow -Wconversion
+@REM SET pre_flags=--cfg LOCAL
+SET post_flags=-I .
 
 @REM supply as first argument to clean
 SET clean=again
@@ -85,21 +89,13 @@ IF EXIST %filename% (
 ENDLOCAL & SET csum=%csum%
 
 IF EXIST %filename% (
-    IF [%ssum%] NEQ [%csum%] (
-        ECHO %compiler% is compiling %filename%
-        %compiler% %flags% %filename% -I . -o %binary%
-
-        IF %sumlines% GEQ %sum_limit% (
-            @REM FIXME: date time is not universal
-            ren %sumfile% %DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%-%TIME:~3,2%-%TIME:~6,2%%sum_extension%
-        )
-
-        IF [%csum%] NEQ [] ECHO %filename% %csum% >> %sumfile%
-    )
+    IF [%ssum%] NEQ [%csum%] CALL :compile
+    IF NOT EXIST %binary% CALL :compile
     
     IF EXIST %binary% (
         %binary%
     ) ELSE ECHO %binary% absent. Play again.
+    @REM else block is for when durability fails
     EXIT \B 0
 ) ELSE (
     ECHO %filename% is not present in %CD%
@@ -109,8 +105,20 @@ IF EXIST %filename% (
     EXIT \B 3
 )
 
+:compile
+    ECHO %compiler% is compiling %filename%
+    %compiler% %pre_flags% %filename% %post_flags% -o %binary%
+
+    IF %sumlines% GEQ %sum_limit% (
+        @REM FIXME: date time is not universal
+        REN %sumfile% %DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%-%TIME:~0,2%-%TIME:~3,2%-%TIME:~6,2%%sum_extension%
+    )
+
+    IF [%csum%] NEQ [] ECHO %filename% %csum% >> %sumfile%
+    EXIT /B %ERRORLEVEL%
+
 :usage
-ECHO Usage: play.bat [problem ^| %clean%]
-ECHO Problem may be a, b, . . .
-ECHO:
-EXIT /B %ERRORLEVEL%
+    ECHO Usage: play.bat [problem ^| %clean%]
+    ECHO Problem may be a, b, . . .
+    ECHO:
+    EXIT /B %ERRORLEVEL%
