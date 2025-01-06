@@ -3,10 +3,14 @@
 #include <chrono>
 
 namespace nm {
-    Random::Random() {
-        this->n = std::chrono::duration_cast<std::chrono::microseconds>(
+    uint64_t Random::query_clock() {
+        return std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+    }
+
+    Random::Random() {
         this->p = 0;
+        this->n = this->query_clock();
     }
 
     Random::Random(std::uint32_t s) {
@@ -27,10 +31,9 @@ namespace nm {
         std::uint32_t mod = xr - xl + 1UL;
         
         int32_p p = this->p;
-        if (not int(p)) p = std::chrono::duration_cast<std::chrono::microseconds>(
-            std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-        this->n *= p;
-
+        while (not int(p)) p = query_clock();
+        
+        this->n = this->n * p + p;
         return xl + int(this->n) % mod;
     }
 

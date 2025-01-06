@@ -20,6 +20,8 @@ namespace nm {
         private:
             int32_p n;
             int32_p p;
+        protected:
+            uint64_t query_clock();
         public:
             Random();
             ~Random();
