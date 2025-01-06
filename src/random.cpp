@@ -26,7 +26,7 @@ namespace nm {
         std::uint32_t mod = xr - xl + 1UL;
         
         int32_m p = this->p;
-        if (not int(p)) p = query_clock();
+        if (not int(p)) p = this->query_clock();
         
         this->n = this->n * p + p;
         return xl + int(this->n) % mod;
