@@ -18,8 +18,8 @@ namespace nm {
      */
     class Random {
         private:
-            int32_p n;
-            int32_p p;
+            int32_m n;
+            int32_m p;
         protected:
             uint64_t query_clock();
         public:

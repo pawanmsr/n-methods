@@ -23,14 +23,14 @@ namespace nm {
         this->p = p;
     }
 
-    inline std::uint32_t Random::number(std::uint32_t xr) {
+    std::uint32_t Random::number(std::uint32_t xr) {
         return this->number(0, xr);
     }
 
     std::uint32_t Random::number(std::uint32_t xl, std::uint32_t xr) {
         std::uint32_t mod = xr - xl + 1UL;
         
-        int32_p p = this->p;
+        int32_m p = this->p;
         while (not int(p)) p = query_clock();
         
         this->n = this->n * p + p;

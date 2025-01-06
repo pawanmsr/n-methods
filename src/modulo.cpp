@@ -295,8 +295,11 @@ namespace nm {
     // instantiate initialization
     template int32_m::Int32_M<std::int32_t>(std::int32_t);
     template int32_m::Int32_M<std::int64_t>(std::int64_t);
+    
     template int32_m& int32_m::operator=<std::int32_t>(std::int32_t const&);
     template int32_m& int32_m::operator=<std::int64_t>(std::int64_t const&);
+    template int32_m& int32_m::operator=<std::uint32_t>(std::uint32_t const&);
+    template int32_m& int32_m::operator=<std::uint64_t>(std::uint64_t const&);
     
     template std::strong_ordering int32_m::operator<=><std::int32_t>(std::int32_t const&) const noexcept;
     template std::strong_ordering int32_m::operator<=><std::int64_t>(std::int64_t const&) const noexcept;
@@ -306,6 +309,7 @@ namespace nm {
     template int32_m operator+<int32_m::modulus>(int32_m const&, int32_m const&);
     template int32_m operator*<int32_m::modulus>(int32_m const&, int32_m const&);
     template int32_m operator/<int32_m::modulus>(int32_m const&, int32_m const&);
+    
     template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, int32_m const&);
 } // TODO: looped instantiation?
 
