@@ -598,31 +598,32 @@ TEST(Random, Secure) {
     nm::Random random_x;
     nm::Random random_y;
 
-    std::size_t counter = 0;
+    std::size_t count = 0;
     const std::uint32_t N = N_LOG * N_FACT;
-    for (std::uint32_t i = 0; i < N_LOG * N_FACT; i++) {
+    for (std::uint32_t i = 0; i <= N; i++) {
         std::uint32_t x = random_x.number(i, N);
         std::uint32_t y = random_y.number(i, N);
 
         ASSERT_GE(x, i); ASSERT_LE(x, N);
         ASSERT_GE(y, i); ASSERT_LE(y, N);
 
-        counter += x == y;
+        count += x == y;
     }
     
-    EXPECT_LT(counter, N);
+    EXPECT_LT(count, N);
+    EXPECT_GT(count, 0);
 }
 
 TEST(Random, Pseudo) {
     nm::Random random_x(P, nm::M93);
     nm::Random random_y(P, nm::M93);
 
-    std::size_t counter = 0;
+    std::size_t count = 0;
     const std::uint32_t N = N_LOG * N_FACT;
-    for (std::uint32_t i = 0; i < N_LOG * N_FACT; i++)
-        counter += random_x.number(N) == random_y.number(N);
+    for (std::uint32_t i = 0; i < N; i++)
+        count += random_x.number(N) == random_y.number(N);
     
-    EXPECT_EQ(counter, N);
+    EXPECT_EQ(count, N);
 }
 
 int main(int argc, char *argv[]) {
