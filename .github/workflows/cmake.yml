@@ -90,3 +90,12 @@ jobs:
     - name: Compile and Execute
       working-directory: ${{github.workspace}}/play
       run: bash rust.sh template
+  
+  play-cargo-on-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Compile and Execute
+      working-directory: ${{github.workspace}}/play
+      run: .\rust.bat template
