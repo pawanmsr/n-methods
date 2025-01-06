@@ -50,8 +50,8 @@ jobs:
     - name: Build and Test
       run: bash build.sh -c
   
-  play-bash:
-    # Run play bash.
+  play-bash-on-unix:
+    # Run bash script.
     runs-on: ubuntu-latest
 
     steps:
@@ -63,8 +63,8 @@ jobs:
   
   # Checkout GitHub hosted runners at
   # https://docs.github.com/en/actions
-  play-batch:
-    # Run play batch.
+  play-batch-on-windows:
+    # Run batch script.
     runs-on: windows-latest
 
     steps:
@@ -74,7 +74,7 @@ jobs:
       working-directory: ${{github.workspace}}/play
       run: .\play.bat template
   
-  cargo:
+  cargo-build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -85,11 +85,11 @@ jobs:
     - name: Build
       run: cargo build --release && cargo test --release
     
-  play-cargo:
+  play-cargo-on-unix:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
     - name: Compile and Execute
       working-directory: ${{github.workspace}}/play
-      run: cargo run
+      run: bash rust.sh template
