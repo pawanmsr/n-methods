@@ -11,7 +11,7 @@ namespace nm {
      * X_{L} and X_{R} are terminology from
      *   Surreal Numbers, Knuth.
      *
-     * TODO: generate floating points numbers
+     * TODO: generate floating point numbers
      *  by concatenating sequence of numbers \in [0, 9].
      * TODO: generate negative numbers by adding subtraction
      *  sign.
@@ -20,16 +20,17 @@ namespace nm {
         private:
             int32_m n;
             int32_m p;
+        protected:
+            uint64_t query_clock();
         public:
             Random();
             ~Random();
 
-            Random(std::size_t s);
             // pseudo random initialization
-            Random(std::size_t s, std::size_t p);
+            Random(std::uint32_t s, std::uint32_t p = 0U);
             
-            std::size_t number(std::size_t xr);
-            std::size_t number(std::size_t xl, std::size_t xr);
+            std::uint32_t number(std::uint32_t xr);
+            std::uint32_t number(std::uint32_t xl, std::uint32_t xr);
     };
 } // random numbers
 

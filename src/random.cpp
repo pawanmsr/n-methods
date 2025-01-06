@@ -3,34 +3,32 @@
 #include <chrono>
 
 namespace nm {
-    Random::Random() {
-        this->n = std::chrono::duration_cast<std::chrono::microseconds>(
+    uint64_t Random::query_clock() {
+        return std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-        this->p = 0;
     }
 
-    Random::Random(std::size_t s) {
-        this->n = s;
+    Random::Random() {
         this->p = 0;
+        this->n = this->query_clock();
     }
 
-    Random::Random(std::size_t s, std::size_t p) {
+    Random::Random(std::uint32_t s, std::uint32_t p) {
         this->n = s;
         this->p = p;
     }
 
-    inline std::size_t Random::number(std::size_t xr) {
+    std::uint32_t Random::number(std::uint32_t xr) {
         return this->number(0, xr);
     }
 
-    std::size_t Random::number(std::size_t xl, std::size_t xr) {
-        std::size_t mod = xr - xl + 1;
+    std::uint32_t Random::number(std::uint32_t xl, std::uint32_t xr) {
+        std::uint32_t mod = xr - xl + 1UL;
         
         int32_m p = this->p;
-        if (not int(p)) p = std::chrono::duration_cast<std::chrono::microseconds>(
-            std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-        this->n *= p;
-
+        if (not int(p)) p = this->query_clock();
+        
+        this->n = this->n * p + p;
         return xl + int(this->n) % mod;
     }
 
