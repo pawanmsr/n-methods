@@ -13,11 +13,6 @@ namespace nm {
         this->n = this->query_clock();
     }
 
-    Random::Random(std::uint32_t s) {
-        this->n = s;
-        this->p = 0;
-    }
-
     Random::Random(std::uint32_t s, std::uint32_t p) {
         this->n = s;
         this->p = p;
@@ -31,7 +26,7 @@ namespace nm {
         std::uint32_t mod = xr - xl + 1UL;
         
         int32_m p = this->p;
-        while (not int(p)) p = query_clock();
+        if (not int(p)) p = query_clock();
         
         this->n = this->n * p + p;
         return xl + int(this->n) % mod;

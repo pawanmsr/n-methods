@@ -26,9 +26,8 @@ namespace nm {
             Random();
             ~Random();
 
-            Random(std::uint32_t s);
             // pseudo random initialization
-            Random(std::uint32_t s, std::uint32_t p);
+            Random(std::uint32_t s, std::uint32_t p = 0U);
             
             std::uint32_t number(std::uint32_t xr);
             std::uint32_t number(std::uint32_t xl, std::uint32_t xr);
