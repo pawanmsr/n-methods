@@ -177,10 +177,12 @@ namespace nm {
         const std::size_t m = this->w.length();
         
         this->delta_one.resize(ASCII, m);
-        for (std::size_t i = m - 1; i >= 0; i--) {
+        for (std::size_t j = m - 1; j >= 0; j--) {
             if (this->delta_one[this->w[i]] == m)
-                this->delta_one[this->w[i]] -= i;
+                this->delta_one[this->w[i]] -= j + 1;
         }
+
+        // delta 2 ? //
     }
 
     std::size_t BMA::memory(bool all) {
@@ -199,11 +201,25 @@ namespace nm {
     }
 
     std::vector<std::uint32_t> BMA::search() {
-        std::size_t len_w = this->w.size();
+        const std::size_t len_w = this->w.size();
 
-        while (this->i < this->n) {
-            // implement fast //
-            // implement slow //
+        std::int32_t j, i = this->i;
+        while (i < this->n) {
+            i += len_w;
+            j = len_w - 1;
+
+            while (j >= 0 and this->compare(this->s[i], this->w[j])) {
+                this->i--;
+                j--;
+            }
+
+            if (j < 0) {
+                this->positions.push_back(this->i + 1);
+                i += len_w;
+                continue;
+            }
+
+            i += std::max(this->delta_one[this->s[i]], this->delta_two[j]);
         }
 
         return this->positions;
