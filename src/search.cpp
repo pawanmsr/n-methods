@@ -203,18 +203,21 @@ namespace nm {
     std::vector<std::uint32_t> BMA::search() {
         const std::size_t len_w = this->w.size();
 
-        std::int32_t j, i = this->i;
+        std::int32_t j, i = this->i + len_w;
         while (i < this->n) {
-            i += len_w;
+            this->i = i;
             j = len_w - 1;
 
+            // slow implementation //
             while (j >= 0 and this->compare(this->s[i], this->w[j])) {
-                this->i--;
+                // matching sequence is backwards
+                i--;
                 j--;
             }
 
             if (j < 0) {
-                this->positions.push_back(this->i + 1);
+                // found a match //
+                this->positions.push_back(i + 1);
                 i += len_w;
                 continue;
             }
