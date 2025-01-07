@@ -1,7 +1,6 @@
 #include <search.hpp>
 
-namespace nm
-{
+namespace nm {
     // lo: lower index, hi: higher index
     template<class T, typename U>
     U bound_search(T element, const U lo, const U hi,
@@ -30,8 +29,7 @@ template int nm::bound_search<long long, int>(long long, const int, const int,
 
 namespace nm {
     SS::SS(std::string word, bool case_sensitive, std::size_t memory) :
-    w(word), case_sensitive(case_sensitive), critical_memory(memory) {
-    }
+    w(word), case_sensitive(case_sensitive), critical_memory(memory) {}
 
     bool SS::compare(char x, char y) {
         auto lower_case = [] (char z) {
@@ -165,16 +163,51 @@ namespace nm {
         SS::clear();
     }
     
-    KMP::~KMP() {
-    }
+    KMP::~KMP() {}
 } // namespace nm
 
-namespace nm{
+namespace nm {
     BMA::BMA(std::string word, bool case_sensitive, std::size_t memory) : 
         SS(word, case_sensitive, memory) {
         this->flush();
+        this->delta_function();
+    }
+
+    void BMA::delta_function() {
+        const std::size_t m = this->w.length();
+        
+        this->delta_one.resize(ASCII, m);
+        for (std::size_t i = m - 1; i >= 0; i--) {
+            if (this->delta_one[this->w[i]] == m)
+                this->delta_one[this->w[i]] -= i;
+        }
+    }
+
+    std::size_t BMA::memory(bool all) {
+        std::size_t m = sizeof(this->s) + sizeof(char) * this->n;
+        if (not all) return m;
+        
+        m += sizeof(this->positions) + 
+            sizeof(std::uint32_t) * this->positions.size();
+        return m;
+    }
+
+    void BMA::clear() {
+        this->positions.clear();
+
+        SS::clear();
+    }
+
+    std::vector<std::uint32_t> BMA::search() {
+        std::size_t len_w = this->w.size();
+
+        while (this->i < this->n) {
+            // implement fast //
+            // implement slow //
+        }
+
+        return this->positions;
     }
     
-    BMA::~BMA() {
-    }
+    BMA::~BMA() {}
 } // sublinear string search

@@ -66,7 +66,7 @@ namespace nm {
                     std::size_t memory = SIZE_LIMIT_MEM);
             
             void clear();
-            std::vector<int32_t> search();
+            std::vector<std::int32_t> search();
         
             ~KMP();
     };
@@ -79,6 +79,8 @@ namespace nm {
         private:
             std::vector<std::uint32_t> delta_one;
             std::vector<std::uint32_t> delta_two;
+            std::vector<std::uint32_t> positions;
+            std::vector<std::uint32_t> delta_zero;
 
         protected:
             void delta_function();
@@ -90,7 +92,7 @@ namespace nm {
                     std::size_t memory = SIZE_LIMIT_MEM);
             
             void clear();
-            std::vector<uint32_t> search();
+            std::vector<std::uint32_t> search();
             
             ~BMA();
     };
