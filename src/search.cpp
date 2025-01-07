@@ -90,9 +90,9 @@ namespace nm {
     }
 
     void KMP::prefix_function() {
-        const std::size_t m = this->w.length();
+        const std::size_t len_w = this->w.length();
         
-        for (std::size_t i = 1; i < m; i++) {
+        for (std::size_t i = 1; i < len_w; i++) {
             std::int32_t j = this->prefix[i - 1];
             while (j > 0 and not this->compare(this->w[j], this->w[i]))
                 j = this->prefix[j - 1];
@@ -174,20 +174,24 @@ namespace nm {
     }
 
     void BMA::delta_function() {
-        const std::size_t m = this->w.length();
+        const std::size_t len_w = this->w.length();
         
-        this->delta_one.resize(ASCII, m);
-        for (std::size_t j = m - 1; j >= 0; j--) {
-            if (this->delta_one[this->w[i]] == m)
+        this->delta_one.resize(ASCII, len_w);
+        for (std::size_t j = len_w - 1; j >= 0; j--) {
+            if (this->delta_one[this->w[i]] == len_w)
                 this->delta_one[this->w[i]] -= j + 1;
         }
 
-        // delta 2 ? //
+        this->delta_two.resize(len_w);
+        for (std::size_t j = len_w - 1; j >= 0; j--) {
+            this->delta_two[j] = len_w - 1 - j;
+            // plus places to move if not matched
+        }
     }
 
     std::size_t BMA::memory(bool all) {
         std::size_t m = sizeof(this->s) + sizeof(char) * this->n;
-        if (not all) return m;
+        if (not all) return m; // memory in bytes
         
         m += sizeof(this->positions) + 
             sizeof(std::uint32_t) * this->positions.size();
@@ -203,14 +207,16 @@ namespace nm {
     std::vector<std::uint32_t> BMA::search() {
         const std::size_t len_w = this->w.size();
 
+        // analysis pending
+        // adapted for understandability
         std::int32_t j, i = this->i + len_w;
         while (i < this->n) {
             this->i = i;
             j = len_w - 1;
 
             // slow implementation //
+            // sequence is matched in backwards order //
             while (j >= 0 and this->compare(this->s[i], this->w[j])) {
-                // matching sequence is backwards
                 i--;
                 j--;
             }
