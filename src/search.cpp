@@ -33,6 +33,18 @@ namespace nm {
     w(word), case_sensitive(case_sensitive), critical_memory(memory) {
     }
 
+    bool SS::compare(char x, char y) {
+        auto lower_case = [] (char z) {
+            if (z >= 'A' and z <= 'Z')
+                z = 'a' + (z - 'A');
+            
+            return z;
+        };
+
+        if (this->case_sensitive) return x == y;
+        return lower_case(x) == lower_case(y);
+    }
+
     void SS::flush() {
         this->s.clear();
         this->n = 0;
@@ -79,18 +91,6 @@ namespace nm {
         return m;
     }
 
-    bool KMP::compare(char x, char y) {
-        auto lower_case = [] (char z) {
-            if (z >= 'A' and z <= 'Z')
-                z = 'a' + (z - 'A');
-            
-            return z;
-        };
-
-        if (this->case_sensitive) return x == y;
-        return lower_case(x) == lower_case(y);
-    }
-
     void KMP::prefix_function() {
         const std::size_t m = this->w.length();
         
@@ -112,7 +112,7 @@ namespace nm {
         std::size_t len_w = this->w.size();
         
         while (this->i < this->n) {
-            if (compare(this->w[k], this->s[i])) {
+            if (this->compare(this->w[k], this->s[i])) {
                 this->i++;
 
                 k++;
@@ -168,3 +168,13 @@ namespace nm {
     KMP::~KMP() {
     }
 } // namespace nm
+
+namespace nm{
+    BMA::BMA(std::string word, bool case_sensitive, std::size_t memory) : 
+        SS(word, case_sensitive, memory) {
+        this->flush();
+    }
+    
+    BMA::~BMA() {
+    }
+} // sublinear string search
