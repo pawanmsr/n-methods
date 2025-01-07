@@ -1,5 +1,7 @@
 #include <search.hpp>
 
+#include <functional>
+
 namespace nm {
     // lo: lower index, hi: higher index
     template<class T, typename U>
@@ -182,11 +184,28 @@ namespace nm {
                 this->delta_one[this->w[i]] -= j + 1;
         }
 
+        std::function<std::int32_t(std::int32_t)> rpr = [&] (std::size_t j) -> std::int32_t {
+            // rightmost plausible reoccurrence //
+            for (std::int32_t k = len_w - j - 1; k >= 0; k--) {
+                std::int32_t j_prime = len_w - 1;
+                if (this->w[k] != this->w[j_prime]) continue;
+
+                std::int32_t k_prime = k;
+                while (j_prime >= j) {
+                    if (this->w[k_prime] != this->w[j_prime]) break;
+                    k_prime--;
+                    j_prime--;
+                }
+
+                if (j_prime < j) return k;
+            }
+
+            // ?!
+        };
+
         this->delta_two.resize(len_w);
-        for (std::size_t j = len_w - 1; j >= 0; j--) {
-            this->delta_two[j] = len_w - 1 - j;
-            // plus places to move if not matched
-        }
+        for (std::size_t j = len_w - 1; j >= 0; j--)
+            this->delta_two[j] = len_w - rpr(j);
     }
 
     std::size_t BMA::memory(bool all) {
