@@ -185,6 +185,7 @@ namespace nm {
         }
 
         std::uint32_t prefix_j = 0;
+        // prefix_j is the smallest j for which there is prefix for suffix starting from j + 1
         std::function<std::int32_t(std::int32_t)> rpr = [&] (const std::size_t j) -> std::int32_t {
             // rightmost plausible reoccurrence //
             std::uint32_t len_suffix = len_w - (j + 1);
@@ -192,6 +193,7 @@ namespace nm {
             bool is_prefix = true;
             for (std::uint32_t k = 0; k < len_suffix; k++) {
                 if (this->w[k] == this->w[j + 1 + k]) continue;
+                
                 is_prefix = false;
                 break;
             }
@@ -216,10 +218,10 @@ namespace nm {
                         return k + 1 - len_suffix; // verify
             }
 
-            return j - prefix_j;
+            return j - prefix_j; // verify
         };
 
-        this->delta_two.resize(len_w + 1);
+        this->delta_two.resize(len_w);
         for (std::size_t j = len_w - 1; j >= 0; j--)
             this->delta_two[j] = len_w - rpr(j);
     }
@@ -249,13 +251,14 @@ namespace nm {
     std::vector<std::uint32_t> BMA::search() {
         const std::size_t len_w = this->w.size();
 
-        // analysis pending
         // adapted for understandability
         std::int32_t j, i = this->i + len_w;
         while (i < this->n) {
             this->i = i;
             j = len_w - 1;
 
+            
+            // analysis pending //
             // slow implementation //
             // sequence is matched in backwards order //
             while (j >= 0 and this->compare(this->s[i], this->w[j])) {
