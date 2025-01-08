@@ -1,5 +1,7 @@
 #include <search.hpp>
 
+#include <functional>
+
 namespace nm {
     // lo: lower index, hi: higher index
     template<class T, typename U>
@@ -90,9 +92,9 @@ namespace nm {
     }
 
     void KMP::prefix_function() {
-        const std::size_t m = this->w.length();
+        const std::size_t len_w = this->w.length();
         
-        for (std::size_t i = 1; i < m; i++) {
+        for (std::size_t i = 1; i < len_w; i++) {
             std::int32_t j = this->prefix[i - 1];
             while (j > 0 and not this->compare(this->w[j], this->w[i]))
                 j = this->prefix[j - 1];
@@ -174,23 +176,69 @@ namespace nm {
     }
 
     void BMA::delta_function() {
-        const std::size_t m = this->w.length();
+        const std::size_t len_w = this->w.length();
         
-        this->delta_one.resize(ASCII, m);
-        for (std::size_t j = m - 1; j >= 0; j--) {
-            if (this->delta_one[this->w[i]] == m)
+        this->delta_one.resize(ASCII, len_w);
+        for (std::size_t j = len_w - 1; j >= 0; j--) {
+            if (this->delta_one[this->w[i]] == len_w)
                 this->delta_one[this->w[i]] -= j + 1;
         }
 
-        // delta 2 ? //
+        std::uint32_t prefix_j = 0;
+        // prefix_j is the smallest j for which there is prefix for suffix starting from j + 1
+        std::function<std::int32_t(std::int32_t)> rpr = [&] (const std::size_t j) -> std::int32_t {
+            // rightmost plausible reoccurrence //
+            std::uint32_t len_suffix = len_w - (j + 1);
+            
+            bool is_prefix = true;
+            for (std::uint32_t k = 0; k < len_suffix; k++) {
+                if (this->w[k] == this->w[j + 1 + k]) continue;
+                
+                is_prefix = false;
+                break;
+            }
+            
+            if (is_prefix) prefix_j = j;
+
+            for (std::int32_t k = len_w - 1; k >= 0; k--) {
+                std::int32_t j_prime = len_w - 1;
+                
+                if (j + 1 > j_prime) break;
+
+                std::int32_t k_prime = k;
+                while (k_prime >= 0 and j_prime > j) {
+                    if (this->w[k_prime] != this->w[j_prime]) break;
+                    
+                    k_prime--;
+                    j_prime--;
+                }
+                
+                if (k_prime >= 0 and j_prime == j and 
+                    this->w[k_prime] != this->w[j_prime])
+                        return k + 1 - len_suffix; // verify
+            }
+
+            return j - prefix_j; // verify
+        };
+
+        this->delta_two.resize(len_w);
+        for (std::size_t j = len_w - 1; j >= 0; j--)
+            this->delta_two[j] = len_w - rpr(j);
     }
 
     std::size_t BMA::memory(bool all) {
         std::size_t m = sizeof(this->s) + sizeof(char) * this->n;
-        if (not all) return m;
+        if (not all) return m; // memory in bytes
         
         m += sizeof(this->positions) + 
             sizeof(std::uint32_t) * this->positions.size();
+        m += sizeof(this->delta_one) +
+            sizeof(std::uint32_t) * this->delta_one.size();
+        m += sizeof(this->delta_two) +
+            sizeof(std::uint32_t) * this->delta_two.size();
+        m += sizeof(this->delta_zero) +
+            sizeof(std::uint32_t) * this->delta_zero.size();
+        
         return m;
     }
 
@@ -203,18 +251,24 @@ namespace nm {
     std::vector<std::uint32_t> BMA::search() {
         const std::size_t len_w = this->w.size();
 
-        std::int32_t j, i = this->i;
+        // adapted for understandability
+        std::int32_t j, i = this->i + len_w;
         while (i < this->n) {
-            i += len_w;
+            this->i = i;
             j = len_w - 1;
 
+            
+            // analysis pending //
+            // slow implementation //
+            // sequence is matched in backwards order //
             while (j >= 0 and this->compare(this->s[i], this->w[j])) {
-                this->i--;
+                i--;
                 j--;
             }
 
             if (j < 0) {
-                this->positions.push_back(this->i + 1);
+                // found a match //
+                this->positions.push_back(i + 1);
                 i += len_w;
                 continue;
             }
