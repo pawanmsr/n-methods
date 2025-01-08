@@ -214,6 +214,13 @@ namespace nm {
         
         m += sizeof(this->positions) + 
             sizeof(std::uint32_t) * this->positions.size();
+        m += sizeof(this->delta_one) +
+            sizeof(std::uint32_t) * this->delta_one.size();
+        m += sizeof(this->delta_two) +
+            sizeof(std::uint32_t) * this->delta_two.size();
+        m += sizeof(this->delta_zero) +
+            sizeof(std::uint32_t) * this->delta_zero.size();
+        
         return m;
     }
 
