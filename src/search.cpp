@@ -222,7 +222,7 @@ namespace nm {
         };
 
         this->delta_two.resize(len_w);
-        for (std::size_t j = len_w - 1; j >= 0; j--)
+        for (std::int32_t j = len_w - 1; j >= 0; j--)
             this->delta_two[j] = len_w - rpr(j);
     }
 
@@ -268,7 +268,7 @@ namespace nm {
 
             if (j < 0) {
                 // found a match //
-                this->positions.push_back(i + 1);
+                this->positions.push_back(++i);
                 i += len_w;
                 continue;
             }
