@@ -94,7 +94,7 @@ namespace nm {
     void KMP::prefix_function() {
         const std::size_t len_w = this->w.length();
         
-        for (std::size_t i = 1; i < len_w; i++) {
+        for (std::int32_t i = 1; i < len_w; i++) {
             std::int32_t j = this->prefix[i - 1];
             while (j > 0 and not this->compare(this->w[j], this->w[i]))
                 j = this->prefix[j - 1];
@@ -179,9 +179,9 @@ namespace nm {
         const std::size_t len_w = this->w.length();
         
         this->delta_one.resize(ASCII, len_w);
-        for (std::size_t j = len_w - 1; j >= 0; j--) {
-            if (this->delta_one[this->w[i]] == len_w)
-                this->delta_one[this->w[i]] -= j + 1;
+        for (std::int32_t j = len_w - 1; j >= 0; j--) {
+            if (this->delta_one[this->w[j]] == len_w)
+                this->delta_one[this->w[j]] -= j + 1;
         }
 
         std::uint32_t prefix_j = 0;
@@ -190,7 +190,7 @@ namespace nm {
             // rightmost plausible reoccurrence //
             std::uint32_t len_suffix = len_w - (j + 1);
             
-            bool is_prefix = true;
+            bool is_prefix = len_suffix;
             for (std::uint32_t k = 0; k < len_suffix; k++) {
                 if (this->w[k] == this->w[j + 1 + k]) continue;
                 
@@ -222,7 +222,7 @@ namespace nm {
         };
 
         this->delta_two.resize(len_w);
-        for (std::size_t j = len_w - 1; j >= 0; j--)
+        for (std::int32_t j = len_w - 1; j >= 0; j--)
             this->delta_two[j] = len_w - rpr(j);
     }
 
@@ -252,7 +252,7 @@ namespace nm {
         const std::size_t len_w = this->w.size();
 
         // adapted for understandability
-        std::int32_t j, i = this->i + len_w;
+        std::int32_t j, i = this->i + len_w - 1;
         while (i < this->n) {
             this->i = i;
             j = len_w - 1;
@@ -268,7 +268,7 @@ namespace nm {
 
             if (j < 0) {
                 // found a match //
-                this->positions.push_back(i + 1);
+                this->positions.push_back(++i);
                 i += len_w;
                 continue;
             }
