@@ -626,6 +626,29 @@ TEST(Random, Pseudo) {
     EXPECT_EQ(count, N);
 }
 
+TEST(BMA, StringSearch) {
+    GTEST_SKIP() << "FIXME";
+
+    std::vector<std::string> sentences = {
+        "The laws of physics are the same in all inertial frames of reference.",
+        "The speed of light in free space has the same value in all inertial frames of reference."
+    };
+
+    std::vector<std::string> words = {
+        "Reference",
+        "Frames",
+    };
+
+    for (std::string &word : words) {
+        std::size_t count = 0;
+        nm::BMA bma(word, false);
+        for (std::string sentence : sentences) {
+            bma.stream(sentence);
+            EXPECT_EQ(bma.search().size(), ++count);
+        }
+    }
+}
+
 int main(int argc, char *argv[]) {
     // GTest //
     testing::InitGoogleTest(&argc, argv);
