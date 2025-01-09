@@ -94,7 +94,7 @@ namespace nm {
     void KMP::prefix_function() {
         const std::size_t len_w = this->w.length();
         
-        for (std::size_t i = 1; i < len_w; i++) {
+        for (std::int32_t i = 1; i < len_w; i++) {
             std::int32_t j = this->prefix[i - 1];
             while (j > 0 and not this->compare(this->w[j], this->w[i]))
                 j = this->prefix[j - 1];
@@ -179,9 +179,9 @@ namespace nm {
         const std::size_t len_w = this->w.length();
         
         this->delta_one.resize(ASCII, len_w);
-        for (std::size_t j = len_w - 1; j >= 0; j--) {
-            if (this->delta_one[this->w[i]] == len_w)
-                this->delta_one[this->w[i]] -= j + 1;
+        for (std::int32_t j = len_w - 1; j >= 0; j--) {
+            if (this->delta_one[this->w[j]] == len_w)
+                this->delta_one[this->w[j]] -= j + 1;
         }
 
         std::uint32_t prefix_j = 0;
