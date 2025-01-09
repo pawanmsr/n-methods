@@ -627,8 +627,6 @@ TEST(Random, Pseudo) {
 }
 
 TEST(BMA, StringSearch) {
-    GTEST_SKIP() << "FIXME";
-
     std::vector<std::string> sentences = {
         "The laws of physics are the same in all inertial frames of reference.",
         "The speed of light in free space has the same value in all inertial frames of reference."

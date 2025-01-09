@@ -190,7 +190,7 @@ namespace nm {
             // rightmost plausible reoccurrence //
             std::uint32_t len_suffix = len_w - (j + 1);
             
-            bool is_prefix = true;
+            bool is_prefix = len_suffix;
             for (std::uint32_t k = 0; k < len_suffix; k++) {
                 if (this->w[k] == this->w[j + 1 + k]) continue;
                 
@@ -252,7 +252,7 @@ namespace nm {
         const std::size_t len_w = this->w.size();
 
         // adapted for understandability
-        std::int32_t j, i = this->i + len_w;
+        std::int32_t j, i = this->i + len_w - 1;
         while (i < this->n) {
             this->i = i;
             j = len_w - 1;
