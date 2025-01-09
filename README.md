@@ -75,14 +75,14 @@ Implementations Pending
 Communication:
 
 - [ ] Data serialization
-- [ ] Create (easy) communication protocol or use pre-existing protocol buffers
+- [ ] Create (easy) communication protocol or use pre-existing protocol buffer
 - [ ] Java/Go/Python or any other that are in popular use, for Interfaces (Native or using Framework)
 
 Practical:
 
 Parameters for interfaces can be speed, reliability or a function of speed and reliability. Perform a million requests to interface (continuously or in salvos) and measure the time it takes for requests to be successful. The *mean time* for successful requests is the indicator of speed (in respective frameworks and programming languages). The number of contiguous unsuccessful request sequences, and the standard deviations (on both sides of the mean) of successful requests gives the reliability.
 
-It might seem that the distribution (of time it takes to complete requests successfully) will be a Gaussian, and that the standard deviations will be equal, but experiments reveal that the distribution will be Poisson.
+Note: It might seem that the distribution (of time it takes to complete requests successfully) will be a Gaussian, and that the standard deviations will be equal, but experiments reveal that the distribution will be Poisson.
 
 Documentation
 -------------
