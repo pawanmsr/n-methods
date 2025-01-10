@@ -4,7 +4,7 @@ Algorithms
 Common Algorithms and Templates.  
 Personal. Educational. Quick Reference.  
 
-I seek refuge in my fields of study to recharge, re-orient and organise my mind. (Since I am not very vocal,) This casual repository also contains some of my scattered thoughts (that others may find useful, especially those in adversity) bourne out of my studies and interaction. Selectively disregard it.
+I seek refuge in my fields of study to recharge, re-orient and organise my mind. (Since I am not very vocal,) This casual repository also contains some of my scattered thoughts (that others may find useful, especially those in adversity) bourne out of my studies and interaction. Selectively disregard it. No more casual additions are intended.  
 
 Build
 -----
