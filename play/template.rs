@@ -62,8 +62,8 @@ fn main() -> io::Result<()> {
     let mut cout = stdout;
     
     // Solution //
-    // let t: usize = 1; // for single test
-    let t: usize = input!(cin, usize);
+    let t: usize = 1; // for single test
+    // let t: usize = input!(cin, usize); // for multiple tests
     for _ in 0..t {
         // Test Case //
     }

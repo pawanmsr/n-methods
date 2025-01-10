@@ -1,6 +1,5 @@
-name: N-Methods for Single Platform
-# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
+name: N-Methods
+# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml for more details.
 
 on:
   push:
@@ -13,10 +12,8 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  cmake-build:
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix for more details.
     runs-on: ubuntu-latest
 
     steps:
@@ -34,10 +31,10 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more details.
       run: ctest --rerun-failed --output-on-failure -C ${{env.BUILD_TYPE}}]
 
-  script:
+  build-script:
     # Run build script.
     runs-on: ubuntu-latest
 
@@ -50,8 +47,8 @@ jobs:
     - name: Build and Test
       run: bash build.sh -c
   
-  play-unix:
-    # Run play bash.
+  play-bash-on-unix-or-gnu:
+    # Run bash script.
     runs-on: ubuntu-latest
 
     steps:
@@ -63,8 +60,8 @@ jobs:
   
   # Checkout GitHub hosted runners at
   # https://docs.github.com/en/actions
-  play-windows:
-    # Run play batch.
+  play-batch-on-windows:
+    # Run batch script.
     runs-on: windows-latest
 
     steps:
@@ -73,3 +70,32 @@ jobs:
     - name: Compile and Execute
       working-directory: ${{github.workspace}}/play
       run: .\play.bat template
+  
+  cargo-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure
+      run: cargo build && cargo test
+    
+    - name: Build
+      run: cargo build --release && cargo test --release
+    
+  play-cargo-on-unix-or-gnu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Compile and Execute
+      working-directory: ${{github.workspace}}/play
+      run: bash rust.sh template
+  
+  play-cargo-on-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Compile and Execute
+      working-directory: ${{github.workspace}}/play
+      run: .\rust.bat template
