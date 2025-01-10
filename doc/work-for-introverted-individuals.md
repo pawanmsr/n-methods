@@ -73,6 +73,8 @@ respectively.
 
 Reply with strengths and weaknesses.
 
+*Entities* are teams or groups that are on a mission or in sustenance. Small entities are shaped by microeconomic forces while larger ones follow macroeconomic trends.  
+
 Improvement
 -----------
 
