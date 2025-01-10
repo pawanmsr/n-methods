@@ -33,11 +33,11 @@ impl WALS {
     }
 
     pub fn initialize() {
-        todo!()
+        todo!("random floating point initialization");
     }
 
     pub fn train(regularization: f64, threshold: f64) {
         assert!(threshold < 1_f64);
-        todo!()
+        todo!("do it if there is no external lib for the same");
     }
 }
