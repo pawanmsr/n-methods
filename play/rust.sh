@@ -1,5 +1,5 @@
 # rustup update # toolchain and rust analyzer
-# Run with cargo
-# cargo run --features LOCAL --bin template
+# setup environment
+# cargo run --features LOCAL --bin template # Run with cargo
 
-# TODO: setup environment
+# TODO

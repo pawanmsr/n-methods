@@ -1,5 +1,5 @@
-@REM run with cargo
-@REM rustup update for compiler and analyzer
-@REM cargo run --features LOCAL --bin template
+@REM rustup update # toolchain and rust analyzer
+@REM setup environment
+@REM cargo run --features LOCAL --bin template # Run with cargo
 
-SET TODO=environment
+@REM TODO
