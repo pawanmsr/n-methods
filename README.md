@@ -4,6 +4,8 @@ Algorithms
 Common Algorithms and Templates.  
 Personal. Educational. Quick Reference.  
 
+I seek refuge in my fields of study to recharge, re-orient and organise my mind. (Since I am not very vocal,) This casual repository also contains some of my scattered thoughts (that others may find useful, especially those in adversity) bourne out of my studies and interaction. Selectively disregard it. No more casual additions are intended.  
+
 Build
 -----
 
@@ -62,35 +64,7 @@ Tests in [test](/test/) and method signatures in [include](/include/). Run CTest
 
 Problem scripts in play.
 
-Implementations Pending
------------------------
-
-- [ ] Splines
-- [ ] Splay tree
-- [ ] Interpolation
-- [ ] Geometry and Mesh (2D)
-- [ ] . . . 
-- [ ] (Redo with) Parallel processing
-
-Communication:
-
-- [ ] Data serialization
-- [ ] Create (easy) communication protocol or use pre-existing protocol buffer
-- [ ] Java/Go/Python or any other that are in popular use, for Interfaces (Native or using Framework)
-
-Practical:
-
-Parameters for interfaces can be speed, reliability or a function of speed and reliability. Perform a million requests to interface (continuously or in salvos) and measure the time it takes for requests to be successful. The *mean time* for successful requests is the indicator of speed (in respective frameworks and programming languages). The number of contiguous unsuccessful request sequences, and the standard deviations (on both sides of the mean) of successful requests gives the reliability.
-
-Note: It might seem that the distribution (of time it takes to complete requests successfully) will be a Gaussian, and that the standard deviations will be equal, but experiments reveal that the distribution will be Poisson.
-
-Documentation
--------------
-
-[Sport Programming](/doc/sport-programming.md).  
-If bored, then have **[fun](/doc/fun.md)**!  
-
-@pawanmsr: archive (or delete, if and) when all milestones have been touched at least once.
+Note to self: archive (or delete, if and) when all milestones have been touched at least once.
 
 Appreciation
 ------------
