@@ -5,6 +5,10 @@
 #include <functional>
 
 namespace nm {
+    /*
+     * Operation(0, 0) must return
+     *  identity element.
+     */
     template<typename T>
     class Sparse {
         private:
