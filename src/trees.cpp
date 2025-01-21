@@ -474,7 +474,7 @@ namespace nm {
     
     template<typename T>
     Fenwick<T>::Fenwick(const std::vector<T> &data, const std::function<T(T, T)> &operation) :
-        n(data.size()), f(operation) {
+        Fenwick(data.size(), operation) {
             for (std::int32_t i = 0; i < this->n; i++)
                 this->update(i, data[i]);
         }
@@ -506,3 +506,4 @@ namespace nm {
     }
 } // fenwick bit tree
 
+template class nm::Fenwick<int>;
