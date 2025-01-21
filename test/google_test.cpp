@@ -647,6 +647,29 @@ TEST(BMA, StringSearch) {
     }
 }
 
+TEST(Fenwick, SumQuery) {
+    nm::Random random;
+    std::vector<std::int32_t> data(N_LOG);
+    for (std::size_t i = 0; i < N_LOG; i++)
+        data[i] = random.number(1, N_ROOT);
+    
+    std::function<std::int32_t(std::int32_t, std::int32_t)> operation = 
+        [] (std::int32_t x, std::int32_t y) -> std::int32_t {
+                return x + y;
+            };
+    
+    nm::Fenwick fw(data, operation);
+    for (std::size_t i = 0; i < N_FACT; i++) {
+        std::int32_t l = random.number(0, N_LOG - 1);
+        std::int32_t r = random.number(l, N_LOG - 1);
+
+        std::int32_t j = l;
+        std::size_t expected = 0;
+        while (j <= r) expected += data[j++];
+        EXPECT_EQ(fw.query(l, r), expected);
+    }
+}
+
 int main(int argc, char *argv[]) {
     // GTest //
     testing::InitGoogleTest(&argc, argv);
