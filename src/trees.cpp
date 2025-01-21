@@ -464,3 +464,46 @@ namespace nm {
 } // namespace nm
 
 template class nm::AVL<nm::Node<int, int>, int, int>;
+
+namespace nm {
+    template<typename T>
+    Fenwick<T>::Fenwick(const std::size_t size, const std::function<T(T, T)> &operation) :
+        n(size), f(operation) {
+            this->bit.assign(this->n, 0);
+        }
+    
+    template<typename T>
+    Fenwick<T>::Fenwick(const std::vector<T> &data, const std::function<T(T, T)> &operation) :
+        Fenwick(data.size(), operation) {
+            for (std::int32_t i = 0; i < this->n; i++)
+                this->update(i, data[i]);
+        }
+    
+    template<typename T>
+    void Fenwick<T>::update(std::int32_t i, T data) {
+        while (i < this->n) {
+            this->bit[i] = this->f(this->bit[i], data);
+            i += ((i + 1) & (-i - 1));
+            // dot product with two's complement
+        }
+    }
+
+    template<typename T>
+    T Fenwick<T>::query(std::int32_t i) {
+        assert(i < this->n);
+        
+        T result = this->f(0, 0);
+        while (i >= 0) {
+            result = this->f(result, this->bit[i]);
+            i -= ((i + 1) & (-i - 1));
+        }
+        return result;
+    }
+
+    template<typename T>
+    T Fenwick<T>::query(std::int32_t l, std::int32_t r) {
+        return this->query(r) - this->query(l - 1);
+    }
+} // fenwick bit tree
+
+template class nm::Fenwick<int>;

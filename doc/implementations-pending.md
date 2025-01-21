@@ -5,8 +5,13 @@ Implementations Pending
 - [ ] Splay tree
 - [ ] Interpolation
 - [ ] Geometry and Mesh (2D)
-- [ ] . . . 
+- [ ] Simulate Statistics (on particles / quanta)
+  - [ ] Density Functionals (refer nature)
+  - [ ] Fermi - Dirac (on fermions)
+  - [ ] Bose - Einstein (on bosons)
+- [ ] . . .
 - [ ] (Redo with) Parallel processing
+- [ ] Simulate Qubit (derived data with induced probability, SIMD, SIMT)
 
 Communication:
 

@@ -70,7 +70,7 @@ typedef long long int ll;
 #define pll pair<ll, ll>
 #define pii pair<int, int>
 #define all(x) (x).begin(), (x).end()
-#define debug(x) cerr << (x) << endl
+#define debug(x) cerr << x << endl
 
 // External //
 

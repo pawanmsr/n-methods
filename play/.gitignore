@@ -1,6 +1,6 @@
 # Keep
-!play/template.cpp
-!play/template.rs
+!template.cpp
+!template.rs
 
 !*.bat
 !*.sh
