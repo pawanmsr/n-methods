@@ -134,4 +134,25 @@ namespace nm {
     };
 } // namespace nm
 
+namespace nm {
+    template<typename T>
+    class Fenwick {
+        private:
+            std::size_t n;
+            std::vector<T> bit;
+            std::function<T(T, T)> f;
+        
+        public:
+            Fenwick(const std::size_t size, const std::function<T(T, T)> &operation);
+            Fenwick(const std::vector<T> &data, const std::function<T(T, T)> &operation);
+
+            T query(std::int32_t i);
+            T query(std::int32_t l, std::int32_t r);
+
+            void update(std::int32_t i, T data);
+
+            ~Fenwick() {};
+    };
+} // fenwick bit tree
+
 #endif // TREES
