@@ -647,6 +647,14 @@ TEST(BMA, StringSearch) {
     }
 }
 
+std::vector<std::int32_t> generate_random_array(std::size_t n, const std::size_t r) {
+    nm::Random random;
+    std::vector<std::int32_t> data(n);
+    for (std::size_t i = 0; i < n; i++)
+        data[i] = random.number(1, r);
+    return data;
+}
+
 TEST(Fenwick, SumQuery) {
     nm::Random random;
     std::vector<std::int32_t> data(N_LOG);
