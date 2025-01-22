@@ -22,6 +22,7 @@
 #include <newton.hpp>
 #include <interpolation.hpp>
 #include <random.hpp>
+#include <table.hpp>
 
 // GTest //
 #include <gtest/gtest.h>
@@ -55,6 +56,14 @@ void runtime(int count, double total, double worst, std::string prefix = "") {
     std::cout << TOTAL_RUNTIME << total << '\t';
     if (count) std::cout << AVERAGE_RUNTIME << total / count << '\t';
     std::cout << WORST_RUNTIME << worst << '\n';
+}
+
+std::vector<std::int32_t> generate_random_array(std::size_t n, const std::size_t r) {
+    nm::Random random;
+    std::vector<std::int32_t> data(n);
+    for (std::size_t i = 0; i < n; i++)
+        data[i] = random.number(1, r);
+    return data;
 }
 
 template<typename T>
@@ -648,16 +657,14 @@ TEST(BMA, StringSearch) {
 }
 
 TEST(Fenwick, SumQuery) {
-    nm::Random random;
-    std::vector<std::int32_t> data(N_LOG);
-    for (std::size_t i = 0; i < N_LOG; i++)
-        data[i] = random.number(1, N_ROOT);
+    std::vector<std::int32_t> data = generate_random_array(N_LOG, N_ROOT);
     
     std::function<std::int32_t(std::int32_t, std::int32_t)> operation = 
         [] (std::int32_t x, std::int32_t y) -> std::int32_t {
                 return x + y;
             };
     
+    nm::Random random;
     nm::Fenwick fw(data, operation);
     for (std::size_t i = 0; i < N_FACT; i++) {
         std::int32_t l = random.number(0, N_LOG - 1);
@@ -667,6 +674,50 @@ TEST(Fenwick, SumQuery) {
         std::size_t expected = 0;
         while (j <= r) expected += data[j++];
         EXPECT_EQ(fw.query(l, r), expected);
+    }
+}
+
+TEST(SparseTable, XORQuery) {
+    std::vector<std::int32_t> data = generate_random_array(N_LOG, N_ROOT);
+
+    std::function<std::int32_t(std::int32_t, std::int32_t)> operation = 
+        [] (std::int32_t x, std::int32_t y) -> std::int32_t {
+                return x ^ y;
+            };
+    
+    nm::Random random;
+    nm::Sparse st(data, operation);
+    for (std::size_t i = 0; i < N_FACT; i++) {
+        std::int32_t l = random.number(0, N_LOG - 1);
+        std::int32_t r = random.number(l, N_LOG - 1);
+
+        std::int32_t j = l;
+        std::size_t expected = 0;
+        while (j <= r) expected ^= data[j++];
+
+        EXPECT_EQ(st.cquery(l, r), expected);
+    }
+}
+
+TEST(SparseTable, MaxQuery) {
+    std::vector<std::int32_t> data = generate_random_array(N_LOG, N_ROOT);
+
+    std::function<std::int32_t(std::int32_t, std::int32_t)> operation = 
+        [] (std::int32_t x, std::int32_t y) -> std::int32_t {
+                return std::max(x, y);
+            };
+    
+    nm::Random random;
+    nm::Sparse st(data, operation);
+    for (std::size_t i = 0; i < N_FACT; i++) {
+        std::int32_t l = random.number(0, N_LOG - 1);
+        std::int32_t r = random.number(l, N_LOG - 1);
+
+        std::int32_t j = l;
+        std::int32_t expected = 0;
+        while (j <= r) expected = std::max(expected, data[j++]);
+
+        EXPECT_EQ(st.cquery(l, r), expected);
     }
 }
 

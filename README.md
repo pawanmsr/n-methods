@@ -66,7 +66,7 @@ Problem scripts in play.
 
 Note to self: archive (or delete, if and) when all milestones have been touched at least once.
 
-I seek refuge in my fields of study to recharge, re-orient and organise my mind. This casual repository also contains some of my scattered thoughts (that others may find useful, especially those in adversity) bourne out of my studies and interaction. Selectively disregard it. No more casual additions are intended.  
+I seek refuge in my fields of study to recharge, re-orient and organise my mind. This casual repository also contains some of my scattered thoughts (that others may find useful, especially those in adversity) bourne out of my studies and interactions (professional and/or non-professional/social platforms). Selectively disregard it. No more casual additions are intended.  
 
 Appreciation
 ------------
