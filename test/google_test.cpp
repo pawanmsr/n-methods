@@ -695,7 +695,29 @@ TEST(SparseTable, XORQuery) {
         std::size_t expected = 0;
         while (j <= r) expected ^= data[j++];
 
-        EXPECT_EQ(st.query(l, r), expected);
+        EXPECT_EQ(st.cquery(l, r), expected);
+    }
+}
+
+TEST(SparseTable, MaxQuery) {
+    std::vector<std::int32_t> data = generate_random_array(N_LOG, N_ROOT);
+
+    std::function<std::int32_t(std::int32_t, std::int32_t)> operation = 
+        [] (std::int32_t x, std::int32_t y) -> std::int32_t {
+                return std::max(x, y);
+            };
+    
+    nm::Random random;
+    nm::Sparse st(data, operation);
+    for (std::size_t i = 0; i < N_FACT; i++) {
+        std::int32_t l = random.number(0, N_LOG - 1);
+        std::int32_t r = random.number(l, N_LOG - 1);
+
+        std::int32_t j = l;
+        std::int32_t expected = 0;
+        while (j <= r) expected = std::max(expected, data[j++]);
+
+        EXPECT_EQ(st.cquery(l, r), expected);
     }
 }
 
