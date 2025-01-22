@@ -1,7 +1,7 @@
 #include <table.hpp>
 
 #include <bit>
-#include <cstdint>
+#include <cassert>
 
 namespace nm {
     template<typename T>
@@ -27,11 +27,18 @@ namespace nm {
     }
 
     template<typename T>
-    T Sparse<T>::query(std::size_t l, std::size_t r) {
+    T Sparse<T>::query(std::int32_t l, std::int32_t r) {
+        assert(l >= 0); assert(l <= r);
+        
         // for non cumulative queries
         int i = std::bit_width(r - l + 1UL) - 1;
         return this->f(this->table[i][l], this->table[i][r - (1 << i) + 1]);
+    }
 
+    template<typename T>
+    T Sparse<T>::cquery(std::int32_t l, std::int32_t r) {
+        assert(l >= 0); assert(l <= r);
+        
         // for cumulative queries
         T result = this->f(0, 0); // modify
         for (std::int32_t i = this->k; i >= 0; i--) {

@@ -2,6 +2,7 @@
 #define TABLE
 
 #include <vector>
+#include <cstdint>
 #include <functional>
 
 namespace nm {
@@ -18,7 +19,8 @@ namespace nm {
             std::function<T(T, T)> f;
         public:
             Sparse(const std::vector<T> &data, const std::function<T(T, T)> &operation);
-            T query(std::size_t l, std::size_t r);
+            T query(std::int32_t l, std::int32_t r);
+            T cquery(std::int32_t l, std::int32_t r);
             ~Sparse();
     };
 }
