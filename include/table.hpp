@@ -14,7 +14,7 @@ namespace nm {
         private:
             std::size_t k;
             std::size_t n;
-            std::vector<vector<T> > table
+            std::vector<std::vector<T> > table;
             std::function<T(T, T)> f;
         public:
             Sparse(const std::vector<T> &data, const std::function<T(T, T)> &operation);
