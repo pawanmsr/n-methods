@@ -128,24 +128,11 @@ namespace nm {
         U insert(T x, U y);
         bool insert(T x);
         bool remove(T x);
-        ~AVL();
+        ~AVL() {};
 
         U & operator [] (T x);
     };
 } // namespace nm
-
-namespace nm {
-    /*
-     * Sleator, Tarjan. ACM.
-     * https://www.cs.cmu.edu/~sleator/papers/Self-Adjusting.htm
-     * 
-     * Derived.
-     */
-    template<typename T>
-    class Splay : public SearchTree {
-        // Log(n) with Large Constant.
-    };
-} // splay tree
 
 namespace nm {
     template<typename T>
@@ -167,5 +154,20 @@ namespace nm {
             ~Fenwick() {};
     };
 } // fenwick bit tree
+
+namespace nm {
+    /*
+     * Sleator, Tarjan. ACM.
+     * https://www.cs.cmu.edu/~sleator/papers/Self-Adjusting.htm
+     * 
+     * Derived. Log(n) with Large Constant.
+     */
+    template <class C, class T, class U>
+    class Splay : public SearchTree<C, T, U> {
+        public:
+            Splay(std::function<bool(T&, T&)> compare = default_compare<T>);
+            ~Splay() {};
+    };
+} // splay tree
 
 #endif // TREES

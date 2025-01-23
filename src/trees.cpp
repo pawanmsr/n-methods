@@ -457,10 +457,6 @@ namespace nm {
         
         return n->info;
     }
-
-    template <class C, class T, class U>
-    AVL<C, T, U>::~AVL() {
-    }
 } // namespace nm
 
 template class nm::AVL<nm::Node<int, int>, int, int>;
@@ -507,3 +503,10 @@ namespace nm {
 } // fenwick bit tree
 
 template class nm::Fenwick<int>;
+
+namespace nm {
+    template <class C, class T, class U>
+    Splay<C, T, U>::Splay(std::function<bool(T&, T&)> compare) :
+        SearchTree<C, T, U>(compare) {
+        }
+} // splay tree
