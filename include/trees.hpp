@@ -135,6 +135,19 @@ namespace nm {
 } // namespace nm
 
 namespace nm {
+    /*
+     * Sleator, Tarjan. ACM.
+     * https://www.cs.cmu.edu/~sleator/papers/Self-Adjusting.htm
+     * 
+     * Derived.
+     */
+    template<typename T>
+    class Splay : public SearchTree {
+        // Log(n) with Large Constant.
+    };
+} // splay tree
+
+namespace nm {
     template<typename T>
     class Fenwick {
         private:
