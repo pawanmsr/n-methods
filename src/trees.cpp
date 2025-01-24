@@ -509,4 +509,12 @@ namespace nm {
     Splay<C, T, U>::Splay(std::function<bool(T&, T&)> compare) :
         SearchTree<C, T, U>(compare) {
         }
+    
+    template <class C, class T, class U>
+    U & Splay<C, T, U>::operator [] (T x) {
+        C* n = this->create(x);
+        this->root = this->splay(this->root);
+        
+        return n->info;
+    }
 } // splay tree

@@ -165,16 +165,17 @@ namespace nm {
     template <class C, class T, class U>
     class Splay : public SearchTree<C, T, U> {
         protected:
-            void splay(); // operation
+            void splay(C* n); // operation
         public:
             Splay(std::function<bool(T&, T&)> compare = default_compare<T>);
             
             bool insert(T x);
+            U insert(T x, U y);
             bool remove(T x);
-            bool search(T x) const;
-            U obtain(T x) const;
 
             ~Splay() {};
+
+            U & operator [] (T x);
     };
 } // splay tree
 
