@@ -163,7 +163,7 @@ namespace nm {
      * Derived. Log(n) with Large Constant.
      */
     template <class C, class T, class U>
-    class Splay : public SearchTree<C, T, U> {
+    class Splay : public AVL<C, T, U> {
         protected:
             void splay(C* n); // operation
         public:

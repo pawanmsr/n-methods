@@ -507,7 +507,7 @@ template class nm::Fenwick<int>;
 namespace nm {
     template <class C, class T, class U>
     Splay<C, T, U>::Splay(std::function<bool(T&, T&)> compare) :
-        SearchTree<C, T, U>(compare) {
+        AVL<C, T, U>(compare) {
         }
     
     template <class C, class T, class U>
