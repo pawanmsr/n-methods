@@ -505,7 +505,7 @@ namespace nm {
         }
 
     template <class C, class T, class U>
-    C* nm::Splay<C, T, U>::splay(T i, C* g) {
+    C* Splay<C, T, U>::splay(T i, C* g) {
         if (not g) return NULL;
         if (*g == i) return g;
 
@@ -560,14 +560,14 @@ namespace nm {
     }
 
     template <class C, class T, class U>
-    bool nm::Splay<C, T, U>::insert(T i) {
+    bool Splay<C, T, U>::insert(T i) {
         bool result = SearchTree<C, T, U>::insert(i);
         this->root = this->splay(i, this->root);
         return result;
     }
 
     template <class C, class T, class U>
-    U nm::Splay<C, T, U>::insert(T i, U y) {
+    U Splay<C, T, U>::insert(T i, U y) {
         U result = SearchTree<C, T, U>::insert(i);
         this->root = this->splay(i, this->root);
         return result;
@@ -596,3 +596,5 @@ namespace nm {
         return std::pair<Splay<FC, FT, FU>, Splay<FC, FT, FU> >();
     }
 } // splay tree
+
+template class nm::Splay<nm::Node<int, int>, int, int>;

@@ -165,6 +165,8 @@ namespace nm {
      * Operations: access, insert, delete (remove), join and split.
      * Adapted for understandability.
      * 
+     * class C is of type Node
+     *  as defined in utility.hpp.
      */
     template <class C, class T, class U>
     class Splay : public SearchTree<C, T, U> {
