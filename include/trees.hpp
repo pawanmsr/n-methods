@@ -179,7 +179,7 @@ namespace nm {
 
             ~Splay() {};
 
-            U & operator [] (T i);
+            U operator [] (T i);
 
             // join and split
             template <class FC, class FT, class FU>
