@@ -182,11 +182,11 @@ namespace nm {
             U & operator [] (T i);
 
             // join and split
-            template <class C, class T, class U>
-            friend Splay<C, T, U> join(const Splay<C, T, U> &t1, const Splay<C, T, U> &t2);
+            template <class FC, class FT, class FU>
+            friend Splay<FC, FT, FU> join(const Splay<FC, FT, FU> &t1, const Splay<FC, FT, FU> &t2);
             
-            template <class C, class T, class U>
-            friend std::pair<Splay<C, T, U>, Splay<C, T, U> > split(const T &i, const Splay<C, T, U> &t);
+            template <class FC, class FT, class FU>
+            friend std::pair<Splay<FC, FT, FU>, Splay<FC, FT, FU> > split(const FT &i, const Splay<FC, FT, FU> &t);
     };
 } // splay tree
 

@@ -582,15 +582,15 @@ namespace nm {
         return this->access(i);
     }
 
-    template <class C, class T, class U>
-    Splay<C, T, U> nm::join(const Splay<C, T, U> &t1, const Splay<C, T, U> &t2) {
-        Splay<C, T, U> t3;
+    template <class FC, class FT, class FU>
+    Splay<FC, FT, FU> join(const Splay<FC, FT, FU> &t1, const Splay<FC, FT, FU> &t2) {
+        Splay<FC, FT, FU> t3;
         // implement join t3 = t1 + t2;
         return t3;
     }
 
-    template <class C, class T, class U>
-    std::pair<Splay<C, T, U>, Splay<C, T, U>> nm::split(const T &i, const Splay<C, T, U> &t) {
-        return std::pair<Splay<C, T, U>, Splay<C, T, U> >();
+    template <class FC, class FT, class FU>
+    std::pair<Splay<FC, FT, FU>, Splay<FC, FT, FU> > split(const FT &i, const Splay<FC, FT, FU> &t) {
+        return std::pair<Splay<FC, FT, FU>, Splay<FC, FT, FU> >();
     }
 } // splay tree
