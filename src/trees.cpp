@@ -191,6 +191,28 @@ namespace nm {
     }
 
     template <class C, class T, class U>
+    C* SearchTree<C, T, U>::rotate_left(C* n) {
+        C* right = n->rlink;
+        if (not right) return n;
+
+        n->rlink = right->llink;
+        right->llink = n;
+
+        return right;
+    }
+
+    template <class C, class T, class U>
+    C* SearchTree<C, T, U>::rotate_right(C* n) {
+        C* left = n->llink;
+        if (not left) return n;
+        
+        n->llink = left->rlink;
+        left->rlink = n;
+
+        return left;
+    }
+
+    template <class C, class T, class U>
     C* SearchTree<C, T, U>::element(std::size_t k, C* n) {
         if (k > n->size()) return NULL;
         if (not --k) return n;
@@ -349,12 +371,6 @@ namespace nm {
         C* n = this->create(x);
         return n->info;
     }
-    
-    template <class C, class T, class U>
-    SearchTree<C, T, U>::~SearchTree() {
-        // std::free(this->root) and other addresses
-        // delete this;
-    }
 } // namespace nm
 
 template class nm::SearchTree<nm::Node<int, int>, int, int>;
@@ -366,28 +382,6 @@ namespace nm {
             if (this->balance_factor < -1 or this->balance_factor > 1)
                 this->balance_factor = 0;
         }
-
-    template <class C, class T, class U>
-    C* AVL<C, T, U>::rotate_left(C* n) {
-        C* right = n->rlink;
-        if (not right) return n;
-
-        n->rlink = right->llink;
-        right->llink = n;
-
-        return right;
-    }
-
-    template <class C, class T, class U>
-    C* AVL<C, T, U>::rotate_right(C* n) {
-        C* left = n->llink;
-        if (not left) return n;
-        
-        n->llink = left->rlink;
-        left->rlink = n;
-
-        return left;
-    }
 
     template <class C, class T, class U>
     C *AVL<C, T, U>::balance(C *n) {

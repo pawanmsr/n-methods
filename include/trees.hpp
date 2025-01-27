@@ -60,6 +60,9 @@ namespace nm {
         std::function<bool(T&, T&)> compare;
         
         C* create(T x);
+        C* rotate_left(C* n);
+        C* rotate_right(C* n);
+        
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
         C* node(T x, bool return_parent = false, bool mark = false) const;
@@ -81,7 +84,7 @@ namespace nm {
         
         U obtain(T x) const;
         
-        ~SearchTree();
+        ~SearchTree() {};
         
         U & operator [] (T x);
 
@@ -119,8 +122,6 @@ namespace nm {
         std::int16_t balance_factor;
         // balance factor is one of {-1, 0, 1}
     protected:
-        C* rotate_left(C* n);
-        C* rotate_right(C* n);
         C* balance(C* n);
     public:
         AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
