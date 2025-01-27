@@ -414,9 +414,9 @@ namespace nm {
         if (balanced(n)) n->unmark();
 
         if (not balanced(n, -1))
-            return this->rotate_right(n);
+            return SearchTree<C, T, U>::rotate_right(n);
         else if (not balanced(n, 1))
-            return this->rotate_left(n);
+            return SearchTree<C, T, U>::rotate_left(n);
 
         return n;
     }
@@ -503,33 +503,83 @@ namespace nm {
     Splay<C, T, U>::Splay(std::function<bool(T&, T&)> compare) :
         SearchTree<C, T, U>(compare) {
         }
-    
-    template <class C, class T, class U>
-    C* Splay<C, T, U>::splay(C *n) {
-        // zig, zig-zig, zig-zag
-        //  type rotations
-    }
 
     template <class C, class T, class U>
-    C* nm::Splay<C, T, U>::access(T i, C* n) {
+    C* nm::Splay<C, T, U>::splay(T i, C* n) {
+        if (not n) return NULL;
         if (n == i) return n;
 
-        this->n_prime = NULL;
+        // zig, zig-zig, zig-zag
+        //  type rotations
         if (i < n) {
-            n_prime = this->access(i, this->n->left);
-            this->splay(this->n);
+            if (not n->llink) return n; // not found
+            
+            if (n->llink == i) {
+                // zig
+                // n is p(x);
+                return SearchTree<C, T, U>::rotate_right(n);
+            }
+
+            // n is g(x);
+            if (i < n->llink) {
+                // zig-zig
+                n->llink->llink = this->splay(i, n->llink->llink);
+                n = SearchTree<C, T, U>::rotate_right(n); // rotate-right(g(x));
+            } else {
+                // zig-zag
+                n->llink->rlink = this->splay(i, n->llink->rlink);
+                n->llink = SearchTree<C, T, U>::rotate_left(n->llink); // rotate-left(p(x));
+            }
+
+            n->llink = SearchTree<C, T, U>::rotate_right(n->llink);
         } else {
-            n_prime = this->access(i, this->n->right);
-            this->splay(this->n);
+            if (not n->rlink) return n; // not found
+
+            if (n->rlink == i) {
+                // zig
+                // n is p(x)
+                return SearchTree<C, T, U>::rotate_left(n);
+            }
+
+            if (i < n->rlink) {
+                // zig-zig
+                n->rlink->llink = this->splay(i, n->rlink->llink);
+                n->rlink = SearchTree<C, T, U>::rotate_right(n->rlink); // rotate-right(p(x));
+            } else {
+                // zig-zag
+                n->llink->rlink = this->splay(i, n->llink->rlink);
+                n = SearchTree<C, T, U>::rotate_left(n); // rotate-left(g(x));
+            }
+
+            return SearchTree<C, T, U>::rotate_left(n->rlink);
         }
 
-        return n_prime;
+        return n;
+    }
+
+    template <class C, class T, class U>
+    bool nm::Splay<C, T, U>::insert(T i) {
+        bool result = SearchTree<C, T, U>::insert(i);
+        this->root = this->splay(i, this->root);
+        return result;
+    }
+
+    template <class C, class T, class U>
+    U nm::Splay<C, T, U>::insert(T i, U y) {
+        U result = SearchTree<C, T, U>::insert(i);
+        this->root = this->splay(i, this->root);
+        return result;
+    }
+
+    template <class C, class T, class U>
+    U Splay<C, T, U>::access(T i) {
+        this->root = this->splay(i, this->root);
+        return SearchTree<C, T, U>::obtain(i);
     }
     
     template <class C, class T, class U>
-    U & Splay<C, T, U>::operator [] (T i) {
-        C* n = this->access(i, this->root);
-        return n->info;
+    inline U & Splay<C, T, U>::operator [] (T i) {
+        return this->access(i);
     }
 
     template <class C, class T, class U>
@@ -541,6 +591,6 @@ namespace nm {
 
     template <class C, class T, class U>
     std::pair<Splay<C, T, U>, Splay<C, T, U>> nm::split(const T &i, const Splay<C, T, U> &t) {
-        return std::pair<Splay<C, T, U>, Splay<C, T, U>>();
+        return std::pair<Splay<C, T, U>, Splay<C, T, U> >();
     }
 } // splay tree

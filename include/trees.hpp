@@ -163,19 +163,19 @@ namespace nm {
      * 
      * Derived. Log(n) with Large Constant.
      * Operations: access, insert, delete (remove), join and split.
+     * Adapted for understandability.
+     * 
      */
     template <class C, class T, class U>
     class Splay : public SearchTree<C, T, U> {
         protected:
-            C* splay(C* n); // operation
-            C* access(T i, C* n);
+            C* splay(T i, C* n);
         public:
             Splay(std::function<bool(T&, T&)> compare = default_compare<T>);
             
-            C* access(T i);
+            U access(T i);
             bool insert(T i);
             U insert(T i, U y);
-            bool remove(T i);
 
             ~Splay() {};
 
