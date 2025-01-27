@@ -501,14 +501,46 @@ template class nm::Fenwick<int>;
 namespace nm {
     template <class C, class T, class U>
     Splay<C, T, U>::Splay(std::function<bool(T&, T&)> compare) :
-        AVL<C, T, U>(compare) {
+        SearchTree<C, T, U>(compare) {
         }
     
     template <class C, class T, class U>
-    U & Splay<C, T, U>::operator [] (T x) {
-        C* n = this->create(x);
-        this->root = this->splay(this->root);
-        
+    C* Splay<C, T, U>::splay(C *n) {
+        // zig, zig-zig, zig-zag
+        //  type rotations
+    }
+
+    template <class C, class T, class U>
+    C* nm::Splay<C, T, U>::access(T i, C* n) {
+        if (n == i) return n;
+
+        this->n_prime = NULL;
+        if (i < n) {
+            n_prime = this->access(i, this->n->left);
+            this->splay(this->n);
+        } else {
+            n_prime = this->access(i, this->n->right);
+            this->splay(this->n);
+        }
+
+        return n_prime;
+    }
+    
+    template <class C, class T, class U>
+    U & Splay<C, T, U>::operator [] (T i) {
+        C* n = this->access(i, this->root);
         return n->info;
+    }
+
+    template <class C, class T, class U>
+    Splay<C, T, U> nm::join(const Splay<C, T, U> &t1, const Splay<C, T, U> &t2) {
+        Splay<C, T, U> t3;
+        // implement join t3 = t1 + t2;
+        return t3;
+    }
+
+    template <class C, class T, class U>
+    std::pair<Splay<C, T, U>, Splay<C, T, U>> nm::split(const T &i, const Splay<C, T, U> &t) {
+        return std::pair<Splay<C, T, U>, Splay<C, T, U>>();
     }
 } // splay tree

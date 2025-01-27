@@ -162,21 +162,31 @@ namespace nm {
      * https://www.cs.cmu.edu/~sleator/papers/Self-Adjusting.htm
      * 
      * Derived. Log(n) with Large Constant.
+     * Operations: access, insert, delete (remove), join and split.
      */
     template <class C, class T, class U>
-    class Splay : public AVL<C, T, U> {
+    class Splay : public SearchTree<C, T, U> {
         protected:
-            void splay(C* n); // operation
+            C* splay(C* n); // operation
+            C* access(T i, C* n);
         public:
             Splay(std::function<bool(T&, T&)> compare = default_compare<T>);
             
-            bool insert(T x);
-            U insert(T x, U y);
-            bool remove(T x);
+            C* access(T i);
+            bool insert(T i);
+            U insert(T i, U y);
+            bool remove(T i);
 
             ~Splay() {};
 
-            U & operator [] (T x);
+            U & operator [] (T i);
+
+            // join and split
+            template <class C, class T, class U>
+            friend Splay<C, T, U> join(const Splay<C, T, U> &t1, const Splay<C, T, U> &t2);
+            
+            template <class C, class T, class U>
+            friend std::pair<Splay<C, T, U>, Splay<C, T, U> > split(const T &i, const Splay<C, T, U> &t);
     };
 } // splay tree
 
