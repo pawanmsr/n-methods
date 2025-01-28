@@ -564,8 +564,8 @@ namespace nm {
 
     template <class C, class T, class U>
     U Splay<C, T, U>::insert(T i, U y) {
-        U result = SearchTree<C, T, U>::insert(i);
-        this->splay(i, this->root, NULL);
+        U result = SearchTree<C, T, U>::insert(i, y);
+        if (result == y) this->splay(i, this->root, NULL);
         return result;
     }
 
