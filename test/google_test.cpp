@@ -545,6 +545,26 @@ TEST(Splay, ObtainTest) {
     EXPECT_THROW(splay.obtain(N_ROOT), std::runtime_error);
 }
 
+TEST(Splay, InsertionDeletionTest) {
+    nm::Splay<nm::Node<int, int>, int, int> splay;
+    for (int i = N_CROOT; i > 0; i--) splay.insert(i);
+
+    for (int i = 0; i <= N_CROOT; i++) {
+        bool result = splay.remove(i);
+        
+        if (i) ASSERT_TRUE(result);
+        else ASSERT_FALSE(result);
+        
+        std::size_t size = N_CROOT - (i ? 1 : 0);
+        std::vector<int> keys = splay.keys();
+        EXPECT_TRUE(is_sorted(keys));
+        EXPECT_EQ(keys.size(), size);
+        EXPECT_EQ(splay.size(), size);
+
+        if (i) splay.insert(i);
+    }
+}
+
 TEST(Splay, TimeTest) {
     const int N = N_FACT - 1;
     std::vector<int> permutation(N);
