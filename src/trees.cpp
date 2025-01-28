@@ -327,7 +327,7 @@ namespace nm {
     template <class C, class T, class U>
     U SearchTree<C, T, U>::obtain(T x) const {
         C* n = this->node(x);
-        if (*n == x) return n->info;
+        if (n and *n == x) return n->info;
 
         throw std::runtime_error("non existent key");
     }

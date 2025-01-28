@@ -526,6 +526,18 @@ TEST(AVL, AssignmentTest) {
     }
 }
 
+TEST(Splay, AssignmentTest) {
+    nm::Splay<nm::Node<int, int>, int, int> splay;
+    for (std::size_t i = 1; i < N_ROOT; i++)
+        ASSERT_EQ(splay[i], splay.insert(i, N_ROOT - i));
+    
+    EXPECT_THROW(splay.element(N_ROOT), std::runtime_error);
+    for (std::size_t i = N_ROOT - 1; i > 0; i--) {
+        ASSERT_EQ(splay[i], N_ROOT - i);
+        EXPECT_NO_THROW(splay.element(i));
+    }
+}
+
 TEST(Splay, TimeTest) {
     const int N = N_FACT - 1;
     std::vector<int> permutation(N);
