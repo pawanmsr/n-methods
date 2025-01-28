@@ -538,6 +538,13 @@ TEST(Splay, AssignmentTest) {
     }
 }
 
+TEST(Splay, ObtainTest) {
+    nm::Splay<nm::Node<int, int>, int, int> splay;
+    for (int i = N_CROOT; i > 0; i--) splay.insert(i);
+    EXPECT_NO_FATAL_FAILURE(splay[N_CROOT]);
+    EXPECT_THROW(splay.obtain(N_ROOT), std::runtime_error);
+}
+
 TEST(Splay, TimeTest) {
     const int N = N_FACT - 1;
     std::vector<int> permutation(N);
