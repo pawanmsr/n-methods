@@ -378,7 +378,7 @@ TEST(AVL, ObtainTest) {
     EXPECT_THROW(avl.obtain(N_ROOT), std::runtime_error);
 }
 
-TEST(BST, BSTTimeTest) {
+TEST(BST, TimeTest) {
     const int N = N_FACT - 1;
     std::vector<int> permutation(N);
     std::iota(permutation.begin(), permutation.end(), 1);
@@ -449,7 +449,7 @@ TEST(AVL, InsertionDeletionTest) {
     }
 }
 
-TEST(AVL, AVLTimeTest) {
+TEST(AVL, TimeTest) {
     const int N = N_FACT - 1;
     std::vector<int> permutation(N);
     std::iota(permutation.begin(), permutation.end(), 1);
