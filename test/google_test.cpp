@@ -526,6 +526,57 @@ TEST(AVL, AssignmentTest) {
     }
 }
 
+TEST(Splay, TimeTest) {
+    const int N = N_FACT - 1;
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_search_time = 0.0;
+    double worst_search_time = 0.0;
+    double total_insertion_time = 0.0;
+    double worst_insertion_time = 0.0;
+    double total_extraction_time = 0.0;
+    double worst_extraction_time = 0.0;
+
+    do {
+        nm::Splay<nm::Node<int, int>, int, int> splay;
+        
+        // time for insertion
+        auto i_start = std::chrono::steady_clock::now();
+        for (int p : permutation) ASSERT_TRUE(splay.insert(p));
+        auto i_finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> i_elapsed = i_finish - i_start;
+        worst_insertion_time = std::max(worst_insertion_time, i_elapsed.count());
+        total_insertion_time += i_elapsed.count();
+
+        // time for search
+        auto s_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(splay.search(i));
+        auto s_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> s_elapsed = s_finish - s_start;
+        worst_search_time = std::max(worst_search_time, s_elapsed.count());
+        total_search_time += s_elapsed.count();
+
+        // time for extraction
+        auto e_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(splay.remove(i));
+        auto e_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> e_elapsed = e_finish - e_start;
+        worst_extraction_time = std::max(worst_extraction_time, s_elapsed.count());
+        total_extraction_time += e_elapsed.count();
+
+        count++;
+    } while (nm::next_permutation(permutation));
+    
+    runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
+    runtime(count, total_search_time, worst_search_time, "Search");
+    runtime(count, total_extraction_time, worst_extraction_time, "Extraction");
+}
+
 TEST(KMP, StringSearch) {
     std::vector<std::string> sentences = {
         "I've gotta get out of this place. Someday, I'm getting on that train. (Spirited Away)",
