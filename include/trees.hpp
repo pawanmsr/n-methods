@@ -171,7 +171,7 @@ namespace nm {
     template <class C, class T, class U>
     class Splay : public SearchTree<C, T, U> {
         protected:
-            C* splay(T i, C* n);
+            C* splay(T x, C* p, C* g);
         public:
             Splay(std::function<bool(T&, T&)> compare = default_compare<T>);
             
