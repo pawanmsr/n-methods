@@ -60,6 +60,9 @@ namespace nm {
         std::function<bool(T&, T&)> compare;
         
         C* create(T x);
+        C* rotate_left(C* n);
+        C* rotate_right(C* n);
+        
         C* successor(C* n, bool return_parent = false);
         C* predecessor(C* n, bool return_parent = false);
         C* node(T x, bool return_parent = false, bool mark = false) const;
@@ -81,7 +84,7 @@ namespace nm {
         
         U obtain(T x) const;
         
-        ~SearchTree();
+        ~SearchTree() {};
         
         U & operator [] (T x);
 
@@ -119,8 +122,6 @@ namespace nm {
         std::int16_t balance_factor;
         // balance factor is one of {-1, 0, 1}
     protected:
-        C* rotate_left(C* n);
-        C* rotate_right(C* n);
         C* balance(C* n);
     public:
         AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
@@ -128,7 +129,7 @@ namespace nm {
         U insert(T x, U y);
         bool insert(T x);
         bool remove(T x);
-        ~AVL();
+        ~AVL() {};
 
         U & operator [] (T x);
     };
@@ -154,5 +155,41 @@ namespace nm {
             ~Fenwick() {};
     };
 } // fenwick bit tree
+
+namespace nm {
+    /*
+     * Sleator, Tarjan. ACM.
+     * https://www.cs.cmu.edu/~sleator/papers/Self-Adjusting.htm
+     * 
+     * Derived. Log(n) with Large Constant.
+     * Operations: access, insert, delete (remove), join and split.
+     * Adapted for understandability.
+     * 
+     * class C is of type Node
+     *  as defined in utility.hpp.
+     */
+    template <class C, class T, class U>
+    class Splay : public SearchTree<C, T, U> {
+        protected:
+            C* splay(T x, C* p, C* g);
+        public:
+            Splay(std::function<bool(T&, T&)> compare = default_compare<T>);
+            
+            U access(T i);
+            bool insert(T i);
+            U insert(T i, U y);
+
+            ~Splay() {};
+
+            U operator [] (T i);
+
+            // join and split
+            template <class FC, class FT, class FU>
+            friend Splay<FC, FT, FU> join(const Splay<FC, FT, FU> &t1, const Splay<FC, FT, FU> &t2);
+            
+            template <class FC, class FT, class FU>
+            friend std::pair<Splay<FC, FT, FU>, Splay<FC, FT, FU> > split(const FT &i, const Splay<FC, FT, FU> &t);
+    };
+} // splay tree
 
 #endif // TREES

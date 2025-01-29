@@ -378,7 +378,7 @@ TEST(AVL, ObtainTest) {
     EXPECT_THROW(avl.obtain(N_ROOT), std::runtime_error);
 }
 
-TEST(BST, BSTTimeTest) {
+TEST(BST, TimeTest) {
     const int N = N_FACT - 1;
     std::vector<int> permutation(N);
     std::iota(permutation.begin(), permutation.end(), 1);
@@ -449,7 +449,7 @@ TEST(AVL, InsertionDeletionTest) {
     }
 }
 
-TEST(AVL, AVLTimeTest) {
+TEST(AVL, TimeTest) {
     const int N = N_FACT - 1;
     std::vector<int> permutation(N);
     std::iota(permutation.begin(), permutation.end(), 1);
@@ -524,6 +524,96 @@ TEST(AVL, AssignmentTest) {
         ASSERT_EQ(avl[i], N_ROOT - i);
         EXPECT_NO_THROW(avl.element(i));
     }
+}
+
+TEST(Splay, AssignmentTest) {
+    nm::Splay<nm::Node<int, int>, int, int> splay;
+    for (std::size_t i = 1; i < N_ROOT; i++)
+        ASSERT_EQ(splay[i], splay.insert(i, N_ROOT - i));
+    
+    EXPECT_THROW(splay.element(N_ROOT), std::runtime_error);
+    for (std::size_t i = N_ROOT - 1; i > 0; i--) {
+        ASSERT_EQ(splay[i], N_ROOT - i);
+        EXPECT_NO_THROW(splay.element(i));
+    }
+}
+
+TEST(Splay, ObtainTest) {
+    nm::Splay<nm::Node<int, int>, int, int> splay;
+    for (int i = N_CROOT; i > 0; i--) splay.insert(i);
+    EXPECT_NO_FATAL_FAILURE(splay[N_CROOT]);
+    EXPECT_THROW(splay.obtain(N_ROOT), std::runtime_error);
+}
+
+TEST(Splay, InsertionDeletionTest) {
+    nm::Splay<nm::Node<int, int>, int, int> splay;
+    for (int i = N_CROOT; i > 0; i--) splay.insert(i);
+
+    for (int i = 0; i <= N_CROOT; i++) {
+        bool result = splay.remove(i);
+        
+        if (i) ASSERT_TRUE(result);
+        else ASSERT_FALSE(result);
+        
+        std::size_t size = N_CROOT - (i ? 1 : 0);
+        std::vector<int> keys = splay.keys();
+        EXPECT_TRUE(is_sorted(keys));
+        EXPECT_EQ(keys.size(), size);
+        EXPECT_EQ(splay.size(), size);
+
+        if (i) splay.insert(i);
+    }
+}
+
+TEST(Splay, TimeTest) {
+    const int N = N_FACT - 1;
+    std::vector<int> permutation(N);
+    std::iota(permutation.begin(), permutation.end(), 1);
+
+    int count = 0;
+    double total_search_time = 0.0;
+    double worst_search_time = 0.0;
+    double total_insertion_time = 0.0;
+    double worst_insertion_time = 0.0;
+    double total_extraction_time = 0.0;
+    double worst_extraction_time = 0.0;
+
+    do {
+        nm::Splay<nm::Node<int, int>, int, int> splay;
+        
+        // time for insertion
+        auto i_start = std::chrono::steady_clock::now();
+        for (int p : permutation) ASSERT_TRUE(splay.insert(p));
+        auto i_finish = std::chrono::steady_clock::now();
+        
+        std::chrono::duration<double> i_elapsed = i_finish - i_start;
+        worst_insertion_time = std::max(worst_insertion_time, i_elapsed.count());
+        total_insertion_time += i_elapsed.count();
+
+        // time for search
+        auto s_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(splay.search(i));
+        auto s_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> s_elapsed = s_finish - s_start;
+        worst_search_time = std::max(worst_search_time, s_elapsed.count());
+        total_search_time += s_elapsed.count();
+
+        // time for extraction
+        auto e_start = std::chrono::steady_clock::now();
+        for (int i = 1; i <= N; i++) ASSERT_TRUE(splay.remove(i));
+        auto e_finish = std::chrono::steady_clock::now();
+
+        std::chrono::duration<double> e_elapsed = e_finish - e_start;
+        worst_extraction_time = std::max(worst_extraction_time, s_elapsed.count());
+        total_extraction_time += e_elapsed.count();
+
+        count++;
+    } while (nm::next_permutation(permutation));
+    
+    runtime(count, total_insertion_time, worst_insertion_time, "Insertion");
+    runtime(count, total_search_time, worst_search_time, "Search");
+    runtime(count, total_extraction_time, worst_extraction_time, "Extraction");
 }
 
 TEST(KMP, StringSearch) {

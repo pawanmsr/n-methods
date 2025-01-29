@@ -191,6 +191,28 @@ namespace nm {
     }
 
     template <class C, class T, class U>
+    C* SearchTree<C, T, U>::rotate_left(C* n) {
+        C* right = n->rlink;
+        if (not right) return n;
+
+        n->rlink = right->llink;
+        right->llink = n;
+
+        return right;
+    }
+
+    template <class C, class T, class U>
+    C* SearchTree<C, T, U>::rotate_right(C* n) {
+        C* left = n->llink;
+        if (not left) return n;
+        
+        n->llink = left->rlink;
+        left->rlink = n;
+
+        return left;
+    }
+
+    template <class C, class T, class U>
     C* SearchTree<C, T, U>::element(std::size_t k, C* n) {
         if (k > n->size()) return NULL;
         if (not --k) return n;
@@ -259,7 +281,7 @@ namespace nm {
         
         if (not n or *n != x) return false;
 
-        auto re_link = [&](C* link) {
+        std::function<void(C*)> linkup = [&](C* link) -> void {
             if (not parent) {
                 this->root = link;
                 if (this->root) this->root->mark();
@@ -269,9 +291,9 @@ namespace nm {
             if (parent and not left) parent->rlink = link;
         };
         
-        if (not n->llink and not n->rlink) re_link(NULL);
-        else if (not n->llink) re_link(n->rlink);
-        else if (not n->rlink) re_link(n->llink);
+        if (not n->llink and not n->rlink) linkup(NULL);
+        else if (not n->llink) linkup(n->rlink);
+        else if (not n->rlink) linkup(n->llink);
         else {
             C* parent_prime = successor(n->rlink, true);
 
@@ -289,7 +311,7 @@ namespace nm {
 
             n_prime->mark();
 
-            re_link(n_prime);
+            linkup(n_prime);
         }
 
         return true;
@@ -305,7 +327,7 @@ namespace nm {
     template <class C, class T, class U>
     U SearchTree<C, T, U>::obtain(T x) const {
         C* n = this->node(x);
-        if (*n == x) return n->info;
+        if (n and *n == x) return n->info;
 
         throw std::runtime_error("non existent key");
     }
@@ -349,12 +371,6 @@ namespace nm {
         C* n = this->create(x);
         return n->info;
     }
-    
-    template <class C, class T, class U>
-    SearchTree<C, T, U>::~SearchTree() {
-        // std::free(this->root) and other addresses
-        // delete this;
-    }
 } // namespace nm
 
 template class nm::SearchTree<nm::Node<int, int>, int, int>;
@@ -366,28 +382,6 @@ namespace nm {
             if (this->balance_factor < -1 or this->balance_factor > 1)
                 this->balance_factor = 0;
         }
-
-    template <class C, class T, class U>
-    C* AVL<C, T, U>::rotate_left(C* n) {
-        C* right = n->rlink;
-        if (not right) return n;
-
-        n->rlink = right->llink;
-        right->llink = n;
-
-        return right;
-    }
-
-    template <class C, class T, class U>
-    C* AVL<C, T, U>::rotate_right(C* n) {
-        C* left = n->llink;
-        if (not left) return n;
-        
-        n->llink = left->rlink;
-        left->rlink = n;
-
-        return left;
-    }
 
     template <class C, class T, class U>
     C *AVL<C, T, U>::balance(C *n) {
@@ -420,9 +414,9 @@ namespace nm {
         if (balanced(n)) n->unmark();
 
         if (not balanced(n, -1))
-            return this->rotate_right(n);
+            return SearchTree<C, T, U>::rotate_right(n);
         else if (not balanced(n, 1))
-            return this->rotate_left(n);
+            return SearchTree<C, T, U>::rotate_left(n);
 
         return n;
     }
@@ -456,10 +450,6 @@ namespace nm {
         this->root = this->balance(this->root);
         
         return n->info;
-    }
-
-    template <class C, class T, class U>
-    AVL<C, T, U>::~AVL() {
     }
 } // namespace nm
 
@@ -507,3 +497,101 @@ namespace nm {
 } // fenwick bit tree
 
 template class nm::Fenwick<int>;
+
+namespace nm {
+    template <class C, class T, class U>
+    Splay<C, T, U>::Splay(std::function<bool(T&, T&)> compare) :
+        SearchTree<C, T, U>(compare) {}
+
+    template <class C, class T, class U>
+    C* Splay<C, T, U>::splay(const T x, C* p, C* g) {
+        // p \equiv p(x)
+        // g \equiv g(x)
+
+        std::function<void(C*)> linkup = [&] (C* q) -> void {
+            if (g and g->llink == p) g->llink = q;
+            else if (g and g->rlink == p) g->rlink = q;
+            else p = q;
+        };
+
+        // zig, zig-zig, zig-zag type rotations
+        // assumption: x is already present in the tree
+        
+        if (x < *p) {
+            if (x != *p->llink) { // not found
+                linkup(this->splay(x, p->llink, p));
+            } else if (not g) { // zig
+                p = SearchTree<C, T, U>::rotate_right(p);
+            } else if (p == g->llink) { // zig-zig
+                p = SearchTree<C, T, U>::rotate_right(g); // rotate-right(g(x));
+                g = SearchTree<C, T, U>::rotate_right(p); // rotate-right(p(x));
+            } else if (p == g->rlink) { // (zig-)zag
+                g->rlink = p = SearchTree<C, T, U>::rotate_right(p); // rotate-right(p(x));
+                p->rlink = SearchTree<C, T, U>::rotate_left(p->rlink); // rotate-left(p(x));
+            }
+        } else if (x > *p) {
+            if (x != *p->rlink) { // not found
+                linkup(this->splay(x, p->rlink, p));
+            } else if (not g) { // zig
+                p = SearchTree<C, T, U>::rotate_left(p);
+            } else if (p == g->rlink) { // zig-zig
+                p = SearchTree<C, T, U>::rotate_left(g); // rotate-left(g(x));
+                g = SearchTree<C, T, U>::rotate_left(p); // rotate-left(p(x));
+            } else if (p == g->llink) { // (zig-)zag
+                g->llink = p = SearchTree<C, T, U>::rotate_left(p); // rotate-left(p(x));
+                p->llink = SearchTree<C, T, U>::rotate_right(p->llink); // rotate-right(p(x));
+            }
+        }
+
+        if (x == *p) {
+            // (zig-) part of (zig-)zag
+            if (not g) this->root = p;
+            else if (p == g->llink) g = SearchTree<C, T, U>::rotate_right(g);
+            else if (p == g->rlink) g = SearchTree<C, T, U>::rotate_left(g);
+            // if g(x) = null -> rotate-right(p(x)) when x == left(p(x));
+            // if g(x) = null -> rotate-left(p(x)) when x == right(p(x));
+        }
+
+        return g;
+    }
+
+    template <class C, class T, class U>
+    bool Splay<C, T, U>::insert(T i) {
+        bool result = SearchTree<C, T, U>::insert(i);
+        if (result) this->splay(i, this->root, NULL);
+        return result;
+    }
+
+    template <class C, class T, class U>
+    U Splay<C, T, U>::insert(T i, U y) {
+        U result = SearchTree<C, T, U>::insert(i, y);
+        if (result == y) this->splay(i, this->root, NULL);
+        return result;
+    }
+
+    template <class C, class T, class U>
+    U Splay<C, T, U>::access(T i) {
+        U result = SearchTree<C, T, U>::obtain(i);
+        this->splay(i, this->root, NULL);
+        return result;
+    }
+    
+    template <class C, class T, class U>
+    inline U Splay<C, T, U>::operator [] (T i) {
+        return this->access(i);
+    }
+
+    template <class FC, class FT, class FU>
+    Splay<FC, FT, FU> join(const Splay<FC, FT, FU> &t1, const Splay<FC, FT, FU> &t2) {
+        Splay<FC, FT, FU> t3;
+        // implement join t3 = t1 + t2;
+        return t3;
+    }
+
+    template <class FC, class FT, class FU>
+    std::pair<Splay<FC, FT, FU>, Splay<FC, FT, FU> > split(const FT &i, const Splay<FC, FT, FU> &t) {
+        return std::pair<Splay<FC, FT, FU>, Splay<FC, FT, FU> >();
+    }
+} // splay tree
+
+template class nm::Splay<nm::Node<int, int>, int, int>;
