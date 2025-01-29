@@ -281,7 +281,7 @@ namespace nm {
         
         if (not n or *n != x) return false;
 
-        auto re_link = [&](C* link) {
+        std::function<void(C*)> linkup = [&](C* link) -> void {
             if (not parent) {
                 this->root = link;
                 if (this->root) this->root->mark();
@@ -291,9 +291,9 @@ namespace nm {
             if (parent and not left) parent->rlink = link;
         };
         
-        if (not n->llink and not n->rlink) re_link(NULL);
-        else if (not n->llink) re_link(n->rlink);
-        else if (not n->rlink) re_link(n->llink);
+        if (not n->llink and not n->rlink) linkup(NULL);
+        else if (not n->llink) linkup(n->rlink);
+        else if (not n->rlink) linkup(n->llink);
         else {
             C* parent_prime = successor(n->rlink, true);
 
@@ -311,7 +311,7 @@ namespace nm {
 
             n_prime->mark();
 
-            re_link(n_prime);
+            linkup(n_prime);
         }
 
         return true;
@@ -508,7 +508,7 @@ namespace nm {
         // p \equiv p(x)
         // g \equiv g(x)
 
-        std::function<void(C*)> relink = [&] (C* q) -> void {
+        std::function<void(C*)> linkup = [&] (C* q) -> void {
             if (g and g->llink == p) g->llink = q;
             else if (g and g->rlink == p) g->rlink = q;
             else p = q;
@@ -519,7 +519,7 @@ namespace nm {
         
         if (x < *p) {
             if (x != *p->llink) { // not found
-                relink(this->splay(x, p->llink, p));
+                linkup(this->splay(x, p->llink, p));
             } else if (not g) { // zig
                 p = SearchTree<C, T, U>::rotate_right(p);
             } else if (p == g->llink) { // zig-zig
@@ -531,7 +531,7 @@ namespace nm {
             }
         } else if (x > *p) {
             if (x != *p->rlink) { // not found
-                relink(this->splay(x, p->rlink, p));
+                linkup(this->splay(x, p->rlink, p));
             } else if (not g) { // zig
                 p = SearchTree<C, T, U>::rotate_left(p);
             } else if (p == g->rlink) { // zig-zig
