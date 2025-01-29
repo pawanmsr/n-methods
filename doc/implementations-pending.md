@@ -2,7 +2,7 @@ Implementations Pending
 =======================
 
 - [ ] Splines
-- [ ] Splay tree
+- [x] Splay tree
 - [ ] Interpolation
 - [ ] Geometry and Mesh (2D)
 - [ ] Simulate Statistics (on particles / quanta)
