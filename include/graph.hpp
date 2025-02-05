@@ -26,4 +26,29 @@ namespace nm {
     };
 } // union find
 
+namespace nm {
+    class TwoSat {
+        private:
+            bool solved;
+            std::size_t n;
+            std::vector<bool> used;
+            std::vector<std::int32_t> order, component;
+            std::vector<std::vector<std::size_t> > adjacency_forward;
+            std::vector<std::vector<std::size_t> > adjacency_backward;
+
+            void dfs_forward(std::size_t u);
+            void dfs_backward(std::size_t u, std::size_t c);
+        
+        protected:
+            std::vector<bool> assignment;
+
+        public:
+            TwoSat(std::size_t number_of_variables);
+            bool satisfiable();
+            void add_clause(std::size_t a, bool negate_a, std::size_t b, bool negate_b);
+            ~TwoSat() {};
+    };
+} // two satisfiability
+
+
 #endif // Union Find

@@ -61,4 +61,77 @@ namespace nm {
             count += this->parent[i] < 0;
         return count;
     }
-} // namespace nm
+} // union find
+
+namespace nm {
+    TwoSat::TwoSat(std::size_t number_of_variables) : n(number_of_variables) {
+        this->used.resize(2 * this->n, false);
+        
+        this->assignment.resize(this->n);
+        this->order.reserve(2 * this->n);
+        
+        this->component.resize(2 * this->n, -1);
+        
+        this->adjacency_forward.resize(2 * this->n);
+        this->adjacency_backward.resize(2 * this->n);
+    }
+
+    void TwoSat::dfs_forward(std::size_t u) {
+        this->used[u] = true;
+        for (std::size_t v : this->adjacency_forward[u]) {
+            if (this->used[v]) continue;
+            this->dfs_forward(v);
+        }
+
+        this->order.push_back(u);
+    }
+
+    void TwoSat::dfs_backward(std::size_t u, const std::size_t c) {
+        this->component[u] = c;
+        for (std::size_t v : this->adjacency_backward[u]) {
+            if (this->component[v] != -1) continue;
+            this->dfs_backward(v, c);
+        }
+    }
+
+    bool TwoSat::satisfiable() {
+        this->order.clear();
+        this->used.assign(2 * this->n, false);
+
+        for (std::size_t u = 0; u < 2 * this->n; u++) {
+            if (this->used[u]) continue;
+            this->dfs_forward(u);
+        }
+        
+        std::size_t c = 0;
+        this->component.assign(2 * this->n, -1);
+        for (std::size_t i = 0; i < 2 * this->n; i++) {
+            std::size_t u = this->order[2 * this->n - i - 1];
+            if (this->component[u] != -1) continue;
+            this->dfs_backward(u, c++);
+        }
+
+        this->assignment.assign(this->n, false);
+        for (std::size_t i = 0; i < 2 * this->n; i+=2) {
+            if (this->component[i] == this->component[i + 1]) return false;
+            this->assignment[i / 2] = this->component[i] > this->component[i + 1];
+        }
+
+        return true;
+    }
+
+    void TwoSat::add_clause(std::size_t a, bool negate_a, std::size_t b, bool negate_b) {
+        a = 2 * a + negate_a;
+        b = 2 * b + negate_b;
+        
+        std::size_t a_prime = a ^ 1;
+        std::size_t b_prime = b ^ 1;
+
+        this->adjacency_forward[a_prime].push_back(b);
+        this->adjacency_forward[b_prime].push_back(a);
+
+        this->adjacency_backward[b].push_back(a_prime);
+        this->adjacency_backward[a].push_back(b_prime);
+    }
+} // two sat
+
