@@ -17,7 +17,7 @@
 #include <search.hpp>
 #include <combinatorics.hpp>
 #include <trees.hpp>
-#include <union_find.hpp>
+#include <graph.hpp>
 #include <utility.hpp>
 #include <newton.hpp>
 #include <interpolation.hpp>

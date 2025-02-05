@@ -1,5 +1,5 @@
-#if !defined(UNION_FIND)
-#define UNION_FIND
+#if !defined(GRAPH)
+#define GRAPH
 
 #include <vector>
 

@@ -1,5 +1,5 @@
 set(SOURCES exponentiation.cpp gcd.cpp primes.cpp sort.cpp
-    search.cpp modulo.cpp combinatorics.cpp union_find.cpp trees.cpp
+    search.cpp modulo.cpp combinatorics.cpp graph.cpp trees.cpp
         newton.cpp interpolation.cpp random.cpp table.cpp)
 
 add_library(

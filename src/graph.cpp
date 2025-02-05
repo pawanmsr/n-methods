@@ -1,4 +1,4 @@
-#include <union_find.hpp>
+#include <graph.hpp>
 
 #include <numeric>
 #include <cassert>
