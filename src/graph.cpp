@@ -86,10 +86,10 @@ namespace nm {
         this->order.push_back(u);
     }
 
-    void TwoSat::dfs_backward(std::size_t u, const std::size_t c) {
+    void TwoSat::dfs_backward(std::size_t u, const std::int32_t c) {
         this->component[u] = c;
         for (std::size_t v : this->adjacency_backward[u]) {
-            if (this->component[v] != -1) continue;
+            if (this->component[v] >= 0) continue;
             this->dfs_backward(v, c);
         }
     }
@@ -103,11 +103,11 @@ namespace nm {
             this->dfs_forward(u);
         }
         
-        std::size_t c = 0;
+        std::int32_t c = 0;
         this->component.assign(2 * this->n, -1);
         for (std::size_t i = 0; i < 2 * this->n; i++) {
             std::size_t u = this->order[2 * this->n - i - 1];
-            if (this->component[u] != -1) continue;
+            if (this->component[u] >= 0) continue;
             this->dfs_backward(u, c++);
         }
 
@@ -134,4 +134,3 @@ namespace nm {
         this->adjacency_backward[a].push_back(b_prime);
     }
 } // two sat
-

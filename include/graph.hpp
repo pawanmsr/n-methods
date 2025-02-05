@@ -32,12 +32,13 @@ namespace nm {
             bool solved;
             std::size_t n;
             std::vector<bool> used;
-            std::vector<std::int32_t> order, component;
+            std::vector<std::size_t> order;
+            std::vector<std::int32_t> component;
             std::vector<std::vector<std::size_t> > adjacency_forward;
             std::vector<std::vector<std::size_t> > adjacency_backward;
 
             void dfs_forward(std::size_t u);
-            void dfs_backward(std::size_t u, std::size_t c);
+            void dfs_backward(std::size_t u, const std::int32_t c);
         
         protected:
             std::vector<bool> assignment;
