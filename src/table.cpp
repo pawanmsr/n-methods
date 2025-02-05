@@ -50,9 +50,6 @@ namespace nm {
         
         return result;
     }
-    
-    template<typename T>
-    Sparse<T>::~Sparse() {}
 }
 
 template class nm::Sparse<int>;

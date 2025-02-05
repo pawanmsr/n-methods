@@ -4,8 +4,7 @@
 
 #include <cstdint>
 
-namespace nm
-{
+namespace nm {
     // Coefficients are ordered from left to right,
     // with first being a constant.
     template<typename T>
@@ -45,10 +44,6 @@ namespace nm
             // Bounds must not overlap because they will lead to ambiguity.
             // Within certain degree of error tolerance, maybe 6 decimal places or less (2^(23 - 1))?
         }
-    
-    template<typename T>
-    Spline<T>::~Spline() {
-    }
 } // namespace nm
 
 template std::function<double(double)>

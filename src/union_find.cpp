@@ -4,8 +4,7 @@
 #include <cassert>
 #include <utility>
 
-namespace nm
-{
+namespace nm {
     template <typename T>
     UnionFind<T>::UnionFind(T number_of_elements, bool one_indexed) : 
         n(number_of_elements), one(one_indexed) {
@@ -66,10 +65,6 @@ namespace nm
         for (std::size_t i = this->one; i < this->n + this->one; i++)
             count += this->parent[i] < 0;
         return count;
-    }
-    
-    template <typename T>
-    UnionFind<T>::~UnionFind() {
     }
 } // namespace nm
 

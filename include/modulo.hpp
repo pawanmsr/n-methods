@@ -31,20 +31,20 @@ namespace nm {
      */
     template<typename T>
     class Arithmetic {
-    private:
-        T mod;
-    public:
-        Arithmetic(T mod_prime);
-        T underflow(T x);
-        T fix(T x);
-        T add(T x, T y);
-        T subtract(T x, T y);
-        T multiply(T x, T y);
-        T raise(T x, T y);
-        T divide(T x, T y);
-        ~Arithmetic();
+        private:
+            T mod;
+        public:
+            Arithmetic(T mod_prime);
+            T underflow(T x);
+            T fix(T x);
+            T add(T x, T y);
+            T subtract(T x, T y);
+            T multiply(T x, T y);
+            T raise(T x, T y);
+            T divide(T x, T y);
+            ~Arithmetic() {};
     };
-} // namespace nm
+} // arithmetic
 
 namespace nm {
     // Common primes for modular operations.
@@ -69,7 +69,7 @@ namespace nm {
             // value \in [0, M)
         public:
             Int32_M();
-            ~Int32_M();
+            ~Int32_M() {};
 
             // type conversion
             virtual operator int() const noexcept;
@@ -123,7 +123,7 @@ namespace nm {
             template<std::uint64_t T>
             friend Int32_M<T> operator/(const Int32_M<T> &x, const Int32_M<T> &y);
     };
-} // namespace nm
+} // modulo
 
 namespace nm {
     // NOTE: M is not Messier.

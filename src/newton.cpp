@@ -2,8 +2,7 @@
 
 #include <cassert>
 
-namespace nm
-{
+namespace nm {
     // one dimensional
     // refer quadratic convergence, concave and convex functions
     // possible oscillations, multiplicity

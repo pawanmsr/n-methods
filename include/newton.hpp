@@ -4,8 +4,7 @@
 #include <functional>
 
 // overload for functions as arguments
-namespace nm
-{
+namespace nm {
     const std::size_t MAX_ITERATIONS = 1e5;
 
     // f is twice differentiable function

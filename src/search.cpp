@@ -65,8 +65,6 @@ namespace nm {
         this->s += c;
         this->n++;
     }
-
-    SS::~SS() {}
 }
 
 namespace nm {
@@ -164,8 +162,6 @@ namespace nm {
 
         SS::clear();
     }
-    
-    KMP::~KMP() {}
 } // namespace nm
 
 namespace nm {
@@ -278,6 +274,4 @@ namespace nm {
 
         return this->positions;
     }
-    
-    BMA::~BMA() {}
 } // sublinear string search

@@ -24,7 +24,7 @@ namespace nm {
             uint64_t query_clock();
         public:
             Random();
-            ~Random();
+            ~Random() {};
 
             // pseudo random initialization
             Random(std::uint32_t s, std::uint32_t p = 0U);

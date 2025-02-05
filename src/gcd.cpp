@@ -3,8 +3,7 @@
 #include <tuple>
 #include <utility>
 
-namespace nm
-{
+namespace nm {
     /* T is expected to be any integer data type */
     /* time complexity O(log min (a, b)) */
     template <typename T>

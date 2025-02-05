@@ -5,10 +5,8 @@
 #include <cassert>
 #include <cmath>
 
-namespace nm
-{
+namespace nm {
     /*
-     * TODO: Hybrid Sorting.
      * Introspective sort.
      * Inrospective plus Insertion three part hybrid
      * sorting but easier to understand, copy and use
@@ -16,7 +14,6 @@ namespace nm
      * 
      * https://danlark.org/2022/04/20/changing-stdsort-at-googles-scale-and-beyond/
      * 
-     * What is quadraticness?!
      * Insertion sort for small sizes.
      * Quick sort until recursion stack is maxed out.
      * Heap sort when recursion stack is maxed out.
@@ -199,13 +196,6 @@ namespace nm
         
         list.assign(list_prime.begin(), list_prime.end());
     }
-    
-    template<class T, typename U>
-    MultiSort<T, U>::~MultiSort() {
-        this->permutation.clear(); // FIXME: redundant.
-        // delete this;
-    }
-
 } // namespace nm
 
 template void nm::introspective_qsort<int, int>(int, int, std::vector<int>&, int depth,

@@ -1,8 +1,7 @@
 #if !defined(GCD)
 #define GCD
 
-namespace nm
-{
+namespace nm {
     template <typename T>
     T gcd(T a, T b);
 

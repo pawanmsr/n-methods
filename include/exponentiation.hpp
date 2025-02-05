@@ -7,6 +7,6 @@ namespace nm {
 
     template <typename T>
     T bin_exp_iterative(T x, T y);
-} // namespace nm
+} // exponentiation
 
 #endif // BINARY_EXPONENTIATION

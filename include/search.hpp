@@ -21,28 +21,28 @@ namespace nm {
      * Base class for string search algorithms.
      */
     class SS {
-    protected:
-        bool case_sensitive;
-        std::size_t critical_memory;
-        bool compare(char x, char y);
+        protected:
+            bool case_sensitive;
+            std::size_t critical_memory;
+            bool compare(char x, char y);
 
-        std::string w;
-        std::string s; // input
+            std::string w;
+            std::string s; // input
 
-        std::size_t n; // input length
-        std::int32_t i; // processed
-    public:
-        SS(std::string word,
-            bool case_sensitive = true,
-                std::size_t memory = SIZE_LIMIT_MEM);
-        
-        void clear();
-        void flush();
-        
-        void stream(char c);
-        void stream(std::string s);
+            std::size_t n; // input length
+            std::int32_t i; // processed
+        public:
+            SS(std::string word,
+                bool case_sensitive = true,
+                    std::size_t memory = SIZE_LIMIT_MEM);
+            
+            void clear();
+            void flush();
+            
+            void stream(char c);
+            void stream(std::string s);
 
-        ~SS();
+            ~SS() {};
     };
     
     /*
@@ -68,7 +68,7 @@ namespace nm {
             void clear();
             std::vector<std::int32_t> search();
         
-            ~KMP();
+            ~KMP() {};
     };
 
     /*
@@ -94,7 +94,7 @@ namespace nm {
             void clear();
             std::vector<std::uint32_t> search();
             
-            ~BMA();
+            ~BMA() {};
     };
 } // namespace nm
 

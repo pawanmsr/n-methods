@@ -3,8 +3,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace nm
-{
+namespace nm {
     template<typename T>
     bool next_permutation(std::vector<T>& permutation) {
         const std::int32_t n = permutation.size();
