@@ -135,11 +135,6 @@ namespace nm {
     T Arithmetic<T>::divide(T x, T y) {
         return this->multiply(x, prime_modular_multiplicative_inverse<T>(y, this->mod));
     }
-
-    template<typename T>
-    Arithmetic<T>::~Arithmetic() {
-        // delete this;
-    }
 }
 
 template class nm::Arithmetic<int>;
@@ -257,9 +252,6 @@ namespace nm {
             (this->value < x ? std::strong_ordering::less : 
                 std::strong_ordering::greater));
     }
-    
-    template<std::size_t M>
-    Int32_M<M>::~Int32_M() {}
 
 
     // non-member functions //

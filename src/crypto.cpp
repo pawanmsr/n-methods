@@ -1,14 +1,7 @@
 #include <crypto.hpp>
 
-namespace nm
-{
+namespace nm {
     // DES
-
-
-
     // Rijndael (small)
-
-
-
     // RSA
 } // namespace nm

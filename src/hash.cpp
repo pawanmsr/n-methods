@@ -22,8 +22,4 @@ namespace nm {
             this->multiply(this->hash[left],
                 this->power[right - left]));
     }
-    
-    template<std::int64_t M, std::int64_t P>
-    Hash<M, P>::~Hash() {
-    }
 } // namespace nm

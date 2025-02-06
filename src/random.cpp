@@ -31,6 +31,4 @@ namespace nm {
         this->n = this->n * p + p;
         return xl + int(this->n) % mod;
     }
-
-    Random::~Random() {};
 } // random numbers

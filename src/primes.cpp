@@ -1,7 +1,6 @@
 #include <primes.hpp>
 
-namespace nm
-{
+namespace nm {
     /* T is expected to be any unsigned or equivalent integer data type */
     template<typename T>
     std::vector<T> eratosthenes_sieve(const T n) {

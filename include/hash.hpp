@@ -17,7 +17,7 @@ namespace nm {
         public:
             Hash(std::string &s);
             std::int64_t Interval(std::size_t left, std::size_t right);
-            ~Hash();
+            ~Hash() {};
     };
 
 } // namespace nm

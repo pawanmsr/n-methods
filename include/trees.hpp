@@ -43,7 +43,7 @@ namespace nm {
         T query(std::int32_t left, std::int32_t right);
         T update(T value, std::int32_t position);
         T update(T value, std::int32_t left, std::int32_t right);
-        ~SegmentTree();
+        ~SegmentTree() {};
     };
 
     
@@ -55,46 +55,46 @@ namespace nm {
      */
     template <class C, class T, class U>
     class SearchTree {
-    protected:
-        C* root;
-        std::function<bool(T&, T&)> compare;
+        protected:
+            C* root;
+            std::function<bool(T&, T&)> compare;
+            
+            C* create(T x);
+            C* rotate_left(C* n);
+            C* rotate_right(C* n);
+            
+            C* successor(C* n, bool return_parent = false);
+            C* predecessor(C* n, bool return_parent = false);
+            C* node(T x, bool return_parent = false, bool mark = false) const;
+            
+            // traversal
+            void inorder(C* n, std::vector<T> &keys);
+            void preorder(C* n, std::vector<T> &keys);
+            void postorder(C* n, std::vector<T> &keys);
+            C* element(std::size_t k, C* n);
         
-        C* create(T x);
-        C* rotate_left(C* n);
-        C* rotate_right(C* n);
-        
-        C* successor(C* n, bool return_parent = false);
-        C* predecessor(C* n, bool return_parent = false);
-        C* node(T x, bool return_parent = false, bool mark = false) const;
-        
-        // traversal
-        void inorder(C* n, std::vector<T> &keys);
-        void preorder(C* n, std::vector<T> &keys);
-        void postorder(C* n, std::vector<T> &keys);
-        C* element(std::size_t k, C* n);
-    
-    public:
-        SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
-        
-        U insert(T x, U y); // map-like
-        bool insert(T x); // set-like
-        
-        bool remove(T x);
-        bool search(T x) const;
-        
-        U obtain(T x) const;
-        
-        ~SearchTree() {};
-        
-        U & operator [] (T x);
+        public:
+            SearchTree(std::function<bool(T&, T&)> compare = default_compare<T>);
+            
+            U insert(T x, U y); // map-like
+            bool insert(T x); // set-like
+            
+            bool remove(T x);
+            bool search(T x) const;
+            
+            U obtain(T x) const;
+            
+            ~SearchTree() {};
+            
+            U & operator [] (T x);
 
-        // TODO: return info
-        //  of k-th element
-        U element(size_t k);
+            // TODO: return info
+            //  of k-th element
+            U element(size_t k);
 
-        std::vector<T> keys();
+            std::vector<T> keys();
 
-        std::size_t size() const noexcept;
+            std::size_t size() const noexcept;
     };
 
     /*
@@ -116,22 +116,22 @@ namespace nm {
      */
     template <class C, class T, class U>
     class AVL : public SearchTree<C, T, U> {
-    private:
-        // expected height of right subtree
-        // minus the height of left subtree
-        std::int16_t balance_factor;
-        // balance factor is one of {-1, 0, 1}
-    protected:
-        C* balance(C* n);
-    public:
-        AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
-            std::int16_t balance_factor = 0);
-        U insert(T x, U y);
-        bool insert(T x);
-        bool remove(T x);
-        ~AVL() {};
+        private:
+            // expected height of right subtree
+            // minus the height of left subtree
+            std::int16_t balance_factor;
+            // balance factor is one of {-1, 0, 1}
+        protected:
+            C* balance(C* n);
+        public:
+            AVL(std::function<bool(T&, T&)> compare = default_compare<T>,
+                std::int16_t balance_factor = 0);
+            U insert(T x, U y);
+            bool insert(T x);
+            bool remove(T x);
+            ~AVL() {};
 
-        U & operator [] (T x);
+            U & operator [] (T x);
     };
 } // namespace nm
 

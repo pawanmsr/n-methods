@@ -170,10 +170,4 @@ namespace nm {
     };
 }
 
-namespace nm {
-    // custom simple hash functions that may come handy
-    // // add comments on possibility of hash collision
-    // // add comments on collision resolution
-}
-
 #endif // UTILS

@@ -6,8 +6,7 @@
 #include <functional>
 #include <vector>
 
-namespace nm
-{
+namespace nm {
     const size_t SIZE_LIMIT_IS = 16;
 
     template<class T, typename U>
@@ -36,17 +35,16 @@ namespace nm
     
     // U is expected to be positive integral type.
     template<class T, typename U>
-    class MultiSort
-    {
-    private:
-        std::size_t n;
-        std::vector<std::size_t> permutation;
-    public:
-        MultiSort(U n);
-        U sort(std::vector<T> &list, std::function<bool(T&, T&)> compare = default_compare<T>);
+    class MultiSort {
+        private:
+            std::size_t n;
+            std::vector<std::size_t> permutation;
+        public:
+            MultiSort(U n);
+            U sort(std::vector<T> &list, std::function<bool(T&, T&)> compare = default_compare<T>);
 
-        void apply(std::vector<T> &list);
-        ~MultiSort();
+            void apply(std::vector<T> &list);
+            ~MultiSort();
     };
 } // namespace nm
 

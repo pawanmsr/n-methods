@@ -17,7 +17,7 @@
 #include <search.hpp>
 #include <combinatorics.hpp>
 #include <trees.hpp>
-#include <union_find.hpp>
+#include <graph.hpp>
 #include <utility.hpp>
 #include <newton.hpp>
 #include <interpolation.hpp>
@@ -302,7 +302,7 @@ TEST(SegmentTree, DeathTest) {
 }
 
 TEST(UnionFind, DeathTest) {
-    nm::UnionFind<int> uf(N_LOG, true);
+    nm::UnionFind uf(N_LOG, true);
     ASSERT_NO_FATAL_FAILURE(uf.find(N_LOG));
     EXPECT_TRUE(uf.united(N_FACT, N_FACT));
     EXPECT_EQ(uf.unite(N_ROOT, N_ROOT), N_ROOT);

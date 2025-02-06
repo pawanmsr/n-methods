@@ -127,9 +127,6 @@ namespace nm {
                     this->tree[i * 2 + 1]);
             }
         }
-
-    template <class T, class U>
-    SegmentTree<T, U>::~SegmentTree() {}
 } // namespace nm
 
 template class nm::SegmentTree<int, nm::Integrator<int>>;
