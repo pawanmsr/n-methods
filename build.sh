@@ -15,6 +15,8 @@ BUILD_FLAGS="-Wdev -DBUILD_GMOCK=OFF -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE" # "-G
 # but Ninja is quicker at times. Ninja is also used by meson.
 # Ninja Docs https://ninja-build.org/
 CONFIG_FLAGS="--config $CMAKE_BUILD_TYPE"
+
+TEST_TOOL="ctest"
 TEST_FLAGS="--rerun-failed --output-on-failure"
 # TODO: populate preset
 
@@ -36,6 +38,13 @@ clean_build() {
     fi
 }
 
+clean_up() {
+    # Clean up
+    echo "Cleaning up."
+    unset CMAKE_BUILD_TYPE
+}
+
+# Build
 if command -v $BUILD_TOOL &>/dev/null ; then
     while getopts hc flag ; do
         case $flag in
@@ -50,18 +59,22 @@ if command -v $BUILD_TOOL &>/dev/null ; then
     done
 
     echo "Building using $BUILD_TOOL!"
+    # Prepare for build.
+    $BUILD_TOOL $BUILD_FLAGS -S . -B ./build/
+    # Build.
+    $BUILD_TOOL --build build $CONFIG_FLAGS
 else
     echo "Build tool not found!"
+    clean_up;
     exit 1;
 fi
 
-# Prepare for build.
-$BUILD_TOOL $BUILD_FLAGS -S . -B ./build/
-# Build.
-$BUILD_TOOL --build build $CONFIG_FLAGS
-
 # Test
-cd build && ctest $TEST_FLAGS
+if command -v $TEST_TOOL &>/dev/null ; then
+    echo "Testing using $TEST_TOOL!"
+    cd build && $TEST_TOOL $TEST_FLAGS
+else
+    echo "Test tool not found!"
+fi
 
-# Clean up
-unset CMAKE_BUILD_TYPE
+clean_up;
