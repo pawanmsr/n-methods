@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.22.1)
+cmake_minimum_required(VERSION 3.31.0)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-project(n-methods VERSION 0.0.1 LANGUAGES CXX)
+project(n-methods VERSION 0.1.0 LANGUAGES CXX)
 
 # GTest
 # GTest Primer: https://google.github.io/googletest/
