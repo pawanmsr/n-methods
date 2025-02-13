@@ -15,6 +15,8 @@ CONFIG_FLAGS="--config $CMAKE_BUILD_TYPE"
 TEST_TOOL="ctest"
 TEST_FLAGS="--rerun-failed --output-on-failure"
 
+PROCESSORS=0
+
 display_options() {
     echo "Syntax: bash build.sh [options]"
     echo "Options"
@@ -41,26 +43,23 @@ pre_process() {
     # Used by google_test.
     export CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE
     # FIXME: find alternative to exporting env variable.
-    
-    PROCESSORS=1
-    GNU_PROCESSORS="nproc --all"
-    UNIX_PROCESSORS="sysctl -n hw.logicalcpu"
-    if $UNIX_PROCESSORS &>/dev/null ; then
+
+    local GNU_PROCESSORS="nproc --all"
+    local UNIX_PROCESSORS="sysctl -n hw.logicalcpu"
+    if [ $PROCESSORS -lt 0 ] ; then
+        echo "Parallel execution!"
+    elif $UNIX_PROCESSORS &>/dev/null ; then
         PROCESSORS=$($UNIX_PROCESSORS)
     elif $GNU_PROCESSORS &>/dev/null ; then
         PROCESSORS=$($GNU_PROCESSORS)
     fi
 
     if [ $PROCESSORS -gt 1 ] ; then
-        PARALLEL_FLAG="--parallel ${PROCESSORS}"
+        local PARALLEL_FLAG="--parallel ${PROCESSORS}"
         CONFIG_FLAGS="${CONFIG_FLAGS} ${PARALLEL_FLAG}"
         TEST_FLAGS="${TEST_FLAGS} ${PARALLEL_FLAG}"
+        PROCESSORS=-1
     fi
-}
-
-post_process() {
-    unset CMAKE_BUILD_TYPE
-    # Post processing.
 }
 
 # Build
@@ -87,7 +86,6 @@ if command -v $BUILD_TOOL &>/dev/null ; then
     # Build.
     $BUILD_TOOL --build build $CONFIG_FLAGS
     echo
-    post_process;
 else
     echo "Build tool not found!"
     exit 1;
@@ -95,8 +93,10 @@ fi
 
 # Test
 if command -v $TEST_TOOL &>/dev/null ; then
+    pre_process;
     echo "Testing using $TEST_TOOL!"
     cd build && $TEST_TOOL $TEST_FLAGS
+    echo
 else
     echo "Test tool not found!"
     exit 0;

@@ -3,6 +3,27 @@
 #include <sort.hpp>
 
 #include <cstdint>
+#include <stdexcept>
+
+namespace nm {
+    SLE::SLE(std::vector<std::vector<long double> > matrix) {
+        for (std::vector<long double> row : matrix)
+            this->add_row(row);
+    }
+    
+    SLE::SLE(std::size_t nr, std::size_t nc) {
+        this->n = nc;
+        this->A.reserve(nr);
+    }
+
+    void SLE::add_row(std::vector<long double> row) {
+        if (not row.size() or (this->n > 0 and row.size() != this->n))
+            throw std::length_error("incorrect number of coefficients");
+        
+        if (this->n == -1 and row.size());
+        this->A.push_back(row);
+    }
+} // 2d matrix
 
 namespace nm {
     // Coefficients are ordered from left to right,
