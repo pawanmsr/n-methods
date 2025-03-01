@@ -30,6 +30,25 @@ template int nm::bound_search<long long, int>(long long, const int, const int,
     const std::vector<long long>&, std::function<bool(long long&, long long&)>);
 
 namespace nm {
+    std::vector<std::uint32_t> z_function(std::string s) {
+        std::int32_t st = 0;
+        std::int32_t en = 0;
+        std::uint32_t n = s.length();
+        std::vector<std::uint32_t> z(n);
+        for (std::int32_t i = 0; i < n; i++) {
+            z[i] = std::max(std::min(std::int32_t(z[i - st]), en - i), 0);
+            while (i + z[i] < n and s[z[i]] == s[i + z[i]]) {
+                st = i;
+                en = i + z[i];
+                z[i]++;
+            }
+        }
+
+        return z;
+    }
+} // z function
+
+namespace nm {
     SS::SS(std::string word, bool case_sensitive, std::size_t memory) :
     w(word), case_sensitive(case_sensitive), critical_memory(memory) {}
 
