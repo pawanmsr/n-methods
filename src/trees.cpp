@@ -7,7 +7,7 @@
 
 namespace nm {
     // !? lookout for // modify // in popagate function
-    // and assignment in update_tree function
+    //  and assignment in update_tree function
     // More complex problems may require overhaul.
     template <class T, class U>
     SegmentTree<T, U>::SegmentTree(std::vector<T> &data, U *integrator_struct) : 
@@ -278,7 +278,7 @@ namespace nm {
         
         if (not n or *n != x) return false;
 
-        std::function<void(C*)> linkup = [&](C* link) -> void {
+        std::function<void(C*)> linkup = [&] (C* link) -> void {
             if (not parent) {
                 this->root = link;
                 if (this->root) this->root->mark();
@@ -385,7 +385,8 @@ namespace nm {
         // TODO: try doing it iteratively too.
         if (not n or not n->marked()) return n;
 
-        auto balanced = [&] (C* link, std::int16_t lcr = 0) {
+        // TODO: convert to functional
+        auto balanced = [&] (C* link, std::int16_t lcr = 0) -> bool {
             if (not link) return true;
             
             if (lcr == -1)
@@ -397,7 +398,7 @@ namespace nm {
                 and link->balance() <= this->balance_factor + 1;
         };
 
-        auto marked = [] (C* link) {
+        std::function<bool(C*)> marked = [] (C* link) -> bool {
             if (not link) return false;
             return link->marked();
         };

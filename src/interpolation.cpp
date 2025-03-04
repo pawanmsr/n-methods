@@ -30,7 +30,7 @@ namespace nm {
     // with first being a constant.
     template<typename T>
     std::function<T(T)> polynomial(const std::vector<T> &coefficients) {
-        return [&](T x) {
+        return [&] (T x) -> T {
             T term = 1;
             T result = 0;
 
@@ -52,9 +52,10 @@ namespace nm {
                 if (bound.first > bound.second)
                     swap(bound.first, bound.second);
             
-            auto compare = [](std::pair<T, T> &a, std::pair<T, T> &b) {
-                return a.first < b.first;
-            };
+            std::function<bool(std::pair<T, T>&, std::pair<T, T>&)> compare = 
+                [] (std::pair<T, T> &a, std::pair<T, T> &b) -> bool {
+                    return a.first < b.first;
+                };
 
             const std::size_t n = bounds.size();
             MultiSort<T, std::int32_t> ms(n);

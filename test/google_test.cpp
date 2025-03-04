@@ -277,7 +277,7 @@ TEST(BoundSearch, DistinctPrimes) {
         int idx = nm::bound_search(i, 0, P - 1, primes);
         if (idx < P) ASSERT_GE(primes[idx], i);
         
-        std::function<bool(int& a, int& b)> compare =  [](int& a, int& b) {
+        std::function<bool(int& a, int& b)> compare =  [] (int& a, int& b) -> bool {
             return not (b < a);
         }; idx = nm::bound_search(i, 0, P - 1, primes, compare);
 

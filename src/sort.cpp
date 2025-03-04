@@ -23,7 +23,6 @@ namespace nm {
      * See LastTest.log for more details.
      */
 
-    // Add type conversion for lambda functions //
     // Are functions allowed to be constexpr ? //
     // TODO: replace all with constexpr where ever possible //
 
@@ -70,11 +69,11 @@ namespace nm {
     void heap_sort(U lo, U hi, std::vector<T>& list, std::function<bool(T&, T&)> compare) {
         assert(lo >= 0); assert(hi < U(list.size()));
 
-        auto down_left = [&](U i) {
+        std::function<U(U)> down_left = [&] (U i) -> U {
             return lo + (i - lo) * 2 + 1;
         };
 
-        auto down_right = [&](U i) {
+        std::function<U(U)> down_right = [&] (U i) -> U {
             return lo + (i - lo) * 2 + 2;
         };
 
@@ -175,7 +174,7 @@ namespace nm {
     template<class T, typename U>
     U MultiSort<T, U>::sort(std::vector<T> &list, std::function<bool(T&, T&)> compare) {
         std::function<bool(std::size_t&, std::size_t&)> wrapped_compare = 
-            [&](std::size_t i, std::size_t j) {
+            [&] (std::size_t i, std::size_t j) -> bool {
                 return compare(list[i], list[j]);
             };
         
@@ -190,7 +189,7 @@ namespace nm {
     void MultiSort<T, U>::apply(std::vector<T> &list) {
         std::vector<T> list_prime(this->n);
         std::transform(this->permutation.begin(), this->permutation.end(),
-            list_prime.begin(), [&](std::size_t i) {
+            list_prime.begin(), [&] (std::size_t i) -> T {
                 return list[i];
             });
         

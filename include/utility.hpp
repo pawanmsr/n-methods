@@ -9,10 +9,10 @@ namespace nm {
     // default arguments and functions
 
     template<class T>
-    std::function<bool(T&, T&)> default_compare = [](T& a, T& b) {
+    std::function<bool(T&, T&)> default_compare = [] (T& a, T& b) -> bool {
         return a < b;
     };
-}
+} // lambdas
 
 namespace nm {
     // T is type of data to query on
