@@ -9,6 +9,7 @@ namespace nm {
 } // primes
 
 namespace nm {
+    bool fermat(std::uint64_t number, std::uint32_t iterations);
 } // primality tests
 
 #endif // PRIMES

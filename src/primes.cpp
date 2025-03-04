@@ -1,5 +1,10 @@
 #include <primes.hpp>
 
+#include <exponentiation.hpp>
+#include <random.hpp>
+
+#include <cassert>
+
 namespace nm {
     /* T is expected to be any unsigned or equivalent integer data type */
     template<typename T>
@@ -27,3 +32,19 @@ template std::vector<long> nm::eratosthenes_sieve<long>(long);
 template std::vector<long long> nm::eratosthenes_sieve<long long>(long long);
 template std::vector<unsigned int> nm::eratosthenes_sieve<unsigned int>(unsigned int);
 template std::vector<unsigned long> nm::eratosthenes_sieve<unsigned long>(unsigned long);
+
+namespace nm {
+    bool fermat(std::uint64_t number, std::uint32_t iterations) {
+        assert(iterations > 0);
+        
+        Random random;
+        while (iterations--) {
+            std::uint32_t x = random.number(2, number - 1);
+            if (mod_bin_exp_iterative<std::uint32_t>(x, number - 1, number) != 1)
+                return false;
+        }
+        
+        return true;
+    }
+} // primality
+
