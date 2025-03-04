@@ -99,7 +99,7 @@ namespace nm {
 
             ~SLE() {};
     };
-}
+} // system of linear equations
 
 namespace nm {
     template<typename T>
