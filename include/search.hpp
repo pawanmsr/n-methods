@@ -96,6 +96,6 @@ namespace nm {
             
             ~BMA() {};
     };
-} // namespace nm
+} // linear and sub-linear string search
 
 #endif // SEARCH

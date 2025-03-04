@@ -65,7 +65,7 @@ namespace nm {
             // Bounds must not overlap because they will lead to ambiguity.
             // Within certain degree of error tolerance, maybe 6 decimal places or less (2^(23 - 1))?
         }
-} // namespace nm
+} // polynomials
 
 template std::function<double(double)>
     nm::polynomial<double>(const std::vector<double>&);

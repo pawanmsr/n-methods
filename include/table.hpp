@@ -23,6 +23,6 @@ namespace nm {
             T cquery(std::int32_t l, std::int32_t r);
             ~Sparse() {};
     };
-}
+} // sparse table
 
 #endif

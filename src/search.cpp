@@ -21,7 +21,7 @@ namespace nm {
 
         return i;
     }
-} // namespace nm
+} // binary search
 
 template int nm::bound_search<int, int>(int, const int, const int,
     const std::vector<int>&, std::function<bool(int&, int&)>);

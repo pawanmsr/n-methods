@@ -1,8 +1,7 @@
 #if !defined(CRYPTO)
 #define CRYPTO
 
-namespace nm
-{
+namespace nm {
     
 } // namespace nm
 

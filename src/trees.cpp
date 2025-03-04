@@ -127,7 +127,7 @@ namespace nm {
                     this->tree[i * 2 + 1]);
             }
         }
-} // namespace nm
+} // segment tree
 
 template class nm::SegmentTree<int, nm::Integrator<int>>;
 
@@ -368,7 +368,7 @@ namespace nm {
         C* n = this->create(x);
         return n->info;
     }
-} // namespace nm
+} // search tree
 
 template class nm::SearchTree<nm::Node<int, int>, int, int>;
 
@@ -448,7 +448,7 @@ namespace nm {
         
         return n->info;
     }
-} // namespace nm
+} // avl tree
 
 template class nm::AVL<nm::Node<int, int>, int, int>;
 

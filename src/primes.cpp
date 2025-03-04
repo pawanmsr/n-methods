@@ -20,7 +20,7 @@ namespace nm {
         return primes;
     }
 
-} // namespace nm
+} // sieve
 
 template std::vector<int> nm::eratosthenes_sieve<int>(int);
 template std::vector<long> nm::eratosthenes_sieve<long>(long);

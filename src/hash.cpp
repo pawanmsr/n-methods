@@ -22,4 +22,4 @@ namespace nm {
             this->multiply(this->hash[left],
                 this->power[right - left]));
     }
-} // namespace nm
+} // string

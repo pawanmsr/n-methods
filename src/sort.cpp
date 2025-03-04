@@ -196,7 +196,7 @@ namespace nm {
         
         list.assign(list_prime.begin(), list_prime.end());
     }
-} // namespace nm
+} // sorting
 
 template void nm::introspective_qsort<int, int>(int, int, std::vector<int>&, int depth,
     std::function<bool(int&, int&)> compare);
