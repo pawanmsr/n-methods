@@ -46,5 +46,14 @@ namespace nm {
         
         return true;
     }
+
+    /*
+     * Miller-Rabin
+     */
+
+    /*
+     * Agarwal-Kayal-Saxena
+     * http://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf
+     */
 } // primality
 
