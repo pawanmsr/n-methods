@@ -1,5 +1,7 @@
 #include <exponentiation.hpp>
 
+#include <cstdint>
+
 namespace nm {
     /* T is expected to be any integer data type */
     template <typename T>
@@ -24,10 +26,8 @@ namespace nm {
     }
 } // binary exponentiation
 
-template int nm::bin_exp<int>(int, int);
-template long nm::bin_exp<long>(long, long);
-template long long nm::bin_exp<long long>(long long, long long);
+template std::int32_t nm::bin_exp<std::int32_t>(std::int32_t, std::int32_t);
+template std::int64_t nm::bin_exp<std::int64_t>(std::int64_t, std::int64_t);
 
-template int nm::bin_exp_iterative<int>(int, int);
-template long nm::bin_exp_iterative<long>(long, long);
-template long long nm::bin_exp_iterative<long long>(long long, long long);
+template std::int32_t nm::bin_exp_iterative<std::int32_t>(std::int32_t, std::int32_t);
+template std::int64_t nm::bin_exp_iterative<std::int64_t>(std::int64_t, std::int64_t);

@@ -2,6 +2,9 @@
  * Author: Canis Lupus Loner
  */
 
+
+ #pragma GCC optimize("O3", "fast-math", "unroll-loops")
+
 /*
  * Compile and Run
  * g++ -std=c++2a -DLOCAL -Wall -Wextra -pedantic 
