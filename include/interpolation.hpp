@@ -45,6 +45,13 @@ namespace nm {
             void cramer();
             void fourier();
 
+            void singular_value();
+            void lu();
+            void qr();
+            
+            // square positive definite
+            void cholesky();
+
         public:
             SLE() {this->n = -1;};
             SLE(std::vector<std::vector<long double> > matrix);

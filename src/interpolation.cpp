@@ -137,6 +137,16 @@ namespace nm {
 
         return rank;
     }
+
+    long double nm::SLE::determinant() {
+        assert(this->rank() == this->n);
+        return 1;
+    }
+
+    std::vector<long double> nm::SLE::eigenvalues() {
+        // TODO: LU decomposition or QR decomposition
+        return std::vector<long double>(this->n, 0);
+    }
 } // 2d matrix
 
 namespace nm {
