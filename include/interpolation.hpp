@@ -10,19 +10,22 @@
 
 namespace nm {
     const long double PRECISION = 1e-8;
+    enum classification {
+        zero,
+        one,
+        infinite,
+
+        // zero: no solution
+        // one: one solution
+        // infinite: many solutions
+    };
 
     class SLE {
         private:
-            enum classification {
-                zero,
-                one,
-                infinite
-            };
-
             std::size_t n;
             std::vector<std::vector<long double> > A;
-            std::vector<long double> x;
             std::vector<std::uint32_t> pivots;
+
         protected:
             void normalize();
             std::uint32_t pivot(std::size_t column, std::size_t row = 0,
@@ -32,6 +35,7 @@ namespace nm {
             void gauss();
             void cramer();
             void fourier();
+
         public:
             SLE() {this->n = -1;};
             SLE(std::vector<std::vector<long double> > matrix);
@@ -39,6 +43,8 @@ namespace nm {
             ~SLE() {};
             
             void add_row(std::vector<long double> row);
+            classification solve(std::vector<long double> &x,
+                long double threshold = PRECISION);
             
             std::size_t rank();
             std::vector<long double> eigenvalues();
