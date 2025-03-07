@@ -2,8 +2,10 @@
 
 #include <sort.hpp>
 
-#include <cstdint>
 #include <stdexcept>
+#include <cassert>
+#include <cstdlib>
+#include <utility>
 
 namespace nm {
     SLE::SLE(std::vector<std::vector<long double> > matrix) {
@@ -14,20 +16,70 @@ namespace nm {
     SLE::SLE(std::size_t nr, std::size_t nc) {
         this->n = nc;
         this->A.reserve(nr);
+        this->x.reserve(nc);
+        this->pivots.assign(nc, -1);
     }
 
     void SLE::add_row(std::vector<long double> row) {
         if (not row.size() or (this->n > 0 and row.size() != this->n))
             throw std::length_error("incorrect number of coefficients");
         
-        if (this->n == -1 and row.size());
+        if (this->n == -1 and row.size())
+            this->n = row.size();
+
+        this->pivots.push_back(-1);
         this->A.push_back(row);
+    }
+
+    // returns -1 if pivot is not found
+    std::uint32_t SLE::pivot(std::size_t column, std::size_t row, long double threshold) {
+        std::size_t m = this->A.size();
+        assert(column < this->n);
+
+        if (row == 0)
+            while (row < m and std::abs(this->A[row][column]) > threshold)
+                row++;
+
+        std::size_t i = row;
+        std::uint32_t pivot = -1;
+        while (i < m) {
+            if (std::abs(this->A[i][column]) > threshold and (pivot == -1 or
+                std::abs(this->A[pivot][column]) > std::abs(this->A[i][column])))
+                    pivot = i;
+            i++;
+        }
+
+        if (pivot >= 0) std::swap(this->A[pivot], this->A[row]);
+        this->pivots[column] = pivot;
+        return pivot;
+    }
+
+    void SLE::gauss() {
+        std::size_t m = this->A.size();
+        this->pivots.assign(m, -1);
+
+        std::size_t row = 0;
+        std::size_t column = 0;
+        while (row < m and column < this->n) {
+            std::uint32_t pivot = this->pivot(column, row);
+            if (pivot < 0) continue;
+
+            for (std::size_t i = 0; i < m; i++) {
+                if (i == row) continue;
+
+                double multiplier = this->A[i][column] / this->A[row][column];
+                for (std::size_t j = 0; j < this->n; j++)
+                    this->A[i][j] -= this->A[row][column] * multiplier;
+            }
+
+            row++;
+        }
     }
 } // 2d matrix
 
 namespace nm {
     // Coefficients are ordered from left to right,
-    // with first being a constant.
+    //  with first being a constant.
     template<typename T>
     std::function<T(T)> polynomial(const std::vector<T> &coefficients) {
         return [&] (T x) -> T {
