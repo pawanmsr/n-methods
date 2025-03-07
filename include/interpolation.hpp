@@ -20,11 +20,21 @@ namespace nm {
         // infinite: many solutions
     };
 
+    enum solver {
+        none, // unsolved
+        gauss,
+
+        // others
+    };
+
     class SLE {
         private:
             std::size_t n;
             std::vector<std::vector<long double> > A;
             std::vector<std::uint32_t> pivots;
+
+            solver applied;
+            solver gauss();
 
         protected:
             void normalize();
@@ -32,7 +42,6 @@ namespace nm {
                 long double threshold = PRECISION);
             
             // add solvers
-            void gauss();
             void cramer();
             void fourier();
 
@@ -44,7 +53,7 @@ namespace nm {
             
             void add_row(std::vector<long double> row);
             classification solve(std::vector<long double> &x,
-                long double threshold = PRECISION);
+                long double threshold = PRECISION, solver use = solver::gauss);
             
             std::size_t rank();
             std::vector<long double> eigenvalues();

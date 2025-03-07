@@ -15,11 +15,15 @@ namespace nm {
 
         for (std::vector<long double> row : matrix)
             this->add_row(row);
+        
+        this->applied = solver::none;
     }
     
     SLE::SLE(std::size_t nr, std::size_t nc) : n(nc) {
         this->A.reserve(nr);
         this->pivots.reserve(this->n);
+
+        this->applied = solver::none;
     }
 
     void SLE::add_row(std::vector<long double> row) {
@@ -60,7 +64,7 @@ namespace nm {
         return pivot;
     }
 
-    void SLE::gauss() {
+    solver SLE::gauss() {
         std::size_t m = this->A.size();
         this->pivots.assign(this->n, -1);
 
@@ -80,19 +84,29 @@ namespace nm {
 
             row++;
         }
+
+        return solver::gauss;
     }
 
-    classification nm::SLE::solve(std::vector<long double> &x, long double threshold) {
+    classification nm::SLE::solve(std::vector<long double> &x, long double threshold, solver use) {
         std::size_t m = this->A.size();
         assert(x.size() == m);
+
+        switch (use) {
+            case solver::gauss:
+                this->applied = this->gauss();
+                break;
+            
+            default:
+                break;
+        }
 
         for (std::size_t column = 0; column < this->n; column++) {
             if (this->pivots[column] != -1)
                 x[column] = x[this->pivots[column]] / this->A[this->pivots[column]][column];
         }
 
-        for (std::size_t row = 0; row < m; row++)
-            if (this->pivots[row] == -1) return classification::infinite;
+        if (this->rank() < this->n) return classification::infinite;
 
         for (std::size_t row = 0; row < m; row++) {
             long double product = 0;
@@ -105,6 +119,23 @@ namespace nm {
         }
         
         return classification::one;
+    }
+
+    std::size_t nm::SLE::rank() {
+        std::size_t rank = 0;
+        switch (this->applied) {
+            case solver::gauss:
+                for (std::size_t column = 0; column < this->n; column++) {
+                    if (this->pivots[column] == -1) continue;
+                    rank++;
+                }
+                break;
+            
+            default:
+                break;
+        }
+
+        return rank;
     }
 } // 2d matrix
 
