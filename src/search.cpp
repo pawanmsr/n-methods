@@ -21,13 +21,32 @@ namespace nm {
 
         return i;
     }
-} // namespace nm
+} // binary search
 
 template int nm::bound_search<int, int>(int, const int, const int,
     const std::vector<int>&, std::function<bool(int&, int&)>);
 
 template int nm::bound_search<long long, int>(long long, const int, const int,
     const std::vector<long long>&, std::function<bool(long long&, long long&)>);
+
+namespace nm {
+    std::vector<std::uint32_t> z_function(std::string s) {
+        std::int32_t st = 0;
+        std::int32_t en = 0;
+        std::uint32_t n = s.length();
+        std::vector<std::uint32_t> z(n);
+        for (std::int32_t i = 0; i < n; i++) {
+            z[i] = std::max(std::min(std::int32_t(z[i - st]), en - i), 0);
+            while (i + z[i] < n and s[z[i]] == s[i + z[i]]) {
+                st = i;
+                en = i + z[i];
+                z[i]++;
+            }
+        }
+
+        return z;
+    }
+} // z function
 
 namespace nm {
     SS::SS(std::string word, bool case_sensitive, std::size_t memory) :
@@ -182,40 +201,41 @@ namespace nm {
 
         std::uint32_t prefix_j = 0;
         // prefix_j is the smallest j for which there is prefix for suffix starting from j + 1
-        std::function<std::int32_t(std::int32_t)> rpr = [&] (const std::size_t j) -> std::int32_t {
-            // rightmost plausible reoccurrence //
-            std::uint32_t len_suffix = len_w - (j + 1);
-            
-            bool is_prefix = len_suffix;
-            for (std::uint32_t k = 0; k < len_suffix; k++) {
-                if (this->w[k] == this->w[j + 1 + k]) continue;
+        std::function<std::int32_t(std::int32_t)> rpr =
+            [&] (const std::size_t j) -> std::int32_t {
+                // rightmost plausible reoccurrence //
+                std::uint32_t len_suffix = len_w - (j + 1);
                 
-                is_prefix = false;
-                break;
-            }
-            
-            if (is_prefix) prefix_j = j;
-
-            for (std::int32_t k = len_w - 1; k >= 0; k--) {
-                std::int32_t j_prime = len_w - 1;
-                
-                if (j + 1 > j_prime) break;
-
-                std::int32_t k_prime = k;
-                while (k_prime >= 0 and j_prime > j) {
-                    if (this->w[k_prime] != this->w[j_prime]) break;
+                bool is_prefix = len_suffix;
+                for (std::uint32_t k = 0; k < len_suffix; k++) {
+                    if (this->w[k] == this->w[j + 1 + k]) continue;
                     
-                    k_prime--;
-                    j_prime--;
+                    is_prefix = false;
+                    break;
                 }
                 
-                if (k_prime >= 0 and j_prime == j and 
-                    this->w[k_prime] != this->w[j_prime])
-                        return k + 1 - len_suffix; // verify
-            }
+                if (is_prefix) prefix_j = j;
 
-            return j - prefix_j; // verify
-        };
+                for (std::int32_t k = len_w - 1; k >= 0; k--) {
+                    std::int32_t j_prime = len_w - 1;
+                    
+                    if (j + 1 > j_prime) break;
+
+                    std::int32_t k_prime = k;
+                    while (k_prime >= 0 and j_prime > j) {
+                        if (this->w[k_prime] != this->w[j_prime]) break;
+                        
+                        k_prime--;
+                        j_prime--;
+                    }
+                    
+                    if (k_prime >= 0 and j_prime == j and 
+                        this->w[k_prime] != this->w[j_prime])
+                            return k + 1 - len_suffix; // verify
+                }
+
+                return j - prefix_j; // verify
+            };
 
         this->delta_two.resize(len_w);
         for (std::int32_t j = len_w - 1; j >= 0; j--)

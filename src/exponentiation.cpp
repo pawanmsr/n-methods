@@ -22,7 +22,7 @@ namespace nm {
         }
         return res;
     }
-} // namespace nm
+} // binary exponentiation
 
 template int nm::bin_exp<int>(int, int);
 template long nm::bin_exp<long>(long, long);

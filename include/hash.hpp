@@ -20,6 +20,6 @@ namespace nm {
             ~Hash() {};
     };
 
-} // namespace nm
+} // string
 
 #endif // HASH

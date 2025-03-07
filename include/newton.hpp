@@ -15,6 +15,6 @@ namespace nm {
     template<typename T>
     T newton(std::function<T(T)> &f, std::function<T(T)> &f_prime,
         T delta = T(0.01), T x = T(0.0), std::size_t iterations = MAX_ITERATIONS);
-} // namespace nm
+} // roots of polynomial
 
 #endif // NEWTON

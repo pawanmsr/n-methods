@@ -44,7 +44,7 @@ namespace nm {
             U sort(std::vector<T> &list, std::function<bool(T&, T&)> compare = default_compare<T>);
 
             void apply(std::vector<T> &list);
-            ~MultiSort();
+            ~MultiSort() {};
     };
 } // namespace nm
 

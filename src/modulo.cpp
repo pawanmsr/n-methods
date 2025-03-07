@@ -71,7 +71,7 @@ namespace nm {
         return num < 2 ? num : mod - (long long)(mod / num) *
             prime_modular_multiplicative_inverse<T>(mod % num, mod) % mod;
     }
-} // namespace nm
+} // modular inverse
 
 template long long nm::modular_multiplicative_inverse<long long>(long long, const long long);
 template long long nm::prime_modular_multiplicative_inverse_by_bin_exp<long long>(long long, const long long);
@@ -279,7 +279,7 @@ namespace nm {
     inline std::strong_ordering operator<=>(const Int32_M<T> &x, const Int32_M<T> &y) noexcept {
         return Int32_M<T>(x) <=> y;
     }
-} // namespace nm
+} // derived data type for modular arithmetic
 
 template class nm::Int32_M<nm::M17>;
 

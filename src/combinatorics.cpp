@@ -65,15 +65,7 @@ namespace nm {
         return this->multiply(this->multiply(this->factorial[n],
             this->factorial_inverse[r]), this->factorial_inverse[n - r]);
     }
-    
-    template<typename T>
-    PnC<T>::~PnC() {
-        this->factorial.clear();
-        this->factorial_inverse.clear();
-        
-        // delete this;
-    }
-} // namespace nm
+} // permutation and combination
 
 template bool nm::next_permutation<int>(std::vector<int>&);
 template class nm::PnC<int>;

@@ -27,7 +27,7 @@ namespace nm {
 
             return x;
         }
-} // namespace nm
+} // newton's method
 
 template double nm::newton<double>(std::function<double(double)>&,
     std::function<double(double)>&, double, double, unsigned long);

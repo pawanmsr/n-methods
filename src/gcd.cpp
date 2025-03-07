@@ -61,7 +61,7 @@ namespace nm {
         
         return a1;
     }
-} // namespace nm
+} // greatest common divisors
 
 template int nm::gcd<int>(int, int);
 template long nm::gcd<long>(long, long);

@@ -6,8 +6,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace nm
-{
+namespace nm {
     template<typename T>
     bool next_permutation(std::vector<T>& permutation);
 
@@ -23,8 +22,8 @@ namespace nm
         T get_factorial_inverse(std::int32_t n);
         T nPr(std::int32_t n, std::int32_t r);
         T nCr(std::int32_t n, std::int32_t r);
-        ~PnC();
+        ~PnC() {};
     };
-} // namespace nm
+} // permutation and combination
 
 #endif // COMBINATORICS

@@ -2,14 +2,159 @@
 
 #include <sort.hpp>
 
-#include <cstdint>
+#include <stdexcept>
+#include <cassert>
+#include <cstdlib>
+#include <utility>
+
+namespace nm {
+    SLE::SLE(std::vector<std::vector<long double> > matrix) {
+        this->n = -1;
+        this->A.clear();
+        this->pivots.clear();
+
+        for (std::vector<long double> row : matrix)
+            this->add_row(row);
+        
+        this->applied = solver::none;
+    }
+    
+    SLE::SLE(std::size_t nr, std::size_t nc) : n(nc) {
+        this->A.reserve(nr);
+        this->pivots.reserve(this->n);
+
+        this->applied = solver::none;
+    }
+
+    void SLE::add_row(std::vector<long double> row) {
+        if (not row.size() or (this->n > 0 and row.size() != this->n))
+            throw std::length_error("incorrect number of coefficients");
+        
+        if (this->n == -1 and row.size()) {
+            this->n = row.size();
+            this->pivots.assign(this->n, -1);
+        }
+
+        this->A.push_back(row);
+    }
+
+    // returns -1 if pivot is not found
+    std::uint32_t SLE::pivot(std::size_t column, std::size_t row, long double threshold) {
+        std::size_t m = this->A.size();
+        assert(column < this->n);
+
+        if (row == 0)
+            while (row < m and std::abs(this->A[row][column]) > threshold)
+                row++;
+
+        std::size_t i = row;
+        std::uint32_t pivot = -1;
+        while (i < m) {
+            if (std::abs(this->A[i][column]) > threshold and (pivot == -1 or
+                std::abs(this->A[pivot][column]) > std::abs(this->A[i][column])))
+                    pivot = i;
+            i++;
+        }
+
+        if (pivot >= 0) {
+            std::swap(this->A[pivot], this->A[row]);
+            this->pivots[column] = row;
+        }
+        
+        return pivot;
+    }
+
+    solver SLE::gauss() {
+        std::size_t m = this->A.size();
+        this->pivots.assign(this->n, -1);
+
+        std::size_t row = 0;
+        std::size_t column = 0;
+        while (row < m and column < this->n) {
+            std::uint32_t pivot = this->pivot(column, row);
+            if (pivot < 0) continue;
+
+            for (std::size_t i = 0; i < m; i++) {
+                if (i == row) continue;
+
+                double multiplier = this->A[i][column] / this->A[row][column];
+                for (std::size_t j = 0; j < this->n; j++)
+                    this->A[i][j] -= this->A[row][column] * multiplier;
+            }
+
+            row++;
+        }
+
+        return solver::gauss;
+    }
+
+    classification nm::SLE::solve(std::vector<long double> &x, long double threshold, solver use) {
+        std::size_t m = this->A.size();
+        assert(x.size() == m);
+
+        switch (use) {
+            case solver::gauss:
+                this->applied = this->gauss();
+                break;
+            
+            default:
+                break;
+        }
+
+        for (std::size_t column = 0; column < this->n; column++) {
+            if (this->pivots[column] != -1)
+                x[column] = x[this->pivots[column]] / this->A[this->pivots[column]][column];
+        }
+
+        if (this->rank() < this->n) return classification::infinite;
+
+        for (std::size_t row = 0; row < m; row++) {
+            long double product = 0;
+            
+            for (std::size_t column = 0; column < this->n; column++) {
+                product += x[column] * this->A[row][column];
+                if (std::abs(product - x[row]) > threshold)
+                    return classification::zero;
+            }
+        }
+        
+        return classification::one;
+    }
+
+    std::size_t nm::SLE::rank() {
+        std::size_t rank = 0;
+        switch (this->applied) {
+            case solver::gauss:
+                for (std::size_t column = 0; column < this->n; column++) {
+                    if (this->pivots[column] == -1) continue;
+                    rank++;
+                }
+                break;
+            
+            default:
+                break;
+        }
+
+        return rank;
+    }
+
+    long double nm::SLE::determinant() {
+        assert(this->rank() == this->n);
+        return 1;
+    }
+
+    std::vector<long double> nm::SLE::eigenvalues() {
+        // TODO: LU decomposition or QR decomposition
+        return std::vector<long double>(this->n, 0);
+    }
+} // 2d matrix
 
 namespace nm {
     // Coefficients are ordered from left to right,
-    // with first being a constant.
+    //  with first being a constant.
     template<typename T>
     std::function<T(T)> polynomial(const std::vector<T> &coefficients) {
-        return [&](T x) {
+        return [&] (T x) -> T {
             T term = 1;
             T result = 0;
 
@@ -31,9 +176,10 @@ namespace nm {
                 if (bound.first > bound.second)
                     swap(bound.first, bound.second);
             
-            auto compare = [](std::pair<T, T> &a, std::pair<T, T> &b) {
-                return a.first < b.first;
-            };
+            std::function<bool(std::pair<T, T>&, std::pair<T, T>&)> compare = 
+                [] (std::pair<T, T> &a, std::pair<T, T> &b) -> bool {
+                    return a.first < b.first;
+                };
 
             const std::size_t n = bounds.size();
             MultiSort<T, std::int32_t> ms(n);
@@ -44,7 +190,7 @@ namespace nm {
             // Bounds must not overlap because they will lead to ambiguity.
             // Within certain degree of error tolerance, maybe 6 decimal places or less (2^(23 - 1))?
         }
-} // namespace nm
+} // polynomials
 
 template std::function<double(double)>
     nm::polynomial<double>(const std::vector<double>&);

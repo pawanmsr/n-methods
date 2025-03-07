@@ -13,6 +13,6 @@ namespace nm {
 
     template <typename T>
     T extended_gcd_iterative(T a, T b, T& x, T& y);
-} // namespace nm
+} // greatest common divisors
 
 #endif // GCD
