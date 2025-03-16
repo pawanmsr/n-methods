@@ -25,7 +25,7 @@ namespace nm {
 
 namespace nm {
     // MOD is exptected to be modular data type (int32_m, int32_n, int32_p)
-    template <std::int64_t M, std::int64_t P, typename MOD>
+    template <typename MOD, MOD M, MOD P>
     class ModHash{
         private:
             std::size_t n;

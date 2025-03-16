@@ -27,8 +27,8 @@ namespace nm {
 } // string
 
 namespace nm {
-    template<std::int64_t M, std::int64_t P, typename MOD>
-    ModHash<M, P, MOD>::ModHash(std::string &s) {
+    template<typename MOD, MOD M, MOD P>
+    ModHash<MOD, M, P>::ModHash(std::string &s) {
         this->n = s.length();
         this->hash.reserve(this->n + 1);
         this->power.reserve(this->n + 1);
@@ -36,18 +36,17 @@ namespace nm {
         this->hash = {0};
         this->power = {1};
         for (char s_i : s) {
-            this->hash.push_back(this->add(this->multiply(this->hash.back(), P), s_i));
-            this->power.push_back(this->multiply(this->power.back(), P));
+            this->hash.push_back(this->hash.back() * P + s_i);
+            this->power.push_back(this->power.back() * P);
         }
     }
 
-    template<std::int64_t M, std::int64_t P, typename MOD>
-    std::int64_t ModHash<M, P, MOD>::Interval(std::size_t left, std::size_t right) {
+    template<typename MOD, MOD M, MOD P>
+    std::int64_t ModHash<MOD, M, P>::Interval(std::size_t left, std::size_t right) {
         assert(right <= this->n and right > left);
         return this->hash[right] - this->hash[left] * this->power[right - left];
     }
 } // hash function int32_m
-
 
 namespace nm {
     template <typename T>
