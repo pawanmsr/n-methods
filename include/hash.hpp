@@ -21,16 +21,20 @@ namespace nm {
             ~Hash() {};
     };
 
-} // string
+} // string hash
 
 namespace nm {
-    // MOD is exptected to be modular data type (int32_m, int32_n, int32_p)
-    template <typename MOD, MOD M, MOD P>
+    /*
+     * M is expected to be a modular data type (int32_m, int32_n, int32_p)
+     * P is any prime that is less than but near to prime used to initialize
+     *  modular data type
+     */
+    template <typename M, M P>
     class ModHash{
         private:
             std::size_t n;
-            std::vector<MOD> hash;
-            std::vector<MOD> power;
+            std::vector<M> hash;
+            std::vector<M> power;
 
         public:
             ModHash(std::string &s);
@@ -38,7 +42,7 @@ namespace nm {
             ~ModHash() {};
     };
 
-} // string hash
+} // better string hash
 
 namespace nm {
     template <typename T>

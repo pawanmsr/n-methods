@@ -27,8 +27,8 @@ namespace nm {
 } // string
 
 namespace nm {
-    template<typename MOD, MOD M, MOD P>
-    ModHash<MOD, M, P>::ModHash(std::string &s) {
+    template<typename M, M P>
+    ModHash<M, P>::ModHash(std::string &s) {
         this->n = s.length();
         this->hash.reserve(this->n + 1);
         this->power.reserve(this->n + 1);
@@ -41,8 +41,8 @@ namespace nm {
         }
     }
 
-    template<typename MOD, MOD M, MOD P>
-    std::int64_t ModHash<MOD, M, P>::Interval(std::size_t left, std::size_t right) {
+    template<typename M, M P>
+    std::int64_t ModHash<M, P>::Interval(std::size_t left, std::size_t right) {
         assert(right <= this->n and right > left);
         return this->hash[right] - this->hash[left] * this->power[right - left];
     }
@@ -68,8 +68,8 @@ namespace nm {
     }
 
     template <typename T>
-    T element(std::size_t i) {
-        assert(i < this->element.size())
+    T CoordinateCompression<T>::element(std::size_t i) {
+        assert(i < this->elements.size())
         return this->element[i];
     }
 }
