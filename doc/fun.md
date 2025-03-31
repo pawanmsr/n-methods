@@ -1,7 +1,29 @@
-Fun
-===
+Fun and Learning
+================
 
 Comics, Poetry are just for laughs and learning.  
+
+Implementations and Exercises
+-----------------------------
+
+- [ ] Splines
+- [x] Splay tree
+- [ ] Interpolation
+- [ ] Geometry and Mesh (2D)
+- [ ] Simulate Statistics (on particles / quanta)
+  - [ ] Density Functionals (refer nature)
+  - [ ] Fermi - Dirac (on fermions)
+  - [ ] Bose - Einstein (on bosons)
+- [ ] . . .
+- [ ] (Redo with) Parallel processing
+- [ ] Simulate Qubit (derived data with induced probability, SIMD, SIMT)
+
+Communication:
+
+- [x] Data serialization
+- [ ] Create (easy) communication protocol or use pre-existing protocol buffer
+- [ ] Java/Go/Python or any other that are in popular use, for Interfaces (Native or using Framework)
+
 
 Comics
 ------
@@ -23,25 +45,15 @@ Poetry
 ------
 
 >
-> Tried and failed? Try again, fail better.
+> Balanced Trees  
 >
-> Do not go gentle into that good night.  
-> Rage, rage until the dying of the light.  
-> <cite>Dylan Thomas</cite>
+> When I am bored, I like to climb trees.  
+> Starting from root, all the way to leaves.  
+> Trees have branches that grow irregularly,  
+> But we can rotate to balance them evenly.  
+> <cite>Pawan</cite> (original, inspired by Adelson-Velsky Landis)  
 >
 
-> Losers' Cry Before Another Try  
->
-> When I was young, I seldom cried.  
-> "Man up", they said, "or a loser you will be."  
-> Now I am older, and somewhat fried.  
-> Aye, cried I have, but a loser I will never be.  
-> For the burdens we carry, they never get to see,  
-> And leaving everything behind does not set us free.  
-> A solemn warrior burns even when it is wise to flee,  
-> As freedom lies in honouring a lifetime of decree.  
-> <cite>Pawan</cite> ([inspired](/doc/footnotes.md), impersonal but original).  
-> :smile:
 >
 > So much to learn, and curiosity continues to grow.  
 > Time was never enough, but atleast there is tomorrow.  
@@ -50,6 +62,11 @@ Poetry
 
 Mingling CBA
 ------------
+
+>
+> Learn everything that is good from others, but bring it in, and in your own way absorb it; do not become others.  
+> <cite>Vivekananda</cite>
+>
 
 Don't end up like the unconnected blip in *Conway, J. H.*'s Life (or get jinxed in a resource constrained environment). Use vocal chords - communication is the key that resolves deadlocks.
 
