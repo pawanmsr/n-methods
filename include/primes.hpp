@@ -15,11 +15,11 @@ namespace nm {
     const std::uint32_t SMALLEST_PERFECT = 6;
     const std::uint32_t SMALLEST_HAPPY = 7;
 
-    class Primality {
+    class Primality : public Random {
         private:
             std::uint32_t i;
-        protected:
-            std::uint32_t compositeness(std::uint64_t);
+            Random random;
+        
         public:
             Primality(std::uint32_t iterations = SMALLEST_HAPPY);
             ~Primality() {};
