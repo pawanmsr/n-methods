@@ -1,6 +1,8 @@
 #if !defined(PRIMES)
 #define PRIMES
 
+#include <random.hpp>
+
 #include <vector>
 #include <cstdint>
 
@@ -15,7 +17,7 @@ namespace nm {
     const std::uint32_t SMALLEST_PERFECT = 6;
     const std::uint32_t SMALLEST_HAPPY = 7;
 
-    class Primality : public Random {
+    class Primality {
         private:
             std::uint32_t i;
             Random random;

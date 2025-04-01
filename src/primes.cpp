@@ -1,7 +1,6 @@
 #include <primes.hpp>
 
 #include <exponentiation.hpp>
-#include <random.hpp>
 
 #include <cassert>
 #include <functional>
@@ -91,8 +90,25 @@ namespace nm {
     bool Primality::solovay_strassen(std::uint64_t number) {
         std::uint32_t iterations = this->i;
 
-        // implementation
-        return false;
+        std::function<std::int32_t(std::uint64_t, std::uint64_t)> legendre_jacobi = 
+            [&] (std::uint64_t p, std::uint64_t q) -> std::int32_t {
+                if (p == 0) return 0;
+                if (p == 1) return 1;
+
+                // jacobi symbol (p / q)
+                
+                return -1;
+            };
+        
+        while (iterations--) {
+            std::uint64_t a = this->random.number(2, number - 2);
+            std::uint64_t b = (legendre_jacobi(a, number) + number) % number;
+
+            if (b == 0 or mod_bin_exp_iterative<std::int64_t>(a, 
+                (number - 1) / 2, number) != b) return false;
+        }
+
+        return true;
     }
 
     /*
