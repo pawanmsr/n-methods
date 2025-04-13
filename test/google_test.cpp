@@ -84,7 +84,7 @@ TEST(PrimesTest, CountCheck) {
     ASSERT_EQ(primes.size(), P);
 }
 
-TEST(PRimesTest, MillerRabin) {
+TEST(PrimesTest, MillerRabin) {
     nm::Primality primality;
     
     std::int32_t count = 0;
@@ -96,6 +96,22 @@ TEST(PRimesTest, MillerRabin) {
     count = 0;
     for (int32_t p = 0; p <= N_LOG; p++)
         count += primality.miller_rabin(p);
+    
+    EXPECT_LE(count, 1.1 * P);
+}
+
+TEST(PrimesTest, SolovayStrassen) {
+    nm::Primality primality;
+    
+    std::int32_t count = 0;
+    std::vector<int32_t> primes = nm::eratosthenes_sieve(N_LOG);
+    for (int32_t p : primes) count += primality.solovay_strassen(p);
+
+    EXPECT_GE(count, 0.9 * P);
+
+    count = 0;
+    for (int32_t p = 0; p <= N_LOG; p++)
+        count += primality.solovay_strassen(p);
     
     EXPECT_LE(count, 1.1 * P);
 }
