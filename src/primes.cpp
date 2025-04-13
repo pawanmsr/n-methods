@@ -56,6 +56,9 @@ namespace nm {
      * Number must fit in 32 bit unsigned integer.
      */
     bool Primality::miller_rabin(std::uint32_t number) {
+        if (number < 2) return 0;
+        if (number < 4) return 1;
+        
         std::uint32_t iterations = this->i;
 
         std::uint64_t r = 0;
