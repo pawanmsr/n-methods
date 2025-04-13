@@ -3,6 +3,7 @@
 #include <exponentiation.hpp>
 
 #include <cassert>
+#include <utility>
 #include <functional>
 
 namespace nm {
@@ -52,14 +53,15 @@ namespace nm {
     /*
      * Miller-Rabin
      * Test for non-compositeness.
+     * Number must fit in 32 bit unsigned integer.
      */
-    bool Primality::miller_rabin(std::uint64_t number) {
+    bool Primality::miller_rabin(std::uint32_t number) {
         std::uint32_t iterations = this->i;
 
         std::uint64_t r = 0;
         std::uint64_t d = number - 1;
-        while (not (d % 2LL)) {
-            d /= 2LL;
+        while (not (d % 2)) {
+            d /= 2;
             r++;
         }
 
@@ -67,7 +69,7 @@ namespace nm {
             std::uint64_t b = mod_bin_exp_iterative<std::int64_t>(a, d, number);
             if (b == 1 or b == number - 1) return false;
 
-            for (std::int64_t j = 1; j < r; j++) {
+            for (std::int64_t j = 0; j < r; j++) {
                 b = b * b % number;
                 if (b == number - 1)
                     return false;
@@ -87,22 +89,42 @@ namespace nm {
     /*
      * Solovay–Strassen
      */
-    bool Primality::solovay_strassen(std::uint64_t number) {
+    bool Primality::solovay_strassen(std::uint32_t number) {
         std::uint32_t iterations = this->i;
 
-        std::function<std::int32_t(std::uint64_t, std::uint64_t)> legendre_jacobi = 
+        std::function<std::uint64_t(std::uint64_t, std::uint64_t)> legendre_jacobi = 
             [&] (std::uint64_t p, std::uint64_t q) -> std::int32_t {
                 if (p == 0) return 0;
                 if (p == 1) return 1;
-
-                // jacobi symbol (p / q)
                 
-                return -1;
+                if (q & 1) return 0;
+
+                std::int64_t r, j = 1;
+                const std::int64_t Q = 4;
+
+                while (p) {
+                    while (not (p & 1)) {
+                        p >>= 1;
+                        r = q % (2 * Q);
+                        if (r == Q - 1 or r == Q + 1)
+                            j = -j;
+                    }
+
+                    std::swap(p, q);
+
+                    if (p % Q == Q - 1 and q % Q == Q - 1)
+                        j = -j;
+                    
+                    p %= q;
+                }
+
+                if (not q) return 0;
+                return (j + number) % number;
             };
         
         while (iterations--) {
             std::uint64_t a = this->random.number(2, number - 2);
-            std::uint64_t b = (legendre_jacobi(a, number) + number) % number;
+            std::uint64_t b = legendre_jacobi(a, number);
 
             if (b == 0 or mod_bin_exp_iterative<std::int64_t>(a, 
                 (number - 1) / 2, number) != b) return false;
