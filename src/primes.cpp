@@ -36,13 +36,23 @@ namespace nm {
     Primality::Primality(std::uint32_t iterations) : i(iterations) {
         if (i == 0) i = SMALLEST_PERFECT;
     }
+
+    std::uint32_t Primality::trivial(std::uint32_t number) {
+        if (number < 2) return 0;
+        if (number < 4) return 1;
+
+        return number;
+    }
     
     bool Primality::fermat(std::uint64_t number) {
+        if (this->trivial(number) < 2)
+            return this->trivial(number);
+        
         std::uint32_t iterations = this->i;
 
         Random random;
         while (iterations--) {
-            std::uint64_t x = random.number(2LL, number - 1LL);
+            std::uint64_t x = random.number(2, number - 1);
             if (mod_bin_exp_iterative<std::int64_t>(x, number - 1, number) != 1)
                 return false;
         }
@@ -56,8 +66,8 @@ namespace nm {
      * Number must fit in 32 bit unsigned integer.
      */
     bool Primality::miller_rabin(std::uint32_t number) {
-        if (number < 2) return 0;
-        if (number < 4) return 1;
+        if (this->trivial(number) < 2)
+            return this->trivial(number);
         
         std::uint32_t iterations = this->i;
 
@@ -93,16 +103,18 @@ namespace nm {
      * Solovay–Strassen
      */
     bool Primality::solovay_strassen(std::uint32_t number) {
+        if (this->trivial(number) < 2)
+            return this->trivial(number);
+
         std::uint32_t iterations = this->i;
 
         std::function<std::uint64_t(std::uint64_t, std::uint64_t)> legendre_jacobi = 
-            [&] (std::uint64_t p, std::uint64_t q) -> std::int32_t {
+            [&] (std::uint64_t p, std::uint64_t q) -> std::uint64_t {
                 if (p == 0) return 0;
                 if (p == 1) return 1;
-                
-                if (q & 1) return 0;
+                if (not (q & 1)) return 0;
 
-                std::int64_t r, j = 1;
+                std::int64_t r, symbol = 1;
                 const std::int64_t Q = 4;
 
                 while (p) {
@@ -110,19 +122,19 @@ namespace nm {
                         p >>= 1;
                         r = q % (2 * Q);
                         if (r == Q - 1 or r == Q + 1)
-                            j = -j;
+                            symbol = -symbol;
                     }
 
                     std::swap(p, q);
 
                     if (p % Q == Q - 1 and q % Q == Q - 1)
-                        j = -j;
+                        symbol = -symbol;
                     
                     p %= q;
                 }
 
                 if (not q) return 0;
-                return (j + number) % number;
+                return (symbol + number) % number;
             };
         
         while (iterations--) {

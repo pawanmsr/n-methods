@@ -22,6 +22,9 @@ namespace nm {
             std::uint32_t i;
             Random random;
         
+        protected:
+            std::uint32_t trivial(std::uint32_t number);
+        
         public:
             Primality(std::uint32_t iterations = SMALLEST_HAPPY);
             ~Primality() {};
