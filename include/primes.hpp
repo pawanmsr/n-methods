@@ -22,13 +22,16 @@ namespace nm {
             std::uint32_t i;
             Random random;
         
+        protected:
+            std::uint32_t trivial(std::uint32_t number);
+        
         public:
             Primality(std::uint32_t iterations = SMALLEST_HAPPY);
             ~Primality() {};
 
             bool fermat(std::uint64_t number);
-            bool miller_rabin(std::uint64_t number);
-            bool solovay_strassen(std::uint64_t number);
+            bool miller_rabin(std::uint32_t number);
+            bool solovay_strassen(std::uint32_t number);
             bool agarwal_kayal_saxena(std::uint64_t number);
     };
 } // primality tests
