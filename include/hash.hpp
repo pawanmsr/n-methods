@@ -48,7 +48,7 @@ namespace nm {
     template <typename T>
     class CoordinateCompression {
         private:
-            Splay<T, T, Node<T> > coordinates;
+            Splay<Node<T, T>, T, T, > coordinates;
             std::vector<T> elements;
         public:
             CoordinateCompression(std::vector<T> data);

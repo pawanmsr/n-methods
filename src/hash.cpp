@@ -69,7 +69,7 @@ namespace nm {
 
     template <typename T>
     T CoordinateCompression<T>::element(std::size_t i) {
-        assert(i < this->elements.size())
+        assert(i < this->elements.size());
         return this->element[i];
     }
 }
