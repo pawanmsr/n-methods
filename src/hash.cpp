@@ -1,6 +1,7 @@
 #include <hash.hpp>
-
 #include <sort.hpp>
+
+#include <cassert>
 
 namespace nm {
     template<std::int64_t M, std::int64_t P>
