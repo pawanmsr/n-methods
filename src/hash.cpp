@@ -1,6 +1,7 @@
 #include <hash.hpp>
-
 #include <sort.hpp>
+
+#include <cassert>
 
 namespace nm {
     template<std::int64_t M, std::int64_t P>
@@ -49,6 +50,14 @@ namespace nm {
 } // hash function int32_m
 
 namespace nm {
+    // TODO: fix int32_m.
+    //  Find a way around reinstantiation.
+    //  Rename type definition.
+    
+    template class nm::ModHash<int32_m, P_ASCII>;
+}
+
+namespace nm {
     template <typename T>
     CoordinateCompression<T>::CoordinateCompression(std::vector<T> data) {
         std::int32_t lo = 0; std::int32_t hi = data.size() - 1;
@@ -69,7 +78,7 @@ namespace nm {
 
     template <typename T>
     T CoordinateCompression<T>::element(std::size_t i) {
-        assert(i < this->elements.size())
+        assert(i < this->elements.size());
         return this->element[i];
     }
 }
