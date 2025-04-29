@@ -5,6 +5,8 @@
 
 #include <cassert>
 
+#include <cassert>
+
 namespace nm {
     template<std::int64_t M, std::int64_t P>
     Hash<M, P>::Hash(std::string &s) : Arithmetic<std::int64_t>::Arithmetic(M) {
