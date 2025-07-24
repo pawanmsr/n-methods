@@ -13,7 +13,7 @@ src = [
   'search.cpp',
   'sort.cpp',
   'table.cpp',
-  'trees.cpp',
+  'trees.cpp'
 ]
 
 lib = library(
