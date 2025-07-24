@@ -1,0 +1,4 @@
+module(
+    name = "n-methods",
+    version = "0.1.0",
+)
