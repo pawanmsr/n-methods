@@ -1,5 +1,4 @@
 name: N-Methods
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml for more details.
 
 on:
   push:
@@ -7,66 +6,32 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 jobs:
-  cmake-build:
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix for more details.
+  cargo-build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
 
     - name: Configure
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
+      run: cargo build && cargo test
+    
     - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more details.
-      run: ctest --rerun-failed --output-on-failure -C ${{env.BUILD_TYPE}}]
-
-  build-script:
-    # Run build script.
+      run: cargo build --release && cargo test --release
+    
+  play-cargo-on-unix-or-gnu:
     runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Options
-      run: bash build.sh -h
-
-    - name: Build and Test
-      run: bash build.sh -c
-  
-  play-bash-on-unix-or-gnu:
-    # Run bash script.
-    runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
 
     - name: Compile and Execute
       working-directory: ${{github.workspace}}/play
-      run: bash play.sh template
+      run: bash rust.sh template
   
-  # Checkout GitHub hosted runners at
-  # https://docs.github.com/en/actions
-  play-batch-on-windows:
-    # Run batch script.
+  play-cargo-on-windows:
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v4
 
     - name: Compile and Execute
       working-directory: ${{github.workspace}}/play
-      run: .\play.bat template
+      run: .\rust.bat template
