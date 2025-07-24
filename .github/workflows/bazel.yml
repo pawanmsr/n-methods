@@ -1,0 +1,32 @@
+name: n-methods
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+    bazel-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - uses: bazelbuild/setup-bazelisk@v3
+            
+            # Cache to speed up build time by using precompiled headers.
+            - name: Mount bazel cache
+            # Not needed for workflows. TODO: remove.
+              uses: actions/cache@v4
+              with:
+                    path: "~/.cache/bazel"
+                    key: bazel
+              
+            - name: Build
+              run: bazel build n-methods
+            
+            - name: Simple Test
+              run: bazel test test-primes test-exponentiation test-modulo test-gcd test-sort
+            
+            - name: Google Test
+              run: bazel test gtest
