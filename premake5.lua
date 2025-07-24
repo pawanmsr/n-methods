@@ -3,8 +3,9 @@ workspace "n-methods"
    location "build"
 
 project "library"
-   kind "SharedLib"
+   kind "StaticLib"
    language "C++"
+   cppdialect "C++20"
    targetdir "bin/%{cfg.buildcfg}"
 
    includedirs "include"
@@ -17,11 +18,12 @@ project "library"
       optimize "On"
 
 project "simple-test"
-   kind "StaticLib"
+   kind "ConsoleApp"
    language "C++"
+   cppdialect "C++20"
    targetdir "bin/%{cfg.buildcfg}"
 
    includedirs "include"
    files "test/simple_test.cpp"
 
-   link "library"
+   links "library"
