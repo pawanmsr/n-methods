@@ -1,0 +1,37 @@
+name: n-methods
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+    meson-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            # - uses: actions/setup-python@v5
+            #   with:
+            #     python-version: '3.13'
+            - uses: BSFishy/meson-build@v1.0.3
+              with:
+                action: build
+
+            # - name: Install Meson
+            #   run: pip install meson
+              
+            - name: Subproject
+              run: mkdir -p ${{github.workspace}}/subprojects && meson wrap install gtest
+            
+            - name: Setup
+              run: meson setup ${{github.workspace}}/build
+            
+            - name: Compile
+              working-directory: ${{github.workspace}}/build
+              run: meson compile
+            
+            - name: Test
+              working-directory: ${{github.workspace}}/build
+              run: meson test -v -t 8
