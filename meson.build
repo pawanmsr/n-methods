@@ -10,3 +10,4 @@ project('n-methods', 'cpp',
 inc_dir = include_directories('include')
 
 subdir('src')
+subdir('test')
