@@ -1,5 +1,5 @@
 workspace "n-methods"
-   configurations {"Release"}
+   configurations "Release"
    location "build"
 
 project "library"
@@ -13,7 +13,7 @@ project "library"
    libdirs "lib"
 
    filter "configurations:Release"
-      defines { "NDEBUG" }
+      defines "NDEBUG"
       optimize "On"
 
 project "simple-test"
