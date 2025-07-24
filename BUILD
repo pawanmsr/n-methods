@@ -48,3 +48,17 @@ cc_test(
     deps = ["//:n-methods"],
     args = ["modulo"],
 )
+
+
+cc_test(
+    name = "gtest",
+    srcs = ["test/google_test.cpp"],
+    copts = [
+    "-Iexternal/gtest/googletest/include",
+    "-Iexternal/gtest/googletest",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:compute",
+    ],
+)
