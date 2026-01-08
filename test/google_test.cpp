@@ -730,6 +730,37 @@ TEST(MOD, INT32_M) {
     }
 }
 
+TEST(MOD, INT32_M_TYPECHECK) {
+    nm::int32_m x = 2 * M;
+    nm::int32_m y = M / 2;
+
+    unsigned long long z = M * M;
+
+    EXPECT_EQ(typeid(x), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(y), typeid(nm::int32_m));
+
+    EXPECT_EQ(typeid(x + 2), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x - 2), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x * 2), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x / 2), typeid(nm::int32_m));
+
+    EXPECT_EQ(typeid(raise(x, 2)), typeid(nm::int32_m));
+
+    EXPECT_EQ(typeid(x + z), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x - z), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x * z), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x / z), typeid(nm::int32_m));
+
+    EXPECT_EQ(typeid(raise(x, z)), typeid(nm::int32_m));
+
+    EXPECT_EQ(typeid(x + y), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x - y), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x * y), typeid(nm::int32_m));
+    EXPECT_EQ(typeid(x / y), typeid(nm::int32_m));
+    
+    EXPECT_EQ(typeid(raise(x, y)), typeid(nm::int32_m));
+}
+
 TEST(MOD, LIMITS) {
     nm::Arithmetic<int> o(M);
 

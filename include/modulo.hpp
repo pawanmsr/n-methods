@@ -44,7 +44,7 @@ namespace nm {
             T divide(T x, T y);
             ~Arithmetic() {};
     };
-} // arithmetic
+} // modular arithmetic
 
 namespace nm {
     // Common primes for modular operations.
@@ -65,18 +65,33 @@ namespace nm {
     template<std::size_t M>
     class Int32_M {
         private:
+
+        protected:
             std::int64_t value;
             // value \in [0, M)
+
         public:
-            Int32_M();
-            ~Int32_M() {};
+            constexpr Int32_M() {
+                this->value = 0;
+            };
+            
+            constexpr ~Int32_M() {};
 
             // type conversion
-            virtual operator int() const noexcept;
+            constexpr virtual operator int() const noexcept {
+                return std::int32_t(this->value);
+            };
             
             template<typename T>
-            Int32_M(T x);
-            Int32_M(const Int32_M<M> &x);
+            constexpr Int32_M(T x) {
+                this->value = std::int64_t(x) % M;
+                if (this->value < 0) this->value += M;
+            }
+            
+            constexpr Int32_M(const Int32_M<M> &x) {
+                this->value = std::int64_t(x) % M;
+                if (this->value < 0) this->value += M;
+            }
 
             static const std::size_t modulus = M;
             int64_t get_value() const noexcept;
@@ -111,19 +126,22 @@ namespace nm {
             friend std::strong_ordering operator<=>(const Int32_M<T> &x, const Int32_M<T> &y) noexcept;
 
             // constant binary
-            template<std::uint64_t T>
-            friend Int32_M<T> operator+(const Int32_M<T> &x, const Int32_M<T> &y);
+            template<std::uint64_t T, typename U>
+            friend Int32_M<T> raise(const Int32_M<T> &x, const U &y);
 
-            template<std::uint64_t T>
-            friend Int32_M<T> operator-(const Int32_M<T> &x, const Int32_M<T> &y);
+            template<std::uint64_t T, typename U>
+            friend Int32_M<T> operator+(const Int32_M<T> &x, const U &y);
 
-            template<std::uint64_t T>
-            friend Int32_M<T> operator*(const Int32_M<T> &x, const Int32_M<T> &y);
+            template<std::uint64_t T, typename U>
+            friend Int32_M<T> operator-(const Int32_M<T> &x, const U &y);
 
-            template<std::uint64_t T>
-            friend Int32_M<T> operator/(const Int32_M<T> &x, const Int32_M<T> &y);
+            template<std::uint64_t T, typename U>
+            friend Int32_M<T> operator*(const Int32_M<T> &x, const U &y);
+
+            template<std::uint64_t T, typename U>
+            friend Int32_M<T> operator/(const Int32_M<T> &x, const U &y);
     };
-} // modulo
+} // modular data type
 
 namespace nm {
     // NOTE: M is not Messier.
