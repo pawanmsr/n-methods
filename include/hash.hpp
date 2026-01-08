@@ -24,7 +24,7 @@ namespace nm {
 } // string hash
 
 namespace nm {
-    const int32_m P_ASCII = 257; // UTF-8
+    const std::int32_t P_ASCII = 257;
 
     /*
      * M is expected to be a modular data type
@@ -33,7 +33,7 @@ namespace nm {
      *  near the values encountered during hashing.
      * P must be lower than the Modulus.
      */
-    template <typename M, M P>
+    template <typename M, const std::int32_t P>
     class ModHash{
         private:
             std::size_t n;
@@ -41,12 +41,23 @@ namespace nm {
             std::vector<M> power;
 
         public:
-            ModHash(std::string &s);
+            ModHash();
+            
+            void clear();
+            void stream(char c);
+            void stream(std::string &s);
+            
             std::int64_t Interval(std::size_t left, std::size_t right);
+            
             ~ModHash() {};
     };
 
 } // better string hash
+
+namespace nm {
+    typedef ModHash<int32_m, P257> Hash257;
+}
+
 
 namespace nm {
     template <typename T>
@@ -61,5 +72,6 @@ namespace nm {
             ~CoordinateCompression() {};
     };
 } // coordinate compression
+
 
 #endif // HASH

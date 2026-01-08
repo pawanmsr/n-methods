@@ -1,5 +1,7 @@
 #include <hash.hpp>
 #include <sort.hpp>
+#include <utility.hpp>
+#include <modulo.hpp>
 
 #include <cassert>
 
@@ -25,37 +27,47 @@ namespace nm {
             this->multiply(this->hash[left],
                 this->power[right - left]));
     }
-} // string
+} // hash functions
+
 
 namespace nm {
-    template<typename M, M P>
-    ModHash<M, P>::ModHash(std::string &s) {
-        this->n = s.length();
-        this->hash.reserve(this->n + 1);
-        this->power.reserve(this->n + 1);
+    template<typename M, const std::int32_t P>
+    ModHash<M, P>::ModHash() {
+        this->clear();
+    }
 
+    template<typename M, const std::int32_t P>
+    void ModHash<M, P>::clear() {
+        this->n = 0;
         this->hash = {0};
         this->power = {1};
+    }
+
+    template<typename M, const std::int32_t P>
+    void ModHash<M, P>::stream(std::string &s) {
+        this->n += s.length();
+
         for (char s_i : s) {
             this->hash.push_back(this->hash.back() * P + s_i);
             this->power.push_back(this->power.back() * P);
         }
     }
 
-    template<typename M, M P>
+    template<typename M, const std::int32_t P>
+    void ModHash<M, P>::stream(char c) {
+        this->n += 1;
+        this->hash.push_back(this->hash.back() * P + c);
+        this->power.push_back(this->power.back() * P);
+    }
+
+    template<typename M, const std::int32_t P>
     std::int64_t ModHash<M, P>::Interval(std::size_t left, std::size_t right) {
         assert(right <= this->n and right > left);
         return this->hash[right] - this->hash[left] * this->power[right - left];
     }
 } // hash function int32_m
 
-namespace nm {
-    // TODO: fix int32_m.
-    //  Find a way around reinstantiation.
-    //  Rename type definition.
-    
-    template class nm::ModHash<int32_m, P_ASCII>;
-}
+template class nm::ModHash<nm::int32_m, nm::P_ASCII>;
 
 namespace nm {
     template <typename T>
@@ -82,4 +94,3 @@ namespace nm {
         return this->element[i];
     }
 }
-
