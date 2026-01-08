@@ -142,31 +142,8 @@ template class nm::Arithmetic<long long>;
 
 namespace nm {
     template<std::size_t M>
-    Int32_M<M>::Int32_M() {
-        this->value = 0;
-    }
-
-    template<std::size_t M>
     inline int64_t Int32_M<M>::get_value() const noexcept {
         return this->value;
-    }
-
-    template<std::size_t M>
-    Int32_M<M>::operator int() const noexcept {
-        return std::int32_t(this->value);
-    }
-
-    template<std::size_t M>
-    template<typename T>
-    Int32_M<M>::Int32_M(T x) {
-        this->value = std::int64_t(x) % M;
-        if (this->value < 0) this->value += M;
-    }
-
-    template<std::size_t M>
-    Int32_M<M>::Int32_M(const Int32_M<M> &x) {
-        this->value = std::int64_t(x) % M;
-        if (this->value < 0) this->value += M;
     }
 
     template<std::size_t M>
@@ -253,31 +230,35 @@ namespace nm {
                 std::strong_ordering::greater));
     }
 
-
     // non-member functions //
-    template <std::size_t T>
-    inline Int32_M<T> operator+(const Int32_M<T> &x, const Int32_M<T> &y) {
-        return Int32_M<T>(x) += y;
+    template <std::uint64_t T, typename U>
+    Int32_M<T> raise(const Int32_M<T> &x, const U &y) {
+        return Int32_M<T>(mod_bin_exp<int64_t>(x.get_value(), y, T));
     }
 
-    template<std::size_t T>
-    inline Int32_M<T> operator-(const Int32_M<T> &x, const Int32_M<T> &y) {
-        return Int32_M<T>(x) -= y;
+    template <std::size_t T, typename U>
+    inline Int32_M<T> operator+(const Int32_M<T> &x, const U &y) {
+        return Int32_M<T>(x) += Int32_M<T>(y);
     }
 
-    template<std::size_t T>
-    inline Int32_M<T> operator*(const Int32_M<T> &x, const Int32_M<T> &y) {
-        return Int32_M<T>(x) *= y;
+    template<std::size_t T, typename U>
+    inline Int32_M<T> operator-(const Int32_M<T> &x, const U &y) {
+        return Int32_M<T>(x) -= Int32_M<T>(y);
     }
 
-    template<std::size_t T>
-    inline Int32_M<T> operator/(const Int32_M<T> &x, const Int32_M<T> &y) {
-        return Int32_M<T>(x) /= y;
+    template<std::size_t T, typename U>
+    inline Int32_M<T> operator*(const Int32_M<T> &x, const U &y) {
+        return Int32_M<T>(x) *= Int32_M<T>(y);
     }
 
-    template<std::size_t T>
-    inline std::strong_ordering operator<=>(const Int32_M<T> &x, const Int32_M<T> &y) noexcept {
-        return Int32_M<T>(x) <=> y;
+    template<std::size_t T, typename U>
+    inline Int32_M<T> operator/(const Int32_M<T> &x, const U &y) {
+        return Int32_M<T>(x) /= Int32_M<T>(y);
+    }
+
+    template<std::size_t T, typename U>
+    inline std::strong_ordering operator<=>(const Int32_M<T> &x, const U &y) noexcept {
+        return Int32_M<T>(x) <=> Int32_M<T>(y);
     }
 } // derived data type for modular arithmetic
 
@@ -297,12 +278,54 @@ namespace nm {
     template std::strong_ordering int32_m::operator<=><std::int64_t>(std::int64_t const&) const noexcept;
 
     // instantiate friends for binary operations
+    template int32_m raise<int32_m::modulus>(int32_m const&, int32_m const&);
+
     template int32_m operator-<int32_m::modulus>(int32_m const&, int32_m const&);
     template int32_m operator+<int32_m::modulus>(int32_m const&, int32_m const&);
     template int32_m operator*<int32_m::modulus>(int32_m const&, int32_m const&);
     template int32_m operator/<int32_m::modulus>(int32_m const&, int32_m const&);
     
     template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, int32_m const&);
+
+    template int32_m raise<int32_m::modulus>(int32_m const&, std::int32_t const&);
+    template int32_m operator-<int32_m::modulus>(int32_m const&, std::int32_t const&);
+    template int32_m operator+<int32_m::modulus>(int32_m const&, std::int32_t const&);
+    template int32_m operator*<int32_m::modulus>(int32_m const&, std::int32_t const&);
+    template int32_m operator/<int32_m::modulus>(int32_m const&, std::int32_t const&);
+    
+    template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, std::int32_t const&);
+
+    template int32_m raise<int32_m::modulus>(int32_m const&, std::int64_t const&);
+    template int32_m operator-<int32_m::modulus>(int32_m const&, std::int64_t const&);
+    template int32_m operator+<int32_m::modulus>(int32_m const&, std::int64_t const&);
+    template int32_m operator*<int32_m::modulus>(int32_m const&, std::int64_t const&);
+    template int32_m operator/<int32_m::modulus>(int32_m const&, std::int64_t const&);
+    
+    template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, std::int64_t const&);
+
+    template int32_m raise<int32_m::modulus>(int32_m const&, std::uint32_t const&);
+    template int32_m operator-<int32_m::modulus>(int32_m const&, std::uint32_t const&);
+    template int32_m operator+<int32_m::modulus>(int32_m const&, std::uint32_t const&);
+    template int32_m operator*<int32_m::modulus>(int32_m const&, std::uint32_t const&);
+    template int32_m operator/<int32_m::modulus>(int32_m const&, std::uint32_t const&);
+    
+    template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, std::uint32_t const&);
+
+    template int32_m raise<int32_m::modulus>(int32_m const&, std::uint64_t const&);
+    template int32_m operator-<int32_m::modulus>(int32_m const&, std::uint64_t const&);
+    template int32_m operator+<int32_m::modulus>(int32_m const&, std::uint64_t const&);
+    template int32_m operator*<int32_m::modulus>(int32_m const&, std::uint64_t const&);
+    template int32_m operator/<int32_m::modulus>(int32_m const&, std::uint64_t const&);
+    
+    template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, std::uint64_t const&);
+
+    template int32_m raise<int32_m::modulus>(int32_m const&, char const&);
+    template int32_m operator-<int32_m::modulus>(int32_m const&, char const&);
+    template int32_m operator+<int32_m::modulus>(int32_m const&, char const&);
+    template int32_m operator*<int32_m::modulus>(int32_m const&, char const&);
+    template int32_m operator/<int32_m::modulus>(int32_m const&, char const&);
+    
+    template std::strong_ordering operator<=><int32_m::modulus>(int32_m const&, char const&);
 } // TODO: looped instantiation?
 
 template class nm::Int32_M<nm::M93>;
