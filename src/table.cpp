@@ -5,7 +5,7 @@
 
 namespace nm {
     template<typename T>
-    Sparse<T>::Sparse(const std::vector<T> &data, const std::function<T(T, T)> &operation) :
+    Sparse<T>::Sparse(const std::vector<T> &data, std::function<T(T, T)> &operation) :
         f(operation) {
         this->k = 1;
         this->n = 1;
@@ -50,6 +50,6 @@ namespace nm {
         
         return result;
     }
-}
+} // sparse table
 
 template class nm::Sparse<int>;
