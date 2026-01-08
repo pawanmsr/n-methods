@@ -72,14 +72,6 @@ namespace nm {
 template class nm::ModHash<nm::int32_m, nm::P_ASCII>;
 
 namespace nm {
-    // TODO: fix int32_m.
-    //  Find a way around reinstantiation.
-    //  Rename type definition.
-    
-    template class nm::ModHash<int32_m, P_ASCII>;
-}
-
-namespace nm {
     template <typename T>
     CoordinateCompression<T>::CoordinateCompression(std::vector<T> data) {
         std::int32_t lo = 0; std::int32_t hi = data.size() - 1;

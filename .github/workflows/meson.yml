@@ -12,15 +12,15 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-            # - uses: actions/setup-python@v5
-            #   with:
-            #     python-version: '3.13'
-            - uses: BSFishy/meson-build@v1.0.3
+            - uses: actions/setup-python@v5
               with:
-                action: build
+                python-version: '3.13'
+            # - uses: BSFishy/meson-build@v1.0.3
+            #   with:
+            #     action: build
 
-            # - name: Install Meson
-            #   run: pip install meson
+            - name: Install Meson
+              run: pip install meson
               
             - name: Subproject
               run: mkdir -p ${{github.workspace}}/subprojects && meson wrap install gtest
