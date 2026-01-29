@@ -12,7 +12,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-            - uses: bazelbuild/setup-bazelisk@v3
+            - uses: bazel-contrib/setup-bazel@0.18.0
             
             # Cache to speed up build time by using precompiled headers.
             - name: Mount bazel cache

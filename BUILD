@@ -1,3 +1,7 @@
+load("@rules_cc//cc:defs.bzl", "cc_import")
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
 # Bazel build.
 cc_import(
     name = "headers",
@@ -10,6 +14,7 @@ cc_library(
     srcs = glob(["src/*.cpp"]),
     includes = ["include"],
     deps = ["headers"],
+    copts = ["-std=c++23"],
     visibility = ["//visibility:public"],
 )
 
