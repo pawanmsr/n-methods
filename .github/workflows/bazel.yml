@@ -9,6 +9,8 @@ on:
 jobs:
     bazel-build:
         runs-on: ubuntu-latest
+        env:
+          BAZEL_CXXOPTS: -std=c++23
 
         steps:
             - uses: actions/checkout@v4

@@ -14,7 +14,6 @@ cc_library(
     srcs = glob(["src/*.cpp"]),
     includes = ["include"],
     deps = ["headers"],
-    copts = ["-std=c++23"],
     visibility = ["//visibility:public"],
 )
 
