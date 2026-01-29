@@ -4,7 +4,7 @@ project(
   version : '0.1.0',
   default_options : [
     'warning_level=3',
-    'cpp_std=c++23',
+    'cpp_std=c++latest',
     'buildtype=release'
   ]
 )
