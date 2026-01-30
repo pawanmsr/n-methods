@@ -62,3 +62,11 @@ play/*
 !**/CMakeLists.txt
 !**/Cargo.toml
 !**/.gitignore
+
+# Python
+.python-version
+
+env
+venv
+.env
+.venv
