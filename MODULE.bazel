@@ -1,0 +1,14 @@
+module(
+    name = "n-methods",
+    version = "0.1.0",
+)
+
+bazel_dep(name = "googletest", version = "1.17.0")
+# Update version number from release page:
+#   https://github.com/google/googletest/releases
+# Override version and build from main:
+#   Comment out when version matches main.
+git_override(module_name = "googletest", remote = "https://github.com/google/googletest.git")
+
+# rules_cc is needed due to Skylarkification / Starlarkification.
+bazel_dep(name = "rules_cc", version = "0.2.16")

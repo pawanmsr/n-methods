@@ -55,7 +55,7 @@ namespace nm {
 } // better string hash
 
 namespace nm {
-    typedef ModHash<int32_m, P257> Hash257;
+    typedef ModHash<int32_m, P_ASCII> Hash_ASCII;
 }
 
 

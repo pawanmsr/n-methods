@@ -1,0 +1,35 @@
+name: n-methods
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  premake-build:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+      - uses: abel0b/setup-premake@v2.4
+        with:
+          version: "5.0.0-beta2"
+      
+      - name: Build
+        run: premake5 gmake2
+      
+      - name: Compile
+        working-directory: ${{github.workspace}}/build
+        run: make
+      
+      - name: Test
+        working-directory: ${{github.workspace}}/bin/${{env.BUILD_TYPE}}
+        run: ./simple-test primes
+          - ./simple-test exponentiation
+          - ./simple-test gcd
+          - ./simple-test modulo
+          - ./simple-test sort

@@ -5,7 +5,7 @@
 
 namespace nm {
     template<typename T>
-    Sparse<T>::Sparse(const std::vector<T> &data, const std::function<T(T, T)> &operation) :
+    Sparse<T>::Sparse(const std::vector<T> &data, std::function<T(T, T)> &operation) :
         f(operation) {
         this->k = 1;
         this->n = 1;
@@ -15,10 +15,13 @@ namespace nm {
             this->n *= 2LL;
         }
 
-        this->table.resize(this->k + 1, std::vector<T>(this->n));
+        this->table.resize(this->k + 1);
         this->table[0].assign(data.begin(), data.end());
 
+        this->table[0].resize(this->n);
         for (std::size_t i = 1; i <= this->k; i++) {
+            this->table[i].resize(this->n);
+            
             for (std::size_t j = 0; j + (1 << i) <= this->n; j++) {
                 this->table[i][j] = this->f(this->table[i - 1][j],
                     this->table[i - 1][j + (1 << (i - 1))]);
@@ -28,8 +31,7 @@ namespace nm {
 
     template<typename T>
     T Sparse<T>::query(std::int32_t l, std::int32_t r) {
-        assert(l >= 0); assert(l <= r);
-        
+        assert(l <= r); assert(l >= 0);
         // for non cumulative queries
         int i = std::bit_width(r - l + 1UL) - 1;
         return this->f(this->table[i][l], this->table[i][r - (1 << i) + 1]);
@@ -37,8 +39,7 @@ namespace nm {
 
     template<typename T>
     T Sparse<T>::cquery(std::int32_t l, std::int32_t r) {
-        assert(l >= 0); assert(l <= r);
-        
+        assert(l <= r); assert(l >= 0);
         // for cumulative queries
         T result = this->f(0, 0); // modify
         for (std::int32_t i = this->k; i >= 0; i--) {
@@ -50,6 +51,6 @@ namespace nm {
         
         return result;
     }
-}
+} // sparse table
 
 template class nm::Sparse<int>;
